@@ -20,7 +20,7 @@ exports.up = function(knex, Promise) {
       table.integer('zip');
       table.string('email');
       table.string('web');
-      table.string('phone');
+      table.integer('phone');
       table.string('type');
       table.timestamps();
     }),
@@ -33,6 +33,7 @@ exports.up = function(knex, Promise) {
       table.integer('id_doctor')
            .references('id_doctor')
            .inTable('doctors');
+      table.string('type_usermade');
       table.timestamps();
     })
   ])
@@ -47,5 +48,5 @@ exports.down = function(knex, Promise) {
       knex.schema.dropTable('doctors'),
       knex.schema.dropTable('user_doctor')
   ])
-  
+
 };

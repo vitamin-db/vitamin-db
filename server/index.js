@@ -22,15 +22,19 @@ var routes = express.Router()
 // here we are making some assumptions on the front-end
 	// eg. using ./client/app.js
 // also likely need to consider using babelify//reactify (see above)
-routes.get('/app-bundle.js',
-	browserify('./client/app.js'))
+
+//commented out while this file does not exist
+// routes.get('/app-bundle.js',
+// 	browserify('./client/app.js'))
 
 //======================================================
 // Static assets (html, etc.)
 //======================================================
 
-var assetFolder = Path.resolve(__dirname, '../client/public')
-routes.use(express.static(assetFolder))
+
+//commented out while this file does not exist
+// var assetFolder = Path.resolve(__dirname, '../client/public')
+// routes.use(express.static(assetFolder))
 
 //======================================================
 // create our express app
@@ -43,7 +47,8 @@ if (process.env.NODE_ENV !== 'test') {
 	// Make sure this route is always LAST
 	//
 	routes.get('/*', function(req,res) {
-		res.sendFile( assetFolder + '/index.html' )
+		//commented out while this file does not exist
+		// res.sendFile( assetFolder + '/index.html' )
 	})
 
 	//

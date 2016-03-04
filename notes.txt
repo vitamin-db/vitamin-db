@@ -41,3 +41,7 @@ To run:
 	- Leave the process running.
 2. In another terminal window, run "psql med_dev". 
 	- This is the window to interact with the db. 
+
+
+Phone numbers - integer or string?
+Validatoin for email addresses
