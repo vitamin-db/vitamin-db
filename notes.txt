@@ -1,0 +1,43 @@
+//babelify vs reactify
+
+=================
+index.js
+=================
+
+- browserify -- bundles multiple files together to minimize http requests, has many options to bundle various ways
+
+- express - create a server / handles server stuff
+
+- Path - is a native Node.js module, contains utilities for handling and transforming file paths.
+
+- Middleware - middleware functions are functions that have access to the request objects (req and res), and the next middleware function in the req/res cycle. All to do with requests.
+
+routes.get('/app-bundle.js',
+  browserify('./client/app.js'))
+
+  - finds /client/app.js and compiles into app-bundle.js, which is loaded into the browser
+
+Express router
+	- A router obj is an "isolated instance of middleware and routes"
+	- Can think of it like a "mini-app", capable only of performing middleware and routing function.
+	- ** Every Express app has a built-in app router **
+	- ACTION: Keep looking into express routers -- not completely clear on their purpose / delineation between them and an app instance, etc.
+
+var app = express()
+	-- Creating an instance of express (1 main instance for the app)
+	-- uses body-parser module to parse incoming request bodies as JSON
+	- mounts the main router (defined by us earlier in the file)
+
+=================
+Work on DB 
+=================
+
+We did:
+1. initdb db/
+2. createdb med_dev
+
+To run:
+1. In one terminal window, run "postgres -D db/"
+	- Leave the process running.
+2. In another terminal window, run "psql med_dev". 
+	- This is the window to interact with the db. 
