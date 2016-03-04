@@ -3,4 +3,4 @@ var env = 'development'
 var knex = require('knex')(config[env])
 
 module.exports = knex
-knex.migrate.lates([config])
+knex.migrate.latest([config])
