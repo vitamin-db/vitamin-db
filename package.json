@@ -4,7 +4,8 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "start": "nodemon server/index.js --ignore client/"
+    "start": "nodemon server/index.js --ignore client/",
+    "test": "bash ./test/run.sh"
   },
   "author": "",
   "license": "ISC",
