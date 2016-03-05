@@ -10,6 +10,7 @@ describe("The Server", function() {
 
 	//start tests!
 
+	//obviously this is temporary
 	it("returns true", function() {
 		expect(2===2).to.be.true
 	})
