@@ -18,3 +18,4 @@ describe("Users API", function() {
 	// 	return db.deleteEverything()
 	// })
 })
+

@@ -9,6 +9,9 @@ module.exports = {
 			host: 'localhost',
 			port: 5432,
 			database: 'med_dev'
+		},
+		seeds: {
+			directory: './server/lib/seeds'
 		}
 	},
 	test: { //not currently in use
@@ -19,5 +22,7 @@ module.exports = {
 		      database: 'test'
 	    },
 	    debug: false, // set true for verbose database operations
-  }
+  },
+
 }
+

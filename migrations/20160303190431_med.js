@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
       table.string('username');
       table.string('password');
       table.string('email');
+      table.string('phone');
       table.timestamps();
     }),
 
@@ -20,7 +21,7 @@ exports.up = function(knex, Promise) {
       table.integer('zip');
       table.string('email');
       table.string('web');
-      table.integer('phone');
+      table.string('phone');
       table.string('type');
       table.timestamps();
     }),
@@ -35,6 +36,7 @@ exports.up = function(knex, Promise) {
            .inTable('doctors');
       table.string('type_usermade');
       table.timestamps();
+      table.unique(['id_user', 'id_doctor'])
     })
   ])
 
