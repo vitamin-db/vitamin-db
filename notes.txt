@@ -71,3 +71,14 @@ started writing server tests in index_test.js
 - need to get db.deleteEverything() working properly, if it is not
 - migrations not working for unknown reasons
 May be running test envirionment; alternatively, node may be working/not working sporadically with no correlation to our actions
+
+
+======
+Notes 3/5
+=====
+
+Working on getting a User model to:
+1) instantiate based on model-helper prototype
+2) flow into test correctly
+3) pass tests
+- once this works, structure should be able to be copied and used by other models
