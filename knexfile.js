@@ -6,10 +6,18 @@ module.exports = {
 	development: {
 		client: 'postgresql',
 		connection: {
+			host: 'localhost',
+			port: 5432,
 			database: 'med_dev'
-		},
-		migrations: {
-			// for later consideration
 		}
-	}
+	},
+	test: {
+		client: 'postgresql',
+		connection: {
+			host: 'localhost',
+		      port: 5432,
+		      database: 'test'
+	    },
+	    debug: false, // set true for verbose database operations
+  }
 }
