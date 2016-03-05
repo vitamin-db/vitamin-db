@@ -45,3 +45,14 @@ To run:
 
 Phone numbers - integer or string?
 Validatoin for email addresses
+
+
+=========
+Notes 3/4
+========
+
+need to write functionality to run seeding
+started writing server tests in index_test.js 
+- need to get db.deleteEverything() working properly, if it is not
+- migrations not working for unknown reasons
+May be running test envirionment; alternatively, node may be working/not working sporadically with no correlation to our actions

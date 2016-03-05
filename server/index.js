@@ -57,6 +57,9 @@ if (process.env.NODE_ENV !== 'test') {
 
 	var app = express()
 
+	//use morgan to log concise and colorful error messages
+	app.use( morgan ('dev'))
+
 	// Parse incoming request bodies as JSON
 	app.use( bodyParser.json() )
 
