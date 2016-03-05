@@ -1,6 +1,16 @@
 exports.seed = function(knex, Promise) {
 
-  return knex('doctors').truncate()
+    return knex.schema.table('user_doctor', function(table) {
+        table.dropForeign('id_doctor')
+    })
+    .then( function() {
+        return knex('doctors').truncate()
+    })
+    .then( function() {
+        return knex.schema.table('user_doctor', function(table) {
+            table.foreign('id_doctor').references('id_doctor').inTable('doctors')
+        })
+    })
     .then(function() {
     	return knex('doctors').insert([
     	  {
@@ -11,7 +21,7 @@ exports.seed = function(knex, Promise) {
             zip: 10001,
             email: 'ilduce@hotmail.com',
             web: 'votedrumpf2016.com',
-            phone: 6666666666,
+            phone: '6666666666',
             type: 'Psychologist'
     	  },
     	  {
@@ -22,10 +32,13 @@ exports.seed = function(knex, Promise) {
             zip: 10001,
             email: 'leaked@yahoo.gov',
             web: 'feminist-guilt-trip.gov',
-            phone: 1111111111,
+            phone: '1111111111',
             type: 'Pediatrician'
     	  }
     	])
+    })
+    .catch(function(err) {
+        console.log('Error seeding doctors', err);
     })
 
 }
