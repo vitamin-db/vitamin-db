@@ -11,7 +11,7 @@ module.exports = {
 			database: 'med_dev'
 		}
 	},
-	test: {
+	test: { //not currently in use
 		client: 'postgresql',
 		connection: {
 			host: 'localhost',
