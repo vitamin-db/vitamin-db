@@ -39,3 +39,4 @@ TestHelper.createApp = function(loader) {
 	return app
 
 }
+
