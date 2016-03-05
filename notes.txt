@@ -47,6 +47,21 @@ Phone numbers - integer or string?
 Validatoin for email addresses
 
 
+=================
+Seed DB
+=================
+
+1. Drop the database
+	//=> 'dropdb med_dev'
+2. Create the database
+	//=> 'createdb med_dev'
+3. Start the database, and leave running.
+	//=>  'psql med_dev'
+4. In separate terminal window, start the server, which will initialize the schema.
+	//=>  'npm start'
+5. In separate terminal window, seed the db.
+	//=>  'knex --env development seed:run'
+
 =========
 Notes 3/4
 ========
