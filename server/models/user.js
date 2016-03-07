@@ -90,3 +90,16 @@ User.findByEmail = function(email) {
                   }
     returns undefined if there is no user with email 'bob@bobcat.com'
 */
+
+
+/*
+  Returns a boolean indicating whether the passed-in password matches the password on record
+*/
+User.validPassword = function(username, password) {
+  return this.findByUsername(username)
+    .then( function(userInfo) {
+      return userInfo.password === password
+    })
+}
+
+
