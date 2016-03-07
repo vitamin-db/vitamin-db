@@ -12,9 +12,10 @@ db.migrate.latest([config])
 
 //function for testing
 db.deleteEverything = function() {
-	// if (env !== 'test') {
-	// 	return Promise.reject()
-	// }
+	
+	if (env !== 'test') {
+		return Promise.reject()
+	}
 	// console.log('inside deleteEverything')
     //update whenever new tables are added
     //this may be super wrong
