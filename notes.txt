@@ -75,6 +75,7 @@ Set Up Test Database (will only have to run this once on your computer)
    //=> 'NODE_ENV=test node server/index.js'
 4. Quit out of Node
    //=> CTRL + c
+Can now run tests: 'npm test'
 
 =========
 Notes 3/4
