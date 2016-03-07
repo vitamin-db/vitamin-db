@@ -19,26 +19,27 @@ module.exports = function(tableName, allAttrs) {
 
 	this.table = tableName
 	this.allAttrs = allAttrs
-	this.idVarName = attrsToSet[0]
+	this.idVarName = allAttrs[0]
 	this.attrsToSet = allAttrs.slice(1, allAttrs.length)
 
 	this.reportError = _R.curry( function(description, error) {
-		console.log('this', this)
+		console.log('inside reportError')
 		console.error('*** ', description, ' ***')
 		console.error(error)
 		if (error instanceof Error) {throw error}
-	})
+	}).bind(this)
 
 	this.returnSuccess = _R.curry( function(description, result) {
-		console.log('this', this)
+		console.log('inside reportSuccess')
 		console.log('***', description, '***')
 		console.log('result is', result)
-		return result
-	})
+		return result[0]
+	}).bind(this)
 
 
     //Creates a new entry using attribute object passed in
 	this.create = function(newItemAttrs) {
+		console.log('inside create', newItemAttrs)
 		return db(this.table).insert(newItemAttrs, this.attrsToSet)
 		  .then(this.returnSuccess('successfully created new entry into table ' + this.table))
 		  .catch(this.reportError('error inserting into table ' + this.table))

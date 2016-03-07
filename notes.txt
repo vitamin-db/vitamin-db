@@ -62,6 +62,20 @@ Seed DB
 5. In separate terminal window, seed the db.
 	//=>  'knex --env development seed:run'
 
+
+===============
+Set Up Test Database (will only have to run this once on your computer)
+===============
+
+1. Drop the database (if exists)
+   //=> 'dropdb test'
+2. Create the database
+   //=> 'createdb test'
+3. Initialize the schema: 
+   //=> 'NODE_ENV=test node server/index.js'
+4. Quit out of Node
+   //=> CTRL + c
+
 =========
 Notes 3/4
 ========
