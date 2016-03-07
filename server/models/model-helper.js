@@ -97,8 +97,20 @@ module.exports = function(tableName, allAttrs) {
 		queryObj[keyName] = value
 
 		return db.select('*').from(this.table).where(queryObj)
-		.then( this.returnSuccess('success in retrieving from' + this.table) )
-		.catch( this.reportError('error finding by id from ' + this.table) ) 
+		.then( this.returnSuccess('success finding ' + keyName + ' ' + value + ' in ' + this.table) )
+		.catch( this.reportError('error finding ' + keyName + ' ' + value + ' in ' + this.table) ) 
+	}).bind(this)
+
+	/* EXISTS BY ATTRIBUTE
+	  Generic curried function that can match any attribute 'keyName'
+	  Returns a boolean indication whether a keyName matching the value (eg a username matching the value) exists in the table
+	  See User.existsByUsername for an example of use
+	*/
+	this.existsByAttribute = _R.curry(function(keyName, value) {
+		return this.findByAttribute(keyName, value)
+		  .then( function(result) {return result.length > 0} )
+		  .then( this.returnSuccess('success checking if exists ' + keyName + ' ' + value + ' in ' + this.table) )
+		  .catch( this.reportError('error checking if exists ' + keyName + ' ' + value + ' in ' + this.table) ) 
 	}).bind(this)
 
 
