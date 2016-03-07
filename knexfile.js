@@ -14,18 +14,15 @@ module.exports = {
 			directory: './server/lib/seeds'
 		}
 	},
-	test: { 
+	test: { //not currently in use
 		client: 'postgresql',
 		connection: {
 			host: 'localhost',
 		      port: 5432,
 		      database: 'test'
 	    },
-	    seeds: {
-	    	directory: './server/lib/seeds'
-	    },
-	    debug: false // set true for verbose database operations
-  }
+	    debug: false, // set true for verbose database operations
+  },
 
 }
 
