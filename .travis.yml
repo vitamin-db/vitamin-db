@@ -9,3 +9,4 @@ before_script:
   - npm install -g knex
   - psql -c 'create database test;' -U postgres
   - NODE_ENV=test node server/index.js
+  - process.exit()
