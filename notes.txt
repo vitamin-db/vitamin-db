@@ -62,21 +62,6 @@ Seed DB
 5. In separate terminal window, seed the db.
 	//=>  'knex --env development seed:run'
 
-
-===============
-Set Up Test Database (will only have to run this once on your computer)
-===============
-
-1. Drop the database (if exists)
-   //=> 'dropdb test'
-2. Create the database
-   //=> 'createdb test'
-3. Initialize the schema: 
-   //=> 'NODE_ENV=test node server/index.js'
-4. Quit out of Node
-   //=> CTRL + c
-Can now run tests: 'npm test'
-
 =========
 Notes 3/4
 ========
@@ -86,14 +71,3 @@ started writing server tests in index_test.js
 - need to get db.deleteEverything() working properly, if it is not
 - migrations not working for unknown reasons
 May be running test envirionment; alternatively, node may be working/not working sporadically with no correlation to our actions
-
-
-======
-Notes 3/5
-=====
-
-Working on getting a User model to:
-1) instantiate based on model-helper prototype
-2) flow into test correctly
-3) pass tests
-- once this works, structure should be able to be copied and used by other models
