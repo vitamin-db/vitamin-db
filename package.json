@@ -12,11 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt-as-promised": "^1.1.0",
-    "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.2.2",
     "body-parser": "^1.15.0",
     "browserify-middleware": "^5.0.2",
-    "express": "^4.12.4",
     "knex": "^0.10.0",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
