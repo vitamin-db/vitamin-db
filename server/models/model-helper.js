@@ -39,7 +39,7 @@ module.exports = function(tableName, allAttrs) {
       Returns the new object created
     */
 	this.create = function(newItemAttrs) {
-		// console.log('trying to create user', newItemAttrs)
+		console.log('trying to create user', newItemAttrs)
 		return db(this.table).insert(newItemAttrs, this.attrsToSet)
 		  .then( this.returnSuccess('successfully created new entry into table ' + this.table) )
 		  .then( function(result) { return result[0] })
