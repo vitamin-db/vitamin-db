@@ -193,12 +193,9 @@ describe('User Model', function() {
 	it('validates passwords', function() {
 
 		var newTestUser = new UserAttributes('bob', 'alice', 'bob@alice.com', '123-789-3456')
-		var userObj = undefined
 
 		return User.createUser(newTestUser)
 		  .then( function(user) {
-		  	userObj = user
-
 		  	return User.validPassword('bob', 'alice')
 		  })
 		  .then( function(result) {
