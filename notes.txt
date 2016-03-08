@@ -97,3 +97,12 @@ Working on getting a User model to:
 2) flow into test correctly
 3) pass tests
 - once this works, structure should be able to be copied and used by other models
+
+
+=====
+Notes 3/8
+=====
+Other methods to write:
+- User: get all doctors associated with user << User.findAllDoctors; User.findAllDoctorsOfType
+- Doctor: given an array of doctors, filter out types
+- ** need some way for users to enter doctors in the order they went to them... can't do it by 'created at'

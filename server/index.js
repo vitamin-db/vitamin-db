@@ -73,7 +73,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 //===== ELSE IN TEST MODE (make file importable) ==========
-// currently primarily for testing
+// currently primarily for testing (in test/server/index_test.js)
 else {
 	module.exports = routes
 }
