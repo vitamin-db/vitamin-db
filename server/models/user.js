@@ -1,5 +1,7 @@
 const db = require('../db')
 const Model = require('./model-helper')
+const Promise = require('bluebird')
+const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
 
 const User = new Model('users', ['id_user', 'username', 'password', 'email', 'phone'])
 module.exports = User
@@ -55,11 +57,42 @@ User.deleteById = function(id)
 
 //METHODS DEFINED HERE:
 
-
-User.findByUsername = function(username) {
-	return this.findByAttribute('username', username)
-	.then( function(userArray) { return userArray[0] })
+/* 
+  This is like the generic Model.create, but hashes the password before storing it
+*/
+User.createUser = function(attrs) {
+  return bcrypt.genSaltAsync(10)
+    .then( function(salt) {
+      console.log('got salt', salt)
+      return bcrypt.hashAsync(attrs.password, salt, null)
+    })
+    .then( function(hash) {
+      console.log('hash', hash)
+      var newUserObj = attrs
+      newUserObj.password = hash
+      return User.create(newUserObj)
+    })
+    .catch( function(err) {
+      console.log('error hashing password', err)
+    })
 }
+
+/*
+ Compares passed-in password to the stored hash
+  eg: If Alice's password is 'mynameisnotbob' hashes to 'ajt894gjoq4tgjao', then:
+    User.passwordMatches('mynameisnotbob', 'ajt894gjoq4tgjao')
+      => returns true
+    User.passwordMatches('alicesfakepassword, 'ajt894gjoq4tgjao')
+      => returns false
+*/
+User.passwordMatches = function(enteredPw, storedHash) {
+  return bcrypt.compareAsync(enteredPw, storedHash)
+    .catch( function(error) {
+      return error instanceof bcrypt.MISMATCH_ERROR ? false : error
+    })
+}
+
+
 /* eg: User.findByUsername('bob')
   => returns: 
                    {id_user: 82,
@@ -72,12 +105,13 @@ User.findByUsername = function(username) {
                   }
     returns undefined if there is no user with username 'bob'
 */
-
-
-User.findByEmail = function(email) {
-	return this.findByAttribute('email', email)
-	.then( function(userArray) { console.log('got userArray', userArray); return userArray[0] })
+User.findByUsername = function(username) {
+	return this.findByAttribute('username', username)
+	.then( function(userArray) { return userArray[0] })
 }
+
+
+
 /* eg: User.findByEmail('bob@bobcat.com')
   => returns: 
                    {id_user: 82,
@@ -90,6 +124,11 @@ User.findByEmail = function(email) {
                   }
     returns undefined if there is no user with email 'bob@bobcat.com'
 */
+User.findByEmail = function(email) {
+	return this.findByAttribute('email', email)
+	.then( function(userArray) { console.log('got userArray', userArray); return userArray[0] })
+}
+
 
 
 /*
@@ -98,7 +137,7 @@ User.findByEmail = function(email) {
 User.validPassword = function(username, password) {
   return this.findByUsername(username)
     .then( function(userInfo) {
-      return userInfo.password === password
+      return User.passwordMatches(password, userInfo.password)
     })
 }
 
