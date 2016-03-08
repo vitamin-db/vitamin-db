@@ -248,7 +248,6 @@ describe('User Model', function() {
 		  .then(function(result) {
 		  	expect(result).to.be.false
 		  })
-
 	})
 
 })
