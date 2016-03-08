@@ -196,4 +196,25 @@ describe('User Model', function() {
 		  })
 	})
 
+	it('checks if a user exists', function() {
+
+		var newTestUser = new UserAttributes('bob', 'alice', 'bob@alice.com', '123-789-3456')
+
+		return User.create(newTestUser)
+		  .then( function() {
+		  	return User.existsByUsername('bob')
+		  })
+		  .then( function(result) {
+		  	console.log('should be true', result)
+		  	expect(result).to.be.true
+
+		  	return User.existsByUsername('alice')
+		  })
+		  .then( function(result) {
+		  	console.log('should be false', result)
+		  	expect(result).to.be.false
+		  })
+
+	})
+
 })
