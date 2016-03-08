@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^0.8.5",
     "bluebird": "^3.2.2",
     "body-parser": "^1.15.0",
     "browserify-middleware": "^5.0.2",
+    "cheerio": "^0.20.0",
     "knex": "^0.10.0",
     "morgan": "^1.7.0",
     "node-gyp": "^3.3.1",
