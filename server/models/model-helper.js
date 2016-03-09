@@ -71,6 +71,20 @@ module.exports = function(tableName, allAttrs) {
 		  .catch( this.reportError('error finding by id from ' + this.table) )
 	}.bind(this)
 
+	/* FIND BY ID TABLE SPECIFIED
+  Returns an object from the table where the primary key matches the id passed in
+  If the entry does not exist, returns undefined
+	*/
+	this.findByIdTableSpecified = function(id, table) {
+		var queryObj = {}
+		queryObj[this.idVarName] = id
+
+		return db.select('*').from(table).where(queryObj)
+		  .then( this.returnSuccess('success in retrieving from' + table) )
+		  .then( function(result) { return result[0] })
+		  .catch( this.reportError('error finding by id from ' + table) )
+	}.bind(this)
+
 
 	/* DELETE BY ID
 	  Deletes the entry with the matching primary key from the table associated with the model
@@ -100,6 +114,7 @@ module.exports = function(tableName, allAttrs) {
 		.then( this.returnSuccess('success finding ' + keyName + ' ' + value + ' in ' + this.table) )
 		.catch( this.reportError('error finding ' + keyName + ' ' + value + ' in ' + this.table) ) 
 	}).bind(this)
+
 
 	/* EXISTS BY ATTRIBUTE
 	  Generic curried function that can match any attribute 'keyName'
