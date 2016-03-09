@@ -1,5 +1,7 @@
 $ = jQuery = require('jquery');
 
+// This file is for all client api requests
+// this request below is just a test request for now
 const Request = {
   SignIn: (body) => {
   	return $.ajax({
