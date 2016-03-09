@@ -53,6 +53,7 @@ if (process.env.NODE_ENV !== 'test') {
 	// Make sure this route is always LAST
 	//
 	routes.get('/*', function(req,res) {
+		res.send("Hello world!")
 		//commented out while this file does not exist
 		res.sendFile( assetFolder + '/index.html' )
 	})
