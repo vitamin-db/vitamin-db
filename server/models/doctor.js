@@ -58,3 +58,26 @@ Doctor.deleteById = function(id)
 
 //METHODS DEFINED HERE:
 
+  /* FIND BY NAME
+    Returns an object from the table where the doctor name matches the name passed in
+    If the entry does not exist, returns undefined
+  */
+
+ Doctor.findByName = function(name) {
+  return this.findByAttribute('name', name)
+  .then( function(doctorArray) { return doctorArray[0] })
+}
+/* eg: User.findByUsername('bob')
+  => returns: 
+                   {id_user: 82,
+                   username: 'bob'
+                   password: 'bobspassword',
+                   email: 'bob@bobcat.com',
+                   phone: '111-111-1111',
+                   created_at: null,
+                   updated_at: null
+                  }
+    returns undefined if there is no user with username 'bob'
+*/
+
+
