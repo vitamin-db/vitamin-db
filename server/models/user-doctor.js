@@ -81,8 +81,26 @@ UserDoctor.findAllDoctors = function(id){ // where id = id_user
 /*
   Returns an array of Doctor objects with a certain type
 */
-// UserDoctor.findAllDoctorsOfType = function(){
-
-// }
+UserDoctor.findAllDoctorsOfType = function(id, docType){
+  return this.findByAttribute('id_user', id)
+    .then (function(doctors) {
+      return Promise.all(
+        doctors.filter(function(doctor) {
+          console.log('(user-doctor.js): doctor in doctors.filter ', doctor)
+          console.log('(user-doctor.js): doctor.type in doctors.filter ', doctor.type)
+          if (doctor.type_usermade === docType) {
+            return true;
+          }
+        })
+      )
+    })
+    .then ( function(doctorsOfType) {
+      return Promise.all(
+        doctorsOfType.map(function(doctor) {
+          return Doctor.findById(doctor.id_doctor)
+        })
+      )
+    })
+}
 
 

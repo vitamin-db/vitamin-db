@@ -6,7 +6,7 @@ const request = require('supertest-as-promised')
 const Doctor = require(__server + '/models/doctor')
 
 
-describe('**************** Doctor Model ********', function() {
+describe('**************** Doctor Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
@@ -29,7 +29,6 @@ describe('**************** Doctor Model ********', function() {
 
     return Doctor.create(newTestDoctor)
       .then(function(doctor) {
-        // console.log('got back from create', user)
         expect(doctor.name).to.equal(newTestDoctor.name)
       })
   })
@@ -42,7 +41,6 @@ describe('**************** Doctor Model ********', function() {
       .then( function() { return Doctor.create(newTestDoctor3) })
       .then( function() { return Doctor.getAll() })
       .then( function(allDoctors) {
-        // console.log('got all users: ', allDoctors)
         expect(allDoctors).to.have.length(2)
         expect(allDoctors[0]['name']).to.equal('Dr. Walker')
         expect(allDoctors[0]['street_address']).to.equal('125 Walnut Street')

@@ -8,7 +8,7 @@ const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
 
 
-describe('**************** User-Doctor Model ********', function() {
+describe('**************** User-Doctor Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
@@ -54,8 +54,7 @@ describe('**************** User-Doctor Model ********', function() {
     // var newTestUserDoctor3 = new UserDoctorAttributes(1, 3, 'hypnotist');
 
     return User.create(newTestUser)
-      .then( function() { 
-        // console.log('*************************')
+      .then( function() {
         return User.findByUsername('patricia') 
       })
       .then( function(user) {
@@ -73,10 +72,10 @@ describe('**************** User-Doctor Model ********', function() {
         return UserDoctor.create(newTestUserDoctor) 
       })
       .then( function(userdoctor) {
-        return UserDoctor.findAllDoctors( manual_id_user ) // UserDoctor.findAllDoctors takes user id
+        return UserDoctor.findAllDoctors( manual_id_user ) // UserDoctor.findAllDoctors takes user_id
       })
       .then( function(result) {
-        // console.log('(in test): got', result, 'via UserDoctor.findAllDoctors(id_user)')
+
         expect(result).to.be.an('array');
         expect(result).to.have.length(1)
         expect(result[0].name).to.equal('Dr. Smith')
@@ -86,5 +85,79 @@ describe('**************** User-Doctor Model ********', function() {
         expect(result[0].type).to.equal('primary')
       })
 
-  }) // end 'retrieves all doctors associated with a particular user' test
-}) // end describe User-Doctor Model
+  })
+
+
+
+  it('retrieves all doctors associated with a particular user, of certain type', function () {
+    var newTestUser2 = new UserAttributes('Wally', 'w4ly5p45sw0rd', 'wally@wally.com', '123-789-3456')
+    var newTestDoctor2 = new DoctorAttributes('Dr. Walker', '125 Walnut Street', 'Austin', 'TX', 78751, 'doc@walker.com', 'docwalker.com', '1234567890', 'awesome primary')
+    var newTestDoctor3 = new DoctorAttributes('Dr. Rando', '3495 Avenue B', 'Austin', 'TX', 32532, 'doc@rando.com', 'docrando.com', '0987654321', 'primary')
+    var newTestDoctor4 = new DoctorAttributes('Dr. Otherman', '235 Franklin Ave', 'Austin', 'TX', 29384, 'otherman@doc.com', 'theotherdoc.com', '0987654321', 'hypnotist')
+
+    var manual_id_user2 = undefined;
+    var manual_id_doctor2 = undefined;
+    var manual_id_doctor3 = undefined;
+    var manual_id_doctor4 = undefined;
+
+    return User.create(newTestUser2)
+      .then( function() {
+        return User.findByUsername('Wally') 
+      })
+      .then( function(user) {
+        manual_id_user2 = user.id_user;
+        return Doctor.create(newTestDoctor2) 
+      })
+      .then( function(doctor) {
+        return Doctor.findByName('Dr. Walker')
+      })
+      .then( function(doctor) { 
+        manual_id_doctor2 = doctor.id_doctor;
+        return Doctor.create(newTestDoctor3)
+      })
+      .then( function(doctor) {
+        return Doctor.findByName('Dr. Rando')
+      })
+      .then( function(doctor) { 
+        manual_id_doctor3 = doctor.id_doctor;
+        return Doctor.create(newTestDoctor4)
+      })
+      .then( function(doctor) {
+        return Doctor.findByName('Dr. Otherman')
+      })
+      .then( function(doctor) { 
+        manual_id_doctor4 = doctor.id_doctor;
+      })
+      .then( function() { 
+        var newTestUserDoctor2 = new UserDoctorAttributes(manual_id_user2, manual_id_doctor2, 'My Primary'); 
+        return UserDoctor.create(newTestUserDoctor2) 
+      })
+      .then( function() { 
+        var newTestUserDoctor3 = new UserDoctorAttributes(manual_id_user2, manual_id_doctor3, 'My Primary'); 
+        return UserDoctor.create(newTestUserDoctor3) 
+      })
+      .then( function() { 
+        var newTestUserDoctor4 = new UserDoctorAttributes(manual_id_user2, manual_id_doctor4, 'Hypno'); 
+        return UserDoctor.create(newTestUserDoctor4) 
+      })
+      .then( function() {
+        return UserDoctor.findAllDoctorsOfType( manual_id_user2, 'My Primary' )  // UserDoctor.findAllDoctorsOfType takes user_id, type_usermade
+      })
+      .then( function(result) {
+        expect(result).to.be.an('array');
+        expect(result).to.have.length(2)
+        expect(result[0].name).to.equal('Dr. Walker')
+        expect(result[0].street_address).to.equal('125 Walnut Street')
+        expect(result[0].type).to.equal('awesome primary')
+        expect(result[1].email).to.equal('doc@rando.com')
+        expect(result[1].phone).to.equal('0987654321')
+        expect(result[1].type).to.equal('primary')
+      })
+
+
+  })
+})
+
+
+
+
