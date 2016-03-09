@@ -7,7 +7,7 @@ const express = require('express')
 const Path = require('path')
 const db = require('./db')
 // Future consideration: including reactify/babelify, etc.
-	// const Reactify = require('reactify')
+// const babelify = require('babelify')
 
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
@@ -27,14 +27,20 @@ var routes = express.Router()
 // routes.get('/app-bundle.js',
 // 	browserify('./client/app.js'))
 
+routes.get('/app-bundle.js',
+	browserify('./client/app.js',
+		{transform: ['reactify']}
+	)
+)
+
 //======================================================
 // Static assets (html, etc.)
 //======================================================
 
 
 //commented out while this file does not exist
-// var assetFolder = Path.resolve(__dirname, '../client/public')
-// routes.use(express.static(assetFolder))
+var assetFolder = Path.resolve(__dirname, '../client')
+routes.use(express.static(assetFolder))
 
 //======================================================
 // create our express app
@@ -48,7 +54,7 @@ if (process.env.NODE_ENV !== 'test') {
 	//
 	routes.get('/*', function(req,res) {
 		//commented out while this file does not exist
-		// res.sendFile( assetFolder + '/index.html' )
+		res.sendFile( assetFolder + '/index.html' )
 	})
 
 	//
