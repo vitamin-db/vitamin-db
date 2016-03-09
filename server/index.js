@@ -48,15 +48,6 @@ routes.use(express.static(assetFolder))
 
 //===== IF IN DEV OR PROD MODE ==========
 if (process.env.NODE_ENV !== 'test') {
-	//
-	// Catch-all Route
-	// Make sure this route is always LAST
-	//
-	routes.get('/*', function(req,res) {
-		res.send("Hello world!")
-		//commented out while this file does not exist
-		res.sendFile( assetFolder + '/index.html' )
-	})
 
 	//
 	// create and run server
@@ -68,10 +59,39 @@ if (process.env.NODE_ENV !== 'test') {
 	app.use( morgan ('dev'))
 
 	// Parse incoming request bodies as JSON
+	//commented out for postman
 	app.use( bodyParser.json() )
-
+	// app.use(bodyParser.urlencoded({
+	//   extended: true
+	// }));
+	
 	// Mount our main router
 	app.use('/', routes)
+
+
+	//
+	// routes not protected by authentication
+	//
+
+	//set up authentication route
+	var authRouter = require('./apis/auth-api')
+	routes.use('/authenticate', authRouter)
+
+	//
+	//routes protected by authentication
+	//
+
+	//
+	// Catch-all Route
+	// Make sure this route is always LAST
+	//
+	routes.get('/*', function(req,res) {
+		res.send("Hello world!")
+		//commented out while this file does not exist
+		// res.sendFile( assetFolder + '/index.html' )
+	})
+
+	//Route to authenticate a token
 
 	// Start server!
 	var port = process.env.PORT || 4000
