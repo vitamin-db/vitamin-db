@@ -1,5 +1,10 @@
-function reduce (){
-	// empty
-};
+const combineReducers = require('redux').combineReducers;
+const routerReducer = require('react-router-redux').routerReducer;
+const test = require('./test');
 
-module.exports = reduce;
+const Reducer = combineReducers({
+  test,
+  routing: routerReducer
+});
+
+module.exports = Reducer;
