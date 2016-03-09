@@ -1,11 +1,11 @@
 const React = require('react');
 
-const SignIn = () => (
+const SignIn = ({ onSignIn }) => (
 	<div>
-		<form>
-			<input placeholder="username" />
-			<input placeholder="*****" />
-			<button>submit</button>
+		<form onSubmit={onSignIn}>
+			<input type="text" placeholder="Username" />
+			<input type="password" placeholder="Password" />
+			<button type="submit">submit</button>
 		</form>
 	</div>
 );

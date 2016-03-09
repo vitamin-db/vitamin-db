@@ -15,15 +15,15 @@ const Provider = require('react-redux').Provider;
 const Store = require('./store/Store');
 const store = Store();
 // temporary history
-const hashHistory = ReactRouter.hashHistory;
+// const hashHistory = ReactRouter.hashHistory;
 // add in real history later
-// const syncHistoryWithStore = require('react-router-redux').syncHistoryWithStore;
-// const browserHistory = ReactRouter.browserHistory;
-// const history = syncHistoryWithStore(browserHistory, store);
+const syncHistoryWithStore = require('react-router-redux').syncHistoryWithStore;
+const browserHistory = ReactRouter.browserHistory;
+const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
 	<Provider store={store}>
-		<Router history={hashHistory}>
+		<Router history={history}>
 			<Route path="/" component={Splash} />
 		</Router>
 	</Provider>,

@@ -1,5 +1,15 @@
 {
   "name": "medicalapp",
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
+    ]
+  },
   "version": "1.0.0",
   "description": "",
   "main": "server/index.js",
