@@ -22,17 +22,17 @@ AuthAPI.post('/login', function(req, res) {
 	  	} else {
 	  		//right now, this checks against the PLAINTEXT password
 	  		return User.validPlaintextPassword(enteredUsername, enteredPw)
-	  		  .then( function(valid) {
-	  		  	if (!valid) {
-	  		  		res.json({msg: 'Invalid username and password combo'})
-	  		  	} else {
-	  		  		return Auth.createToken(enteredUsername)
-	  		  		  .then( function(token) {
-	  		  		  	res.json({token: token})
-	  		  		  })
-	  		  	}
-	  		  })
 	  	}
+	  })
+	  .then( function(valid) {
+	  	if (!valid) {
+	  		res.json({msg: 'Invalid username and password combo'})
+	  	} else {
+	  		return Auth.createToken(enteredUsername)
+	    }
+	  })
+	  .then( function(token) {
+	  	res.json({token: token})
 	  })
 	/*
 	Check if username (from req body) exists in db
@@ -46,4 +46,42 @@ AuthAPI.post('/login', function(req, res) {
 	  If no:
 	    Send back error message - 'Please create an account'
 	*/
+})
+
+AuthAPI.post('/signup', function(req, res) {
+	console.log('req body', req.body)
+
+	var enteredUsername = req.body.username
+	var enteredPw = req.body.password
+
+	return User.existsByUsername(enteredUsername)
+	  .then( function(exists) {
+	  	if (exists) {
+	  		res.json({msg: 'username taken'})
+	  	} else {
+	  		var newUserObj = {
+	  			username: enteredUsername,
+	  			password: enteredPw,
+	  			email: req.body.email,
+	  			phone: req.body.phone
+	  		}
+	  		//this will not hash the pw
+	  		return User.create(newUserObj)
+	  	}
+	  })
+	  .then( function(user) {
+	  	return Auth.createToken(user.username)
+	  })
+	  .then( function(token) {
+	  	res.json({token: token})
+	  })
+/*
+Check if usermae exists in db
+  if yes, send back error message - 'username taken'
+  otherwise
+    add user to db
+    then
+      send back token
+*/
+
 })
