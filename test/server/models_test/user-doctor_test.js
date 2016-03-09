@@ -10,6 +10,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 
 describe('**************** User-Doctor Model ****************', function() {
 
+
   beforeEach(function() {
     return db.deleteEverything()
   })
@@ -154,10 +155,6 @@ describe('**************** User-Doctor Model ****************', function() {
         expect(result[1].type).to.equal('primary')
       })
 
-
-  })
-})
-
-
-
+  }) // end 'retrieves all doctors associated with a particular user' test
+}) // end describe User-Doctor Model
 

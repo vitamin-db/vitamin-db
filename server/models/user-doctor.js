@@ -104,3 +104,4 @@ UserDoctor.findAllDoctorsOfType = function(id, docType){
 }
 
 
+
