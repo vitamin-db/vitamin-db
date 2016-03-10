@@ -98,6 +98,20 @@ AuthAPI.post('/signup', function(req, res) {
 	1. Need to determine how we are storing webtokens on the client side. Depending on
 	that, we could potentially just send res.json({token: false}) and overwrite the 
 	given token. 
+		-- "make it forget the token" https://github.com/auth0/node-jsonwebtoken/issues/103
+
+		-- https://github.com/andreassolberg/jso/blob/master/src/store.js
+			// this looks promising
+
+			store.saveTokens = function(provider, tokens) {
+				// log("Save Tokens (" + provider+ ")");
+				localStorage.setItem("tokens-" + provider, JSON.stringify(tokens));
+			};
+
+			store.wipeTokens = function(provider) {
+				localStorage.removeItem("tokens-" + provider);
+			};
+
 
 	2. Also could add a db store for invalidated tokens -- aka, when a user logs out, 
 	their token is stored as an invalid token. Therefore a token would still technically
@@ -107,6 +121,7 @@ AuthAPI.post('/signup', function(req, res) {
 	3. Or, could just add another k/v to the response. In logout(), set login: false -- then,
 	when logging in a new session, set login: true, and add that check to the authentication
 	system in general.
+
 
 	* REFERENCE: 
 		* https://github.com/auth0/node-jsonwebtoken/issues/103
