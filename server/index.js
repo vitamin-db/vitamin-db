@@ -12,6 +12,7 @@ const db = require('./db')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
+const SendR = require('./sendresponse')
 const Auth = require('./models/auth')
 
 //======================================================
@@ -76,7 +77,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 	//dummy route not requiring authentication
 	routes.get('/hello', function(req, res) {
-		res.send('Hello! Please log in')
+		SendR.resData(res, 200, {msg: 'Hello! Please log in'})
 	})
 
 	//set up authentication route
@@ -101,7 +102,7 @@ if (process.env.NODE_ENV !== 'test') {
 			  	next()
 			  })
 		} else {
-			res.send({msg: 'please log in'})
+			SendR.errMsg(res, 403, 'Please log in')
 		}
 	})
 
@@ -111,7 +112,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 	//dummy route to check authentication
 	routes.get('/check', function(req, res) {
-		res.send({msg: 'Hello ' + req.decoded.username + '!'})
+		SendR.resData(res, 200, {msg: 'Hello ' + req.decoded.username + '!'})
 	})
 
 
@@ -119,7 +120,9 @@ if (process.env.NODE_ENV !== 'test') {
 	 Make sure this route is always LAST
 	*/
 	routes.get('/*', function(req,res) {
-		res.send("Hello world!")
+		//dummy response to check auth
+		SendR.resData(res, 200, {msg: 'Hello world!'})
+
 		//commented out while this file does not exist
 		// res.sendFile( assetFolder + '/index.html' )
 	})
