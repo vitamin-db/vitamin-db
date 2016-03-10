@@ -77,6 +77,33 @@ Set Up Test Database (will only have to run this once on your computer)
    //=> CTRL + c
 Can now run tests: 'npm test'
 
+============
+Test Authentication Without Client (Using Postman)
+============
+
+Try going to the following without token ==> should get in response body:
+GET localhost:4000/hello ==> expect('Hello! Please log in')
+GET localhost:4000/check ==> expect({msg: 'please log in'})
+GET localhost:4000/anything-else-not-on-authenticate-route ==> expect({msg: 'please log in'})
+
+Now get a token:
+To use user account already in db:
+POST localhost:4000/authenticate/login with body raw text: {"username": "YOUR STORED USERNAME", "password": "YOUR STORED PW"}
+    ==> expect({token: YOUR TOKEN})
+To make an account:
+POST localhost:4000/authenticate/signup with body raw text: {"username": "YOUR NEW USERNAME", 
+                                                             "password": "YOUR NEW PW",
+                                                             "email": "YOUR NEW EMAIL",
+                                                             "phone": "YOUR NEW PHONE NUMBER"
+                                                            }
+    ==> expect({token: YOUR TOKEN})
+
+Add to headers: x-access-token : YOUR TOKEN
+Now try the following routes:
+GET localhost:4000/hello ==> expect('Hello! Please log in')
+GET localhost:4000/check ==> expect('Hello YOUR USERNAME !')
+GET localhost:4000/anything-else-not-on-authenticate-route ==> expect('Hello world!')
+
 =========
 Notes 3/4
 ========

@@ -12,6 +12,8 @@ const db = require('./db')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
+const Auth = require('./models/auth')
+
 //======================================================
 // create our express router
 //======================================================
@@ -58,34 +60,64 @@ if (process.env.NODE_ENV !== 'test') {
 	// app.use(bodyParser.urlencoded({
 	//   extended: true
 	// }));
-	
+
 	// Mount our main router
 	app.use('/', routes)
 
+	/*
+	  routes not protected by authentication
+	*/
 
-	//
-	// routes not protected by authentication
-	//
+	//dummy route not requiring authentication
+	routes.get('/hello', function(req, res) {
+		res.send('please log in')
+	})
 
 	//set up authentication route
 	var authRouter = require('./apis/auth-api')
 	routes.use('/authenticate', authRouter)
 
-	//
-	//routes protected by authentication
-	//
+	
+	//middleware to verify a token
+	routes.use( function(req, res, next) {
 
-	//
-	// Catch-all Route
-	// Make sure this route is always LAST
-	//
+		//check header or url parameters or post parameters for token
+		//note: on client side, add into headers{x-access-token: token}
+		var token = req.body.token || req.query.token || req.headers['x-access-token']
+		console.log('defined token as', token)
+
+		//decode token
+		if (token) {
+			return Auth.verifyToken(token)
+			  .then( function(decoded) {
+			  	console.log('got decoded', decoded)
+			  	req.decoded = decoded //save decoded for use in other routes
+			  	next()
+			  })
+		} else {
+			res.send({msg: 'please log in'})
+		}
+	})
+
+	/*
+	  routes protected by authentication
+	*/
+
+	//dummy route to check authentication
+	routes.get('/check', function(req, res) {
+		res.send({msg: 'Hello ' + req.decoded.username + '!'})
+	})
+
+
+	/* Catch-all Route
+	 Make sure this route is always LAST
+	*/
 	routes.get('/*', function(req,res) {
 		res.send("Hello world!")
 		//commented out while this file does not exist
 		// res.sendFile( assetFolder + '/index.html' )
 	})
 
-	//Route to authenticate a token
 
 	// Start server!
 	var port = process.env.PORT || 4000
