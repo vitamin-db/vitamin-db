@@ -72,11 +72,78 @@ describe('**************** Doctor Model ****************', function() {
       })
   })
 
-  xit('retrieves a doctor by id', function() {
+  it('retrieves a doctor by id', function() {
 
+    // Note: Assigned after the db entries are created
+    var testDoctorId4 = undefined
+    var testDoctorId5 = undefined
+
+    var newTestDoctor4 = new DoctorAttributes('Dr. Rick', '4563 First Street', 'Austin', 'TX', 78751, 'doc@rick.com', 'docrick.com', '1234567890', 'therapist')
+    var newTestDoctor5 = new DoctorAttributes('Dr. Martha', '3532 Halloway Drive', 'Austin', 'TX', 23532, 'marthadoc@practice.com', 'marthadoc.com', '2349350293', 'dentist')
+
+    return Doctor.create(newTestDoctor4)
+      .then( function() { return Doctor.create(newTestDoctor5) })
+      .then( function() { return Doctor.getAll() })
+      .then( function(allDoctors) {
+
+        //set id variables to test
+        testDoctorId4 = allDoctors[0]['id_doctor']
+        testDoctorId5 = allDoctors[1]['id_doctor']
+
+        return Doctor.findById(testDoctorId4)
+      })
+      .then( function(result) {
+        // console.log('got', result, 'by id')
+        expect(result.id_doctor).to.equal(testDoctorId4)
+        expect(result.name).to.equal('Dr. Rick')
+        // expect(result.password).to.equal('alice3')
+        expect(result.email).to.equal('doc@rick.com')
+        expect(result.phone).to.equal('1234567890')
+        return Doctor.findById(testDoctorId5)
+     })
+    .then( function(result) {
+        // console.log('got', result, 'by id')
+        expect(result.id_doctor).to.equal(testDoctorId5)
+        expect(result.name).to.equal('Dr. Martha')
+        expect(result.email).to.equal('marthadoc@practice.com')
+        expect(result.phone).to.equal('2349350293')
+    })
   })
 
-  xit('deletes a doctor', function() {
+  it('deletes a doctor', function() {
+    // Note: assigned after the db entries are created
+    var testDoctorId6 = undefined
+    var testDoctorId7 = undefined
+
+    var newTestDoctor6 = new DoctorAttributes('Dr. Kinney', '1292 Wandering Drive', 'Dallas', 'TX', 23948, 'wanderpractice@gmail.com', 'wanderpractice.com', '2938493049', 'homepathic specialist')
+    var newTestDoctor7 = new DoctorAttributes('Dr. Namaste', '09238 Bell Lane', 'Austin', 'TX', 93832, 'nama@stay.com', 'namastay.com', '3940399922', 'life coach')
+
+    return Doctor.create(newTestDoctor6)
+      .then( function() { return Doctor.create(newTestDoctor7) })
+      .then( function() { return Doctor.getAll() })
+      .then( function(allDoctors) {
+
+        //set id variable to test
+        testDoctorId6 = allDoctors[0]['id_doctor']
+
+        return Doctor.deleteById(testDoctorId6)
+      })
+      .then( function(recordsDeleted) {
+        expect(recordsDeleted).to.equal(1)
+
+        return Doctor.findById(testDoctorId6)
+      })
+      .then(function(deletedRecord) {
+        expect(deletedRecord).to.be.an('undefined')
+
+        return Doctor.getAll()
+      })
+      .then( function(allDoctors) {
+        expect(allDoctors).to.have.length(1)
+        expect(allDoctors[0]['name']).to.equal('Dr. Namaste')
+        expect(allDoctors[0]['email']).to.equal('nama@stay.com')
+        expect(allDoctors[0]['phone']).to.equal('3940399922')
+      })
 
   })
 
