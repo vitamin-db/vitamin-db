@@ -11,6 +11,7 @@ const Splash = require('./containers/SplashView');
 const Home = require('./containers/HomeView');
 const Profile = require('./containers/ProfileView');
 const Appointment = require('./containers/AppointmentView');
+const SignUp = require('./containers/SignUpView');
 // require store
 const Provider = require('react-redux').Provider;
 const Store = require('./store/Store');
@@ -28,6 +29,7 @@ ReactDOM.render(
 	    <NavBar />
 		<Router history={history}>
 			<Route name="Splash" path="/" component={Splash} />
+			<Route name="SignUp" path="/signup" component={SignUp} />
 			<Route name="Home" path="/home" component={Home} />
 			<Route name="Profile" path="/user" component={Profile} />
 			<Route name="Appointment" path="/appointments" component={Appointment} />
