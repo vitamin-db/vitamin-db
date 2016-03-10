@@ -2,14 +2,12 @@ const React = require('react');
 const connect = require('react-redux').connect;
 const SignIn = require('../components/Splash/SignIn');
 const apiAction = require('../actionCreators/apiActions');
-const Header = require('./Header');
 
 // Splash soon-to-be container with any and all child components it needs
 // Each container will be a "view"
 const Splash = ({ onSignIn }) => {
 	return (
 		<div>
-			<Header />
 			<div className="Signin">
 		    	<SignIn onSignIn={onSignIn} />
 			</div>

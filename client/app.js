@@ -6,7 +6,11 @@ const ReactRouter = require('react-router');
 const Router = ReactRouter.Router;
 const Route = ReactRouter.Route;
 // require component
+const NavBar = require('./containers/Header');
 const Splash = require('./containers/SplashView');
+const Home = require('./containers/HomeView');
+const Profile = require('./containers/ProfileView');
+const Appointment = require('./containers/AppointmentView');
 // require store
 const Provider = require('react-redux').Provider;
 const Store = require('./store/Store');
@@ -20,9 +24,15 @@ const history = syncHistoryWithStore(browserHistory, store);
 // name="..." is just a name, but works as a path IF NO path is specified
 ReactDOM.render(
 	<Provider store={store}>
+	  <div>
+	    <NavBar />
 		<Router history={history}>
 			<Route name="Splash" path="/" component={Splash} />
+			<Route name="Home" path="/home" component={Home} />
+			<Route name="Profile" path="/user" component={Profile} />
+			<Route name="Appointment" path="/appointments" component={Appointment} />
 		</Router>
+	  </div>
 	</Provider>,
 	document.getElementById('app')
 );
