@@ -1,1 +1,10 @@
-// this file is for state changing dispatches
+function SignUpSubmit(info) {
+	return {
+		type: 'SUBMIT',
+		info: info
+	};
+}
+
+module.exports = {
+	SignUpSubmit
+}
