@@ -12,8 +12,11 @@ const Splash = ({ onSignIn }) => {
 			<div className="Jumbotron">
 				<JumbotronInstance />
 			</div>
-			<div className="Signin" class="col-md-6">
+			<div className="col-md-6 col-md-offset-3">
+			<div className="Signin">
 		    	<SignIn onSignIn={onSignIn} />
+		    	<span >Forgot password? | Sign up for an account</span>
+			</div>
 			</div>
 		</div>
 	);
