@@ -2,6 +2,7 @@ const db = require('../db')
 const Model = require('./model-helper')
 const Promise = require('bluebird')
 const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
+const jwt = require('jsonwebtoken')
 
 const User = new Model('users', ['id_user', 'username', 'password', 'email', 'phone'])
 module.exports = User
@@ -88,7 +89,10 @@ User.createUser = function(attrs) {
 User.passwordMatches = function(enteredPw, storedHash) {
   return bcrypt.compareAsync(enteredPw, storedHash)
     .catch( function(error) {
-      return error instanceof bcrypt.MISMATCH_ERROR ? false : error
+      console.log('error get messed up by bluebird? ', error)
+      // var instanceOfError = error instanceof bcrypt.MISMATCH_ERROR
+      // console.log('error', error, 'is instance of that type of error', instanceOfError)
+      // return error instanceof bcrypt.MISMATCH_ERROR ? false : error
     })
 }
 
@@ -135,9 +139,24 @@ User.findByEmail = function(email) {
   Returns a boolean indicating whether the passed-in password matches the password on record
 */
 User.validPassword = function(username, password) {
+  // console.log(username, 'and', password, 'passed into validPassword')
   return this.findByUsername(username)
     .then( function(userInfo) {
       return User.passwordMatches(password, userInfo.password)
+    })
+    // .catch( function(err) {
+    //   console.log('error checking if valid password', err)
+    //   throw err
+    // })
+}
+
+/*
+  Returns a boolean indicating whether the passed-in PLAINTEXT password matches the password on record
+*/
+User.validPlaintextPassword = function(username, password) {
+  return this.findByUsername(username)
+    .then( function(userInfo) {
+      return userInfo.password === password
     })
 }
 
@@ -145,6 +164,7 @@ User.validPassword = function(username, password) {
   Returns a boolean indicating whether the username exists in the database
 */
 User.existsByUsername = function(username) {
+  console.log('checking for username ', username)
   return this.existsByAttribute('username', username)
 }
 
