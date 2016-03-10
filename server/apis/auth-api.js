@@ -7,8 +7,20 @@ const AuthAPI = require('express').Router();
 
 module.exports = AuthAPI
 
-var secret = 'secretPasscode'
 
+/* Login route - NOTE THAT THIS ONLY COMPARES AGAINST PLAINTEXT PASSWORDS SINCE THAT'S HOW WE'RE SEEDING
+Checks if username exists in db
+  If yes, checks if password matches stored password for that username
+    If password is right:
+      Generates and sends an API token
+    Otherwise: 
+      Sends error message - 'Invalid username and password combo'
+  If not, sends back error message - 'Please create an account'
+
+TO DO:
+ - check against hashed passwords
+ - make responses more what client will expect
+*/
 AuthAPI.post('/login', function(req, res) {
 	console.log('req body', req.body)
 	var enteredUsername = req.body.username
@@ -36,22 +48,22 @@ AuthAPI.post('/login', function(req, res) {
 	  	console.log('in final send')
 
 	  })
-	/*
-	Check if username (from req body) exists in db
-	  If yes:
-	    Check if password matches stored password
-	      If yes:
-	        Generate an API token
-	        Send the API token
-	      If no:
-	        Send error message - 'Invalid username and password combo'
-	  If no:
-	    Send back error message - 'Please create an account'
-	*/
 })
 
+
+/* Signup route - NOTE THAT THIS ONLY CREAETS AGAINST PLAINTEXT PASSWORDS SINCE THAT'S WHAT LOGIN DOES FOR NOW
+Checks to see if username is taken
+  If yes:
+    Sends back error message 'username taken'
+  If no:
+    Adds user to db
+    Creates and sends back token
+TO DO:
+ - refactor to store hashed passwords
+ - make responses more what client will expect
+*/
 AuthAPI.post('/signup', function(req, res) {
-	console.log('req body', req.body)
+	// console.log('req body', req.body)
 
 	var enteredUsername = req.body.username
 	var enteredPw = req.body.password
@@ -77,13 +89,4 @@ AuthAPI.post('/signup', function(req, res) {
 	  .then( function(token) {
 	  	res.json({token: token})
 	  })
-/*
-Check if usermae exists in db
-  if yes, send back error message - 'username taken'
-  otherwise
-    add user to db
-    then
-      send back token
-*/
-
 })

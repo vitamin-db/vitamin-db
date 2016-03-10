@@ -70,7 +70,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 	//dummy route not requiring authentication
 	routes.get('/hello', function(req, res) {
-		res.send('please log in')
+		res.send('Hello! Please log in')
 	})
 
 	//set up authentication route

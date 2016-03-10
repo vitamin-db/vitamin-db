@@ -89,7 +89,7 @@ GET localhost:4000/anything-else-not-on-authenticate-route ==> expect({msg: 'ple
 Now get a token:
 To use user account already in db:
 POST localhost:4000/authenticate/login with body raw text: {"username": "YOUR STORED USERNAME", "password": "YOUR STORED PW"}
-    ==> expect({token: YOUR TOKEN})
+    ==> expect({token: YOUR TOKEN}) if your password is right
 To make an account:
 POST localhost:4000/authenticate/signup with body raw text: {"username": "YOUR NEW USERNAME", 
                                                              "password": "YOUR NEW PW",
