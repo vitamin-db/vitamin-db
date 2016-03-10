@@ -33,6 +33,8 @@ AuthAPI.post('/login', function(req, res) {
 	  })
 	  .then( function(token) {
 	  	res.json({token: token})
+	  	console.log('in final send')
+
 	  })
 	/*
 	Check if username (from req body) exists in db
