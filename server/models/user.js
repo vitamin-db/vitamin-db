@@ -150,6 +150,9 @@ User.validPassword = function(username, password) {
     // })
 }
 
+/*
+  Returns a boolean indicating whether the passed-in PLAINTEXT password matches the password on record
+*/
 User.validPlaintextPassword = function(username, password) {
   return this.findByUsername(username)
     .then( function(userInfo) {
