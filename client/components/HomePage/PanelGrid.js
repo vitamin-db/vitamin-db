@@ -2,32 +2,34 @@ const React = require('react');
 const Row = require('react-bootstrap').Row;
 const Col = require('react-bootstrap').Col;
 const Grid = require('react-bootstrap').Grid;
-const Panel = require('react-bootstrap').Panel
+const Panel = require('react-bootstrap').Panel;
+const Button = require('react-bootstrap').Button;
+const Glyphicon = require('react-bootstrap').Glyphicon;
 
-const PanelGrid = () => (
-    <Grid>
+const PanelGrid = ({docInfo}) => (
+<div>
+  <Grid>
     <Row className="show-grid">
-      <Col xs={12} md={4}><Panel header="Panel heading without title">
-      Panel content
-    </Panel></Col>
-      <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
-    </Row>
 
-    <Row className="show-grid">
-      <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
-      <Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>
-      <Col xsHidden md={4}><code>&lt;{'Col xsHidden md={4}'} /&gt;</code></Col>
-    </Row>
+    {docInfo.map((val) => 
+      <Col xs={4} md={4}>
+       <div className="card">
+       <div className="card-header">
+       <Button bsSize="xs" className="card-button"><Glyphicon glyph={val.glyph} /></Button>
+        <h4 className="card-type">{val.type}</h4>
+       </div>
+       <div className="card-block">
+       <p className="card-text"><b>Name</b>: {val.name}</p>
+       <p className="card-text"><b>Address</b>: {val.street_address}</p>
+       <p className="card-text"><b>Phone</b>: {val.phone}</p>
+       </div>
+      </div>
+      </Col>
+      )}
 
-    <Row className="show-grid">
-      <Col xs={6} xsOffset={6}><code>&lt;{'Col xs={6} xsOffset={6}'} /&gt;</code></Col>
-    </Row>
-
-    <Row className="show-grid">
-      <Col md={6} mdPush={6}><code>&lt;{'Col md={6} mdPush={6}'} /&gt;</code></Col>
-      <Col md={6} mdPull={6}><code>&lt;{'Col md={6} mdPull={6}'} /&gt;</code></Col>
     </Row>
   </Grid>
+  </div>
 );
 
 

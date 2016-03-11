@@ -1,18 +1,27 @@
 const React = require('react');
 const connect = require('react-redux').connect;
-const Panel = require('../components/HomePage/PanelGrid');
+const PanelGrid = require('../components/HomePage/PanelGrid');
+const mock = require('../model/mockData');
+const Grid = require('react-bootstrap').Grid;
 
-const Home = () => {
-  return (
-  <div>
-    <Panel />
-  </div>
+//Grid
+//Row might go in Home instead components
+//
+// // CONTAINER
+
+const Home = ({doctor}) => {
+    return (
+      <div className="home-body">
+      <PanelGrid docInfo={doctor} />
+      </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-
+const mapStateToProps = (state, ownProps) => {
+  // console.log(ownProps)
+  // console.log(mock)
+  return { 
+   doctor: mock.Doctor
   }
 };
 
