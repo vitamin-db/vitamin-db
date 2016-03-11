@@ -3,6 +3,7 @@
 //======================================================
 
 const browserify = require('browserify-middleware')
+const reactify = require('reactify')
 const express = require('express')
 const Path = require('path')
 const db = require('./db')
@@ -21,20 +22,31 @@ const Auth = require('./models/auth')
 
 var routes = express.Router()
 
+//======================================================
+// Static assets (html, etc.)
+//======================================================
+
 // compile/bundle into single file to load in browser
 // here we are making some assumptions on the front-end
 	// eg. using ./client/app.js
 // also likely need to consider using babelify//reactify (see above)
 
-//commented out while this file does not exist
-// routes.get('/app-bundle.js',
-// 	browserify('./client/app.js'))
-
 routes.get('/app-bundle.js',
-	browserify('./client/app.js',
-		{transform: ['reactify']}
-	)
-)
+  browserify('./client/app.js', {
+    transform: [reactify]
+  }))
+
+var assetFolder = Path.resolve(__dirname, '../client')
+routes.use(express.static(assetFolder))
+
+// routes.get('/', function(req, res) {
+
+// })
+
+
+//======================================================
+// Dynamic assets
+//======================================================
 
 /*
   routes not protected by authentication
@@ -101,15 +113,6 @@ routes.get('/*', function(req,res) {
 	// res.sendFile( assetFolder + '/index.html' )
 })
 
-
-//======================================================
-// Static assets (html, etc.)
-//======================================================
-
-
-//commented out while this file does not exist
-var assetFolder = Path.resolve(__dirname, '../client')
-routes.use(express.static(assetFolder))
 
 //======================================================
 // create our express app
