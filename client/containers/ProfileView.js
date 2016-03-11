@@ -25,4 +25,4 @@ var wrappedProfile = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Profile);
-module.exports = wrappedProfile;
+module.exports = wrappedProfile
