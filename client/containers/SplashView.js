@@ -9,14 +9,13 @@ const JumbotronInstance = require('../components/Splash/Jumbotron');
 const Splash = ({ onSignIn }) => {
 	return (
 		<div>
-			<div className="Jumbotron">
+			<div>
+			<div className="Jumbotron jumboBackground">
 				<JumbotronInstance />
+				</div>
 			</div>
-			<div className="col-md-6 col-md-offset-3">
-			<div className="Signin">
+			<div className="col-md-12">
 		    	<SignIn onSignIn={onSignIn} />
-		    	<span >Forgot password? | Sign up for an account</span>
-			</div>
 			</div>
 		</div>
 	);

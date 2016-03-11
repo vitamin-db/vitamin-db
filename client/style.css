@@ -1,11 +1,54 @@
-/*.Signin{
-	height: 200px;
-	width: 150px;
-	margin: 0px auto;
-	background-color: silver;
-}*/
-
 .sign-out {
 	float: right;
 }
 
+h1 {
+	text-align: center;
+}
+
+p {
+	text-align: center;
+}
+
+.jumbotron {
+    height: 364px;
+    margin-bottom: -109px;
+    margin-top: -20px;
+    color: white;
+    background-color: transparent !important;
+    padding-top: 61px;
+}
+
+.jumboBackground {
+	background-image: url("Background_placeholder.png") !important;
+	background-size: cover;
+}
+
+.forgot {
+	text-align: center;
+}
+
+body {
+	background-image: url("Patterned-background.png");	
+}
+
+.Signin {
+    margin-top: 92px;
+    margin-left: 340px;
+    height: 320px;
+    padding: 50px;
+    padding-right: 150px;
+    padding-left: 150px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /*border: 1px solid red;*/
+    /* align-content: center; */
+    background-color: lightgray;
+    width: 700px;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+    font-style: "Open Sans";
+}
