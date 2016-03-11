@@ -8,10 +8,10 @@ const stateAction = require(__client + '/actionCreators/stateActions');
 describe('Calling each action creator', function(){
 	it('should return the correct type property', function() {
 
-		var testAction1 = stateAction.SignIn();
+		// var testAction1 = stateAction.SignIn();
 		var testAction2 = stateAction.SignUpSubmit();
 
-	  	expect(testAction1.type).to.equal('SIGNIN');
+	  	// expect(testAction1.type).to.equal('SIGNIN');
 	  	expect(testAction2.type).to.equal('SUBMIT');
 
 	})
