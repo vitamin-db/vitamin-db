@@ -36,6 +36,72 @@ routes.get('/app-bundle.js',
 	)
 )
 
+/*
+  routes not protected by authentication
+*/
+
+//dummy route not requiring authentication
+if ( process.env.NODE_ENV === 'test' ) {
+	routes.get('/hello', function(req, res) {
+		SendR.resData(res, 200, {msg: 'Hello! Please log in'})
+	})
+}
+
+//set up authentication route
+var authRouter = require('./apis/auth-api')
+routes.use('/authenticate', authRouter)
+
+
+//middleware to verify a token
+routes.use( function(req, res, next) {
+
+	//check header or url parameters or post parameters for token
+	//note: on client side, add into headers{x-access-token: token}
+	var token = req.body.token || req.query.token || req.headers['x-access-token']
+	console.log('defined token as', token)
+
+	//decode token
+	if (token) {
+		return Auth.verifyToken(token)
+		  .then( function(decoded) {
+		  	console.log('got decoded', decoded)
+		  	req.decoded = decoded //save decoded for use in other routes
+		  	next()
+		  })
+	} else {
+		SendR.errMsg(res, 403, 'Please log in')
+	}
+})
+
+/*
+  routes protected by authentication
+*/
+
+//dummy route to check authentication
+if ( process.env.NODE_ENV === 'test' ) {
+	routes.get('/check', function(req, res) {
+		SendR.resData(res, 200, {msg: 'Hello ' + req.decoded.username + '!'})
+	})
+}
+
+
+//user router
+var userRouter = require('./apis/users-api')
+routes.use('/user', userRouter)
+
+
+/* Catch-all Route
+ Make sure this route is always LAST
+*/
+routes.get('/*', function(req,res) {
+	//dummy response to check auth
+	SendR.resData(res, 200, {msg: 'Hello world!'})
+
+	//commented out while this file does not exist
+	// res.sendFile( assetFolder + '/index.html' )
+})
+
+
 //======================================================
 // Static assets (html, etc.)
 //======================================================
@@ -70,62 +136,6 @@ if (process.env.NODE_ENV !== 'test') {
 
 	// Mount our main router
 	app.use('/', routes)
-
-	/*
-	  routes not protected by authentication
-	*/
-
-	//dummy route not requiring authentication
-	routes.get('/hello', function(req, res) {
-		SendR.resData(res, 200, {msg: 'Hello! Please log in'})
-	})
-
-	//set up authentication route
-	var authRouter = require('./apis/auth-api')
-	routes.use('/authenticate', authRouter)
-
-	
-	//middleware to verify a token
-	routes.use( function(req, res, next) {
-
-		//check header or url parameters or post parameters for token
-		//note: on client side, add into headers{x-access-token: token}
-		var token = req.body.token || req.query.token || req.headers['x-access-token']
-		console.log('defined token as', token)
-
-		//decode token
-		if (token) {
-			return Auth.verifyToken(token)
-			  .then( function(decoded) {
-			  	console.log('got decoded', decoded)
-			  	req.decoded = decoded //save decoded for use in other routes
-			  	next()
-			  })
-		} else {
-			SendR.errMsg(res, 403, 'Please log in')
-		}
-	})
-
-	/*
-	  routes protected by authentication
-	*/
-
-	//dummy route to check authentication
-	routes.get('/check', function(req, res) {
-		SendR.resData(res, 200, {msg: 'Hello ' + req.decoded.username + '!'})
-	})
-
-
-	/* Catch-all Route
-	 Make sure this route is always LAST
-	*/
-	routes.get('/*', function(req,res) {
-		//dummy response to check auth
-		SendR.resData(res, 200, {msg: 'Hello world!'})
-
-		//commented out while this file does not exist
-		// res.sendFile( assetFolder + '/index.html' )
-	})
 
 
 	// Start server!

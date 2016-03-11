@@ -40,7 +40,7 @@ describe('Auth Model', function() {
 	  		}, 1000)
 	  	})
 		  .then( function(decoded) {
-		  	console.log('decoded should be false', decoded)
+		  	// console.log('decoded should be false', decoded)
 		  	//this is a lie - trying to get this to be false
 		  	expect(decoded).to.be.false
 		  })

@@ -39,7 +39,7 @@ module.exports = function(tableName, allAttrs) {
       Returns the new object created
     */
 	this.create = function(newItemAttrs) {
-		console.log('trying to create user', newItemAttrs)
+		// console.log('trying to create user', newItemAttrs)
 		return db(this.table).insert(newItemAttrs, this.attrsToSet)
 		  .then( this.returnSuccess('successfully created new entry into table ' + this.table) )
 		  .then( function(result) { return result[0] })
@@ -127,6 +127,27 @@ module.exports = function(tableName, allAttrs) {
 		  .then( this.returnSuccess('success checking if exists ' + keyName + ' ' + value + ' in ' + this.table) )
 		  .catch( this.reportError('error checking if exists ' + keyName + ' ' + value + ' in ' + this.table) ) 
 	}).bind(this)
+
+
+    /* ONLY SOME PROPS
+      Used to filter out attributes to conceal properties the client shouldn't have access to
+      Returns an object identical to ob except only having the properties listed in [] propsToKeep as strings
+      See User.getPublic for an example of use
+    */
+	this.onlySomeProps = function(ob, propsToKeep) {
+		return new Promise( function(resolve, reject) {
+
+			var newOb = {}
+
+			Object.keys(ob).filter( function(prop) {
+				return propsToKeep.indexOf(prop) > -1
+			}).forEach( function(prop) {
+				newOb[prop] = ob[prop]
+			})
+
+			resolve(newOb)
+		})
+	}.bind(this)
 
 
 }

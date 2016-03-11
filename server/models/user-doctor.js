@@ -86,8 +86,8 @@ UserDoctor.findAllDoctorsOfType = function(id, docType){
     .then (function(doctors) {
       return Promise.all(
         doctors.filter(function(doctor) {
-          console.log('(user-doctor.js): doctor in doctors.filter ', doctor)
-          console.log('(user-doctor.js): doctor.type in doctors.filter ', doctor.type)
+          // console.log('(user-doctor.js): doctor in doctors.filter ', doctor)
+          // console.log('(user-doctor.js): doctor.type in doctors.filter ', doctor.type)
           if (doctor.type_usermade === docType) {
             return true;
           }
