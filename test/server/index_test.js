@@ -29,7 +29,7 @@ describe("The Server", function() {
 
 	})
 
-	it("succeeds if valid token is provided", function() {
+	it("succeeds if valid token is provided", function(done) {
 
 		var myToken = undefined
 		var usern = 'alice'
@@ -43,13 +43,15 @@ describe("The Server", function() {
 		  	  .set('x-access-token', myToken)
 		  	  .expect(200)
 		  	  .expect({msg: 'Hello ' + usern + '!'})
-		  	  .end()
+		  	  .end( function(err, result) {
+		  	  	done()
+		  	  })
 		  })
 
 	})
 
 
-	it("fails if token has expired", function() {
+	it("fails if token has expired", function(done) {
 
 		var myToken = undefined
 		var usern = 'aliceisabitch'
@@ -64,7 +66,10 @@ describe("The Server", function() {
 				  	  .get('/check')
 				  	  .set('x-access-token', myToken)
 				  	  .expect(403)
-				  	  .end()
+				  	  .end( function(err, result) {
+				  	  	console.log(result.text)
+				  	  	done()
+				  	  })
 		  		}, 1000)
 		  	})
 		  })
