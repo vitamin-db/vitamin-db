@@ -129,13 +129,13 @@ module.exports = function(tableName, allAttrs) {
 	}).bind(this)
 
 
-    /*
+    /* ONLY SOME PROPS
       Used to filter out attributes to conceal properties the client shouldn't have access to
+      Returns an object identical to ob except only having the properties listed in [] propsToKeep as strings
+      See User.getPublic for an example of use
     */
 	this.onlySomeProps = function(ob, propsToKeep) {
 		return new Promise( function(resolve, reject) {
-			// console.log('ob in onlySomeProps', ob);
-			// console.log('props to keep', propsToKeep)
 
 			var newOb = {}
 
