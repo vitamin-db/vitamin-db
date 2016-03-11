@@ -6,7 +6,7 @@ const request = require('supertest-as-promised')
 const Doctor = require(__server + '/models/doctor')
 
 
-describe('**************** Doctor Model ****************', function() {
+xdescribe('**************** Doctor Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()

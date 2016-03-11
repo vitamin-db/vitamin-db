@@ -14,7 +14,7 @@ global.expect = chai.expect
 //Helper Functions
 //
 
-global.TestHelper = {};
+global.TestHelper = {}
 
 //
 //Exportable function setting up app for testing
