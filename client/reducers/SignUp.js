@@ -1,6 +1,5 @@
 const Signup = (state, action) => {
   // state will be an object with: username, email, phone
-  // console.log("reducer state", state, action)
   if(state === undefined){
     return state = {};
   }
