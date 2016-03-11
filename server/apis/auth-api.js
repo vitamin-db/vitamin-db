@@ -30,6 +30,7 @@ AuthAPI.post('/login', function(req, res) {
 	  .then( function(exists) {
 	  	console.log('exists? ', exists)
 	  	if (!exists) {
+	  		console.log('Please create an account');
 	  		res.json({msg: 'Please create an account'})
 	  	} else {
 	  		//right now, this checks against the PLAINTEXT password
@@ -37,16 +38,26 @@ AuthAPI.post('/login', function(req, res) {
 	  	}
 	  })
 	  .then( function(valid) {
-	  	if (!valid) {
+	  	if (valid === undefined) {
+	  		console.log('nope, not valid')
+	  		return;
+	  	}
+	  	else if (!valid) {
+	  		console.log('valid: ', valid);
+	  		console.log('Invalid username and password combo');
 	  		res.json({msg: 'Invalid username and password combo'})
 	  	} else {
 	  		return Auth.createToken(enteredUsername)
 	    }
 	  })
 	  .then( function(token) {
-	  	res.json({token: token})
-	  	console.log('in final send')
-
+	  	if (token) {
+		  	console.log('In final send')
+		  	res.json({token: token})
+		  }
+	  	else {
+	  		console.log('no token.');
+	  	}
 	  })
 })
 
