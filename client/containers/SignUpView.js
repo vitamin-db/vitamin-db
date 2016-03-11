@@ -1,22 +1,23 @@
 const React = require('react');
 const connect = require('react-redux').connect;
 const SignUp = require('../components/SignUp/SignUp');
-const Action = require('../actionCreators/apiActions');
+const apiAction = require('../actionCreators/apiActions');
 const stateAction = require('../actionCreators/stateActions');
 
-const SignUpComp = ({onSignUp}) => {
+const SignUpComp = ({userInfo, onSignUp}) => {
 	return (
 		<div>
 			<div className="Signup">
-				<SignUp onSignUp={onSignUp}/>
+				<SignUp userInfo={userInfo} onSignUp={onSignUp}/>
 			</div>
 		</div>
 	);
 };
 
 const mapStateToProps = (state) => {
-	// console.log("map state: ", state.signup)
+	console.log("map state: ", state.signup)
 	return {
+		userInfo: state.signup
 	}
 };
 
@@ -30,11 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 			var email = e.target.email.value;
 			var phone = e.target.phone.value;
 			var body = {username: username, password: password, email: email, phone: phone};
-			Action.SignUp(body).then(function(info){
-				var purse = JSON.parse(info.data);
-				var act = stateAction.SignUpSubmit(purse)
-				dispatch(act)
-			});
+			dispatch(apiAction.SignUp(body));
 		}
 	};
 };
