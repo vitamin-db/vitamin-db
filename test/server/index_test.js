@@ -43,9 +43,6 @@ describe("The Server", function() {
 		  	  .set('x-access-token', myToken)
 		  	  .expect(200)
 		  	  .expect({msg: 'Hello ' + usern + '!'})
-		  	  // .end( function(err, result) {
-		  	  // 	done()
-		  	  // })
 		  })
 
 	})
@@ -67,7 +64,7 @@ describe("The Server", function() {
 				  	  .set('x-access-token', myToken)
 				  	  .expect(403)
 				  	  .end( function(err, result) {
-				  	  	console.log('msg from expired token', result.text)
+				  	  	// console.log('msg from expired token', result.text)
 				  	  	done()
 				  	  })
 		  		}, 1000)

@@ -6,7 +6,7 @@ const request = require('supertest-as-promised')
 const Auth = require(__server + '/models/auth')
 
 
-xdescribe('Auth Model', function() {
+describe('Auth Model', function() {
 
 	var username1 = 'bob'
 	var token1 = undefined
@@ -40,7 +40,7 @@ xdescribe('Auth Model', function() {
 	  		}, 1000)
 	  	})
 		  .then( function(decoded) {
-		  	console.log('decoded should be false', decoded)
+		  	// console.log('decoded should be false', decoded)
 		  	//this is a lie - trying to get this to be false
 		  	expect(decoded).to.be.false
 		  })
