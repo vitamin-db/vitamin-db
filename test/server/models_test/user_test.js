@@ -6,7 +6,7 @@ const request = require('supertest-as-promised')
 const User = require(__server + '/models/user')
 
 
-xdescribe('**************** User Model ****************', function() {
+describe('**************** User Model ****************', function() {
 
 	beforeEach(function() {
 		return db.deleteEverything()
@@ -235,7 +235,7 @@ xdescribe('**************** User Model ****************', function() {
 
 		return User.createUser(newTestUser)
 		  .then(function(user) {
-		  	console.log('created user', user)
+		  	// console.log('created user', user)
 		  	hashedPw = user.password
 		  	
 		  	return User.passwordMatches(correctPw, hashedPw)
@@ -248,6 +248,33 @@ xdescribe('**************** User Model ****************', function() {
 		  .then(function(result) {
 		  	expect(result).to.be.false
 		  })
+	})
+
+	it('filters out id and password', function() {
+
+		var newTestUser = new UserAttributes('bob', 'alice', 'bob@alice.com', '123-789-3456')
+
+		return User.createUser(newTestUser)
+		  .then( function(user) {
+		  	// console.log('got back user', user)
+		  	return User.findByUsername(user.username)
+		  })
+		  .then( function(user) {
+		  	return User.getPublic(user)
+		  })
+		  .then( function(publicUser) {
+		  	// console.log('public user', publicUser)
+
+		  	expect(publicUser).to.be.an('object')
+		  	expect(publicUser).to.have.keys('username', 'email', 'phone')
+		  	expect(publicUser.username).to.equal(newTestUser.username)
+		  	expect(publicUser.email).to.equal(newTestUser.email)
+		  	expect(publicUser.phone).to.equal(newTestUser.phone)
+		  	expect(publicUser.password).to.be.an('undefined')
+		  	expect(publicUser.id_user).to.be.an('undefined')
+
+		  })
+
 	})
 
 })

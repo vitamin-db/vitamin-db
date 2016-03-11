@@ -64,11 +64,11 @@ User.deleteById = function(id)
 User.createUser = function(attrs) {
   return bcrypt.genSaltAsync(10)
     .then( function(salt) {
-      console.log('got salt', salt)
+      // console.log('got salt', salt)
       return bcrypt.hashAsync(attrs.password, salt, null)
     })
     .then( function(hash) {
-      console.log('hash', hash)
+      // console.log('hash', hash)
       var newUserObj = attrs
       newUserObj.password = hash
       return User.create(newUserObj)
@@ -89,7 +89,7 @@ User.createUser = function(attrs) {
 User.passwordMatches = function(enteredPw, storedHash) {
   return bcrypt.compareAsync(enteredPw, storedHash)
     .catch( function(error) {
-      console.log('error get messed up by bluebird? ', error)
+      // console.log('error get messed up by bluebird? ', error)
       // var instanceOfError = error instanceof bcrypt.MISMATCH_ERROR
       // console.log('error', error, 'is instance of that type of error', instanceOfError)
       // return error instanceof bcrypt.MISMATCH_ERROR ? false : error
@@ -130,7 +130,7 @@ User.findByUsername = function(username) {
 */
 User.findByEmail = function(email) {
 	return this.findByAttribute('email', email)
-	.then( function(userArray) { console.log('got userArray', userArray); return userArray[0] })
+	.then( function(userArray) { return userArray[0] })
 }
 
 
@@ -168,3 +168,10 @@ User.existsByUsername = function(username) {
   return this.existsByAttribute('username', username)
 }
 
+/*
+  Returns a new user object with 
+*/
+User.getPublic = function(user) {
+  var publicAttrs = ['username', 'email', 'phone']
+  return this.onlySomeProps(user, publicAttrs)
+}

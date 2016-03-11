@@ -41,9 +41,11 @@ routes.get('/app-bundle.js',
 */
 
 //dummy route not requiring authentication
-routes.get('/hello', function(req, res) {
-	SendR.resData(res, 200, {msg: 'Hello! Please log in'})
-})
+if ( process.env.NODE_ENV === 'test' ) {
+	routes.get('/hello', function(req, res) {
+		SendR.resData(res, 200, {msg: 'Hello! Please log in'})
+	})
+}
 
 //set up authentication route
 var authRouter = require('./apis/auth-api')
@@ -76,9 +78,12 @@ routes.use( function(req, res, next) {
 */
 
 //dummy route to check authentication
-routes.get('/check', function(req, res) {
-	SendR.resData(res, 200, {msg: 'Hello ' + req.decoded.username + '!'})
-})
+if ( process.env.NODE_ENV === 'test' ) {
+	routes.get('/check', function(req, res) {
+		SendR.resData(res, 200, {msg: 'Hello ' + req.decoded.username + '!'})
+	})
+}
+
 
 //user router
 var userRouter = require('./apis/users-api')
