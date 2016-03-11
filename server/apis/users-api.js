@@ -30,7 +30,7 @@ module.exports = UserAPI
 	  	created_at: createdAt,
 	  	updated_at: updated_at
 	  },
-	  {...}, {...}, ....
+	  {}, {}
 	]
   }
 */

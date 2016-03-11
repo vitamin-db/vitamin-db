@@ -169,7 +169,7 @@ User.existsByUsername = function(username) {
 }
 
 /*
-  Returns a new user object containing only the properties 'username', 'email', and 'phone'
+  Returns a new user object with 
 */
 User.getPublic = function(user) {
   var publicAttrs = ['username', 'email', 'phone']
