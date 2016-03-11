@@ -1,22 +1,20 @@
 const db = require(__server + '/db')
-var request = require('supertest-as-promised')
-var UsersAPI = require(__server + '/apis/users-api')
+const request = require('supertest-as-promised')
+const UsersAPI = require(__server + '/apis/users-api')
 
-describe("Users API", function() {
+xdescribe("GET /users", function() {
 
-	// var app = TestHelper.createApp()
-	// app.use('/users', UsersAPI)
-	// app.testReady()
+	var app = TestHelper.createApp()
+	app.use('/users', UsersAPI)
+	app.testReady()
 
-	beforeEach(function() {
-		return db.deleteEverything()
-	})
+	// beforeEach(function() {
+	// 	return db.deleteEverything()
+	// })
 
 
-	//obviously this is temporary
-
-	it("returns true", function() {
-		expect(2===2).to.be.true
+	it("returns 403 if no token is passed", function() {
+		expect(true).to.be.false
 	})
 
 })
