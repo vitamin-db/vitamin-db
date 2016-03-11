@@ -37,16 +37,23 @@ AuthAPI.post('/login', function(req, res) {
 	  	}
 	  })
 	  .then( function(valid) {
-	  	if (!valid) {
+	  	if (valid === undefined) {
+	  		console.log('nope, not valid')
+	  		return;
+	  	}
+	  	else if (!valid) {
 	  		res.json({msg: 'Invalid username and password combo'})
 	  	} else {
 	  		return Auth.createToken(enteredUsername)
 	    }
 	  })
 	  .then( function(token) {
-	  	res.json({token: token})
-	  	console.log('in final send')
-
+	  	if (token) {
+	  		res.json({token: token})
+	  		console.log('token in final send: ', token)
+	  	} else {
+	  		console.log('no token')
+	  	}
 	  })
 })
 
@@ -90,3 +97,48 @@ AuthAPI.post('/signup', function(req, res) {
 	  	res.json({token: token})
 	  })
 })
+
+
+/* Logout route -
+	Possible Approaches:
+
+	1. Need to determine how we are storing webtokens on the client side. Depending on
+	that, we could potentially just send res.json({token: false}) and overwrite the 
+	given token. 
+		-- "make it forget the token" https://github.com/auth0/node-jsonwebtoken/issues/103
+
+		-- https://github.com/andreassolberg/jso/blob/master/src/store.js
+			// this looks promising
+
+			store.saveTokens = function(provider, tokens) {
+				// log("Save Tokens (" + provider+ ")");
+				localStorage.setItem("tokens-" + provider, JSON.stringify(tokens));
+			};
+
+			store.wipeTokens = function(provider) {
+				localStorage.removeItem("tokens-" + provider);
+			};
+
+	2. Also could add a db store for invalidated tokens -- aka, when a user logs out, 
+	their token is stored as an invalid token. Therefore a token would still technically
+	be valid until it time expires, but the check to the invalid token list check would 
+	fail, so the requirements would be incomplete. 
+
+	3. Or, could just add another k/v to the response. In logout(), set login: false -- then,
+	when logging in a new session, set login: true, and add that check to the authentication
+	system in general.
+
+
+	* REFERENCE: 
+		* https://github.com/auth0/node-jsonwebtoken/issues/103
+		* https://github.com/dwyl/learn-json-web-tokens/blob/master/example/lib/helpers.js
+			- (logout function)
+		* https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage/
+
+*/
+
+AuthAPI.post('/logout', function(req, res) {
+	// console.log('req body', req.body)
+
+})
+
