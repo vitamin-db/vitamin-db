@@ -1,6 +1,8 @@
 const React = require('react');
 const connect = require('react-redux').connect;
-const PanelGrid = require('../components/HomePage/PanelGrid');
+// components
+const DoctorGrid = require('../components/Dashboard/doctor/DoctorGrid');
+const PatientGrid = require('../components/Dashboard/patient/PatientGrid');
 const mock = require('../model/mockData');
 const Grid = require('react-bootstrap').Grid;
 
@@ -8,20 +10,21 @@ const Grid = require('react-bootstrap').Grid;
 //Row might go in Home instead components
 //
 // // CONTAINER
+// 
 
-const Home = ({doctor}) => {
+const Home = ({doctor, patient}) => {
     return (
       <div className="home-body">
-      <PanelGrid docInfo={doctor} />
+        <DoctorGrid docInfo={doctor} />
+        <PatientGrid patientInfo={patient} />
       </div>
   );
 };
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log(ownProps)
-  // console.log(mock)
   return { 
-   doctor: mock.Doctor
+   doctor: mock.Doctor,
+   patient: mock.Patient
   }
 };
 

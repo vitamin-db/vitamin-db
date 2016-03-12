@@ -6,7 +6,7 @@ const Panel = require('react-bootstrap').Panel;
 const Button = require('react-bootstrap').Button;
 const Glyphicon = require('react-bootstrap').Glyphicon;
 
-const DoCard = ({ val }) => (
+const DocCard = ({ val }) => (
 	<Col xs={4} md={4}>
 		 <div className="card">
 		     <div className="card-header">
@@ -22,4 +22,4 @@ const DoCard = ({ val }) => (
 	</Col>
 );
 
-module.exports = DoCard;
+module.exports = DocCard;

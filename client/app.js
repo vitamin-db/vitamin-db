@@ -8,7 +8,7 @@ const Route = ReactRouter.Route;
 // require component
 const NavBar = require('./containers/Header');
 const Splash = require('./containers/SplashView');
-const Home = require('./containers/HomeView');
+const Home = require('./containers/DashboardView');
 const Profile = require('./containers/ProfileView');
 const Appointment = require('./containers/AppointmentView');
 const SignUp = require('./containers/SignUpView');
