@@ -74,8 +74,8 @@ exports.up = function(knex, Promise) {
       table.decimal('cylinder_left', 4, 2);
       table.integer('axis_right');
       table.integer('axis_left');
-      table.integer('add_right', 4, 2);
-      table.integer('add_left', 4, 2);
+      table.decimal('add_right', 4, 2);
+      table.decimal('add_left', 4, 2);
       table.boolean('current');
     }),
 
@@ -92,7 +92,7 @@ exports.up = function(knex, Promise) {
            .inTable('doctors');
       table.integer('refill_number');
       table.string('name');
-      table.string('dosaage');
+      table.string('dosage');
       table.boolean('current');
     }),
 
@@ -109,10 +109,10 @@ exports.up = function(knex, Promise) {
       table.integer('id_familymember')
            .references('id_familymember')
            .inTable('familymembers');
-      table.string('condition_name');
+      table.string('condition');
     }),
 
-    table.schema.createTable('allergies', function(table) {
+    knex.schema.createTable('allergies', function(table) {
       table.increments('id_allergy').primary();
       table.integer('id_user')
            .references('id_user')
@@ -130,13 +130,13 @@ exports.down = function(knex, Promise) {
   return Promise.all([
       knex.schema.dropTable('users'),
       knex.schema.dropTable('doctors'),
-      knex.schema.dropTable('user_doctor')
-      knex.schema.dropTable('insurance')
-      knex.schema.dropTable('pharmacy')
+      knex.schema.dropTable('user_doctor'),
+      knex.schema.dropTable('insurance'),
+      knex.schema.dropTable('pharmacy'),
       knex.schema.dropTable('eyerx'),
       knex.schema.dropTable('rx'),
-      knex.schema.dropTable('familymembers')
-      knex.schema.dropTable('familyhistory')
+      knex.schema.dropTable('familymembers'),
+      knex.schema.dropTable('familyhistory'),
       knex.schema.dropTable('allergies')
   ])
 

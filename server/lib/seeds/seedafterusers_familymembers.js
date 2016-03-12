@@ -50,7 +50,7 @@ exports.seed = function(knex, Promise) {
     })
     .then( function() {
         return knex.schema.table('familyhistory', function(table) {
-            table.foreign('id_familymember').references('id_familymember').inTable('familyhistory')
+            table.foreign('id_familymember').references('id_familymember').inTable('familymembers')
         })
     })
     .catch( function(error) {
