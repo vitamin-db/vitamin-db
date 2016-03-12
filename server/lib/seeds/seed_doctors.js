@@ -4,7 +4,11 @@ exports.seed = function(knex, Promise) {
         table.dropForeign('id_doctor')
     })
     .then( function() {
+<<<<<<< 11bc8135d644cc5446d7fe1e296e7b9db7c18f3f
         return knex.schema.table('rx', function(table) {
+=======
+        return knex.schema('rx', function(table) {
+>>>>>>> seed files written and new files created for new data types
             table.dropForeign('id_doctor')
         })
     })

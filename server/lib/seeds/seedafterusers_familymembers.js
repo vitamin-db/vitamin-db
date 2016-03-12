@@ -50,7 +50,11 @@ exports.seed = function(knex, Promise) {
     })
     .then( function() {
         return knex.schema.table('familyhistory', function(table) {
+<<<<<<< 11bc8135d644cc5446d7fe1e296e7b9db7c18f3f
             table.foreign('id_familymember').references('id_familymember').inTable('familymembers')
+=======
+            table.foreign('id_familymember').references('id_familymember').inTable('familyhistory')
+>>>>>>> seed files written and new files created for new data types
         })
     })
     .catch( function(error) {
