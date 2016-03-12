@@ -2,16 +2,8 @@ exports.seed = function(knex, Promise) {
 
     return knex.schema.table('rx', function(table) {
         table.dropForeign('id_user')
-    })
-    .then( function() {
-      return knex.schema.table('doctors', function(table) {
         table.dropForeign('id_doctor')
-      })
-    })
-    .then( function() {
-      return knex.schema.table('pharmacy', function(table) {
         table.dropForeign('id_pharmacy')
-      })
     })
     .then( function() {
         return knex('rx').truncate()

@@ -40,7 +40,7 @@ exports.seed = function(knex, Promise) {
         {
           id_user: 2,
           sphere_right: 12.4,
-          sphere_left: -10.2
+          sphere_left: -10.2,
           cylinder_right: 2.34,
           cylinder_left: 5.6,
           axis_right: 90,
