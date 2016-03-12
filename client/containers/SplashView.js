@@ -22,7 +22,7 @@ const Splash = ({ onSignIn }) => {
 };
 
 const mapStateToProps = (state) => {
-	// console.log("mapstateprops state ", state);
+	console.log("splash view state", state);
 	// ^^^ this console log returns each state in the reducers/reducer.js file
 	return {
 	};
@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
 			var username = e.target.username.value;
 			var password = e.target.password.value;
 			var body = {username: username, password: password};
-			apiAction.SignIn(body);
+			dispatch(apiAction.SignIn(body));
 		}
 	};
 };
