@@ -52,3 +52,27 @@ body {
     border-color: #1abc9c;
     font-style: "Open Sans";
 }
+
+.card-text {
+    font-size: 12px;
+    text-align: left;
+}
+
+.card-header {
+    display: flex;
+    height: 50px;
+    align-items: center;
+}
+
+.card-button {
+
+}
+
+.card-type {
+    margin: auto;
+}
+
+.container-fluid {
+    width:100%;
+    text-align:center;
+}

@@ -7,25 +7,33 @@ const Button = require('react-bootstrap').Button;
 const Glyphicon = require('react-bootstrap').Glyphicon;
 
 const PanelGrid = ({docInfo}) => (
-<div>
+<div className="container-fluid">
   <Grid>
     <Row className="show-grid">
 
     {docInfo.map((val) => 
       <Col xs={4} md={4}>
-       <div className="card">
-       <div className="card-header">
-       <Button bsSize="xs" className="card-button"><Glyphicon glyph={val.glyph} /></Button>
-        <h4 className="card-type">{val.type}</h4>
-       </div>
-       <div className="card-block">
-       <p className="card-text"><b>Name</b>: {val.name}</p>
-       <p className="card-text"><b>Address</b>: {val.street_address}</p>
-       <p className="card-text"><b>Phone</b>: {val.phone}</p>
-       </div>
-      </div>
+         <div className="card">
+         <div className="card-header">
+         <Button bsStyle="success" bsSize="small" className="card-button"><Glyphicon glyph={val.glyph} /></Button>
+          <h5 className="card-type">{val.type}</h5>
+         </div>
+         <div className="card-block">
+         <p className="card-text"><b>Name</b>: {val.name}</p>
+         <p className="card-text"><b>Address</b>: {val.street_address}</p>
+         <p className="card-text"><b>Phone</b>: {val.phone}</p>
+         </div>
+        </div>
       </Col>
       )}
+      <Col xs={4} md={4}>
+      <div className="card">
+        <div className="card-header">
+          <Button bsStyle="Primary" bsSize="small" onClick={this.open}><Glyphicon glyph="plus" /></Button>
+          <h5 className="card-type">Add Doctor</h5>
+        </div>
+      </div>
+      </Col>
 
     </Row>
   </Grid>
