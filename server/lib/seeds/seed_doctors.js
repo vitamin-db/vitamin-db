@@ -4,7 +4,7 @@ exports.seed = function(knex, Promise) {
         table.dropForeign('id_doctor')
     })
     .then( function() {
-        return knex.schema('rx', function(table) {
+        return knex.schema.table('rx', function(table) {
             table.dropForeign('id_doctor')
         })
     })
