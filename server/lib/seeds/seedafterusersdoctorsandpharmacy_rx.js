@@ -2,23 +2,8 @@ exports.seed = function(knex, Promise) {
 
     return knex.schema.table('rx', function(table) {
         table.dropForeign('id_user')
-<<<<<<< af1d3f8c85a52a00944f67f0173cce9870e6a935
-<<<<<<< 11bc8135d644cc5446d7fe1e296e7b9db7c18f3f
         table.dropForeign('id_doctor')
         table.dropForeign('id_pharmacy')
-=======
-    })
-    .then( function() {
-      return knex.schema.table('doctors', function(table) {
-=======
->>>>>>> migrations and seeds working
-        table.dropForeign('id_doctor')
-        table.dropForeign('id_pharmacy')
-<<<<<<< af1d3f8c85a52a00944f67f0173cce9870e6a935
-      })
->>>>>>> seed files written and new files created for new data types
-=======
->>>>>>> migrations and seeds working
     })
     .then( function() {
         return knex('rx').truncate()

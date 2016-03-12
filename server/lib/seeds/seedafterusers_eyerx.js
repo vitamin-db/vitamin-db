@@ -40,15 +40,7 @@ exports.seed = function(knex, Promise) {
         {
           id_user: 2,
           sphere_right: 12.4,
-<<<<<<< af1d3f8c85a52a00944f67f0173cce9870e6a935
-<<<<<<< 11bc8135d644cc5446d7fe1e296e7b9db7c18f3f
           sphere_left: -10.2,
-=======
-          sphere_left: -10.2
->>>>>>> seed files written and new files created for new data types
-=======
-          sphere_left: -10.2,
->>>>>>> migrations and seeds working
           cylinder_right: 2.34,
           cylinder_left: 5.6,
           axis_right: 90,

@@ -50,15 +50,7 @@ exports.seed = function(knex, Promise) {
     })
     .then( function() {
         return knex.schema.table('familyhistory', function(table) {
-<<<<<<< af1d3f8c85a52a00944f67f0173cce9870e6a935
-<<<<<<< 11bc8135d644cc5446d7fe1e296e7b9db7c18f3f
             table.foreign('id_familymember').references('id_familymember').inTable('familymembers')
-=======
-            table.foreign('id_familymember').references('id_familymember').inTable('familyhistory')
->>>>>>> seed files written and new files created for new data types
-=======
-            table.foreign('id_familymember').references('id_familymember').inTable('familymembers')
->>>>>>> migrations and seeds working
         })
     })
     .catch( function(error) {
