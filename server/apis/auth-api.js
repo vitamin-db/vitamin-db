@@ -70,10 +70,11 @@ TO DO:
  - make responses more what client will expect
 */
 AuthAPI.post('/signup', function(req, res) {
-	// console.log('req body', req.body)
+	console.log('req body', req.body)
 
 	var enteredUsername = req.body.username
 	var enteredPw = req.body.password
+	console.log('enteredUsername: ', enteredUsername, 'enteredPw: ', enteredPw);
 
 	return User.existsByUsername(enteredUsername)
 	  .then( function(exists) {
@@ -91,10 +92,14 @@ AuthAPI.post('/signup', function(req, res) {
 	  	}
 	  })
 	  .then( function(user) {
-	  	return Auth.createToken(user.username)
+	  	if(user) {
+	  		return Auth.createToken(user.username)
+	  	}
 	  })
 	  .then( function(token) {
-	  	res.json({token: token})
+	  	if(token) {
+	  		res.json({token: token})
+	  	}
 	  })
 })
 
