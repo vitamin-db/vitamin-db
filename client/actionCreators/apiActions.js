@@ -44,7 +44,7 @@ function SignIn (body) {
       dispatch(stateAction.SignInFail());
     });
   }
-};
+}
 
 function SignUp (body) {
   return (dispatch) => {
@@ -64,7 +64,7 @@ function SignUp (body) {
       }
     });
   }
-};
+}
 
 module.exports = {
   SignIn,
