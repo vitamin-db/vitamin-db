@@ -52,8 +52,33 @@ function SignUp (body) {
   };
 };
 
+// get doctor list based on user argument: { username: username, token: token }
+// commented out until everything is ready
+// function GetDoctorList (user) {
+//   return (dispatch) => {
+//     return fetch('', {
+//       method: 'get',
+//       headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json',
+//         'x-access-token': user.token
+//       },
+//       body: JSON.stringify(user.username)
+//     })
+//     .then(function(response){
+//       return response.json();
+//     })
+//     .then(function(list){
+//       console.log(list);
+//     })
+//     .catch(function(err){
+//       console.error(err);
+//     })
+//   };
+// };
+
+// DONT FORGET TO ADD THE FUNCTIONS EXPORTS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module.exports = {
   SignIn,
   SignUp
 };
-
