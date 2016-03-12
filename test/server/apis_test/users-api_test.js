@@ -24,7 +24,7 @@ describe("GET /user", function() {
 		this.phone = phone
 	}
 
-	var DoctorAttributes = function(name, street_address, city, state_abbrev, zip, email, web, phone, type) {
+	var DoctorAttributes = function(name, street_address, city, state_abbrev, zip, email, web, phone, type, current) {
 	  this.name = name
 	  this.street_address = street_address
 	  this.city = city
@@ -34,6 +34,7 @@ describe("GET /user", function() {
 	  this.web = web
 	  this.phone = phone
 	  this.type = type
+	  this.current = current
 	}
 
 	var UserDoctorAttributes = function(id_user, id_doctor, type_usermade) {
@@ -54,8 +55,8 @@ describe("GET /user", function() {
 	it("returns stored info if token is passed in", function() {
 
 		var newTestUser = new UserAttributes('bob', 'alice', 'bob@alice.com', '123-789-3456')
-		var newTestDoctor1 = new DoctorAttributes('Dr. Walker', '125 Walnut Street', 'Austin', 'TX', 78751, 'doc@walker.com', 'docwalker.com', '1234567890', 'primary')
-		var newTestDoctor2 = new DoctorAttributes('Dr. Rando', '3495 Avenue B', 'Austin', 'TX', 32532, 'doc@rando.com', 'docrando.com', '0987654321', 'hypnotist')
+		var newTestDoctor1 = new DoctorAttributes('Dr. Walker', '125 Walnut Street', 'Austin', 'TX', 78751, 'doc@walker.com', 'docwalker.com', '1234567890', 'primary', true)
+		var newTestDoctor2 = new DoctorAttributes('Dr. Rando', '3495 Avenue B', 'Austin', 'TX', 32532, 'doc@rando.com', 'docrando.com', '0987654321', 'hypnotist', false)
 
 		var userId = undefined
 		var doc1Id = undefined
@@ -109,7 +110,7 @@ describe("GET /user", function() {
 		  	  	expect(objForClient['user']).to.be.an('object')
 		  	  	expect(objForClient['doctors']).to.have.length(2)
 		  	  	expect(objForClient['user']).to.have.keys('username', 'email', 'phone')
-		  	  	expect(objForClient['doctors'][0]).to.have.keys('id_doctor', 'name', 'street_address', 'type',
+		  	  	expect(objForClient['doctors'][0]).to.have.keys('id_doctor', 'name', 'street_address', 'type', 'current',
 		  	  		                                            'city', 'zip', 'state_abbrev', 'email', 'web', 'phone',
 		  	  		                                            'created_at', 'updated_at'
 		  	  		                                           )
