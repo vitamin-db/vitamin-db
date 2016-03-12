@@ -5,15 +5,15 @@ const Grid = require('react-bootstrap').Grid;
 const Panel = require('react-bootstrap').Panel;
 const Button = require('react-bootstrap').Button;
 const Glyphicon = require('react-bootstrap').Glyphicon;
-const DoCard = require('./DoctorCard');
+const DocCard = require('./DoctorCard');
 const AddDoc = require('./AddDoctor');
 
-const PanelGrid = ({docInfo}) => (
+const DoctorGrid = ({docInfo}) => (
 <div className="container-fluid">
   <Grid>
     <Row className="show-grid">
       {docInfo.map((val) => 
-        <DoCard key={val.name} val={val} />
+        <DocCard key={val.name} val={val} />
       )}
       <AddDoc />
     </Row>
@@ -22,4 +22,4 @@ const PanelGrid = ({docInfo}) => (
 );
 
 
-module.exports = PanelGrid;
+module.exports = DoctorGrid;
