@@ -22,25 +22,29 @@ const stateAction = require('./stateActions');
 // }
 
 function SignIn (body) {
-  fetch('/authenticate/login', {
-    method: 'post',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  })
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(j) {
-    console.log('j: ', j);
-    window.localStorage.setItem("token", j['token']);
-  })
-  .catch(function(err) {
-    console.error(err)
-  });
-}
+  return (dispatch) => {
+    return fetch('/authenticate/login', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(j) {
+      console.log('j: ', j);
+      window.localStorage.setItem("token", j['token']);
+      dispatch(stateAction.SignInSuccess(j.token))
+    })
+    .catch(function(err) {
+      console.error(err)
+      dispatch(stateAction.SignInFail());
+    });
+  }
+};
 
 function SignUp (body) {
   return (dispatch) => {
@@ -60,7 +64,7 @@ function SignUp (body) {
       }
     });
   }
-}
+};
 
 module.exports = {
   SignIn,
