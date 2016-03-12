@@ -33,8 +33,7 @@ body {
 }
 
 .Signin {
-    margin-top: 92px;
-    margin-left: 340px;
+    margin: 0px auto;
     height: 320px;
     padding: 50px;
     padding-right: 150px;
