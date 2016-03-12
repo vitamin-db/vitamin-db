@@ -22,7 +22,7 @@ describe('**************** User-Doctor Model ****************', function() {
     this.phone = phone
   }
 
-  var DoctorAttributes = function(name, street_address, city, state_abbrev, zip, email, web, phone, type) {
+  var DoctorAttributes = function(name, street_address, city, state_abbrev, zip, email, web, phone, type, current) {
     this.name = name
     this.street_address = street_address
     this.city = city
@@ -32,6 +32,7 @@ describe('**************** User-Doctor Model ****************', function() {
     this.web = web
     this.phone = phone
     this.type = type
+    this.current = current
   }
 
   var UserDoctorAttributes = function(id_user, id_doctor, type_usermade) {
@@ -43,7 +44,7 @@ describe('**************** User-Doctor Model ****************', function() {
   it('retrieves all doctors associated with a particular user', function () {
 
     var newTestUser = new UserAttributes('patricia', 'bobpass123', 'bob@alice.com', '123-789-3456')
-    var newTestDoctor = new DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '5869348594', 'primary')
+    var newTestDoctor = new DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '5869348594', 'primary', false)
 
     var manual_id_user = undefined;
     var manual_id_doctor = undefined;
@@ -84,6 +85,7 @@ describe('**************** User-Doctor Model ****************', function() {
         expect(result[0].email).to.equal('doc@smith.com')
         expect(result[0].phone).to.equal('5869348594')
         expect(result[0].type).to.equal('primary')
+        expect(result[0].current).to.be.false
       })
 
   })
@@ -92,9 +94,9 @@ describe('**************** User-Doctor Model ****************', function() {
 
   it('retrieves all doctors associated with a particular user, of certain type', function () {
     var newTestUser2 = new UserAttributes('Wally', 'w4ly5p45sw0rd', 'wally@wally.com', '123-789-3456')
-    var newTestDoctor2 = new DoctorAttributes('Dr. Walker', '125 Walnut Street', 'Austin', 'TX', 78751, 'doc@walker.com', 'docwalker.com', '1234567890', 'awesome primary')
-    var newTestDoctor3 = new DoctorAttributes('Dr. Rando', '3495 Avenue B', 'Austin', 'TX', 32532, 'doc@rando.com', 'docrando.com', '0987654321', 'primary')
-    var newTestDoctor4 = new DoctorAttributes('Dr. Otherman', '235 Franklin Ave', 'Austin', 'TX', 29384, 'otherman@doc.com', 'theotherdoc.com', '0987654321', 'hypnotist')
+    var newTestDoctor2 = new DoctorAttributes('Dr. Walker', '125 Walnut Street', 'Austin', 'TX', 78751, 'doc@walker.com', 'docwalker.com', '1234567890', 'awesome primary', true)
+    var newTestDoctor3 = new DoctorAttributes('Dr. Rando', '3495 Avenue B', 'Austin', 'TX', 32532, 'doc@rando.com', 'docrando.com', '0987654321', 'primary', false)
+    var newTestDoctor4 = new DoctorAttributes('Dr. Otherman', '235 Franklin Ave', 'Austin', 'TX', 29384, 'otherman@doc.com', 'theotherdoc.com', '0987654321', 'hypnotist', true)
 
     var manual_id_user2 = undefined;
     var manual_id_doctor2 = undefined;
