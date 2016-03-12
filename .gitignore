@@ -10,3 +10,6 @@ db/
 # Logs
 logs
 *.log
+
+# DS Store
+*.DS_Store
