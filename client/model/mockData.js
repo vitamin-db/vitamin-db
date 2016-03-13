@@ -1,6 +1,7 @@
 const Data = {
      Doctor: [
-        {
+        {   
+            id_doctor: 1,
             name: 'Donald Drumpffff',
             street_address: '123 Regular American Dr.',
             city: 'New York City',
@@ -13,6 +14,7 @@ const Data = {
             glyph: 'cloud'
           },
           {
+            id_doctor: 2,
             name: 'Hillary Clinton',
             street_address: '123 Wall Street',
             city: 'New York City',
@@ -54,7 +56,14 @@ const Data = {
              updated_at: null,
              glyph: 'heart'
         }
+    ],
+
+    Patient: [
+        {
+            Prescriptions: ['flonase', '20mg']
+        }
     ]
+
   };
 
   module.exports = Data;
