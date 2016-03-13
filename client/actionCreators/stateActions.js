@@ -20,15 +20,6 @@ function SignInFail() {
 	};
 };
 
-// COMMENTED OUT UNTIL NEEDED
-// function GetDoctorList(list) {
-// 	return {
-// 		type: 'GETDOCLIST',
-// 		list: list
-// 	};
-// };
-
-// DONT FORGET TO ADD FUNCTIONS TO EXPORTS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module.exports = {
 	SignUpSubmit,
 	SignInSuccess,

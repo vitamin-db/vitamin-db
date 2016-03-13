@@ -1,9 +1,9 @@
 require(TEST_HELPER)
 const apiAction = require(__client + '/actionCreators/apiActions');
-const stateAction = require(__client + '/actionCreators/stateActions');
 
 describe('Calling API action: Sign Up', function(){
 	it('Should return a dispatch function', function(){
+
 		expect(apiAction.SignUp()).to.be.an('function')
 	})
 })
