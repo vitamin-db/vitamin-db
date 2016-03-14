@@ -35,7 +35,7 @@ describe('**************** Insurance Model ****************', function() {
     var newTestUser1 = new UserAttributes('Betsy', 'm4d50n', 'betsy@me.com', '123-789-3456'), id_user1 = undefined
     var newInsurance2 = new InsuranceAttributes(id_user1, 'BlueCross', '13AX423B', '124039', 'rkd233kd', true)
 
-    return User.createUser(newTestUser)
+    return User.createUser(newTestUser1)
       .then( function() {
         return User.findByUsername('Betsy') 
       })
