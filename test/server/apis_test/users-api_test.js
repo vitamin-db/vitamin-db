@@ -24,7 +24,7 @@ describe("GET /user", function() {
 		this.phone = phone
 	}
 
-	var DoctorAttributes = function(name, street_address, city, state_abbrev, zip, email, web, phone, type, current) {
+	var DoctorAttributes = function(name, street_address, city, state_abbrev, zip, email, web, phone, type) {
 	  this.name = name
 	  this.street_address = street_address
 	  this.city = city
@@ -34,7 +34,6 @@ describe("GET /user", function() {
 	  this.web = web
 	  this.phone = phone
 	  this.type = type
-	  this.current = current
 	}
 
 	var UserDoctorAttributes = function(id_user, id_doctor, type_usermade) {
@@ -110,7 +109,7 @@ describe("GET /user", function() {
 		  	  	expect(objForClient['user']).to.be.an('object')
 		  	  	expect(objForClient['doctors']).to.have.length(2)
 		  	  	expect(objForClient['user']).to.have.keys('username', 'email', 'phone')
-		  	  	expect(objForClient['doctors'][0]).to.have.keys('id_doctor', 'name', 'street_address', 'type', 'current',
+		  	  	expect(objForClient['doctors'][0]).to.have.keys('id_doctor', 'name', 'street_address', 'type',
 		  	  		                                            'city', 'zip', 'state_abbrev', 'email', 'web', 'phone',
 		  	  		                                            'created_at', 'updated_at'
 		  	  		                                           )

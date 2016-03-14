@@ -22,7 +22,7 @@ describe('**************** User-Doctor Model ****************', function() {
     this.phone = phone
   }
 
-  var DoctorAttributes = function(name, street_address, city, state_abbrev, zip, email, web, phone, type, current) {
+  var DoctorAttributes = function(name, street_address, city, state_abbrev, zip, email, web, phone, type) {
     this.name = name
     this.street_address = street_address
     this.city = city
@@ -32,7 +32,6 @@ describe('**************** User-Doctor Model ****************', function() {
     this.web = web
     this.phone = phone
     this.type = type
-    this.current = current
   }
 
   var UserDoctorAttributes = function(id_user, id_doctor, type_usermade) {
@@ -85,7 +84,6 @@ describe('**************** User-Doctor Model ****************', function() {
         expect(result[0].email).to.equal('doc@smith.com')
         expect(result[0].phone).to.equal('5869348594')
         expect(result[0].type).to.equal('primary')
-        expect(result[0].current).to.be.false
       })
 
   })
