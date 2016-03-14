@@ -14,7 +14,8 @@ global.expect = chai.expect
 //Helper Functions
 //
 
-global.TestHelper = {}
+TH = {}
+module.exports = TH
 
 //
 //Exportable function setting up app for testing
@@ -22,7 +23,7 @@ global.TestHelper = {}
 
 var express = require('express')
 
-TestHelper.createApp = function(loader) {
+TH.createApp = function(loader) {
 
 	var app = express()
 	app.use(require('body-parser').json())
@@ -39,4 +40,6 @@ TestHelper.createApp = function(loader) {
 	return app
 
 }
+
+TH.UserAttributes = 
 

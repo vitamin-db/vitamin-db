@@ -1,4 +1,4 @@
-require(TEST_HELPER)
+const TH = require(__server + '/test/test-helper')
 
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
