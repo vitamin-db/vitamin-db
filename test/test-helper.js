@@ -72,17 +72,18 @@ TH.DoctorAttributes = function(name, street_address, city, state_abbrev, zip, em
 }
 
 /*
-  Generic Functions
+  Generic Functions: These do not have any table- or model-specific calls
 */
 
+//Returns a boolean indicating whether the obj has all of the keys in arrayOfKeys, and no more
 TH.hasRightKeys = function(obj, arrayOfKeys) {
 	var k = Object.keys(obj)
-	return arrayOfKeys.reduce( function(foundAll, current) {
+	return k.length === arrayOfKeys.length && arrayOfKeys.reduce( function(foundAll, current) {
 		return foundAll && k.indexOf(current) > -1
 	}, true)
 }
 
-//Returns a boolean indicating whether every property in sourceObj has been successfully added to dbObj
+//Returns a boolean indicating whether every key:value pair in has been successfully added to the database object
 TH.propsMatch = function(dbObj, sourceObj) {
 	return Object.keys(sourceObj).reduce( function(bool, current) {
 		return bool && sourceObj[current] === dbObj[current]
@@ -90,9 +91,11 @@ TH.propsMatch = function(dbObj, sourceObj) {
 }
 
 
-/*
+/* 
+  ====================================
   User helper methods
-*/
+  ====================================
+*/ 
 
 //Returns a boolean indicating whether user object has all properties that should be stored in the db
 TH.isValidUser = function(user) {
@@ -102,7 +105,7 @@ TH.isValidUser = function(user) {
 
 //Returns a boolean indicating whether user object has all properties we want to send to the client
 TH.isValidPublicUser = function(user) {
-	var props = ['id_user', 'username', 'email', 'phone']
+	var props = ['username', 'email', 'phone']
 	return TH.hasRightKeys(user, props)
 }
 
@@ -122,7 +125,7 @@ TH.userPropsMatch = function(dbUser, sourceObj) {
 	  })
 }
 
-// Creates a User - returns the username
+// Creates a User and returns the username
 TH.createUserReturnUsername = function(attrs) {
 	return User.createUser(attrs)
 	  .then( function(user) {
@@ -146,29 +149,29 @@ TH.createUserReturnId = function(attrs) {
 	  })
 }
 
-//Creates a user without encrypting the password - returns the username
-TH.createUserNoEncryptReturnUsername = function(attrs) {
-	return User.create(attrs)
-	  .then( function(user) {
-	  	return user.username
-	  })
-}
+// //Creates a user without encrypting the password - returns the username
+// TH.createUserNoEncryptReturnUsername = function(attrs) {
+// 	return User.create(attrs)
+// 	  .then( function(user) {
+// 	  	return user.username
+// 	  })
+// }
 
-//Creates a user without encrypting the password - returns the full user object
-TH.createUserNoEncryptReturnUser = function(attrs) {
-	return User.create(attrs)
-	  .then( function(user) {
-	  	return User.findByUsername(user.username)
-	  })
-}
+// //Creates a user without encrypting the password - returns the full user object
+// TH.createUserNoEncryptReturnUser = function(attrs) {
+// 	return User.create(attrs)
+// 	  .then( function(user) {
+// 	  	return User.findByUsername(user.username)
+// 	  })
+// }
 
-//Creates a User without encrypting the password - returns the id
-TH.createUserNoEncryptReturnId = function(attrs) {
-	return TH.createUserNoEncryptReturnUser(attrs)
-	  .then( function(user) {
-	  	return user.id_user
-	  })
-}
+// //Creates a User without encrypting the password - returns the id
+// TH.createUserNoEncryptReturnId = function(attrs) {
+// 	return TH.createUserNoEncryptReturnUser(attrs)
+// 	  .then( function(user) {
+// 	  	return user.id_user
+// 	  })
+// }
 
 
 
