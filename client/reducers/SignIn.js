@@ -1,7 +1,7 @@
 const Signin = (state, action) => {
   // state will be an object with: username, email, phone
   if(state === undefined){
-    return state = {};
+    return state = { logged: false, token: null };
   }
   switch(action.type){
     case 'SIGNINSUCCESS':
@@ -11,7 +11,8 @@ const Signin = (state, action) => {
       };
     case 'SIGNINFAIL':
   	  return state = {
-  	  	logged: false
+  	  	logged: false,
+        token: null
   	  };
     default:
       return state;

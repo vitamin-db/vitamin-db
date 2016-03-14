@@ -6,6 +6,7 @@ const JumbotronInstance = require('../components/Splash/Jumbotron');
 
 // Splash soon-to-be container with any and all child components it needs
 // Each container will be a "view"
+
 const Splash = ({ onSignIn }) => {
 	return (
 		<div>
@@ -38,7 +39,7 @@ const mapDispatchToProps = (dispatch) => {
 			var username = e.target.username.value;
 			var password = e.target.password.value;
 			var body = {username: username, password: password};
-			dispatch(apiAction.SignIn(body));
+			dispatch(apiAction.SignIn(body))
 		}
 	};
 };

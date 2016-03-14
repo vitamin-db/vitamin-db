@@ -20,8 +20,24 @@ function SignInFail() {
 	};
 };
 
+function LoggedIn () {
+	if(window.localStorage.getItem("token")){
+		return true;
+	}
+	return false;
+};
+
+function SignOut () {
+	window.localStorage.clear();
+	return {
+		type: 'SIGNINFAIL'
+	}
+}
+
 module.exports = {
 	SignUpSubmit,
 	SignInSuccess,
-	SignInFail
+	SignInFail,
+	LoggedIn,
+	SignOut
 };
