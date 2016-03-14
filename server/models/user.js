@@ -69,7 +69,10 @@ User.createUser = function(attrs) {
     })
     .then( function(hash) {
       // console.log('hash', hash)
-      var newUserObj = attrs
+      var newUserObj = {}
+      for (var prop in attrs) {
+        newUserObj[prop] = attrs[prop]
+      }
       newUserObj.password = hash
       return User.create(newUserObj)
     })
@@ -87,8 +90,15 @@ User.createUser = function(attrs) {
       => returns false
 */
 User.passwordMatches = function(enteredPw, storedHash) {
+  console.log('comparing', enteredPw, 'against', storedHash)
   return bcrypt.compareAsync(enteredPw, storedHash)
+    .then( function(result) {
+      console.log('result in pwMatches', result)
+      return result
+    })
     .catch( function(error) {
+      console.log('Error matching password to value stored in db', error)
+      return false
       // console.log('error get messed up by bluebird? ', error)
       // var instanceOfError = error instanceof bcrypt.MISMATCH_ERROR
       // console.log('error', error, 'is instance of that type of error', instanceOfError)

@@ -1,4 +1,4 @@
-const TH = require(__server + '/test/test-helper')
+const TH = require(__test + '/test-helper')
 
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
@@ -6,23 +6,13 @@ const request = require('supertest-as-promised')
 const Doctor = require(__server + '/models/doctor')
 
 
-describe('**************** Doctor Model ****************', function() {
+xdescribe('**************** Doctor Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
   })
 
-  var DoctorAttributes = function(name, street_address, city, state_abbrev, zip, email, web, phone, type) {
-    this.name = name
-    this.street_address = street_address
-    this.city = city
-    this.state_abbrev = state_abbrev
-    this.zip = zip
-    this.email = email
-    this.web = web
-    this.phone = phone
-    this.type = type
-  }
+  var DoctorAttributes = TH.DoctorAttributes
 
   it('inserts doctor', function () {
     var newTestDoctor = new DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', 'primary')

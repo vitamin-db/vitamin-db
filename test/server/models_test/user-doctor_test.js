@@ -1,4 +1,4 @@
-const TH = require(__server + '/test/test-helper')
+const TH = require(__test + '/test-helper')
 
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
@@ -8,7 +8,7 @@ const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
 
 
-describe('**************** User-Doctor Model ****************', function() {
+xdescribe('**************** User-Doctor Model ****************', function() {
 
 
   beforeEach(function() {

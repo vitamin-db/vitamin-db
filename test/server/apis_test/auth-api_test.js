@@ -5,11 +5,13 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
+const TH = require(__test + '/test-helper')
 
-describe("POST /authenticate", function() {
+
+xdescribe("POST /authenticate", function() {
 
   //set up app
-  var app = TestHelper.createApp()
+  var app = TH.createApp()
   app.use('/', routes)
   app.testReady()
 
