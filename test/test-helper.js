@@ -154,29 +154,6 @@ TH.createUserReturnId = function(attrs) {
 	  })
 }
 
-// //Creates a user without encrypting the password - returns the username
-// TH.createUserNoEncryptReturnUsername = function(attrs) {
-// 	return User.create(attrs)
-// 	  .then( function(user) {
-// 	  	return user.username
-// 	  })
-// }
-
-// //Creates a user without encrypting the password - returns the full user object
-// TH.createUserNoEncryptReturnUser = function(attrs) {
-// 	return User.create(attrs)
-// 	  .then( function(user) {
-// 	  	return User.findByUsername(user.username)
-// 	  })
-// }
-
-// //Creates a User without encrypting the password - returns the id
-// TH.createUserNoEncryptReturnId = function(attrs) {
-// 	return TH.createUserNoEncryptReturnUser(attrs)
-// 	  .then( function(user) {
-// 	  	return user.id_user
-// 	  })
-// }
 
 /* 
   ====================================
@@ -191,6 +168,7 @@ TH.isValidDoctor = function(doctor) {
 	return TH.hasRightKeys(doctor, props)
 }
 
+//Creates a doctor and returns the full doctor object
 TH.createDoctorReturnDoctor = function(attrs) {
 	return Doctor.create(attrs)
 	  .then( function(doctor) {
@@ -201,6 +179,7 @@ TH.createDoctorReturnDoctor = function(attrs) {
 	  })
 }
 
+//Creates a doctor and returns the ID
 TH.createDoctorReturnId = function(attrs) {
 	return TH.createDoctorReturnDoctor(attrs)
 	  .then( function(doctor) {
@@ -214,12 +193,17 @@ TH.createDoctorReturnId = function(attrs) {
   ====================================
 */ 
 
+//Returns a boolean indicating whether every doctor in any array has all expected properties
 TH.allValidDoctors = function(doctorArray) {
 	return doctorArray.reduce( function(bool, current) {
 		return bool && TH.isValidDoctor(current)
 	}, true)
 }
 
+//Adds to a doctor with properties doctorAttrs to the doctors table
+//Creates an entry in user_doctor with the passed-in user ID, usermade type, and current values,
+  //and the id of the newly created doctor
+//Returns the newly created doctor object
 TH.createUserdoctorReturnDoctor = function(userId, doctorAttrs, type_usermade, current) {
 	var createdDoctor = undefined
 
@@ -234,19 +218,3 @@ TH.createUserdoctorReturnDoctor = function(userId, doctorAttrs, type_usermade, c
 	  })
 }
 
-/* 
-  ====================================
-  Token Helper Methods
-  ====================================
-*/ 
-
-// TH.createUserReturnUserAndToken = function(userAttrs) {
-// 	var userAndToken = {}
-
-// 	return TH.createUserReturnUser(userAttrs)
-// 	  .then( function(user) {
-// 	  	userAndToken.user = user
-
-// 	  	return 
-// 	  })
-// }
