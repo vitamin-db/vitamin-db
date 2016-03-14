@@ -23,7 +23,6 @@ exports.up = function(knex, Promise) {
       table.string('web');
       table.string('phone');
       table.string('type');
-      table.boolean('current');
       table.timestamps();
     }),
 
@@ -36,6 +35,7 @@ exports.up = function(knex, Promise) {
            .references('id_doctor')
            .inTable('doctors');
       table.string('type_usermade');
+      table.boolean('current');
       table.timestamps();
       table.unique(['id_user', 'id_doctor']);
     }),
