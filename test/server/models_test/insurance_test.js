@@ -102,6 +102,7 @@ describe('**************** Insurance Model ****************', function() {
       .then( function() { return Insurance.getAll() })
       .then( function(allInsurance) {
         insurance_id5 = allInsurance[0]['id_insurance']
+      })
       .then( function() { 
         return Insurance.findById(insurance_id5);
       })
@@ -134,6 +135,7 @@ describe('**************** Insurance Model ****************', function() {
       .then( function() { return Insurance.getAll() })
       .then( function(allInsurance) {
         insurance_id6 = allInsurance[0]['id_insurance']
+      })
       .then( function() { 
         return Insurance.deleteById(insurance_id6);
       })
