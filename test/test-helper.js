@@ -11,6 +11,7 @@ const request = require('supertest-as-promised')
 
 //Models and APIs
 const User = require(__server + '/models/user')
+const Doctor = require(__server + '/models/doctor')
 
 //Make chai's 'expect' accessible from everywhere
 var chai = require('chai')
@@ -69,6 +70,12 @@ TH.DoctorAttributes = function(name, street_address, city, state_abbrev, zip, em
 	this.web = web
 	this.phone = phone
 	this.type = type
+}
+
+TH.UserDoctorAttributes = function(id_user, id_doctor, type_usermade) {
+  this.id_user = id_user;
+  this.id_doctor = id_doctor;
+  this.type_usermade = type_usermade;
 }
 
 /*
@@ -173,7 +180,33 @@ TH.createUserReturnId = function(attrs) {
 // 	  })
 // }
 
+/* 
+  ====================================
+  Doctor helper methods
+  ====================================
+*/ 
 
+//Returns a boolean indicating whether doctor object has all properties that should be stored in the db
+TH.isValidDoctor = function(doctor) {
+	var props = ['id_doctor', 'name', 'street_address', 'city', 'state_abbrev', 'zip', 'email', 'web',
+	             'phone', 'type', 'created_at', 'updated_at']
+	return TH.hasRightKeys(doctor, props)
+}
 
+TH.createDoctorReturnDoctor = function(attrs) {
+	return Doctor.create(attrs)
+	  .then( function(doctor) {
+	  	return Doctor.findByName(doctor.name)
+	  })
+	  .then( function(doctor) {
+	  	return doctor
+	  })
+}
 
+TH.createDoctorReturnId = function(attrs) {
+	return TH.createDoctorReturnDoctor(attrs)
+	  .then( function(doctor) {
+	  	return doctor.id_doctor
+	  })
+}
 
