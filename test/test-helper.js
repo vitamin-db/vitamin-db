@@ -120,16 +120,12 @@ TH.isValidPublicUser = function(user) {
 
 //Returns a Promise obj that returns boolean indicating whether the db object has the correct values
 TH.userPropsMatch = function(dbUser, sourceObj) {
-	console.log('in db: ', dbUser, 'source', sourceObj)
 	var nonPwPropsMatch = Object.keys(sourceObj).reduce( function(soFar, current) {
-		console.log('comparing', dbUser[current],'against', sourceObj[current])
 		return current === 'password' ? true : soFar && (dbUser[current] === sourceObj[current])
 	}, true)
-	console.log('non pw props match? ', nonPwPropsMatch)
 
 	return User.passwordMatches(sourceObj.password, dbUser.password)
 	  .then( function(result) {
-	  	console.log('result of pwMatches', result)
 	  	return result && nonPwPropsMatch
 	  })
 }
@@ -237,3 +233,20 @@ TH.createUserdoctorReturnDoctor = function(userId, doctorAttrs, type_usermade, c
 	  	return createdDoctor
 	  })
 }
+
+/* 
+  ====================================
+  Token Helper Methods
+  ====================================
+*/ 
+
+// TH.createUserReturnUserAndToken = function(userAttrs) {
+// 	var userAndToken = {}
+
+// 	return TH.createUserReturnUser(userAttrs)
+// 	  .then( function(user) {
+// 	  	userAndToken.user = user
+
+// 	  	return 
+// 	  })
+// }
