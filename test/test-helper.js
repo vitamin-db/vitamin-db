@@ -12,6 +12,7 @@ const request = require('supertest-as-promised')
 //Models and APIs
 const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
+const UserDoctor = require(__server + '/models/user-doctor')
 
 //Make chai's 'expect' accessible from everywhere
 var chai = require('chai')
@@ -72,10 +73,11 @@ TH.DoctorAttributes = function(name, street_address, city, state_abbrev, zip, em
 	this.type = type
 }
 
-TH.UserDoctorAttributes = function(id_user, id_doctor, type_usermade) {
+TH.UserDoctorAttributes = function(id_user, id_doctor, type_usermade, current) {
   this.id_user = id_user;
   this.id_doctor = id_doctor;
   this.type_usermade = type_usermade;
+  this.current = current;
 }
 
 /*
@@ -210,3 +212,28 @@ TH.createDoctorReturnId = function(attrs) {
 	  })
 }
 
+/* 
+  ====================================
+  User-Doctor helper methods
+  ====================================
+*/ 
+
+TH.allValidDoctors = function(doctorArray) {
+	return doctorArray.reduce( function(bool, current) {
+		return bool && TH.isValidDoctor(current)
+	}, true)
+}
+
+TH.createUserdoctorReturnDoctor = function(userId, doctorAttrs, type_usermade, current) {
+	var createdDoctor = undefined
+
+	return TH.createDoctorReturnDoctor(doctorAttrs)
+	  .then( function(doctor) {
+	  	createdDoctor = doctor
+	  	var userDocAttrs = new TH.UserDoctorAttributes(userId, doctor.id_doctor, type_usermade, current)
+	  	return UserDoctor.create(userDocAttrs)
+	  })
+	  .then( function() {
+	  	return createdDoctor
+	  })
+}
