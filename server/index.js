@@ -41,9 +41,9 @@ var routes = express.Router()
 //     transform: [reactify]
 //   }))
 
-  browserify.settings({
-    transform: ['babelify']
-  });
+  //browserify.settings({
+  //  transform: ['babelify']
+  //});
   
 var assetFolder = Path.resolve(__dirname, '../client')
 routes.use(express.static(assetFolder))
