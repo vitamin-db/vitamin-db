@@ -4,17 +4,32 @@ const Link = Router.Link;
 const connect = require('react-redux').connect;
 const apiAction = require('../actionCreators/apiActions');
 const stateAction = require('../actionCreators/stateActions');
+const browserHistory = Router.browserHistory;
 
-const Header = ({ goHome, signOut, goProfile, goAppoint }) => {
+function getCookie(cname) {
+   var name = cname + "=";
+   var ca = document.cookie.split(';');
+   for(var i=0; i<ca.length; i++) {
+       var c = ca[i];
+       while (c.charAt(0)==' ') c = c.substring(1);
+       if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+   }
+   return "";
+};
+const tookie = getCookie("token");
+console.log(tookie)
+
+const Header = ({ goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
 	return (
 	  <nav className="navbar navbar-default">
         <div className="container-fluid">
           <ul className="nav nav-tabs">
-          	  <li><h3>LOGO</h3></li>
-	          <li role="presentation">{apiAction.isAuth() && <button onClick={goHome}>Home</button>}</li>
-	          <li role="presentation">{apiAction.isAuth() && <button onClick={goProfile} >Profile</button>}</li>
-	          <li role="presentation">{apiAction.isAuth() && <button onClick={goAppoint} >Appointments</button>}</li>
-	          <li role="presentation">{apiAction.isAuth() && <button onClick={signOut} >Sign out</button>}</li>
+          	  <li><button onClick={goSplash} >LOGO</button></li>
+	          <li role="presentation">{logged && <button onClick={goHome}>Home</button>}</li>
+	          <li role="presentation">{logged && <button onClick={goProfile} >Profile</button>}</li>
+	          <li role="presentation">{logged && <button onClick={goAppoint} >Appointments</button>}</li>
+	          <li role="presentation">{logged && <button onClick={signOut} >Sign out</button>}</li>
+	          <li role="presentation">{!logged && <button onClick={signUp} >Sign up</button>}</li>
           </ul>
         </div> 
 	  </nav>
@@ -22,32 +37,40 @@ const Header = ({ goHome, signOut, goProfile, goAppoint }) => {
 };
 
 const mapStateToProps = (state) => {
-	// console.log('header state', state)
+	console.log('header state', state)
 	return {
+		logged: state.signin.logged
 	};
 };
 
-
 const mapDispatchToProps = (dispatch) => {
 	return {
+		goSplash: () => {
+			browserHistory.push('/')
+		},
 		goHome: () => {
-			if(apiAction.isAuth()){
-				location.assign('/home')
+			if(tookie){
+				browserHistory.push('/home?token=' + tookie)
 			}		},
 		goProfile: () => {
-			if(apiAction.isAuth()){
-				location.assign('/profile')
+			if(tookie){
+				browserHistory.push('/profile?token=' + tookie)
 			}
 		},
 		goAppoint: () => {
-			if(apiAction.isAuth()){
-				location.assign('/appointments')
+			if(tookie){
+				browserHistory.push('/appointments?token=' + tookie)
+			}
+		},
+		signUp: () => {
+			if(!window.localStorage.getItem("token")){
+				browserHistory.push('/signup')
 			}
 		},
 		signOut: () => {
 			dispatch(stateAction.SignOut());
-			if(!apiAction.isAuth()){
-				location.assign('/')
+			if(!window.localStorage.getItem("token")){
+				browserHistory.push('/')
 			}
 		}
 	};

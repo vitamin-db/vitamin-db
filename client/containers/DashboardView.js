@@ -1,5 +1,6 @@
 const React = require('react');
 const connect = require('react-redux').connect;
+const browserHistory = require('react-router').browserHistory;
 // components
 const DoctorGrid = require('../components/Dashboard/doctor/DoctorGrid');
 const PatientGrid = require('../components/Dashboard/patient/PatientGrid');
@@ -13,9 +14,6 @@ const Grid = require('react-bootstrap').Grid;
 // 
 
 const Home = ({doctor, patient}) => {
-  if(!window.localStorage.getItem("token")){
-    location.assign('/')
-  }
     return (
       <div className="home-body">
         <DoctorGrid docInfo={doctor} />

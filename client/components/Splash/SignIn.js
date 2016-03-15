@@ -11,7 +11,7 @@ const SignIn = ({ onSignIn }) => (
 				<Input name="username" type="username" label="Username:" placeholder="Username" required />
 	    		<Input name="password" type="password" label="Password:" placeholder="Password" required />
 	    			<Button type="submit" bsStyle="primary" bsSize="large" block>Log in</Button>
-	    			<div className="forgot">Forgot password? | Sign up for an account</div>
+	    			<div className="forgot">Forgot password? | <a href="/signup">Sign up for an account</a></div>
 			</form>
 		</div>
 	</div>

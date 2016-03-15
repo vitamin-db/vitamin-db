@@ -3,6 +3,7 @@ const connect = require('react-redux').connect;
 const SignIn = require('../components/Splash/SignIn');
 const apiAction = require('../actionCreators/apiActions');
 const JumbotronInstance = require('../components/Splash/Jumbotron');
+const browserHistory = require('react-router').browserHistory;
 
 // Splash soon-to-be container with any and all child components it needs
 // Each container will be a "view"

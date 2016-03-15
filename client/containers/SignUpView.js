@@ -5,9 +5,6 @@ const apiAction = require('../actionCreators/apiActions');
 const stateAction = require('../actionCreators/stateActions');
 
 const SignUpComp = ({userInfo, onSignUp}) => {
-	if(!window.localStorage.getItem("token")){
-		location.assign('/')
-	}
 	return (
 		<div>
 			<div className="Signup">
