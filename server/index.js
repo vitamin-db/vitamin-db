@@ -8,14 +8,19 @@ const express = require('express')
 const Path = require('path')
 const db = require('./db')
 // Future consideration: including reactify/babelify, etc.
-// const babelify = require('babelify')
 
+// const babel = require('babel-core')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
 const SendR = require('./sendresponse')
 const Auth = require('./models/auth')
 
+//webpack stuff
+// const config = require('../webpack.config.js');
+// const webpack = require('webpack');
+// const webpackDevMiddleware = require('webpack-dev-middleware');
+// const webpackHotMiddleware = require('webpack-hot-middleware')
 //======================================================
 // create our express router
 //======================================================
@@ -31,11 +36,15 @@ var routes = express.Router()
 	// eg. using ./client/app.js
 // also likely need to consider using babelify//reactify (see above)
 
-routes.get('/app-bundle.js',
-  browserify('./client/app.js', {
-    transform: [reactify]
-  }))
+// routes.get('/app-bundle.js',
+//   browserify('./client/app.js', {
+//     transform: [reactify]
+//   }))
 
+  //browserify.settings({
+  //  transform: ['babelify']
+  //});
+  
 var assetFolder = Path.resolve(__dirname, '../client')
 routes.use(express.static(assetFolder))
 
@@ -128,6 +137,18 @@ if (process.env.NODE_ENV !== 'test') {
 	//
 
 	var app = express()
+
+//======================================================
+// This is to use WebPack
+// comment this part out if you want to use nodemon
+	
+	// var compiler = webpack(config);
+
+	// app.use(webpackDevMiddleware(compiler), {noInfo: true, publicPath: config.output.publicPath});
+	// app.use(webpackHotMiddleware(compiler));
+
+//======================================================	
+
 
 	//use morgan to log concise and colorful error messages
 	app.use( morgan ('dev'))
