@@ -4,20 +4,19 @@ const SignUp = require('../components/SignUp/SignUp');
 const apiAction = require('../actionCreators/apiActions');
 const stateAction = require('../actionCreators/stateActions');
 
-const SignUpComp = ({userInfo, onSignUp}) => {
+const SignUpComp = ({onSignUp}) => {
 	return (
 		<div>
 			<div className="Signup">
-				<SignUp userInfo={userInfo} onSignUp={onSignUp}/>
+				<SignUp onSignUp={onSignUp}/>
 			</div>
 		</div>
 	);
 };
 
 const mapStateToProps = (state) => {
-	console.log("map state: ", state.signup)
+	// console.log("map state: ", state.signup)
 	return {
-		userInfo: state.signup
 	}
 };
 

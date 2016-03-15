@@ -24,7 +24,7 @@ const Splash = ({ onSignIn }) => {
 };
 
 const mapStateToProps = (state) => {
-	console.log("splash view state", state);
+	// console.log("splash view state", state);
 	// ^^^ this console log returns each state in the reducers/reducer.js file
 	return {
 	};
