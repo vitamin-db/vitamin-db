@@ -20,6 +20,7 @@ function SignIn (body) {
       console.log('token: ', token);
       window.localStorage.setItem("token", token.token);
       dispatch(stateAction.SignInSuccess(token.token));
+      location.assign('/home')
     })
     .catch(function(err) {
       console.error(err)
@@ -45,11 +46,37 @@ function SignUp (body) {
       console.log('token: ', token);
       window.localStorage.setItem("token", token.token);
       dispatch(stateAction.SignInSuccess(token.token));
+      location.assign('/home')
     })
     .catch(function(err){
       console.error(err);
     })
   };
+};
+
+function isAuth () {
+    // fetch('/authenticate/home', {
+    //   headers: {
+    //     'x-access-token': window.localStorage.getItem("token")
+    //   }
+    // })
+    // .then(function(response){
+    //   if(JSON.parse(response.msg) === "Please log in"){
+    //     console.log("false")
+    //     return false;
+    //   }else{
+    //     console.log("true")
+    //     return true;
+    //   }
+    // })
+    // .catch(function(err){
+    //   console.log("ERRRR", err)
+    // })
+    if(window.localStorage.getItem("token")){
+      return true;
+    }else{
+      return false;
+    }
 };
 
 // get doctor list based on user argument: { username: username, token: token }
@@ -80,5 +107,6 @@ function SignUp (body) {
 // DONT FORGET TO ADD THE FUNCTIONS EXPORTS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module.exports = {
   SignIn,
-  SignUp
+  SignUp,
+  isAuth
 };

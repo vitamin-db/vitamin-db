@@ -4,6 +4,9 @@ const connect = require('react-redux').connect;
 const Profiler = require('../components/User/Profile');
 
 const Profile = ({info}) => {
+  if(!window.localStorage.getItem("token")){
+    location.assign('/')
+  }
   return (
     <div>
       <h1>User's Profile view</h1>
