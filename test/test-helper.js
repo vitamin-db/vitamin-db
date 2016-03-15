@@ -93,7 +93,11 @@ TH.PharmacyAttributes = function(id_user, business_name, address, phone, current
 TH.FamilyMemberAttributes = function(id_user, name) {
   this.id_user = id_user
   this.name = name
+}
 
+TH.FamilyHistoryAttributes = function(id_familymember, condition) {
+	this.id_familymember = id_familymember
+	this.condition = condition
 }
 
 TH.InsuranceAttributes = function(id_user, plan_name, group_id, plan_id, rx_bin, current) {
@@ -385,6 +389,48 @@ TH.createFamilyMemberReturnId = function(attrs) {
 	  	return familymember.id_familymember
 	  })
 }
+
+/* 
+  ====================================
+  Family History helper methods
+  ====================================
+*/ 
+
+//Returns a boolean indicating whether a family history object has the expected properties
+TH.isValidFamilyHistory = function(familyhistory) {
+	var props = ['id_familyhistory', 'id_familymember', 'condition']
+	return TH.hasRightKeys(familyhistory, props)
+}
+
+//Returns a boolean indicating whether each family history object in an array has the expected properties
+TH.allValidFamilyHistory = function(familyArray) {
+	return familyArray.reduce( function(bool, current) {
+		return bool && TH.isValidFamilyHistory(current)
+	})
+}
+
+//Adds a family history record to the db and returns the newly created object
+TH.createFamilyHistoryReturnFamilyHistory = function(attrs) {
+	return FamilyHistory.create(attrs)
+	  .then( function(attrs) {
+	  	return db.select('*').from('familyhistory').where(attrs)
+	  })
+	  .then( function(hopefullyOnlyOne) { //since no guarantee non-primary-keys are unique
+	  	return hopefullyOnlyOne.reduce( function(mostRecent, current) {
+	  		return current.id_familyhistory > mostRecent.id_familyhistory ? current : mostRecent
+	  	})
+	  })
+}
+
+//Adds a family history instance to the database and return the id of the newly created object
+TH.createFamilyHistoryReturnId = function(attrs) {
+	return TH.createFamilyHistoryReturnFamilyHistory(attrs)
+	  .then( function(familyhistory) {
+	  	return familyhistory.id_familyhistory
+	  })
+}
+
+
 
 /* 
   ====================================
