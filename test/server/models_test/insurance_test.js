@@ -54,15 +54,8 @@ describe('**************** Insurance Model ****************', function() {
       .then( function(allInsurance) {
         // console.log('got all insurance: ', allInsurance)
         resultFromDb = allInsurance
-        return TH.propsMatch(resultFromDb[0], newInsurance3)
-      })
-      .then( function(result) {
-        expect(result).to.be.true
-
-        return TH.propsMatch(resultFromDb[1], newInsurance4)
-      })
-      .then( function(result) {
-        expect(result).to.be.true
+        expect( TH.propsMatch(resultFromDb[0], newInsurance3) ).to.be.true
+        expect( TH.propsMatch(resultFromDb[1], newInsurance4) ).to.be.true
       })
   })
 
@@ -87,11 +80,7 @@ describe('**************** Insurance Model ****************', function() {
         return Insurance.findById(insurance_id5);
       })
       .then( function(result) { 
-        // console.log('found insurance record by ID: ', result)
-        return TH.propsMatch(result, newInsurance3)
-      })
-      .then( function(result) {
-        expect(result).to.be.true
+        expect( TH.propsMatch(result, newInsurance3) ).to.be.true
       })
   })
 
