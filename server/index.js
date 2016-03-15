@@ -8,7 +8,7 @@ const express = require('express')
 const Path = require('path')
 const db = require('./db')
 // Future consideration: including reactify/babelify, etc.
-const babelify = require('babelify')
+
 const babel = require('babel-core')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
