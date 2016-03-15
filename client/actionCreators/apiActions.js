@@ -14,18 +14,13 @@ function SignIn (body) {
       body: JSON.stringify(body)
     })
     .then(function(response) {
-      console.log('got response from server', response)
       return response.json();
     })
     .then(function(token) {
       console.log('token: ', token);
       window.localStorage.setItem("token", token.token);
       dispatch(stateAction.SignInSuccess(token.token));
-      console.log('this context', this.context)
-      console.log('router', router)
-      router.transitionTo('/home')
-      conosle.log('after transition call...')
-      // location.assign('/home')
+      location.assign('/home')
     })
     .catch(function(err) {
       console.error(err)
