@@ -89,6 +89,15 @@ TH.PharmacyAttributes = function(id_user, business_name, address, phone, current
   this.current = current
 }
 
+TH.InsuranceAttributes = function(id_user, plan_name, group_id, plan_id, rx_bin, current) {
+	this.id_user = id_user
+	this.plan_name = plan_name
+	this.group_id = group_id
+	this.plan_id = plan_id
+	this.rx_bin = rx_bin
+	this.current = current
+}
+
 /*
   Generic Functions: These do not have any table- or model-specific calls
 */
@@ -232,6 +241,7 @@ TH.createUserdoctorReturnDoctor = function(userId, doctorAttrs, type_usermade, c
   Pharmacy helper methods
   ====================================
 */ 
+
 TH.createPharmaReturnPharma = function(attrs) {
 	return Pharmacy.create(attrs)
 	  .then( function(attrs) {
@@ -263,3 +273,16 @@ TH.allValidPharmas = function(pharmacyArray) {
 		return bool && TH.isValidDoctor(current)
 	}, true)
 }
+
+/* 
+  ====================================
+  Insurance helper methods
+  ====================================
+*/ 
+
+TH.isValidInsurance = function(insurance) {
+	var props = ['id_insurance', 'id_user', 'plan_name', 'group_id', 'plan_id', 'rx_bin', 'current']
+	return TH.hasRightKeys(user, props)
+}
+
+

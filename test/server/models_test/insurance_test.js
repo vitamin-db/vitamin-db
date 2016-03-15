@@ -16,22 +16,6 @@ describe('**************** Insurance Model ****************', function() {
     return db.deleteEverything()
   })
 
-  var UserAttributes = function(username, password, email, phone) {
-    this.username = username
-    this.password = password
-    this.email = email
-    this.phone = phone
-  }
-
-  var InsuranceAttributes = function(id_user, plan_name, group_id, plan_id, rx_bin, current) {
-    this.id_user = id_user
-    this.plan_name = plan_name
-    this.group_id = group_id
-    this.plan_id = plan_id
-    this.rx_bin = rx_bin
-    this.current = current
-  }
-
   xit('creates an insurance record', function () {
 
     var newTestUser1 = new UserAttributes('Betsy', 'm4d50n', 'betsy@me.com', '123-789-3456'), id_user1 = undefined
