@@ -16,19 +16,19 @@ describe('Calling Sign up reducer initially', function(){
 	})
 })
 
-describe("Calling Sign up with action type: 'SUBMIT'", function(){
-	var testInfo = { username: "Joellama", email: "asdf@yahoo.com", phone: 123};
-	var testAction = stateAction.SignUpSubmit(testInfo);
+// describe("Calling Sign up with action type: 'SUBMIT'", function(){
+// 	var testInfo = { username: "Joellama", email: "asdf@yahoo.com", phone: 123};
+// 	var testAction = stateAction.SignUpSubmit(testInfo);
 	
-	it('Should return the correct updated state property', function(){
-		expect(SignupReducer({}, testAction).username).to.equal("Joellama")
-	})
+// 	it('Should return the correct updated state property', function(){
+// 		expect(SignupReducer({}, testAction).username).to.equal("Joellama")
+// 	})
 
-	it('Should return the correct state email property', function(){
-		expect(SignupReducer({}, testAction).email).to.equal("asdf@yahoo.com")
-	})
+// 	it('Should return the correct state email property', function(){
+// 		expect(SignupReducer({}, testAction).email).to.equal("asdf@yahoo.com")
+// 	})
 
-	it('Should return the correct state phone property', function(){
-		expect(SignupReducer({}, testAction).phone).to.equal(123)
-	})
-})
+// 	it('Should return the correct state phone property', function(){
+// 		expect(SignupReducer({}, testAction).phone).to.equal(123)
+// 	})
+// })
