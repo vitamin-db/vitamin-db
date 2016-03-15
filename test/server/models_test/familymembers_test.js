@@ -3,24 +3,19 @@ const TH = require(__test + '/test-helper')
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
 
-// FAMILYMEMBER MODEL NOT WRITTEN YET
+
 const FamilyMember = require(__server + '/models/familymembers')
 const User = require(__server + '/models/user')
 
-/*
-Functions we need to write:
-- FamilyMember.getAllByUser(id_user)
- >>returns an array of all family members corresponding to id_user
-*/
 
-xdescribe('**************** Family Member Model ****************', function() {
+describe('**************** Family Member Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
   })
 
 
-  xit('creates a family member record and finds it by id', function () {
+  it('creates a family member record and finds it by id', function () {
 
     var newTestUser1 = new TH.UserAttributes('Betsy', 'm4d50n', 'betsy@me.com', '123-789-3456')
     var newFamilyMember1 = undefined
@@ -39,7 +34,7 @@ xdescribe('**************** Family Member Model ****************', function() {
       })
   })
 
-  xit('deletes a family member record by id', function() {
+  it('deletes a family member record by id', function() {
 
     var familymember_id2 = undefined
 
@@ -53,6 +48,13 @@ xdescribe('**************** Family Member Model ****************', function() {
       })
       .then(function(id) {
         familymember_id2 = id
+
+        return FamilyMember.getAll()
+      })
+      .then( function(all) {
+        expect(all).to.be.an('array')
+        expect(all).to.have.length(1)
+
         return FamilyMember.deleteById(familymember_id2)
       })
       .then(function(deletedRecords) {
@@ -65,12 +67,12 @@ xdescribe('**************** Family Member Model ****************', function() {
       })
       .then(function(all) {
         expect(all).to.be.an('array')
-        expect(all).to.have.length(2)
+        expect(all).to.have.length(0)
       })
 
   })  
 
-  xit('finds all family members associated with a particular user', function() {
+  it('finds all family members associated with a particular user', function() {
 
     var newTestUser3 = new TH.UserAttributes('Mary Jo Bob', 'passwordy', 'mjb@mjb.com', '345-234-4572')
     var user_id3 = undefined
