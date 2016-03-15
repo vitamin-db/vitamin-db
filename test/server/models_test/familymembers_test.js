@@ -1,4 +1,4 @@
-require(TEST_HELPER)
+const TH = require(__test + '/test-helper')
 
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
@@ -7,42 +7,35 @@ const request = require('supertest-as-promised')
 const FamilyMember = require(__server + '/models/familymembers')
 const User = require(__server + '/models/user')
 
+/*
+Functions we need to write:
+- FamilyMember.getAllByUser(id_user)
+ >>returns an array of all family members corresponding to id_user
+*/
 
-describe('**************** Family Member Model ****************', function() {
+xdescribe('**************** Family Member Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
   })
 
-  var UserAttributes = function(username, password, email, phone) {
-    this.username = username
-    this.password = password
-    this.email = email
-    this.phone = phone
-  }
 
-  var FamilyMemberAttributes = function(id_user, name) {
-    this.id_user = id_user
-    this.name = name
-  }
+  xit('creates a family member record and finds it by id', function () {
 
-  xit('creates a family member record', function () {
+    var newTestUser1 = new TH.UserAttributes('Betsy', 'm4d50n', 'betsy@me.com', '123-789-3456')
+    var newFamilyMember1 = undefined
 
-    var newTestUser1 = new UserAttributes('Betsy', 'm4d50n', 'betsy@me.com', '123-789-3456'), id_user1 = undefined
-    var newFamilyMember1 = new FamilyMemberAttributes(id_user1, 'Grandma Rose');
-
-    return User.createUser(newTestUser1)
-      .then( function() {
-        return User.findByUsername('Betsy') 
+    return TH.createUserReturnId(newTestUser1)
+      .then( function(id) {
+        newFamilyMember1 = new TH.FamilyMemberAttributes(id, 'Grandma Rose')
+        return TH.createFamilyMemberReturnId(newFamilyMember1)
       })
-      .then( function(user) {
-        id_user1 = user.id_user;
-        return FamilyMember.create(newFamilyMember1); 
+      .then( function(id) {
+        return FamilyMember.findById(id)
       })
-      .then( function(result) {
-        // console.log('got new family member record: ', result);
-        expect(result.id_user).to.equal(id_user1)
-        expect(result.name).to.equal('Grandma Rose')
+      .then( function(fam) {
+        expect(TH.isValidFamilyMember(fam)).to.be.true
+        expect(TH.propsMatch(fam, newFamilyMember1)).to.be.true
       })
   })
 
@@ -50,32 +43,64 @@ describe('**************** Family Member Model ****************', function() {
 
     var familymember_id2 = undefined
 
-    var newTestUser2 = new UserAttributes('Ralf', 'Garey', 'rgarey@gmail.com', '123-789-3456'), id_user2 = undefined
-    var newFamilyMember2 = new FamilyMemberAttributes(id_user2, 'Uncle Pablo')
+    var newTestUser2 = new TH.UserAttributes('Ralf', 'Garey', 'rgarey@gmail.com', '123-789-3456')
+    var newFamilyMember2 = undefined
 
-    return User.createUser(newTestUser2)
-      .then( function() {
-        return User.findByUsername('Ralf') 
+    return TH.createUserReturnId(newTestUser2)
+      .then(function(id) {
+        newFamilyMember2 = new TH.FamilyMemberAttributes(id, 'Uncle Pablo')
+        return TH.createFamilyMemberReturnId(newFamilyMember2)
       })
-      .then( function(user) {
-        id_user4 = user.id_user;
-        return FamilyMember.create(newFamilyMember2); 
+      .then(function(id) {
+        familymember_id2 = id
+        return FamilyMember.deleteById(familymember_id2)
       })
-      .then( function() { return FamilyMember.getAll() })
-      .then( function(allInsurance) {
-        insurance_id6 = allInsurance[0]['id_familymember']
-      })
-      .then( function() { 
-        return FamilyMember.deleteById(familymember_id2);
-      })
-      .then( function(deletedRecord) {
-        expect(deletedRecord).to.equal(1)
-
+      .then(function(deletedRecords) {
+        expect(deletedRecords).to.equal(1)
         return FamilyMember.findById(familymember_id2)
       })
       .then(function(deletedRecord) {
         expect(deletedRecord).to.be.an('undefined')
+        return FamilyMember.getAll()
       })
+      .then(function(all) {
+        expect(all).to.be.an('array')
+        expect(all).to.have.length(2)
+      })
+
   })  
+
+  xit('finds all family members associated with a particular user', function() {
+
+    var newTestUser3 = new TH.UserAttributes('Mary Jo Bob', 'passwordy', 'mjb@mjb.com', '345-234-4572')
+    var user_id3 = undefined
+
+    var newFamilyMember3 = undefined
+    var newFamilyMember4 = undefined
+
+    return TH.createUserReturnId(newTestUser3)
+      .then( function(id) {
+        user_id3 = id
+
+        newFamilyMember3 = new TH.FamilyMemberAttributes(user_id3, 'Mom')
+        return TH.createFamilyMemberReturnId(newFamilyMember3)
+      })
+      .then(function(id) {
+        newFamilyMember4 = new TH.FamilyMemberAttributes(user_id3, 'Dad')
+        return TH.createFamilyMemberReturnId(newFamilyMember4)
+      })
+      .then(function(id) {
+        return FamilyMember.getAllByUser(user_id3) //we need to write this
+      })
+      .then(function(family) {
+        expect(family).to.be.an('array')
+        expect(family).to.have.length(2)
+        expect(TH.allValidFamilyMembers(family)).to.be.true
+        expect(TH.propsMatch(family[0], newFamilyMember3)).to.be.true
+        expect(TH.propsMatch(family[1], newFamilyMember4)).to.be.true
+      })
+
+
+  })
 
 })

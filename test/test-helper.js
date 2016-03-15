@@ -14,6 +14,7 @@ const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
 const Pharmacy = require(__server + '/models/pharmacy')
+const FamilyMember = require(__server + '/models/familymembers')
 
 //Make chai's 'expect' accessible from everywhere
 var chai = require('chai')
@@ -87,6 +88,11 @@ TH.PharmacyAttributes = function(id_user, business_name, address, phone, current
   this.address = address
   this.phone = phone
   this.current = current
+
+TH.FamilyMemberAttributes = function(id_user, name) {
+  this.id_user = id_user
+  this.name = name
+
 }
 
 /*
@@ -263,3 +269,46 @@ TH.allValidPharmas = function(pharmacyArray) {
 		return bool && TH.isValidDoctor(current)
 	}, true)
 }
+
+
+
+/* 
+  ====================================
+  Family Member helper methods
+  ====================================
+*/ 
+
+//Returns a boolean indicating whether a family member object has the expected properties
+TH.isValidFamilyMember = function(familymember) {
+	var props = ['id_familymember', 'id_user', 'name']
+	return TH.hasRightKeys(user, props)
+}
+
+//Returns a boolean indicating whether each family member object in an array has the expected properties
+TH.allValidFamilyMembers = function(familyArray) {
+	return familyArray.reduce( function(bool, current) {
+		return bool && TH.isValidFamilyMember(current)
+	})
+}
+
+//Adds a family member to the db and returns the newly created object
+TH.createFamilyMemberReturnFamilyMember = function(attrs) {
+	return FamilyMember.create(attrs)
+	  .then( function(attrs) {
+	  	return db.select('*').from('familymembers').where(attrs)
+	  })
+	  .then( function(hopefullyOnlyOne) { //since no guarantee non-primary-keys are unique
+	  	return hopefullyOnlyOne.reduce( function(mostRecent, current) {
+	  		return current.id_familymember > mostRecent.id_familymember ? current : mostRecent
+	  	})
+	  })
+}
+
+//Adds a family member to the database and returns the id of the newly created object
+TH.createFamilyMemberReturnId = function(attrs) {
+	return TH.createFamilyMemberReturnFamilyMember(attrs)
+	  .then( function(familymember) {
+	  	return familymember.id_familymember
+	  })
+}
+

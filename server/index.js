@@ -59,6 +59,8 @@ if ( process.env.NODE_ENV === 'test' ) {
 	})
 }
 
+
+
 //set up authentication route
 var authRouter = require('./apis/auth-api')
 routes.use('/authenticate', authRouter)
