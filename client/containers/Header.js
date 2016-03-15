@@ -16,8 +16,6 @@ function getCookie(cname) {
    }
    return "";
 };
-const tookie = getCookie("token");
-console.log(tookie)
 
 const Header = ({ goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
 	return (
@@ -39,7 +37,7 @@ const Header = ({ goHome, signOut, goProfile, goAppoint, signUp, logged, goSplas
 const mapStateToProps = (state) => {
 	console.log('header state', state)
 	return {
-		logged: window.localStorage.getItem("token")
+		logged: getCookie("token")
 	};
 };
 
@@ -49,34 +47,34 @@ const mapDispatchToProps = (dispatch) => {
 			browserHistory.push('/')
 		},
 		goHome: () => {
-			if(tookie){
-				browserHistory.push('/home?token=' + tookie)
+			if(getCookie("token")){
+				browserHistory.push('/home?token=' + getCookie("token"))
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		goProfile: () => {
-			if(tookie){
-				browserHistory.push('/profile?token=' + tookie)
+			if(getCookie("token")){
+				browserHistory.push('/user?token=' + getCookie("token"))
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		goAppoint: () => {
-			if(tookie){
-				browserHistory.push('/appointments?token=' + tookie)
+			if(getCookie("token")){
+				browserHistory.push('/appointments?token=' + getCookie("token"))
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		signUp: () => {
-			if(!window.localStorage.getItem("token")){
+			if(!getCookie("token")){
 				browserHistory.push('/signup')
 			}
 		},
 		signOut: () => {
 			dispatch(stateAction.SignOut());
-			if(!window.localStorage.getItem("token")){
+			if(!getCookie("token")){
 				browserHistory.push('/')
 			}
 		}
