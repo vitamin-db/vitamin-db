@@ -6,17 +6,6 @@ const apiAction = require('../actionCreators/apiActions');
 const stateAction = require('../actionCreators/stateActions');
 const browserHistory = Router.browserHistory;
 
-function getCookie(cname) {
-   var name = cname + "=";
-   var ca = document.cookie.split(';');
-   for(var i=0; i<ca.length; i++) {
-       var c = ca[i];
-       while (c.charAt(0)==' ') c = c.substring(1);
-       if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-   }
-   return "";
-};
-
 const Header = ({ goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
 	return (
 	  <nav className="navbar navbar-default">
@@ -38,7 +27,7 @@ const mapStateToProps = (state) => {
 
 	console.log('header state', state)
 	return {
-		logged: getCookie("token")
+		logged: apiAction.getCookie("token")
 	};
 };
 
@@ -48,34 +37,34 @@ const mapDispatchToProps = (dispatch) => {
 			browserHistory.push('/')
 		},
 		goHome: () => {
-			if(getCookie("token")){
-				browserHistory.push('/home?token=' + getCookie("token"))
+			if(apiAction.getCookie("token")){
+				browserHistory.push('/home?token=' + apiAction.getCookie("token"))
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		goProfile: () => {
-			if(getCookie("token")){
-				browserHistory.push('/user?token=' + getCookie("token"))
+			if(apiAction.getCookie("token")){
+				browserHistory.push('/user?token=' + apiAction.getCookie("token"))
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		goAppoint: () => {
-			if(getCookie("token")){
-				browserHistory.push('/appointments?token=' + getCookie("token"))
+			if(apiAction.getCookie("token")){
+				browserHistory.push('/appointments?token=' + apiAction.getCookie("token"))
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		signUp: () => {
-			if(!getCookie("token")){
+			if(!apiAction.getCookie("token")){
 				browserHistory.push('/signup')
 			}
 		},
 		signOut: () => {
 			dispatch(stateAction.SignOut());
-			if(!getCookie("token")){
+			if(!apiAction.getCookie("token")){
 				browserHistory.push('/')
 			}
 		}
