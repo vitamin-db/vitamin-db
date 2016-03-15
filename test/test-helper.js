@@ -13,6 +13,7 @@ const request = require('supertest-as-promised')
 const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
+const Pharmacy = require(__server + '/models/pharmacy')
 
 //Make chai's 'expect' accessible from everywhere
 var chai = require('chai')
@@ -234,7 +235,7 @@ TH.createUserdoctorReturnDoctor = function(userId, doctorAttrs, type_usermade, c
 TH.createPharmaReturnPharma = function(attrs) {
 	return Pharmacy.create(attrs)
 	  .then( function(attrs) {
-	  	return db.select(*).from('pharmacy').where(attrs)
+	  	return db.select('*').from('pharmacy').where(attrs)
 	  })
 	  .then( function(hopefullyOnlyOneResult) {
 	  	//we can't guarantee that any value will be unique, so we can't look up by any one value
