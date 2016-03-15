@@ -3,20 +3,11 @@ const TH = require(__test + '/test-helper')
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
 
-
-// PHARMACY MODEL not WRITTEN YET
 const Pharmacy = require(__server + '/models/pharmacy')
 const User = require(__server + '/models/user')
 
-/* 
-Methods to write:
-- Pharmacy.getAllByUserId = function(id_user) 
-  >>> returns an array of all pharmacies associated with that user
-- Pharmacy.toggleCurrent = function(id_pharmacy)
-  >>> flips the truth value of that pharmacy's current value
-*/
 
-xdescribe('**************** Pharmacy Model ****************', function() {
+describe('**************** Pharmacy Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
@@ -39,7 +30,7 @@ xdescribe('**************** Pharmacy Model ****************', function() {
       })
   })
 
-  xit('retrieves all pharmacy records associated with user', function() {
+  it('retrieves all pharmacy records associated with user', function() {
 
     var newTestUser2 = new TH.UserAttributes('Ferdie', 'Brigham123654', 'ferdie@brigham.com', '123-789-3456')
     var id_user2 = undefined
@@ -69,7 +60,7 @@ xdescribe('**************** Pharmacy Model ****************', function() {
       })
   })
 
-  xit('retrieves a pharmacy record by id', function() {
+  it('retrieves a pharmacy record by id', function() {
 
     var newTestUser3 = new TH.UserAttributes('Merritt', 'Thorne123', 'merritt@gmail.com', '123-789-3456')
     var user_id3 = undefined
@@ -94,7 +85,7 @@ xdescribe('**************** Pharmacy Model ****************', function() {
       })
   })
 
-  xit('deletes a pharmacy record by id', function() {
+  it('deletes a pharmacy record by id', function() {
 
     var newTestUser4 = new TH.UserAttributes('Ralf', 'Garey', 'rgarey@gmail.com', '123-789-3456')
     id_user4 = undefined
@@ -121,7 +112,7 @@ xdescribe('**************** Pharmacy Model ****************', function() {
       })
   })
 
-  xit('toggles whether the pharmacy is current or not', function() {
+  it('toggles whether the pharmacy is current or not', function() {
 
     var newTestUser5 = new TH.UserAttributes('MyNameIsHello', 'mypasswordisshitty', 'isuck@hotmail.com', '3')
     id_user5 = undefined
@@ -138,14 +129,18 @@ xdescribe('**************** Pharmacy Model ****************', function() {
         pharmacy_id6 = id
         return Pharmacy.toggleCurrent(pharmacy_id6) //need to write this
       })
-      .then( function() {
+      .then( function(updated) {
+        expect(updated).to.be.an('object')
+        expect(updated.current).to.be.false
         return Pharmacy.findById(pharmacy_id6)
       })
       then( function(pharmacy) {
         expect(pharmacy.current).to.be.false
         return Pharmacy.toggleCurrent(pharmacy_id6)
       })
-      .then( function() {
+      .then( function(updated) {
+        expect(updated).to.be.an('object')
+        expect(updated.current).to.be.true
         return Pharmacy.findById(pharmacy_id6)
       })
       .then( function(pharmacy) {

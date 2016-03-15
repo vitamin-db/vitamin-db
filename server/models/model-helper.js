@@ -57,6 +57,43 @@ module.exports = function(tableName, allAttrs) {
 	}.bind(this)
 
 
+	/* UPDATE
+	  Updates the elements matching the  to have the attributes specified in the attrs object
+	  Returns an array of the updated objects
+	*/
+	this.update = function(selectorAttrs, updatedAttrs) {
+		return db(this.table).where(selectorAttrs).updated(updatedAttrs)
+		  .then( this.returnSuccess('success updating ' + this.table) )
+		  .then( function() {
+		  	return db.select('*').from(this.table).where(selectorAttrs)
+		  })
+		  .catch( this.reportError('error updating ' + this.table) )
+	}.bind(this)
+
+
+	/* UPDATE BY ID
+	  Updates the element with the primary key equal to the first argument with the attributes specified in the second
+	  Returns the updated object
+	*/
+	this.updatedById = function(id, attrs) {
+		return this.findById(id)
+		  .then(function(result) {
+		  	if (result === undefined) {
+		  		console.log('Primary key', id, 'in', this.table,'does not exist! Cannot update')
+		  		throw Error
+		  	}
+		  })
+		  .then( function() {
+		  	var selector = {this.idVarName: id}
+		  	return this.update(selector, attrs)
+		  	  .then(function(result) {
+		  	  	console.log('should be just one object!', result)
+		  	  	return result[0]
+		  	  })
+		  })
+	}.bind(this)
+
+
 	/* FIND BY ID
 	  Returns an object from the table where the primary key matches the id passed in
 	  If the entry does not exist, returns undefined
