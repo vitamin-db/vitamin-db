@@ -1,6 +1,17 @@
 const stateAction = require('./stateActions');
 const browserHistory = require('react-router').browserHistory;
 
+function getCookie(cname) {
+   var name = cname + "=";
+   var ca = document.cookie.split(';');
+   for(var i=0; i<ca.length; i++) {
+       var c = ca[i];
+       while (c.charAt(0)==' ') c = c.substring(1);
+       if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+   }
+   return "";
+};
+
 function SignIn (body) {
   return (dispatch) => {
     return fetch('/authenticate/login', {
@@ -21,7 +32,8 @@ function SignIn (body) {
       }else{
         var now = new Date();
         var time = now.getTime();
-        time += 3600 * 1000;
+        // time += 3600 * 1000;
+        time += 100000
         now.setTime(time);
         window.localStorage.setItem("token", token.token);
         document.cookie = "token=" + window.localStorage.getItem("token") + "; expires=" + now.toUTCString();
@@ -124,5 +136,6 @@ function SignUp (body) {
 // DONT FORGET TO ADD THE FUNCTIONS EXPORTS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module.exports = {
   SignIn,
-  SignUp
+  SignUp,
+  getCookie
 };
