@@ -106,17 +106,28 @@ TH.InsuranceAttributes = function(id_user, plan_name, group_id, plan_id, rx_bin,
 }
 
 TH.EyeRxAttributes = function(id_user, sphere_right, sphere_left, cylinder_right, cylinder_left, axis_right, axis_left, add_right, add_left, current) {
-    this.id_user = id_user
-    this.sphere_right = sphere_right
-    this.sphere_left = sphere_left
-    this.cylinder_right = cylinder_right
-    this.cylinder_left = cylinder_left
-    this.axis_right = axis_right
-    this.axis_left = axis_left
-    this.add_right = add_right
-    this.add_left = add_left
-    this.current = current
+  this.id_user = id_user
+  this.sphere_right = sphere_right
+  this.sphere_left = sphere_left
+  this.cylinder_right = cylinder_right
+  this.cylinder_left = cylinder_left
+  this.axis_right = axis_right
+  this.axis_left = axis_left
+  this.add_right = add_right
+  this.add_left = add_left
+  this.current = current
 }
+
+TH.RxAttributes = function(id_user, id_pharmacy, id_doctor, refill_number, name, dosage, current) {
+	this.id_user = id_user
+	this.id_pharmacy = id_pharmacy
+	this.id_doctor = id_doctor
+	this.refill_number = refill_number
+	this.name = name
+	this.dosage = dosage
+	this.current = current
+}
+
 
 /*
   Generic Functions: These do not have any table- or model-specific calls
@@ -308,6 +319,32 @@ TH.isValidInsurance = function(insurance) {
 	return TH.hasRightKeys(insurance, props)
 }
 
+//Returns a boolean indicating whether every doctor in any array has all expected properties
+TH.allValidRx = function(rxArray) {
+	return rxArray.reduce( function(bool, current) {
+		return bool && TH.isValidRx(current)
+	}, true)
+}
+
+
+TH.createRxReturnRx = function(attrs) {
+	return Rx.create(attrs)
+	  .then( function(attrs) {
+	  	return db.select('*').from('rx').where(attrs)
+	  })
+	  .then( function(hopefullyOnlyOneResult) {
+	  	return hopefullyOnlyOneResult.reduce( function(mostRecent, current) {
+	  		return current.id_rx > mostRecent.id_rx ? current : mostRecent
+	  	})[0]
+	  })
+}
+
+TH.createRxReturnId = function(attrs) {
+	return TH.createRxReturnRx(attrs)
+	  .then( function(rx) {
+	  	return rx.id_rx
+	  })
+}
 
 /* 
   ====================================
@@ -358,5 +395,43 @@ TH.createFamilyMemberReturnId = function(attrs) {
 TH.isValidEyerx = function(Eyerx) {
 	var props = ['id_eyerx', 'id_user', 'sphere_right', 'sphere_left', 'cylinder_right', 'cylinder_left', 'axis_right', 'axis_left', 'add_right', 'add_left', 'current']
 	return TH.hasRightKeys(user, props)
+}
+
+/* 
+  ====================================
+  Rx Helper Methods
+  ====================================
+*/ 
+
+TH.isValidRx = function(rx) {
+  var props = ['id_rx', 'id_user', 'id_pharmacy', 'id_doctor', 'refill_number', 'name', 'dosage', 'current']
+  return TH.hasRightKeys(user, props)
+}
+
+//Returns a boolean indicating whether every doctor in any array has all expected properties
+TH.allValidRx = function(rxArray) {
+  return rxArray.reduce( function(bool, current) {
+    return bool && TH.isValidRx(current)
+  }, true)
+}
+
+
+TH.createRxReturnRx = function(attrs) {
+  return Rx.create(attrs)
+    .then( function(attrs) {
+      return db.select('*').from('rx').where(attrs)
+    })
+    .then( function(hopefullyOnlyOneResult) {
+      return hopefullyOnlyOneResult.reduce( function(mostRecent, current) {
+        return current.id_rx > mostRecent.id_rx ? current : mostRecent
+      })[0]
+    })
+}
+
+TH.createRxReturnId = function(attrs) {
+  return TH.createRxReturnRx(attrs)
+    .then( function(rx) {
+      return rx.id_rx
+    })
 }
 
