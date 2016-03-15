@@ -7,29 +7,42 @@ const request = require('supertest-as-promised')
 const EyeRx = require(__server + '/models/eyerx')
 const User = require(__server + '/models/user')
 
+/*
+Methods to write:
+ - addNew - takes new attrs as the argument
+ - if there is a current one, makes the current one not current
+ - adds the new as ahte current
 
-xdescribe('**************** EyeRx Model ****************', function() {
+*/
+describe('**************** EyeRx Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
   })
 
-  xit('creates an eyerx record', function () {
+  it('creates an eyerx record', function () {
 
-    var newTestUser1 = new TH.UserAttributes('Betsy', 'm4d50n', 'betsy@me.com', '123-789-3456'), id_user1 = undefined
-    var newEyeRx1 = new TH.EyeRxAttributes(id_user1, 2.25, 2.00, 2.00, -1.25, 20, 48, 2, 2, true)
+    var newTestUser1 = new TH.UserAttributes('Betsy', 'm4d50n', 'betsy@me.com', '123-789-3456')
+    var id_user1 = undefined
+    var newEyeRx1 = undefined
 
     return TH.createUserReturnId(newTestUser1)
       .then( function(id) {
         id_user1 = id
-        return EyeRx.create(newEyeRx1); 
+        newEyeRx1 = new TH.EyeRxAttributes(id_user1, 2.25, 2.00, 2.00, -1.25, 20, 48, 2, 2, true)
+        return EyeRx.create(newEyeRx1)
+      })
+      .then( function() {
+        return EyeRx.getAll()
       })
       .then( function(eyerx) {
-        expect( TH.propsMatch(eyerx, newEyeRx1) ).to.be.true
+        console.log('eyerx', eyerx)
+        // expect(TH.isValidEyerx(eyerx[0])).to.be.true
+        expect( TH.propsMatch(eyerx[0], newEyeRx1) ).to.be.true
       })
   })
 
-  xit('retrieves all eyerx records associated with user', function() {
+  it('retrieves all eyerx records associated with user', function() {
 
     var newTestUser2 = new TH.UserAttributes('Ferdie', 'Brigham123654', 'ferdie@brigham.com', '123-789-3456'), id_user2 = undefined
     var newEyeRx2 = new TH.EyeRxAttributes(id_user2, 2.50, 1.75, 2.00, -1.00, 24, 42, 1.50, 1, true)
@@ -51,7 +64,7 @@ xdescribe('**************** EyeRx Model ****************', function() {
       })
   })
 
-  xit('retrieves an eyerx record by id', function() {
+  it('retrieves an eyerx record by id', function() {
 
     var eyerx_id4 = undefined
 
@@ -76,7 +89,7 @@ xdescribe('**************** EyeRx Model ****************', function() {
       })
   })
 
-  xit('deletes an eyerx record by id', function() {
+  it('deletes an eyerx record by id', function() {
 
     var eyerx_id5 = undefined
 

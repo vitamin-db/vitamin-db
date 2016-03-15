@@ -7,7 +7,7 @@ const Pharmacy = require(__server + '/models/pharmacy')
 const User = require(__server + '/models/user')
 
 
-describe('**************** Pharmacy Model ****************', function() {
+xdescribe('**************** Pharmacy Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
@@ -52,7 +52,6 @@ describe('**************** Pharmacy Model ****************', function() {
         return Pharmacy.getAllByUserId(id_user2)
       })
       .then( function(allPharmacies) {
-        console.log('all pharmacies with user: ', allPharmacies)
         expect(allPharmacies).to.be.an('array')
         expect(allPharmacies).to.have.length(2)
         expect( TH.allValidPharmas(allPharmacies) ).to.be.true
@@ -144,7 +143,6 @@ describe('**************** Pharmacy Model ****************', function() {
         return Pharmacy.findById(pharmacy_id6)
       })
       .then( function(pharmacy) {
-        console.log('final pharmacy obj',pharmacy)
         expect(pharmacy.current).to.be.true
       })
       .catch( function(err) {
