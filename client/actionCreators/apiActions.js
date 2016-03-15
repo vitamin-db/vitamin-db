@@ -49,7 +49,7 @@ function SignUp (body) {
       window.localStorage.setItem("token", token.token);
       document.cookie = "token=" + window.localStorage.getItem("token");
       dispatch(stateAction.SignInSuccess(token.token));
-      browserHistory.push('/home' + window.localStorage.getItem("token"))
+      browserHistory.push('/home?token=' + window.localStorage.getItem("token"))
     })
     .catch(function(err){
       console.error(err);
