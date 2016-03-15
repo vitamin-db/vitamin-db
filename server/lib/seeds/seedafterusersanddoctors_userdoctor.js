@@ -12,12 +12,14 @@ exports.seed = function(knex, Promise) {
           {
             id_user: 1,
             id_doctor: 1,
-            type_usermade: 'Psychologist'
+            type_usermade: 'Psychologist',
+            current: true
           },
           {
             id_user: 2,
             id_doctor: 2,
-            type_usermade: 'Baby Doc'
+            type_usermade: 'Baby Doc',
+            current: true
           }
         ])
     })

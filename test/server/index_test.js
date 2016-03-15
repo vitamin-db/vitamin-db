@@ -1,12 +1,13 @@
 const request = require('supertest-as-promised')
 const Auth = require(__server + '/models/auth')
+const TH = require(__test + '/test-helper')
 
 const routes = require(__server + '/index')
 
 describe("The Server", function() {
 
 	//set up app
-	var app = TestHelper.createApp()
+	var app = TH.createApp()
 	app.use('/', routes)
 	app.testReady()
 

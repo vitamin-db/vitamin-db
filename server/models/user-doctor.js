@@ -1,9 +1,9 @@
 const db = require('../db')
 const Model = require('./model-helper')
 
-const UserDoctor = new Model('user_doctor', ['id_user', 'id_doctor', 'type_usermade' ])
-const User = new Model('users', ['id_user', 'username', 'password', 'email', 'phone'])
-const Doctor = new Model('doctors', ['id_doctor', 'name', 'street_address', 'city', 'state_abbrev', 'zip', 'email', 'web', 'phone', 'type'])
+const UserDoctor = new Model('user_doctor', ['id_user', 'id_doctor', 'type_usermade', 'current'])
+const User = require('./user')
+const Doctor = require('./doctor')
 
 module.exports = UserDoctor
 
