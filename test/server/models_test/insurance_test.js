@@ -3,6 +3,8 @@ require(TEST_HELPER)
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
 
+const TH = require(__test + '/test-helper')
+
 // INSURANCE MODEL WRITTEN YET
 const Insurance = require(__server + '/models/insurance')
 const User = require(__server + '/models/user')
