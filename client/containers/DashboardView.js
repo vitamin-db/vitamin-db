@@ -13,6 +13,9 @@ const Grid = require('react-bootstrap').Grid;
 // 
 
 const Home = ({doctor, patient}) => {
+  if(!window.localStorage.getItem("token")){
+    location.assign('/')
+  }
     return (
       <div className="home-body">
         <DoctorGrid docInfo={doctor} />

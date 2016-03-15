@@ -10,10 +10,13 @@ const Grid = require('react-bootstrap').Grid;
 // // CONTAINER
 
 const Home = ({doctor}) => {
-    return (
-      <div className="home-body">
-      <PanelGrid docInfo={doctor} />
-      </div>
+  if(!window.localStorage.getItem("token")){
+    location.assign('/')
+  }
+  return (
+    <div className="home-body">
+    <PanelGrid docInfo={doctor} />
+    </div>
   );
 };
 

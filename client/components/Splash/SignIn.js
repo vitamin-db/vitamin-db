@@ -8,8 +8,8 @@ const SignIn = ({ onSignIn }) => (
 	<div className="col-md-12">
 		<div className="Signin">
 			<form onSubmit={onSignIn}>
-				<Input name="username" type="username" label="Username:" placeholder="Username" />
-	    		<Input name="password" type="password" label="Password:" placeholder="Password"/>
+				<Input name="username" type="username" label="Username:" placeholder="Username" required />
+	    		<Input name="password" type="password" label="Password:" placeholder="Password" required />
 	    			<Button type="submit" bsStyle="primary" bsSize="large" block>Log in</Button>
 	    			<div className="forgot">Forgot password? | Sign up for an account</div>
 			</form>

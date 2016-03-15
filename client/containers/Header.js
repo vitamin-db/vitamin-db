@@ -33,27 +33,22 @@ const mapDispatchToProps = (dispatch) => {
 		goHome: () => {
 			if(apiAction.isAuth()){
 				location.assign('/home')
-			}else{
-				console.log("FAIL")
-			}
-		},
+			}		},
 		goProfile: () => {
 			if(apiAction.isAuth()){
 				location.assign('/profile')
-			}else{
-				console.log("FAIL")
 			}
 		},
 		goAppoint: () => {
 			if(apiAction.isAuth()){
 				location.assign('/appointments')
-			}else{
-				console.log("FAIL")
 			}
 		},
 		signOut: () => {
 			dispatch(stateAction.SignOut());
-			location.assign('/')
+			if(!apiAction.isAuth()){
+				location.assign('/')
+			}
 		}
 	};
 };
