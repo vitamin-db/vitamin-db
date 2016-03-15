@@ -3,7 +3,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
  entry: [
-    'babel-polyfill',
     'webpack-hot-middleware/client',
     './client/app.js'
   ],
