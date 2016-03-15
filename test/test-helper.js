@@ -13,6 +13,7 @@ const request = require('supertest-as-promised')
 const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
+const Pharmacy = require(__server + '/models/pharmacy')
 
 //Make chai's 'expect' accessible from everywhere
 var chai = require('chai')
@@ -78,6 +79,14 @@ TH.UserDoctorAttributes = function(id_user, id_doctor, type_usermade, current) {
   this.id_doctor = id_doctor;
   this.type_usermade = type_usermade;
   this.current = current;
+}
+
+TH.PharmacyAttributes = function(id_user, business_name, address, phone, current) {
+  this.id_user = id_user
+  this.business_name = business_name
+  this.address = address
+  this.phone = phone
+  this.current = current
 }
 
 /*
@@ -218,3 +227,39 @@ TH.createUserdoctorReturnDoctor = function(userId, doctorAttrs, type_usermade, c
 	  })
 }
 
+/* 
+  ====================================
+  Pharmacy helper methods
+  ====================================
+*/ 
+TH.createPharmaReturnPharma = function(attrs) {
+	return Pharmacy.create(attrs)
+	  .then( function(attrs) {
+	  	return db.select('*').from('pharmacy').where(attrs)
+	  })
+	  .then( function(hopefullyOnlyOneResult) {
+	  	//we can't guarantee that any value will be unique, so we can't look up by any one value
+	  	//instead, we'll return the matching entry with the highest primary key (the most recently created)
+	  	return hopefullyOnlyOneResult.reduce( function(mostRecent, current) {
+	  		return current.id_pharmacy > mostRecent.id_pharmacy ? current : mostRecent
+	  	})[0]
+	  })
+}
+
+TH.createPharmaReturnId = function(attrs) {
+	return TH.createPharmaReturnPharma(attrs)
+	  .then( function(pharmacy) {
+	  	return pharmacy.id_pharmacy
+	  })
+}
+
+TH.isValidPharma = function(attrs) {
+	var props = ['id_pharmacy', 'id_user', 'business_name', 'address', 'phone', 'current']
+	return TH.hasRightKeys(user, props)
+}
+
+TH.allValidPharmas = function(pharmacyArray) {
+	return pharmacyArray.reduce( function(bool, current) {
+		return bool && TH.isValidDoctor(current)
+	}, true)
+}
