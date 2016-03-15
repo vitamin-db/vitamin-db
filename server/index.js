@@ -17,10 +17,10 @@ const SendR = require('./sendresponse')
 const Auth = require('./models/auth')
 
 //webpack stuff
-const config = require('../webpack.config.js');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware')
+// const config = require('../webpack.config.js');
+// const webpack = require('webpack');
+// const webpackDevMiddleware = require('webpack-dev-middleware');
+// const webpackHotMiddleware = require('webpack-hot-middleware')
 //======================================================
 // create our express router
 //======================================================
@@ -142,10 +142,10 @@ if (process.env.NODE_ENV !== 'test') {
 // This is to use WebPack
 // comment this part out if you want to use nodemon
 	
-	var compiler = webpack(config);
+	// var compiler = webpack(config);
 
-	app.use(webpackDevMiddleware(compiler), {noInfo: true, publicPath: config.output.publicPath});
-	app.use(webpackHotMiddleware(compiler));
+	// app.use(webpackDevMiddleware(compiler), {noInfo: true, publicPath: config.output.publicPath});
+	// app.use(webpackHotMiddleware(compiler));
 
 //======================================================	
 
