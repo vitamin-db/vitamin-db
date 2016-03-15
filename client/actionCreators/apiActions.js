@@ -18,8 +18,12 @@ function SignIn (body) {
     .then(function(token) {
       // don't need to store in local and cookie, but keeping it for now
       // store token in localStorage & cookie
+      var now = new Date().toUTCString();
+      var time = now.getTime();
+      time += 3600 * 1000;
+      now.setTime(time);
       window.localStorage.setItem("token", token.token);
-      document.cookie = "token=" + window.localStorage.getItem("token");
+      document.cookie = "token=" + window.localStorage.getItem("token") + "; expires=" + now.toUTCString();
       // dispatch action
       dispatch(stateAction.SignInSuccess(token.token));
       // change location
@@ -46,8 +50,12 @@ function SignUp (body) {
       return response.json();
     })
     .then(function(token){
+      var now = new Date();
+      var time = now.getTime();
+      time += 3600 * 1000;
+      now.setTime(time);
       window.localStorage.setItem("token", token.token);
-      document.cookie = "token=" + window.localStorage.getItem("token");
+      document.cookie = "token=" + window.localStorage.getItem("token") + "; expires=" + now.toUTCString();
       dispatch(stateAction.SignInSuccess(token.token));
       browserHistory.push('/home?token=' + window.localStorage.getItem("token"))
     })

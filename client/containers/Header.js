@@ -35,6 +35,7 @@ const Header = ({ goHome, signOut, goProfile, goAppoint, signUp, logged, goSplas
 };
 
 const mapStateToProps = (state) => {
+
 	console.log('header state', state)
 	return {
 		logged: getCookie("token")
