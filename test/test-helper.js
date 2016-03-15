@@ -105,6 +105,7 @@ TH.InsuranceAttributes = function(id_user, plan_name, group_id, plan_id, rx_bin,
 	this.current = current
 }
 
+<<<<<<< bbb861788f1f49f6d5e3a60c0414460a9899e8e6
 TH.EyeRxAttributes = function(id_user, sphere_right, sphere_left, cylinder_right, cylinder_left, axis_right, axis_left, add_right, add_left, current) {
     this.id_user = id_user
     this.sphere_right = sphere_right
@@ -118,6 +119,19 @@ TH.EyeRxAttributes = function(id_user, sphere_right, sphere_left, cylinder_right
     this.current = current
 }
 
+=======
+TH.RxAttributes = function(id_user, id_pharmacy, id_doctor, refill_number, name, dosage, current) {
+	this.id_user = id_user
+	this.id_pharmacy = id_pharmacy
+	this.id_doctor = id_doctor
+	this.refill_number = refill_number
+	this.name = name
+	this.dosage = dosage
+	this.current = current
+}
+
+
+>>>>>>> (test) added create rx record test
 /*
   Generic Functions: These do not have any table- or model-specific calls
 */
@@ -350,6 +364,7 @@ TH.createFamilyMemberReturnId = function(attrs) {
 
 /* 
   ====================================
+<<<<<<< bbb861788f1f49f6d5e3a60c0414460a9899e8e6
   Eyerx helper methods
   ====================================
 */ 
@@ -358,4 +373,15 @@ TH.isValidEyerx = function(Eyerx) {
 	var props = ['id_eyerx', 'id_user', 'sphere_right', 'sphere_left', 'cylinder_right', 'cylinder_left', 'axis_right', 'axis_left', 'add_right', 'add_left', 'current']
 	return TH.hasRightKeys(user, props)
 }
+=======
+  Rx Helper Methods
+  ====================================
+*/ 
+
+TH.isValidRx = function(rx) {
+	var props = ['id_rx', 'id_user', 'id_pharmacy', 'id_doctor', 'refill_number', 'name', 'dosage', 'current']
+	return TH.hasRightKeys(user, props)
+}
+
+>>>>>>> (test) added create rx record test
 
