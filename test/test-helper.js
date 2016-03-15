@@ -321,6 +321,32 @@ TH.isValidInsurance = function(insurance) {
 	return TH.hasRightKeys(user, props)
 }
 
+//Returns a boolean indicating whether every doctor in any array has all expected properties
+TH.allValidRx = function(rxArray) {
+	return rxArray.reduce( function(bool, current) {
+		return bool && TH.isValidRx(current)
+	}, true)
+}
+
+
+TH.createRxReturnRx = function(attrs) {
+	return Rx.create(attrs)
+	  .then( function(attrs) {
+	  	return db.select('*').from('rx').where(attrs)
+	  })
+	  .then( function(hopefullyOnlyOneResult) {
+	  	return hopefullyOnlyOneResult.reduce( function(mostRecent, current) {
+	  		return current.id_rx > mostRecent.id_rx ? current : mostRecent
+	  	})[0]
+	  })
+}
+
+TH.createPharmaReturnId = function(attrs) {
+	return TH.createRxReturnRx(attrs)
+	  .then( function(rx) {
+	  	return rx.id_rx
+	  })
+}
 
 /* 
   ====================================
