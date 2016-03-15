@@ -3,7 +3,6 @@ const TH = require(__test + '/test-helper')
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
 
-const TH = require(__test + '/test-helper')
 
 // PHARMACY MODEL not WRITTEN YET
 const Pharmacy = require(__server + '/models/pharmacy')

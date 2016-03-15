@@ -88,6 +88,7 @@ TH.PharmacyAttributes = function(id_user, business_name, address, phone, current
   this.address = address
   this.phone = phone
   this.current = current
+}
 
 TH.FamilyMemberAttributes = function(id_user, name) {
   this.id_user = id_user
