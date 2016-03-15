@@ -76,3 +76,12 @@ body {
     text-align:center;
 }
 
+.patient-item {
+    text-align: left;
+    font-size: 12px;
+    display: flex;
+}
+
+.patient-button {
+    background-color: #777;
+}
