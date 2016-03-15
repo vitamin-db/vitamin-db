@@ -14,6 +14,7 @@ const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
 const Pharmacy = require(__server + '/models/pharmacy')
+const FamilyMember = require(__server + '/models/familymembers')
 
 //Make chai's 'expect' accessible from everywhere
 var chai = require('chai')
@@ -87,6 +88,11 @@ TH.PharmacyAttributes = function(id_user, business_name, address, phone, current
   this.address = address
   this.phone = phone
   this.current = current
+
+TH.FamilyMemberAttributes = function(id_user, name) {
+  this.id_user = id_user
+  this.name = name
+
 }
 
 TH.InsuranceAttributes = function(id_user, plan_name, group_id, plan_id, rx_bin, current) {
@@ -274,6 +280,7 @@ TH.allValidPharmas = function(pharmacyArray) {
 	}, true)
 }
 
+
 /* 
   ====================================
   Insurance helper methods
@@ -284,4 +291,36 @@ TH.isValidInsurance = function(insurance) {
 	var props = ['id_insurance', 'id_user', 'plan_name', 'group_id', 'plan_id', 'rx_bin', 'current']
 	return TH.hasRightKeys(user, props)
 }
+
+
+
+/* 
+  ====================================
+  Family Member helper methods
+  ====================================
+*/ 
+TH.isValidFamilyMember = function(familymember) {
+	var props = ['id_familymember', 'id_user', 'name']
+	return TH.hasRightKeys(user, props)
+}
+
+TH.createFamilyMemberReturnFamilyMember = function(attrs) {
+	return FamilyMember.create(attrs)
+	  .then( function(attrs) {
+	  	return db.select('*').from('familymembers').where(attrs)
+	  })
+	  .then( function(hopefullyOnlyOne) { //since no guarantee non-primary-keys are unique
+	  	return hopefullyOnlyOne.reduce( function(mostRecent, current) {
+	  		return current.id_familymember > mostRecent.id_familymember ? current : mostRecent
+	  	})
+	  })
+}
+
+TH.createFamilyMemberReturnId = function(attrs) {
+	return TH.createFamilyMemberReturnFamilyMember(attrs)
+	  .then( function(familymember) {
+	  	return familymember.id_familymember
+	  })
+}
+
 

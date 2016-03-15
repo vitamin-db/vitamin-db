@@ -1,4 +1,4 @@
-require(TEST_HELPER)
+const TH = require(__test + '/test-helper')
 
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
@@ -8,7 +8,7 @@ const FamilyMember = require(__server + '/models/familymembers')
 const User = require(__server + '/models/user')
 
 
-describe('**************** Family Member Model ****************', function() {
+xdescribe('**************** Family Member Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
