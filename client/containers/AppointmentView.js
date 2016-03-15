@@ -2,7 +2,7 @@ const React = require('react');
 const connect = require('react-redux').connect;
 const stateAction = require('../actionCreators/stateActions');
 const SearchBar = require('../components/Search/SearchBar');
-const AddInformation = require('../reducers/AddInformation');
+// const AddInformation = require('../reducers/AddInformation');
 
 const Appointment = ({AddInformation}) => {
   return (

@@ -36,10 +36,10 @@ var routes = express.Router()
 	// eg. using ./client/app.js
 // also likely need to consider using babelify//reactify (see above)
 
-// routes.get('/app-bundle.js',
-//   browserify('./client/app.js', {
-//     transform: [reactify]
-//   }))
+routes.get('/app-bundle.js',
+  browserify('./client/app.js', {
+    transform: [reactify]
+  }))
 
   //browserify.settings({
   //  transform: ['babelify']
