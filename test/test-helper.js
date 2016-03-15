@@ -281,6 +281,7 @@ TH.allValidPharmas = function(pharmacyArray) {
 }
 
 
+
 /* 
   ====================================
   Insurance helper methods
@@ -299,11 +300,21 @@ TH.isValidInsurance = function(insurance) {
   Family Member helper methods
   ====================================
 */ 
+
+//Returns a boolean indicating whether a family member object has the expected properties
 TH.isValidFamilyMember = function(familymember) {
 	var props = ['id_familymember', 'id_user', 'name']
 	return TH.hasRightKeys(user, props)
 }
 
+//Returns a boolean indicating whether each family member object in an array has the expected properties
+TH.allValidFamilyMembers = function(familyArray) {
+	return familyArray.reduce( function(bool, current) {
+		return bool && TH.isValidFamilyMember(current)
+	})
+}
+
+//Adds a family member to the db and returns the newly created object
 TH.createFamilyMemberReturnFamilyMember = function(attrs) {
 	return FamilyMember.create(attrs)
 	  .then( function(attrs) {
@@ -316,6 +327,7 @@ TH.createFamilyMemberReturnFamilyMember = function(attrs) {
 	  })
 }
 
+//Adds a family member to the database and returns the id of the newly created object
 TH.createFamilyMemberReturnId = function(attrs) {
 	return TH.createFamilyMemberReturnFamilyMember(attrs)
 	  .then( function(familymember) {

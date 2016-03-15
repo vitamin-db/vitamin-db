@@ -39,7 +39,11 @@ const mapDispatchToProps = (dispatch) => {
 			var username = e.target.username.value;
 			var password = e.target.password.value;
 			var body = {username: username, password: password};
-			dispatch(apiAction.SignIn(body))
+			console.log('dispatch body', body)
+			return dispatch(apiAction.SignIn(body))
+			  .then( function(result) {
+			  	console.log('resuling in ...', result)
+			  })
 		}
 	};
 };
