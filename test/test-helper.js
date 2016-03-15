@@ -341,7 +341,7 @@ TH.createRxReturnRx = function(attrs) {
 	  })
 }
 
-TH.createPharmaReturnId = function(attrs) {
+TH.createRxReturnId = function(attrs) {
 	return TH.createRxReturnRx(attrs)
 	  .then( function(rx) {
 	  	return rx.id_rx
