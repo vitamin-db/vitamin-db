@@ -26,8 +26,8 @@ describe('**************** Rx Model ****************', function() {
 
     var newTestUser1 = new TH.UserAttributes('Betsy', 'm4d50n', 'betsy@me.com', '123-789-3456') 
     var newTestDoctor1 = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '1233839292', 'primary')
-    var newTestPharmacy1 = new TH.PharmacyAttributes(id_user2, 'Walgreens', '2501 S Lamar Blvd, Austin, TX 78704', '(512) 443-7534', true)
-    var newRx1 = undefined
+    var newTestPharmacy1 = new TH.PharmacyAttributes(id_user1, 'Walgreens', '2501 S Lamar Blvd, Austin, TX 78704', '(512) 443-7534', true)
+    var newRx1 = new TH.RxAttributes(id_user1, id_pharma1, id_doctor1, 193723, 'Lunesta', '10mg', true)
 
     return TH.createUserReturnId(newTestUser1)
       .then( function(userId) {
@@ -40,7 +40,7 @@ describe('**************** Rx Model ****************', function() {
       })
       .then( function(pharmaId) {
         id_pharma1 = pharmaId;
-        newRx1 = new TH.RxAttributes(id_user1, id_pharma1, id_doctor1, 193723, 'Lunesta', '10mg', true)
+        return TH.createRxReturnRx(newRx1)
       })
       .then( function(result) {
         expect( TH.isValidRx(result) ).to.be.true
@@ -57,8 +57,8 @@ describe('**************** Rx Model ****************', function() {
     var newTestUser2 = new TH.UserAttributes('Ferdie', 'Brigham123654', 'ferdie@brigham.com', '123-789-3456')
     var newTestDoctor2 = new TH.DoctorAttributes('Dr. Walker', '125 Walnut Street', 'Austin', 'TX', 78751, 'doc@walker.com', 'docwalker.com', '1234567890', 'primary')
     var newTestPharmacy2 = new TH.PharmacyAttributes(id_user2, 'CVS', '2927 Guadalupe St, Austin, TX 78705', '(512) 474-2323', true)
-    var newRx2 = undefined
-    var newRx3 = undefined
+    var newRx2 = new TH.RxAttributes(id_user2, id_pharma2, id_doctor2, 193723, 'Prozac', '50mg', true)
+    var newRx3 = new TH.RxAttributes(id_user2, id_pharma2, id_doctor2, 193723, 'Lortab', '25mg', true)
 
 
     return TH.createUserReturnId(newTestUser2)
@@ -72,11 +72,9 @@ describe('**************** Rx Model ****************', function() {
       })
       .then( function(pharmaId) {
         id_pharma2 = pharmaId;
-        newRx2 = new TH.RxAttributes(id_user2, id_pharma2, id_doctor2, 193723, 'Prozac', '50mg', true)
         return TH.createRxReturnRx(newRx2)
       })
       .then( function() {
-        newRx3 = new TH.RxAttributes(id_user2, id_pharma2, id_doctor2, 193723, 'Lortab', '25mg', true)
         return Rx.create(newRx3)
       })
       .then( function() { return Rx.getAllByUserId() }) // Need to write Rx.getAllByUserId
@@ -98,7 +96,7 @@ describe('**************** Rx Model ****************', function() {
 
     var newTestUser3 = new TH.UserAttributes('Merritt', 'Thorne123', 'merritt@gmail.com', '123-789-3456')
     var newTestDoctor3 = new TH.DoctorAttributes('Dr. Rando', '3495 Avenue B', 'Austin', 'TX', 32532, 'doc@rando.com', 'docrando.com', '0987654321', 'hypnotist')
-    var newTestPharmacy3 = new TH.PharmacyAttributes(id_user2, '38th Street Pharmacy', '711 W 38th St C-3, Austin, TX 78705', '(512) 458-3784', false)
+    var newTestPharmacy3 = new TH.PharmacyAttributes(id_user3, '38th Street Pharmacy', '711 W 38th St C-3, Austin, TX 78705', '(512) 458-3784', false)
     var newRx4 = undefined
 
     return TH.createUserReturnId(newTestUser3)
