@@ -2,9 +2,6 @@ const React = require('react');
 const connect = require('react-redux').connect;
 
 const Appointment = () => {
-  if(!window.localStorage.getItem("token")){
-    location.assign('/')
-  }
   return (
     <div>
       <h1>Appointment's view</h1>

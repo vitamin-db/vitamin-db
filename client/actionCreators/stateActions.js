@@ -29,6 +29,7 @@ function LoggedIn () {
 
 function SignOut () {
 	window.localStorage.clear();
+	document.cookie = "token=; expires=Thu, 01 Jan 1900 00:00:00 UTC";
 	return {
 		type: 'SIGNINFAIL'
 	}

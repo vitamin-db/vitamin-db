@@ -1,7 +1,6 @@
 $ = jQuery = require('jquery');
 const stateAction = require('./stateActions');
-// This file is for all client api requests
-// this request below is just a test request for now
+const browserHistory = require('react-router').browserHistory;
 
 function SignIn (body) {
   return (dispatch) => {
@@ -17,10 +16,14 @@ function SignIn (body) {
       return response.json();
     })
     .then(function(token) {
-      console.log('token: ', token);
+      // don't need to store in local and cookie, but keeping it for now
+      // store token in localStorage & cookie
       window.localStorage.setItem("token", token.token);
+      document.cookie = "token=" + window.localStorage.getItem("token");
+      // dispatch action
       dispatch(stateAction.SignInSuccess(token.token));
-      location.assign('/home')
+      // change location
+      browserHistory.push('/home?token=' + window.localStorage.getItem("token"));
     })
     .catch(function(err) {
       console.error(err)
@@ -43,10 +46,10 @@ function SignUp (body) {
       return response.json();
     })
     .then(function(token){
-      console.log('token: ', token);
       window.localStorage.setItem("token", token.token);
+      document.cookie = "token=" + window.localStorage.getItem("token");
       dispatch(stateAction.SignInSuccess(token.token));
-      location.assign('/home')
+      browserHistory.push('/home' + window.localStorage.getItem("token"))
     })
     .catch(function(err){
       console.error(err);

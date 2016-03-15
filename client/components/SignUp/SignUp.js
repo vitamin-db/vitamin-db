@@ -1,6 +1,6 @@
 const React = require('react');
 
-const SignIn = ({userInfo, onSignUp}) => (
+const SignIn = ({onSignUp}) => (
 	<div>
 		<h1>Sign up below!</h1>
 		<form onSubmit={onSignUp}>
@@ -12,9 +12,6 @@ const SignIn = ({userInfo, onSignUp}) => (
 			<br/>
 			<button type="submit">Sign up</button>
 		</form>
-		<h3>Username: {userInfo.username}</h3>
-		<h3>Email: {userInfo.email} </h3>
-		<h3>Phone: {userInfo.phone} </h3>
 	</div>
 );
 

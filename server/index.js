@@ -72,7 +72,7 @@ routes.use( function(req, res, next) {
 	//check header or url parameters or post parameters for token
 	//note: on client side, add into headers{x-access-token: token}
 	var token = req.body.token || req.query.token || req.headers['x-access-token']
-	console.log('defined token as', token)
+	console.log('defined token as', token, 'req query', req.query)
 
 	//decode token
 	if (token) {
@@ -109,10 +109,10 @@ routes.use('/user', userRouter)
 */
 routes.get('/*', function(req,res) {
 	//dummy response to check auth
-	SendR.resData(res, 200, {msg: 'Hello world!'})
+	// SendR.resData(res, 200, {msg: 'Hello world!'})
 
 	//commented out while this file does not exist
-	// res.sendFile( assetFolder + '/index.html' )
+	res.sendFile( assetFolder + '/index.html' )
 })
 
 

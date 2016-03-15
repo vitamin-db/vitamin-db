@@ -3,11 +3,12 @@ const connect = require('react-redux').connect;
 const SignIn = require('../components/Splash/SignIn');
 const apiAction = require('../actionCreators/apiActions');
 const JumbotronInstance = require('../components/Splash/Jumbotron');
+const browserHistory = require('react-router').browserHistory;
 
 // Splash soon-to-be container with any and all child components it needs
 // Each container will be a "view"
 
-const Splash = ({ onSignIn }) => {
+const Splash = ({ onSignIn, goSignup }) => {
 	return (
 		<div>
 			<div>
@@ -16,14 +17,14 @@ const Splash = ({ onSignIn }) => {
 				</div>
 			</div>
 			<div className="col-md-12">
-		    	<SignIn onSignIn={onSignIn} />
+		    	<SignIn goSignup={goSignup} onSignIn={onSignIn} />
 			</div>
 		</div>
 	);
 };
 
 const mapStateToProps = (state) => {
-	console.log("splash view state", state);
+	// console.log("splash view state", state);
 	// ^^^ this console log returns each state in the reducers/reducer.js file
 	return {
 	};
@@ -40,6 +41,9 @@ const mapDispatchToProps = (dispatch) => {
 			var password = e.target.password.value;
 			var body = {username: username, password: password};
 			dispatch(apiAction.SignIn(body))
+		},
+		goSignup: () => {
+			browserHistory.push('/signup')
 		}
 	};
 };
