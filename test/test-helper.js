@@ -105,6 +105,19 @@ TH.InsuranceAttributes = function(id_user, plan_name, group_id, plan_id, rx_bin,
 	this.current = current
 }
 
+TH.EyeRxAttributes = function(id_user, sphere_right, sphere_left, cylinder_right, cylinder_left, axis_right, axis_left, add_right, add_left, current) {
+    this.id_user = id_user
+    this.sphere_right = sphere_right
+    this.sphere_left = sphere_left
+    this.cylinder_right = cylinder_right
+    this.cylinder_left = cylinder_left
+    this.axis_right = axis_right
+    this.axis_left = axis_left
+    this.add_right = add_right
+    this.add_left = add_left
+    this.current = current
+}
+
 /*
   Generic Functions: These do not have any table- or model-specific calls
 */
@@ -295,7 +308,6 @@ TH.isValidInsurance = function(insurance) {
 }
 
 
-
 /* 
   ====================================
   Family Member helper methods
@@ -336,4 +348,14 @@ TH.createFamilyMemberReturnId = function(attrs) {
 	  })
 }
 
+/* 
+  ====================================
+  Eyerx helper methods
+  ====================================
+*/ 
+
+TH.isValidEyerx = function(Eyerx) {
+	var props = ['id_eyerx', 'id_user', 'sphere_right', 'sphere_left', 'cylinder_right', 'cylinder_left', 'axis_right', 'axis_left', 'add_right', 'add_left', 'current']
+	return TH.hasRightKeys(user, props)
+}
 
