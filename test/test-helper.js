@@ -285,4 +285,3 @@ TH.isValidInsurance = function(insurance) {
 	return TH.hasRightKeys(user, props)
 }
 
-
