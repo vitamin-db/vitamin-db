@@ -135,7 +135,7 @@ describe('**************** Rx Model ****************', function() {
     var newTestUser4 = new TH.UserAttributes('Ralf', 'Garey', 'rgarey@gmail.com', '123-789-3456')
     var newTestDoctor4 = new TH.DoctorAttributes('Dr. Rick', '4563 First Street', 'Austin', 'TX', 78751, 'doc@rick.com', 'docrick.com', '1234567890', 'therapist')
     var newTestPharmacy4 = new TH.PharmacyAttributes(id_user4, 'H-E-B Pharmacy', '5808 Burnet Rd, Austin, TX 78756', '(512) 454-6691', true)
-    var newRx5 = undefined
+    var newRx5 = new TH.RxAttributes(id_user4, id_pharma4, id_doctor3, 193723, 'Wellbutrin', '55mg', true)
 
     return TH.createUserReturnId(newTestUser4)
       .then( function(userId) {
@@ -148,7 +148,6 @@ describe('**************** Rx Model ****************', function() {
       })
       .then( function(pharmaId) {
         id_pharma4 = pharmaId;
-        newRx5 = new TH.RxAttributes(id_user3, id_pharma3, id_doctor3, 193723, 'Zoloft', '15mg', true)
         return TH.createRxReturnId(newRx5)
       })
       .then( function(rxId) {
