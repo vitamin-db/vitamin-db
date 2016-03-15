@@ -4,8 +4,8 @@
 //     return state = [];
 //   }
 //   switch(action.type){
-//     case '':
-//       return state = 
+//     case 'GETLIST':
+//       return state = action.list
 //     default:
 //       return state;
 //   }
