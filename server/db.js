@@ -12,17 +12,55 @@ db.migrate.latest([config])
 
 //function for testing
 db.deleteEverything = function() {
-	// if (env !== 'test') {
-	// 	return Promise.reject()
-	// }
-	// console.log('inside deleteEverything')
-    //update whenever new tables are added
-    //this may be super wrong
-    return db('user_doctor').delete()
-      .then(function(msg) {console.log('deleted ', msg, ' records from user_doctor'); return db('doctors').delete()})
-	  .then(function(msg) {console.log('deleted ', msg, ' records from doctors'); return db('users').delete()})
-	  .then(function(msg) {console.log('deleted ', msg, ' records from users');})
 
+	if (env !== 'test') {
+		return Promise.reject()
+	}
+
+    return db('user_doctor').delete()
+      .then( function(msg) {
+      	console.log('deleted ', msg, ' records from user_doctor')
+      	return db('doctors').delete()
+      })
+      .then(function(msg) {
+      	console.log('deleted ', msg, ' records from doctors')
+      	return db('familyhistory').delete()
+      })
+      .then(function(msg) {
+      	console.log('deleted ', msg, ' records from familyhistory')
+      	return db('familymembers').delete()
+      })
+      .then(function(msg) {
+      	console.log('deleted ', msg, ' records from familymembers')
+      	return db('insurance').delete()
+      })
+      .then(function(msg) {
+      	console.log('deleted ', msg, ' records from insurance')
+      	return db('pharmacy').delete()
+      })
+      .then(function(msg) {
+      	console.log('deleted ', msg, ' records from pharmacy')
+      	return db('eyerx').delete()
+      })
+      .then(function(msg) {
+      	console.log('deleted ', msg, ' records from eyerx')
+      	return db('rx').delete()
+      })
+      .then(function(msg) {
+      	console.log('deleted ', msg, ' records from rx')
+      	return db('allergies').delete()
+      })
+      .then(function(msg) {
+      	console.log('deleted ', msg, ' records from familyhistory')
+      	return db('users').delete()
+      })
+      .then(function(msg) {
+      	console.log('deleted ', msg, ' records from users')
+      })
+      .catch(function(error) {
+      	console.log('Error deleting tables', error)
+      	if (error instanceof Error) {throw Error}
+      })
 
 }
 

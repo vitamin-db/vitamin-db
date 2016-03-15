@@ -272,25 +272,26 @@ TH.createPharmaReturnPharma = function(attrs) {
 	  	//instead, we'll return the matching entry with the highest primary key (the most recently created)
 	  	return hopefullyOnlyOneResult.reduce( function(mostRecent, current) {
 	  		return current.id_pharmacy > mostRecent.id_pharmacy ? current : mostRecent
-	  	})[0]
+	  	})
 	  })
 }
 
 TH.createPharmaReturnId = function(attrs) {
 	return TH.createPharmaReturnPharma(attrs)
 	  .then( function(pharmacy) {
-	  	return pharmacy.id_pharmacy
+	  	var a = pharmacy.id_pharmacy
+	  	return a
 	  })
 }
 
-TH.isValidPharma = function(attrs) {
+TH.isValidPharma = function(pharma) {
 	var props = ['id_pharmacy', 'id_user', 'business_name', 'address', 'phone', 'current']
-	return TH.hasRightKeys(user, props)
+	return TH.hasRightKeys(pharma, props)
 }
 
 TH.allValidPharmas = function(pharmacyArray) {
 	return pharmacyArray.reduce( function(bool, current) {
-		return bool && TH.isValidDoctor(current)
+		return bool && TH.isValidPharma(current)
 	}, true)
 }
 
@@ -304,7 +305,7 @@ TH.allValidPharmas = function(pharmacyArray) {
 
 TH.isValidInsurance = function(insurance) {
 	var props = ['id_insurance', 'id_user', 'plan_name', 'group_id', 'plan_id', 'rx_bin', 'current']
-	return TH.hasRightKeys(user, props)
+	return TH.hasRightKeys(insurance, props)
 }
 
 
@@ -317,7 +318,7 @@ TH.isValidInsurance = function(insurance) {
 //Returns a boolean indicating whether a family member object has the expected properties
 TH.isValidFamilyMember = function(familymember) {
 	var props = ['id_familymember', 'id_user', 'name']
-	return TH.hasRightKeys(user, props)
+	return TH.hasRightKeys(familymember, props)
 }
 
 //Returns a boolean indicating whether each family member object in an array has the expected properties

@@ -13,7 +13,7 @@ describe('**************** Pharmacy Model ****************', function() {
     return db.deleteEverything()
   })
 
-  xit('creates a pharmacy record', function () {
+  it('creates a pharmacy record', function () {
 
     var newTestUser1 = new TH.UserAttributes('Betsy', 'm4d50n', 'betsy@me.com', '123-789-3456'), id_user1 = undefined
     // var newPharmacy1 = new TH.PharmacyAttributes(id_user1, 'CVS', '2927 Guadalupe St, Austin, TX 78705', '(512) 474-2323', true)
@@ -49,9 +49,10 @@ describe('**************** Pharmacy Model ****************', function() {
         return TH.createPharmaReturnPharma(newPharmacy3)
       })
       .then( function() {
-        return Pharmacy.getAllByUserId(id_user2) //we will have to write this
+        return Pharmacy.getAllByUserId(id_user2)
       })
       .then( function(allPharmacies) {
+        console.log('all pharmacies with user: ', allPharmacies)
         expect(allPharmacies).to.be.an('array')
         expect(allPharmacies).to.have.length(2)
         expect( TH.allValidPharmas(allPharmacies) ).to.be.true
@@ -67,7 +68,6 @@ describe('**************** Pharmacy Model ****************', function() {
 
     var newPharmacy4 = undefined
     var pharmacy_id4 = undefined
-    // var newPharmacy4 = new PharmacyAttributes(id_user3, 'H-E-B Pharmacy', '5808 Burnet Rd, Austin, TX 78756', '(512) 454-6691', true)
     
     return TH.createUserReturnId(newTestUser3)
       .then( function(id) {
@@ -123,18 +123,18 @@ describe('**************** Pharmacy Model ****************', function() {
       .then( function(id) {
         id_user5 = id
         newPharmacy5 = new TH.PharmacyAttributes(id_user5, 'CVS Probably', '456 City Road', '(512) 454-6691', true)
-        TH.createPharmaReturnId(newPharmacy5)
+        return TH.createPharmaReturnId(newPharmacy5)
       })
       .then( function(id) {
         pharmacy_id6 = id
-        return Pharmacy.toggleCurrent(pharmacy_id6) //need to write this
+        return Pharmacy.toggleCurrent(pharmacy_id6)
       })
       .then( function(updated) {
         expect(updated).to.be.an('object')
         expect(updated.current).to.be.false
         return Pharmacy.findById(pharmacy_id6)
       })
-      then( function(pharmacy) {
+      .then( function(pharmacy) {
         expect(pharmacy.current).to.be.false
         return Pharmacy.toggleCurrent(pharmacy_id6)
       })
@@ -144,7 +144,11 @@ describe('**************** Pharmacy Model ****************', function() {
         return Pharmacy.findById(pharmacy_id6)
       })
       .then( function(pharmacy) {
+        console.log('final pharmacy obj',pharmacy)
         expect(pharmacy.current).to.be.true
+      })
+      .catch( function(err) {
+        expect(true).to.be.false
       })
 
   })

@@ -11,6 +11,9 @@ module.exports = Pharmacy
 */
 Pharmacy.getAllByUserId = function(id_user) {
 	return this.findByAttribute('id_user', id_user)
+	  .then( function(result) {
+	  	return result
+	  })
 }
 
 /* TOGGLE CURRENT
@@ -21,8 +24,7 @@ Pharmacy.getAllByUserId = function(id_user) {
 Pharmacy.toggleCurrent = function(id_pharmacy) {
 	return this.findById(id_pharmacy)
 	  .then( function(pharmacy) {
-	  	console.log('pharmacy gotten', pharmacy)
 	  	var updatedVal = {current: !pharmacy.current}
-	  	return this.updateById(id_pharmacy, updatedVal)
+	  	return Pharmacy.updateById(id_pharmacy, updatedVal)
 	  })
 }

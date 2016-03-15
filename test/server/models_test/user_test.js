@@ -6,7 +6,7 @@ const TH = require(__test + '/test-helper')
 const User = require(__server + '/models/user')
 
 
-describe('**************** User Model ****************', function() {
+xdescribe('**************** User Model ****************', function() {
 
 	beforeEach(function() {
 		return db.deleteEverything()

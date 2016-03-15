@@ -62,12 +62,13 @@ module.exports = function(tableName, allAttrs) {
 	  Returns an array of the updated objects
 	*/
 	this.update = function(selectorAttrs, updatedAttrs) {
-		return db(this.table).where(selectorAttrs).updated(updatedAttrs)
+		var tbl = this.table
+		return db(tbl).where(selectorAttrs).update(updatedAttrs)
 		  .then( this.returnSuccess('success updating ' + this.table) )
 		  .then( function() {
-		  	return db.select('*').from(this.table).where(selectorAttrs)
+		  	return db.select('*').from(tbl).where(selectorAttrs)
 		  })
-		  .catch( this.reportError('error updating ' + this.table) )
+		  .catch( this.reportError('error updating ' + tbl) )
 	}.bind(this)
 
 
@@ -75,7 +76,7 @@ module.exports = function(tableName, allAttrs) {
 	  Updates the element with the primary key equal to the first argument with the attributes specified in the second
 	  Returns the updated object
 	*/
-	this.updatedById = function(id, attrs) {
+	this.updateById = function(id, attrs) {
 		return this.findById(id)
 		  .then(function(result) {
 		  	if (result === undefined) {
@@ -84,13 +85,13 @@ module.exports = function(tableName, allAttrs) {
 		  	}
 		  })
 		  .then( function() {
-		  	var selector = {this.idVarName: id}
+		  	var selector = {}
+		  	selector[this.idVarName] = id
 		  	return this.update(selector, attrs)
 		  	  .then(function(result) {
-		  	  	console.log('should be just one object!', result)
 		  	  	return result[0]
 		  	  })
-		  })
+		  }.bind(this))
 	}.bind(this)
 
 
@@ -101,9 +102,10 @@ module.exports = function(tableName, allAttrs) {
 	this.findById = function(id) {
 		var queryObj = {}
 		queryObj[this.idVarName] = id
+		console.log('in findById')
 
 		return db.select('*').from(this.table).where(queryObj)
-		  .then( this.returnSuccess('success in retrieving from' + this.table) )
+		  .then( this.returnSuccess('success in retrieving from ' + this.table) )
 		  .then( function(result) { return result[0] })
 		  .catch( this.reportError('error finding by id from ' + this.table) )
 	}.bind(this)

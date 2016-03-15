@@ -6,7 +6,7 @@ const request = require('supertest-as-promised')
 const Auth = require(__server + '/models/auth')
 
 
-describe('Auth Model', function() {
+xdescribe('Auth Model', function() {
 
 	var username1 = 'bob'
 	var token1 = undefined
