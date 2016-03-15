@@ -5,8 +5,31 @@ const Grid = require('react-bootstrap').Grid;
 const Panel = require('react-bootstrap').Panel;
 const Button = require('react-bootstrap').Button;
 const Glyphicon = require('react-bootstrap').Glyphicon;
+const Modal = require('react-bootstrap').Modal;
 
-const AddInfo = () => (
+
+const Example = React.createClass({
+  getInitialState() {
+    return {show: false};
+  },
+
+  showModal() {
+    this.setState({show: true});
+  },
+
+  hideModal() {
+    this.setState({show: false});
+  },
+
+  render() {
+  	return(
+  		<div>
+  		 <Modal
+          {...this.props}
+          show={this.state.show}
+          onHide={this.hideModal}
+          dialogClassName="custom-modal"
+          >
       <Col xs={4} md={4}>
 	      <div className="card">
 	        <div className="card-header">
@@ -15,6 +38,10 @@ const AddInfo = () => (
 	        </div>
 	      </div>
       </Col>
-);
+      </Modal>
+      </div>
+	);
+   }
+});
 
 module.exports = AddInfo;
