@@ -24,12 +24,12 @@ const Header = ({ goHome, signOut, goProfile, goAppoint, signUp, logged, goSplas
 	  <nav className="navbar navbar-default">
         <div className="container-fluid">
           <ul className="nav nav-tabs">
-          	  <li><button onClick={goSplash} >LOGO</button></li>
-	          <li role="presentation">{logged && <button onClick={goHome}>Home</button>}</li>
-	          <li role="presentation">{logged && <button onClick={goProfile} >Profile</button>}</li>
-	          <li role="presentation">{logged && <button onClick={goAppoint} >Appointments</button>}</li>
-	          <li role="presentation">{logged && <button onClick={signOut} >Sign out</button>}</li>
-	          <li role="presentation">{!logged && <button onClick={signUp} >Sign up</button>}</li>
+          	  <li><button onClick={goSplash}> LOGO </button></li>
+	          <li role="presentation">{logged && <button onClick={goHome}> Home </button>}</li>
+	          <li role="presentation">{logged && <button onClick={goProfile}> Profile </button>}</li>
+	          <li role="presentation">{logged && <button onClick={goAppoint}> Appointments </button>}</li>
+	          <li role="presentation">{logged && <button onClick={signOut}> Sign out </button>}</li>
+	          <li role="presentation">{!logged && <button onClick={signUp}> Sign up </button>}</li>
           </ul>
         </div> 
 	  </nav>
@@ -39,7 +39,7 @@ const Header = ({ goHome, signOut, goProfile, goAppoint, signUp, logged, goSplas
 const mapStateToProps = (state) => {
 	console.log('header state', state)
 	return {
-		logged: state.signin.logged
+		logged: window.localStorage.getItem("token")
 	};
 };
 
@@ -51,15 +51,22 @@ const mapDispatchToProps = (dispatch) => {
 		goHome: () => {
 			if(tookie){
 				browserHistory.push('/home?token=' + tookie)
-			}		},
+			}else{
+				browserHistory.push('/')
+			}
+		},
 		goProfile: () => {
 			if(tookie){
 				browserHistory.push('/profile?token=' + tookie)
+			}else{
+				browserHistory.push('/')
 			}
 		},
 		goAppoint: () => {
 			if(tookie){
 				browserHistory.push('/appointments?token=' + tookie)
+			}else{
+				browserHistory.push('/')
 			}
 		},
 		signUp: () => {
