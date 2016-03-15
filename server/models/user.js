@@ -174,7 +174,6 @@ User.validPlaintextPassword = function(username, password) {
   Returns a boolean indicating whether the username exists in the database
 */
 User.existsByUsername = function(username) {
-  console.log('checking for username ', username)
   return this.existsByAttribute('username', username)
 }
 

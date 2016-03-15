@@ -8,7 +8,7 @@ const EyeRx = require(__server + '/models/eyerx')
 const User = require(__server + '/models/user')
 
 
-describe('**************** EyeRx Model ****************', function() {
+xdescribe('**************** EyeRx Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
