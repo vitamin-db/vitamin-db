@@ -132,6 +132,12 @@ TH.RxAttributes = function(id_user, id_pharmacy, id_doctor, refill_number, name,
 	this.current = current
 }
 
+TH.AllergyAttributes = function(id_user, allergen, current) {
+	this.id_user = id_user
+	this.allergen = allergen
+	this.current = current
+}
+
 
 /*
   Generic Functions: These do not have any table- or model-specific calls
@@ -478,6 +484,44 @@ TH.createRxReturnId = function(attrs) {
   return TH.createRxReturnRx(attrs)
     .then( function(rx) {
       return rx.id_rx
+    })
+}
+
+/* 
+  ====================================
+  Allergy Helper Methods
+  ====================================
+*/ 
+
+TH.isValidAllergy = function(allergy) {
+  var props = ['id_allergy', 'id_user', 'current']
+  return TH.hasRightKeys(user, props)
+}
+
+//Returns a boolean indicating whether every doctor in any array has all expected properties
+TH.allValidAllergy = function(allergyArray) {
+  return allergyArray.reduce( function(bool, current) {
+    return bool && TH.isValidAllergy(current)
+  }, true)
+}
+
+
+TH.createAllergyReturnAllergy = function(attrs) {
+  return Allergy.create(attrs)
+    .then( function(attrs) {
+      return db.select('*').from('allergies').where(attrs)
+    })
+    .then( function(hopefullyOnlyOneResult) {
+      return hopefullyOnlyOneResult.reduce( function(mostRecent, current) {
+        return current.id_allergy > mostRecent.id_allergy ? current : mostRecent
+      })[0]
+    })
+}
+
+TH.createAllergyReturnId = function(attrs) {
+  return TH.createAllergyReturnAllergy(attrs)
+    .then( function(allergy) {
+      return allergy.id_allergy
     })
 }
 
