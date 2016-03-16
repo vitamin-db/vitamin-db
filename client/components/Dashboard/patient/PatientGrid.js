@@ -1,5 +1,5 @@
-// const React = require('react');
-import React from 'react';
+const React = require('react');
+// import React from 'react';
 const _ = require('lodash');
 const Row = require('react-bootstrap').Row;
 const Grid = require('react-bootstrap').Grid;
