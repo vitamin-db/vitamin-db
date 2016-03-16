@@ -15,6 +15,7 @@ const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
 const Pharmacy = require(__server + '/models/pharmacy')
 const FamilyMember = require(__server + '/models/familymembers')
+const Insurance = require(__server + '/models/insurance')
 
 //Make chai's 'expect' accessible from everywhere
 var chai = require('chai')
@@ -330,29 +331,32 @@ TH.isValidInsurance = function(insurance) {
 }
 
 //Returns a boolean indicating whether every doctor in any array has all expected properties
-TH.allValidRx = function(rxArray) {
-	return rxArray.reduce( function(bool, current) {
-		return bool && TH.isValidRx(current)
+TH.allValidInsurance = function(insuranceArray) {
+	return insuranceArray.reduce( function(bool, current) {
+		return bool && TH.isValidInsurance(current)
 	}, true)
 }
 
 
-TH.createRxReturnRx = function(attrs) {
-	return Rx.create(attrs)
+TH.createInsuranceReturnInsurance = function(attrs) {
+
+	return Insurance.create(attrs)
 	  .then( function(attrs) {
-	  	return db.select('*').from('rx').where(attrs)
+	  	return db.select('*').from('insurance').where(attrs)
 	  })
 	  .then( function(hopefullyOnlyOneResult) {
+	  	//we can't guarantee that any value will be unique, so we can't look up by any one value
+	  	//instead, we'll return the matching entry with the highest primary key (the most recently created)
 	  	return hopefullyOnlyOneResult.reduce( function(mostRecent, current) {
-	  		return current.id_rx > mostRecent.id_rx ? current : mostRecent
-	  	})[0]
+	  		return current.id_insurance > mostRecent.id_insurance ? current : mostRecent
+	  	})
 	  })
 }
 
-TH.createRxReturnId = function(attrs) {
-	return TH.createRxReturnRx(attrs)
-	  .then( function(rx) {
-	  	return rx.id_rx
+TH.createInsuranceReturnId = function(attrs) {
+	return TH.createInsuranceReturnInsurance(attrs)
+	  .then( function(insurance) {
+	  	return insurance.id_insurance
 	  })
 }
 
