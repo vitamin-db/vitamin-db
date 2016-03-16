@@ -92,6 +92,9 @@ module.exports = function(tableName, allAttrs) {
 		  	  	return result[0]
 		  	  })
 		  }.bind(this))
+		  .catch(function(err) {
+		  	return err
+		  })
 	}.bind(this)
 
 

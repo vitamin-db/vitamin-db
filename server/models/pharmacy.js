@@ -11,9 +11,6 @@ module.exports = Pharmacy
 */
 Pharmacy.getAllByUserId = function(id_user) {
 	return this.findByAttribute('id_user', id_user)
-	  .then( function(result) {
-	  	return result
-	  })
 }
 
 /* TOGGLE CURRENT
