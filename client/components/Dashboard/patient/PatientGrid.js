@@ -21,14 +21,13 @@ const item = allergies.map((val) =>
 )
 
 return(
-<div className="container-fluid">
-  <Grid>
+  <div className="container-fluid">
+  <Grid className="patient-grid">
     <Row className="show-grid">
 
-		<AllergiesPanel allergies={allergies} />
-		<EyePanel eyerx={eyerx} />
-		<FamilyHistory family={family} familyhistory={familyhistory} />
-
+    		<AllergiesPanel allergies={allergies} />
+    		<EyePanel eyerx={eyerx} />
+    		<FamilyHistory family={family} familyhistory={familyhistory} />
 
     </Row>
   </Grid>

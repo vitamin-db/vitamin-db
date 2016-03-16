@@ -13,11 +13,11 @@ const FamilyHistPanel = ({familyhistory, family}) => {
 	console.log(current);
 
 	return (
-		<Col xs={4} md={4}>
+		<Col lg={8} lgOffset={4}>
 		<Panel collapsible header='Family History'>
 	 		<ListGroup fill>
 	 		{familyhistory.map((val) =>
-				<ListGroupItem className="family-item">
+				<ListGroupItem key={val.name} className="family-item">
 				   {val.name + ': ' + val.condition}
 				</ListGroupItem>
 			)}

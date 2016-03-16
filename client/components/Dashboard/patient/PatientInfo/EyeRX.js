@@ -13,17 +13,17 @@ const EyePanel = ({eyerx}) => {
 	// console.log(current);
 
 	return (
-		<Col xs={4} md={4}>
+		<Col xs={12} md={8}>
 		<Panel collapsible header='Eye Prescription'>
 	 		<ListGroup fill>
 	 		{eyerx.map((val) => 
-				<ListGroupItem className="eye-item">
+				<ListGroupItem key={val.sphere_right} className="eye-item">
 				   <b>Right: </b>{val.sphere_right + ': ' + val.cylinder_right + ' ' + val.axis_right + ' ' + val.add_right}
 				</ListGroupItem>
 			)}
 
 			{eyerx.map((val) => 
-				<ListGroupItem className="eye-item">
+				<ListGroupItem key={val.sphere_left} className="eye-item">
 				   <b>Left: </b>{val.sphere_left + ': ' + val.cylinder_left + ' ' + val.axis_left + ' ' + val.add_left}
 				</ListGroupItem>
 			)}
