@@ -3,8 +3,6 @@ const browserHistory = require('react-router').browserHistory;
 
 //1000 req per day, 10 req for minute
 const API_KEY = '842ff30a0065e0c0bdb41fcc26a0343a';
-//hardcoded first and last name for testing
-const BETTERDOCTOR_URL = "https://api.betterdoctor.com/2015-01-27/doctors?first_name=james&last_name=dugas&skip=0&limit=10&user_key=" + API_KEY;
 
 // this is just a cookie parser. Put in the string "token" into the argument and it will
 // sift through the cookie string and spit out the correct value
@@ -119,26 +117,41 @@ function SignUp (body) {
 
 // get doctor list based on user argument: { username: username, token: token }
 // commented out until everything is ready
-function GetDoctorList () {
-//   return (dispatch) => {
-  return fetch(BETTERDOCTOR_URL)
-    .then(function (data) {
-      //console.log "data": [{[{[],{},[{}{}],[{}]}], etc..
-      console.log('Doctor data:', data);
-    })
-    .catch(function (err) {
-      console.error('Doctor error:', err);
-    });
-//     .then(function(response){
-//       return response.json();
-//     })
-//     .then(function(list){
-//       console.log(list);
-//     })
-//     .catch(function(err){
-//       console.error(err);
-//     })
-//   };
+function GetDoctor (doctor) {
+  return (dispatch) => {
+    return fetch("https://api.betterdoctor.com/2015-01-27/doctors?first_name=" + doctor.firstname + "&last_name=" + doctor.lastname + "&skip=0&limit=10&user_key=" + API_KEY)
+      .then(function (data) {
+        //console.log "data": [{[{[],{},[{}{}],[{}]}], etc..
+        return data.json();
+      })
+      .then(function(docList){
+        // console.log("dat", docList.data)
+        var final = [];
+        docList.data.forEach(function(doc){
+          var firstname = doc.profile.first_name + "";
+          var lastname = doc.profile.last_name + "";
+          var business = doc.practices[0].name;
+          var phone = doc.practices[0].phones[0].number;
+          var city = doc.practices[0].visit_address.city;
+          var state = doc.practices[0].visit_address.state;
+          var street = doc.practices[0].visit_address.street;
+          var street2 = doc.practices[0].visit_address.street2;
+          var zip = doc.practices[0].visit_address.zip;
+          var result = {
+            business: business,
+            firstname: firstname, 
+            lastname: lastname, 
+            phone:phone,
+            address: street + " " + street2 + " " + city + ", " + state + " " + zip
+          };
+          final.push(result);
+        })
+        dispatch(stateAction.SetDocApi(final))
+      })
+      .catch(function (err) {
+        console.error('Doctor error:', err);
+      });
+  };
 };
 
 // DONT FORGET TO ADD THE FUNCTIONS EXPORTS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -146,5 +159,5 @@ module.exports = {
   SignIn,
   SignUp,
   getCookie,
-  GetDoctorList
+  GetDoctor
 };
