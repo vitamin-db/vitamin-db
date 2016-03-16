@@ -48,6 +48,7 @@ function SignIn (body) {
         document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         // dispatch action
         dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value 
+        browserHistory.push('/home?token=' + getCookie("token"))
       }
     })
     .catch(function(err) {
@@ -78,10 +79,10 @@ function SignUp (body) {
         var time = now.getTime();
         time += 3600 * 1000;
         now.setTime(time);
-        window.localStorage.setItem("token", token.token);
-        document.cookie = "token=" + window.localStorage.getItem("token") + "; expires=" + now.toUTCString();
+        // window.localStorage.setItem("token", token.token);
+        document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         dispatch(stateAction.SignInSuccess(token.token));
-        browserHistory.push('/home?token=' + window.localStorage.getItem("token"))
+        browserHistory.push('/home?token=' + getCookie("token"))
       }
     })
     .catch(function(err){
