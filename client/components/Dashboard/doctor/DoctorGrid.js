@@ -8,13 +8,20 @@ const Glyphicon = require('react-bootstrap').Glyphicon;
 const DocCard = require('./DoctorCard');
 const AddDoc = require('./AddDoctor');
 
-const DoctorGrid = ({docInfo}) => (
+//patient info
+const Insurance = require('../patient/PatientInfo/Insurance');
+const Pharmacy = require('../patient/PatientInfo/Pharmacy');
+
+const DoctorGrid = ({docInfo, insurance, pharmacy}) => (
 <div className="container-fluid">
   <Grid>
     <Row className="show-grid">
       {docInfo.map((val) => 
         <DocCard key={val.name} val={val} />
       )}
+      	<Insurance insurance={insurance} />
+		<Pharmacy pharmacy={pharmacy} />
+
       <AddDoc />
     </Row>
   </Grid>

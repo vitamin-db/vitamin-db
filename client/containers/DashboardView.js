@@ -11,6 +11,7 @@ const PatientGrid = require('../components/Dashboard/patient/PatientGrid');
 const mock = require('../model/mockData');
 const Grid = require('react-bootstrap').Grid;
 const _ = require('lodash');
+const apiAction = require('../actionCreators/apiActions');
 
 //Grid
 //Row might go in Home instead components
@@ -18,34 +19,34 @@ const _ = require('lodash');
 // // CONTAINER
 // 
  // <PatientGrid patientInfo={patient} />
-const Home = ({doctor, patient}) => {
+const Home = ({doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
     return (
       <div className="home-body">
-        <DoctorGrid docInfo={doctor} />
-    
-  
+        <DoctorGrid docInfo={doctor} insurance={insurance} pharmacy={pharmacy} />
+        <PatientGrid allergies={allergies} eyerx={eyerx} family={family} insurance={insurance} pharmacy={pharmacy} familyhistory={familyhistory} rx={rx} />
       </div>
   );
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(mock.users)
+  console.log(mock.allergies)
   return { 
    doctor: mock.Doctor,
-   patient: mock.users
-   // allergies: mock.users[0].allergies,
-   // eyerx: mock.users[0].eyerx,
-   // family: mock.users[0].family,
-   // insurance: mock.users[0].insurance,
-   // pharmacy: mock.users[0].pharmacy,
-   // familyhistory: mock.users[0].familyhistory,
-   // rx: mock.users[0].rx
+   allergies: mock.Allergies,
+   eyerx: mock.Eyerx,
+   family: mock.Family,
+   insurance: mock.Insurance,
+   pharmacy: mock.Pharmacy,
+   familyhistory: mock.Familyhistory,
+   rx: mock.Rx
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    getDocList: () => {
+      apiAction.getDocList()
+    }
   }
 };
 
