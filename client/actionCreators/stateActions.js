@@ -1,10 +1,3 @@
-function SignUpSubmit(info) {
-	return {
-		type: 'SUBMIT',
-		info: info
-	};
-};
-
 // successful log-in
 function SignInSuccess(token) {
 	return {
@@ -20,15 +13,7 @@ function SignInFail() {
 	};
 };
 
-function LoggedIn () {
-	if(window.localStorage.getItem("token")){
-		return true;
-	}
-	return false;
-};
-
 function SignOut () {
-	window.localStorage.clear();
 	document.cookie = "token=; expires=Thu, 01 Jan 1900 00:00:00 UTC";
 	return {
 		type: 'SIGNINFAIL'
@@ -36,9 +21,7 @@ function SignOut () {
 }
 
 module.exports = {
-	SignUpSubmit,
 	SignInSuccess,
 	SignInFail,
-	LoggedIn,
 	SignOut
 };

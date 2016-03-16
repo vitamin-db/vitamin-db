@@ -1,7 +1,9 @@
-const React = require('react');
-const connect = require('react-redux').connect;
-const SignUp = require('../components/SignUp/SignUp');
-const apiAction = require('../actionCreators/apiActions');
+// require packages
+const React       = require('react');
+const connect     = require('react-redux').connect;
+// components/files
+const SignUp      = require('../components/SignUp/SignUp');
+const apiAction   = require('../actionCreators/apiActions');
 const stateAction = require('../actionCreators/stateActions');
 
 const SignUpComp = ({onSignUp}) => {

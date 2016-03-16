@@ -1,9 +1,12 @@
-const React = require('react');
-const Router = require('react-router');
-const Link = Router.Link;
-const connect = require('react-redux').connect;
-const apiAction = require('../actionCreators/apiActions');
-const stateAction = require('../actionCreators/stateActions');
+// require react packages
+const React          = require('react');
+const Router         = require('react-router');
+const Link           = Router.Link;
+const connect        = require('react-redux').connect;
+// require action creators
+const apiAction      = require('../actionCreators/apiActions');
+const stateAction    = require('../actionCreators/stateActions');
+// browser history for path change
 const browserHistory = Router.browserHistory;
 
 const Header = ({ goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
@@ -31,13 +34,18 @@ const mapStateToProps = (state) => {
 	};
 };
 
+// currently doing this method because redirects/router changes trigger back end authentication where it checks for the body, url, and header
+// not being able to set headers or body for a link led to problems
+// putting it in the url for now until we find a better solution
+// refreshes would trigger it too, so even though router could redirect me, bypassing the backend auth, if a user refreshes, it triggers the backend auth
+// gotta see if server side can grab cookies
 const mapDispatchToProps = (dispatch) => {
 	return {
 		goSplash: () => {
 			browserHistory.push('/')
 		},
 		goHome: () => {
-			if(apiAction.getCookie("token")){
+			if(apiAction.getCookie("token")){ // once we find a different way to send auth, we probably won't need this cookie parsing function
 				browserHistory.push('/home?token=' + apiAction.getCookie("token"))
 			}else{
 				browserHistory.push('/')

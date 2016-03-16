@@ -1,8 +1,13 @@
-const React = require('react');
-const connect = require('react-redux').connect;
+// require packages
+const React       = require('react');
+const connect     = require('react-redux').connect;
+// components/files
 const stateAction = require('../actionCreators/stateActions');
-const SearchBar = require('../components/Search/SearchBar');
+const SearchBar   = require('../components/Search/SearchBar');
 // const AddInformation = require('../reducers/AddInformation');
+
+// look up ways to keep track of time
+// alarms, calender, etc.
 
 const Appointment = ({AddInformation}) => {
   return (

@@ -1,4 +1,4 @@
-const stateAction = require('./stateActions');
+const stateAction    = require('./stateActions');
 const browserHistory = require('react-router').browserHistory;
 
 //1000 req per day, 10 req for minute
@@ -6,6 +6,8 @@ const API_KEY = '842ff30a0065e0c0bdb41fcc26a0343a';
 //hardcoded first and last name for testing
 const BETTERDOCTOR_URL = "https://api.betterdoctor.com/2015-01-27/doctors?first_name=james&last_name=dugas&skip=0&limit=10&user_key=" + API_KEY;
 
+// this is just a cookie parser. Put in the string "token" into the argument and it will
+// sift through the cookie string and spit out the correct value
 function getCookie(cname) {
    var name = cname + "=";
    var ca = document.cookie.split(';');
@@ -30,22 +32,23 @@ function SignIn (body) {
     .then(function(response) {
       return response.json();
     })
-    .then(function(token) {
-      if(token.token === undefined){
+    .then(function(token) { // later, ask for user info too, except password, to display on profile page
+      if(token.token === undefined){ // later, move this logic to the back end. Have it throw an error in the back end, so it will fall to this .catch
         dispatch(stateAction.SignInFail());
         return;
       }else{
+        // grab current time, convert it to a single unit, add desired time for expiration, 
+        // set the created date to the new time, store the token with the expires parameter
         var now = new Date();
         var time = now.getTime();
-        // time += 3600 * 1000;
-        time += 100000
+        time += 3600 * 1000;
         now.setTime(time);
-        window.localStorage.setItem("token", token.token);
-        document.cookie = "token=" + window.localStorage.getItem("token") + "; expires=" + now.toUTCString();
+        // just using cookies now for expiration dates, as seen above
+        // window.localStorage.setItem("token", token.token);
+        document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         // dispatch action
-        dispatch(stateAction.SignInSuccess(token.token));
-        // change location
-        browserHistory.push('/home?token=' + window.localStorage.getItem("token"));
+        dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value 
+        browserHistory.push('/home?token=' + getCookie("token"))
       }
     })
     .catch(function(err) {
@@ -68,18 +71,18 @@ function SignUp (body) {
     .then(function(response){
       return response.json();
     })
-    .then(function(token){
-      if(token.token === undefined){
+    .then(function(token){ // don't forget to get the user info back here too, except password
+      if(token.token === undefined){ // same thing, move logic to back end
         dispatch(stateAction.SignInFail());
       }else{
         var now = new Date();
         var time = now.getTime();
         time += 3600 * 1000;
         now.setTime(time);
-        window.localStorage.setItem("token", token.token);
-        document.cookie = "token=" + window.localStorage.getItem("token") + "; expires=" + now.toUTCString();
+        // window.localStorage.setItem("token", token.token);
+        document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         dispatch(stateAction.SignInSuccess(token.token));
-        browserHistory.push('/home?token=' + window.localStorage.getItem("token"))
+        browserHistory.push('/home?token=' + getCookie("token"))
       }
     })
     .catch(function(err){
@@ -88,6 +91,7 @@ function SignUp (body) {
   };
 };
 
+// don't need this since auth is handled backend
 // function isAuth () {
 //     // fetch('/authenticate/home', {
 //     //   headers: {
