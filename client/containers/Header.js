@@ -1,9 +1,12 @@
-const React = require('react');
-const Router = require('react-router');
-const Link = Router.Link;
-const connect = require('react-redux').connect;
-const apiAction = require('../actionCreators/apiActions');
-const stateAction = require('../actionCreators/stateActions');
+// require react packages
+const React          = require('react');
+const Router         = require('react-router');
+const Link           = Router.Link;
+const connect        = require('react-redux').connect;
+// require action creators
+const apiAction      = require('../actionCreators/apiActions');
+const stateAction    = require('../actionCreators/stateActions');
+// browser history for path change
 const browserHistory = Router.browserHistory;
 
 const Header = ({ goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
@@ -42,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
 			browserHistory.push('/')
 		},
 		goHome: () => {
-			if(apiAction.getCookie("token")){
+			if(apiAction.getCookie("token")){ // once we find a different way to send auth, we probably won't need this cookie parsing function
 				browserHistory.push('/home?token=' + apiAction.getCookie("token"))
 			}else{
 				browserHistory.push('/')

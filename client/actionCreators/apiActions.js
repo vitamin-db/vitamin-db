@@ -1,4 +1,4 @@
-const stateAction = require('./stateActions');
+const stateAction    = require('./stateActions');
 const browserHistory = require('react-router').browserHistory;
 
 //1000 req per day, 10 req for minute

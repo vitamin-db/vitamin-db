@@ -1,9 +1,12 @@
-const React = require('react');
-const connect = require('react-redux').connect;
-const SignIn = require('../components/Splash/SignIn');
-const apiAction = require('../actionCreators/apiActions');
+// require packages
+const React             = require('react');
+const connect           = require('react-redux').connect;
+// require components/files
+const SignIn            = require('../components/Splash/SignIn');
 const JumbotronInstance = require('../components/Splash/Jumbotron');
-const browserHistory = require('react-router').browserHistory;
+const apiAction         = require('../actionCreators/apiActions');
+// require history to change routes
+const browserHistory    = require('react-router').browserHistory;
 
 const Splash = ({ onSignIn, goSignup }) => {
 	return (
