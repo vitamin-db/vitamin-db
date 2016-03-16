@@ -103,19 +103,19 @@ describe('**************** EyeRx Model ****************', function() {
     var eyerx_id5 = undefined
 
     var newTestUser4 = new TH.UserAttributes('Ralf', 'Garey', 'rgarey@gmail.com', '123-789-3456')
-    var id_user4 = undefined
-    var newEyeRx5 = new TH.EyeRxAttributes(id_user4, -1.00, -1.25, -1.25, -1.00, 10, 10, -1.00, -1.00, false)
+    var newEyeRx5 = undefined
 
     return TH.createUserReturnId(newTestUser4)
       .then( function(id) {
         id_user4 = id
+        newEyeRx5 = new TH.EyeRxAttributes(id, -1.00, -1.25, -1.25, -1.00, 10, 10, -1.00, -1.00, false)
         return EyeRx.create(newEyeRx5); 
       })
-      .then( function() { return EyeRx.getAll() })
-      .then( function(allEyerx) {
-        eyerx_id5 = allEyeRx[0]['id_eyerx']
-      })
       .then( function() { 
+        return EyeRx.getAll()
+      })
+      .then( function(allEyeRx) {
+        eyerx_id5 = allEyeRx[0]['id_eyerx']
         return EyeRx.deleteById(eyerx_id5);
       })
       .then( function(deletedRecord) {
