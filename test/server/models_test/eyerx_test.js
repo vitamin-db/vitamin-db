@@ -32,7 +32,7 @@ describe('**************** EyeRx Model ****************', function() {
     return TH.createUserReturnId(newTestUser1)
       .then( function(id) {
         id_user1 = id
-        newEyeRx1 = new TH.EyeRxAttributes(id_user1, 2.25, 2.00, 2.00, -1.25, 20, 48, 2, 2, true)
+        newEyeRx1 = new TH.EyeRxAttributes(id_user1, 2.25, 2.00, 2.00, -1.25, 20, 48, 2, 2)
         return EyeRx.createEyeRx(newEyeRx1)
       })
       .then( function(eyerx) {
@@ -52,8 +52,8 @@ describe('**************** EyeRx Model ****************', function() {
     return TH.createUserReturnId(newTestUser2)
       .then( function(id) {
         id_user2 = id
-        newEyeRx2 = new TH.EyeRxAttributes(id_user2, 2.50, 1.75, 2.00, -1.00, 24, 42, 1.50, 1, true)
-        newEyeRx3 = new TH.EyeRxAttributes(id_user2, 2.50, 1.50, 2.00, -.75, 30, 10, .5, 1.5, false)
+        newEyeRx2 = new TH.EyeRxAttributes(id_user2, 2.50, 1.75, 2.00, -1.00, 24, 42, 1.50, 1)
+        newEyeRx3 = new TH.EyeRxAttributes(id_user2, 2.50, 1.50, 2.00, -.75, 30, 10, .5, 1.5)
         return EyeRx.createEyeRx(newEyeRx2)
       })
       .then( function() {
@@ -68,6 +68,9 @@ describe('**************** EyeRx Model ****************', function() {
         expect(TH.allValidEyeRx(allEyeRx)).to.be.true
         expect(TH.propsMatchExceptMaybeCurrent(allEyeRx[0], newEyeRx2)).to.be.true
         expect(TH.propsMatchExceptMaybeCurrent(allEyeRx[1], newEyeRx3)).to.be.true
+        expect(allEyeRx[0]['current']).to.be.false
+        expect(allEyeRx[1]['current']).to.be.true
+
       })
   })
 
@@ -81,7 +84,7 @@ describe('**************** EyeRx Model ****************', function() {
 
     return TH.createUserReturnId(newTestUser3)
       .then( function(id) {
-        newEyeRx4 = new TH.EyeRxAttributes(id, 1.00, 1.25, 1.25, 1.00, 20, 20, 1.00, 1.00, true)
+        newEyeRx4 = new TH.EyeRxAttributes(id, 1.00, 1.25, 1.25, 1.00, 20, 20, 1.00, 1.00)
         return EyeRx.createEyeRx(newEyeRx4)
       })
       .then( function() {
@@ -108,8 +111,8 @@ describe('**************** EyeRx Model ****************', function() {
     return TH.createUserReturnId(newTestUser4)
       .then( function(id) {
         id_user4 = id
-        newEyeRx5 = new TH.EyeRxAttributes(id, -1.00, -1.25, -1.25, -1.00, 10, 10, -1.00, -1.00, false)
-        return EyeRx.create(newEyeRx5); 
+        newEyeRx5 = new TH.EyeRxAttributes(id, -1.00, -1.25, -1.25, -1.00, 10, 10, -1.00, -1.00)
+        return EyeRx.createEyeRx(newEyeRx5); 
       })
       .then( function() { 
         return EyeRx.getAll()
@@ -130,22 +133,89 @@ describe('**************** EyeRx Model ****************', function() {
 
   it('toggles whether an eyerx record is current', function() {
 
+    var newTestUser = new TH.UserAttributes('A', 'B', 'C@gmail', 'D3')
+    var newEyeRx = undefined
+
+    var eyerx_id = undefined
+
+    return TH.createUserReturnId(newTestUser)
+      .then( function(id) {
+        newEyeRx = new TH.EyeRxAttributes(id, -1.00, -1.25, -1.25, -1.00, 10, 10, -1.00, -1.00)
+        return EyeRx.createEyeRx(newEyeRx)
+      })
+      .then( function(eyerx) {
+        eyerx_id = eyerx.id_eyerx
+        expect(eyerx.current).to.be.true
+        expect(TH.propsMatchExceptMaybeCurrent(eyerx, newEyeRx)).to.be.true
+        return EyeRx.toggleCurrent(eyerx_id)
+      })
+      .then( function() {
+        return EyeRx.findById(eyerx_id)
+      })
+      .then( function(eyerx) {
+        expect(eyerx.current).to.be.false
+        expect(TH.propsMatchExceptMaybeCurrent(eyerx, newEyeRx)).to.be.true
+      })
+
   })
 
   it('returns a user\'s current prescription', function() {
-    
+    var newTestUser = new TH.UserAttributes('A', 'B', 'C@gmail', 'D3')
+    var newuser_id = undefined
+    var newEyeRx = undefined
+
+    // var eyerx_id = undefined
+
+    return TH.createUserReturnId(newTestUser)
+      .then( function(id) {
+        newuser_id = id
+        newEyeRx = new TH.EyeRxAttributes(id, -1.00, -1.25, -1.25, -1.00, 10, 10, -1.00, -1.00)
+        return EyeRx.createEyeRx(newEyeRx)
+      })
+      .then( function() {
+        return EyeRx.getCurrentByUser(newuser_id)
+      })
+      .then( function(current) {
+        expect(current).to.be.an('object')
+        expect(TH.isValidEyerx(current)).to.be.true
+        expect(TH.propsMatchExceptMaybeCurrent(current, newEyeRx)).to.be.true
+        expect(current.current).to.be.true
+      })
   })
 
-  it('switches a current prescription to not current when a new current record is added', function() {
+  it('changes the current prescription to a newly added one', function() {
+    var newTestUser = new TH.UserAttributes('A', 'B', 'C@gmail', 'D3')
+    var newuser_id = undefined
+    var newEyeRx1 = undefined
+    var newEyeRx2 = undefined
 
+    // var eyerx_id = undefined
+
+    return TH.createUserReturnId(newTestUser)
+      .then( function(id) {
+        newuser_id = id
+        newEyeRx1 = new TH.EyeRxAttributes(id, -1.00, -1.25, -1.25, -1.00, 10, 10, -1.00, -1.00)
+        return EyeRx.createEyeRx(newEyeRx1)
+      })
+      .then( function(newEyeRx) {
+        expect(newEyeRx['current']).to.be.true
+
+        newEyeRx2 = new TH.EyeRxAttributes(newuser_id, -2.00, -1.5, 1.25, -1.72, 40, -38, -1.35, -2.40)
+        return EyeRx.createEyeRx(newEyeRx2)
+      })
+      .then( function() {
+        return EyeRx.getAllByUser(newuser_id)
+      })
+      .then( function(allEyeRx) {
+        expect(allEyeRx).to.be.an('array')
+        expect(allEyeRx).to.have.length(2)
+        expect(TH.allValidEyeRx(allEyeRx)).to.be.true
+        expect(TH.propsMatchExceptMaybeCurrent(allEyeRx[0], newEyeRx1)).to.be.true
+        expect(TH.propsMatchExceptMaybeCurrent(allEyeRx[1], newEyeRx2)).to.be.true
+        expect(allEyeRx[0]['current']).to.be.false
+        expect(allEyeRx[1]['current']).to.be.true
+      })
   })
 
-  it('does not change the current prescription when a non-current one is added', function() {
-
-  })
-
-  it('does not toggle noncurent prescriptions when a new current one is added', function() {
-
-  })
 
 })

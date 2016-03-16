@@ -50,30 +50,22 @@ EyeRx.getCurrentByUser = function(id_user) {
   If the user specified in attributes has a prescription and the attributes have a current value of true:
     - Switches that prescription to not current
   Creates a new eyeRx and returns that object
+  NOTE: attrs does not have a current yet because we're not giving the user the option to choose no
+     >>> so we have to add it
 */
 EyeRx.createEyeRx = function(attrs) {
-	if (attrs.current === true) {
-		return EyeRx.getCurrentByUser(attrs.id_user)
-		  .then(function(eyerx) {
-		  	return eyerx ? EyeRx.toggleCurrent(eyerx.id_eyerx) : eyerx //toggles current and returns updated or returns undefined
-		  })
-		  .then( function() {
-		  	return EyeRx.create(attrs)
-		  })
-		  .then( function() {
-		  	return EyeRx.getCurrentByUser(attrs.id_user)
-		  })
-	} else {
-		return EyeRx.create(attrs)
-		  .then(function() {
-		  	return EyeRx.getAllByUser(attrs.id_user)
-		  })
-		  .then(function(allRx) {
-		  	return allRx.reduce(function(mostRecent, current) {
-		  		return current.id_eyerx > mostRecent.id_eyerx ? current.id_eyerx : mostRecent.id_eyerx
-		  	})
-		  })
-	} 
+	return EyeRx.getCurrentByUser(attrs.id_user)
+	  .then(function(eyerx) {
+	  	return eyerx ? EyeRx.toggleCurrent(eyerx.id_eyerx) : eyerx //toggles current and returns updated or returns undefined
+	  })
+	  .then( function() {
+	  	var newAttrs = attrs
+	  	newAttrs.current = true
+	  	return EyeRx.create(newAttrs)
+	  })
+	  .then( function() {
+	  	return EyeRx.getCurrentByUser(attrs.id_user)
+	  })
 
 }
 

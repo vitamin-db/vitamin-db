@@ -110,7 +110,7 @@ TH.InsuranceAttributes = function(id_user, plan_name, group_id, plan_id, rx_bin,
 	this.current = current
 }
 
-TH.EyeRxAttributes = function(id_user, sphere_right, sphere_left, cylinder_right, cylinder_left, axis_right, axis_left, add_right, add_left, current) {
+TH.EyeRxAttributes = function(id_user, sphere_right, sphere_left, cylinder_right, cylinder_left, axis_right, axis_left, add_right, add_left) {
   this.id_user = id_user
   this.sphere_right = sphere_right
   this.sphere_left = sphere_left
@@ -120,7 +120,7 @@ TH.EyeRxAttributes = function(id_user, sphere_right, sphere_left, cylinder_right
   this.axis_left = axis_left
   this.add_right = add_right
   this.add_left = add_left
-  this.current = current
+  // this.current = current <<<<< We will add the current value when we add the record to the db
 }
 
 TH.RxAttributes = function(id_user, id_pharmacy, id_doctor, refill_number, name, dosage, current) {
