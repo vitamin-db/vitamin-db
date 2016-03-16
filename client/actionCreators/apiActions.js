@@ -1,6 +1,9 @@
 const stateAction = require('./stateActions');
 const browserHistory = require('react-router').browserHistory;
 
+const API_KEY = '842ff30a0065e0c0bdb41fcc26a0343a';
+const BETTERDOCTOR_URL = "https://api.betterdoctor.com/2015-01-27/doctors?first_name=james&last_name=dugas&gender=male&skip=0&limit=10&user_key=" + API_KEY;
+
 function getCookie(cname) {
    var name = cname + "=";
    var ca = document.cookie.split(';');
@@ -110,17 +113,15 @@ function SignUp (body) {
 
 // get doctor list based on user argument: { username: username, token: token }
 // commented out until everything is ready
-// function GetDoctorList (user) {
+function GetDoctorList () {
 //   return (dispatch) => {
-//     return fetch('', {
-//       method: 'get',
-//       headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json',
-//         'x-access-token': user.token
-//       },
-//       body: JSON.stringify(user.username)
-//     })
+  return fetch(BETTERDOCTOR_URL)
+    .then(function (data) {
+      console.log('do I even make it to the then?,', data);
+    })
+    .catch(function (err) {
+      console.error('or how about the error?',err);
+    });
 //     .then(function(response){
 //       return response.json();
 //     })
@@ -131,11 +132,12 @@ function SignUp (body) {
 //       console.error(err);
 //     })
 //   };
-// };
+};
 
 // DONT FORGET TO ADD THE FUNCTIONS EXPORTS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module.exports = {
   SignIn,
   SignUp,
-  getCookie
+  getCookie,
+  GetDoctorList
 };
