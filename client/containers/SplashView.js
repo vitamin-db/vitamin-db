@@ -41,7 +41,6 @@ const mapDispatchToProps = (dispatch) => {
 			var password = e.target.password.value;
 			var body = {username: username, password: password};
 			dispatch(apiAction.SignIn(body)) // you have to call dispatch here even though you dispatch the action object in the api promise, idk why, check later
-			browserHistory.push('/home?token=' + window.localStorage.getItem("token"));
 		},
 		goSignup: () => {
 			browserHistory.push('/signup')

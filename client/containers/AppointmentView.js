@@ -1,5 +1,7 @@
+// require packages
 const React       = require('react');
 const connect     = require('react-redux').connect;
+// components/files
 const stateAction = require('../actionCreators/stateActions');
 const SearchBar   = require('../components/Search/SearchBar');
 // const AddInformation = require('../reducers/AddInformation');

@@ -8,8 +8,8 @@ const Signin = (state, action) => {
     case 'SIGNINSUCCESS':
       // the spread operator ( " ...state "), is grabing all the properties of the old state
       // putting it in the new object it's wrapped in
-      // the following properties re-assign the old keys to the new values
-      return {...state, logged: true, token: action.token};
+      // then re-assign the old keys to the new values just by setting the old keys to a new value
+      return {...state, logged: true, token: action.token}; // This is the same as: Object.assign({}, state, {logged: true, token: action.token})
     case 'SIGNINFAIL':
   	  return {...state, logged: false, token: null};
     default:
