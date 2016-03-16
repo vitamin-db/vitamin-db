@@ -148,14 +148,12 @@ TH.AllergyAttributes = function(id_user, allergen, current) {
 TH.hasRightKeys = function(obj, arrayOfKeys) {
 	var k = Object.keys(obj)
 	return k.length === arrayOfKeys.length && arrayOfKeys.reduce( function(foundAll, current) {
-		console.log('comparing value of',current,': arrayOfKeys:',arrayOfKeys[current],'obj:',k[current])
 		return foundAll && k.indexOf(current) > -1
 	}, true)
 }
 
 //Returns a boolean indicating whether every key:value pair in has been successfully added to the database object
 TH.propsMatch = function(dbObj, sourceObj) {
-	console.log('in propsMatch: comparing', dbObj, 'to', sourceObj)
 	return Object.keys(sourceObj).reduce( function(bool, current) {		
 		return bool && (typeof sourceObj[current] === 'number' ? sourceObj[current]*100 === dbObj[current]*100 : sourceObj[current] === dbObj[current])
 	}, true)
