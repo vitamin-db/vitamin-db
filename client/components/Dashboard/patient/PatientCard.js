@@ -11,7 +11,7 @@ const ListGroupItem = require('react-bootstrap').ListGroupItem;
 const AddInfo = require('./AddInfo');
 
 
-const PatientCard = ({ val}) => {
+const PatientCard = () => {
 
 return (
    <div>
@@ -20,7 +20,7 @@ return (
 	 <Panel collapsible defaultExpanded header={header}>
 	 	<ListGroup fill>
 
-			<ListGroupItem className="patient-item"><b>1 </b>{val.allergies}</ListGroupItem>
+			<ListGroupItem className="patient-item"><b>1 </b></ListGroupItem>
 		 		{content}
 	 	</ListGroup>
   	 </Panel>

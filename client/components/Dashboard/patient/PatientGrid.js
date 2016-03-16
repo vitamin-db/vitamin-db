@@ -1,43 +1,41 @@
-const React = require('react');
+// const React = require('react');
+import React from 'react';
+const _ = require('lodash');
 const Row = require('react-bootstrap').Row;
-const Col = require('react-bootstrap').Col;
 const Grid = require('react-bootstrap').Grid;
-const Panel = require('react-bootstrap').Panel;
-const Button = require('react-bootstrap').Button;
-const Glyphicon = require('react-bootstrap').Glyphicon;
-// const PatientCard = require('./PatientCard');
 // const AddInfo = require('./AddInfo');
 
-const content = (
-	<div className="patient-item">
-	 	<Button className="patient-button" bsSize="xsmall" ><Glyphicon glyph="plus" /></Button>
-	    <h6 className="card-type">Add</h6>
-	</div>
+// Patient Panels
+const AllergiesPanel = require('./PatientInfo/Allergies');
+const EyePanel = require('./PatientInfo/EyeRX');
+const FamilyHistory = require('./PatientInfo/FamilyHistory');
+const Insurance = require('./PatientInfo/Insurance');
+const Pharmacy = require('./PatientInfo/Pharmacy');
+
+const PatientGrid = ({allergies, eyerx, family, familyhistory, insurance, pharmacy, rx}) => {
+
+// console.log(allergies, eyerx, family);
+
+const item = allergies.map((val) =>
+	console.log(val)
 )
 
-
-const PatientGrid = ({patientInfo}) => (
+return(
 <div className="container-fluid">
   <Grid>
     <Row className="show-grid">
 
-		<Col xs={4} md={4}>
-	 	<Panel collapsible defaultExpanded header='hey'>
-	 		<ListGroup fill>
-{patientInfo.map((val) => 
-				<ListGroupItem className="patient-item"><b>1 </b>{val.allergies}</ListGroupItem>
-		 		)}
+		<AllergiesPanel allergies={allergies} />
+		<EyePanel eyerx={eyerx} />
+		<FamilyHistory family={family} familyhistory={familyhistory} />
 
-		 		{content}
-	 		</ListGroup>
-  	 	</Panel>
-
-		</Col>
 
     </Row>
   </Grid>
   </div>
-);
+  )
+
+}
 
 
 module.exports = PatientGrid;

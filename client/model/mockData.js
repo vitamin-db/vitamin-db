@@ -1,7 +1,6 @@
 const Data = {
-     users: [
-        {
-     allergies: [
+     
+     Allergies: [
           {
               id_user: 1,
               allergen: 'pollen',
@@ -13,7 +12,7 @@ const Data = {
               current: false
             },
           ],
-    eyerx: [
+    Eyerx: [
         {
           id_user: 1,
           sphere_right: 2.45,
@@ -27,7 +26,7 @@ const Data = {
           current: true
         },
     ],
-  family: [
+  Family: [
             {
             id_user: 1,
             name: 'Mom'
@@ -43,7 +42,7 @@ const Data = {
   ],
 
 
-insurance: [
+Insurance: [
         {
           id_user: 1,
             plan_name: 'Anthem',
@@ -52,17 +51,17 @@ insurance: [
             rx_bin: '843r9',
             current: true
         },
-          {
-            id_user: 1,
-              plan_name: 'Cigna',
-              group_id: '4wj49v',
-              plan_id: 'jf983',
-              rx_bin: '3q2r89',
-              current: false
-          },
+          // {
+          //   id_user: 1,
+          //     plan_name: 'Cigna',
+          //     group_id: '4wj49v',
+          //     plan_id: 'jf983',
+          //     rx_bin: '3q2r89',
+          //     current: false
+          // },
     ],
 
-      pharmacy: [
+      Pharmacy: [
         {
           id_user: 1,
           business_name: 'CVS',
@@ -72,7 +71,7 @@ insurance: [
         },
     ],
 
-      user_doctor: [
+      User_doctor: [
           {
             id_user: 1,
             id_doctor: 1,
@@ -80,10 +79,11 @@ insurance: [
             current: true
           },
       ],
-  familyhistory: [
+  Familyhistory: [
           {
             id_familymember: 1,
-            condition: 'Cancer'
+            name: 'Mom',
+            condition: ['Cancer', 'diabetes']
           },
           {
             id_familymember: 2,
@@ -115,7 +115,7 @@ insurance: [
           },
   ],
 
-  rx: [
+  Rx: [
         {
           id_user: 1,
           id_pharmacy: 1,
@@ -127,16 +127,6 @@ insurance: [
         },
     ],
 
-        },
-
-
-        // {
-        //   username: 'Hamburguesa',
-        //   password: 'mycoolpassword',
-        //   email: 'amberleyjohanna@gmail.com',
-        //     phone: '123-456-7899'
-        // }
-     ],
 
      Doctor: [
         {   
