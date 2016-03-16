@@ -119,6 +119,7 @@ function GetDoctorList () {
 //   return (dispatch) => {
   return fetch(BETTERDOCTOR_URL)
     .then(function (data) {
+      //console.log "data": [{[{[],{},[{}{}],[{}]}], etc..
       console.log('Doctor data:', data);
     })
     .catch(function (err) {

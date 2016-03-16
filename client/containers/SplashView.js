@@ -8,9 +8,6 @@ const browserHistory = require('react-router').browserHistory;
 // Splash soon-to-be container with any and all child components it needs
 // Each container will be a "view"
 
-//testing for doctor data, can be deleted
-apiAction.GetDoctorList()
-
 const Splash = ({ onSignIn, goSignup }) => {
 	return (
 		<div>
