@@ -128,4 +128,24 @@ describe('**************** EyeRx Model ****************', function() {
       })
   })  
 
+  it('toggles whether an eyerx record is current', function() {
+
+  })
+
+  it('returns a user\'s current prescription', function() {
+    
+  })
+
+  it('switches a current prescription to not current when a new current record is added', function() {
+
+  })
+
+  it('does not change the current prescription when a non-current one is added', function() {
+
+  })
+
+  it('does not toggle noncurent prescriptions when a new current one is added', function() {
+
+  })
+
 })
