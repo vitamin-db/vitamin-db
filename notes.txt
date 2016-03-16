@@ -135,3 +135,146 @@ Other methods to write:
 - ** need some way for users to enter doctors in the order they went to them... can't do it by 'created at'
 
 
+=====
+Notes 3/16:
+Model tests / models / api test / api
+=====
+
+Allergy:
+
+  ==============
+  API
+  ==============
+
+  // ASSUME ALL BELOW NEED TO EXTEND TO ALL DATA TYPES //////////
+
+  AllergyAPI.get('/' ...)
+    - Retrieve all allergy records associated with a user
+
+  AllergyAPI.post('/' ...)
+    - Use Allergy.create fn
+
+  AllergyAPI.put('/' ...)
+    -- Have the identifying info and what needs to be changed
+      inside an object sent as put request here.
+
+  AllergyAPI.delete('/' ...)
+    -- use the id and use Allergy.deleteById fn
+
+  /////////////////////////////////////////////////////////////////
+
+  ==============
+  Model
+  ==============
+
+Auth:
+
+  ==============
+  API
+  ==============
+
+
+  ==============
+  Model
+  ==============
+ 
+
+Doctor:
+
+  ==============
+  API
+  ==============
+
+  If you're adding a doctor, and the doctor is current: true, and that doctor's
+  type_usermade, "primary doctor", is already associated with an existing doctor
+  record, then...
+
+    - Front-end messaging(?):
+      -- If you add a doctor and it overlaps with another doctor (described above),
+      display helper text that the user may want to set the older doctor to current:false
+
+
+  ==============
+  Model
+  ==============
+
+
+EyeRx:
+
+  ==============
+  API
+  ==============
+
+  For now, whenever you add a new eyerx record, it should be set to current:true,
+  and the previously current record shoudl be set to current:false
+
+  FUTURE FEATURE NOTES: ///////////////////////////////////
+
+  You only have one current eye prescription. 
+
+    --If you add a new eyerx, that should be set to current:true,
+    -- Previous eyerx should be set to current:false;
+
+  Also should be able to add old eyerx as well.
+
+    -- Front-end note: User should be able to set current: true/false when they
+      input a new eyerx
+
+  ==============
+  Model
+  ==============
+
+
+FamilyHistory:
+
+  ==============
+  API
+  ==============
+
+  FamilyHistoryAPI.get('/' ...)
+    - Retrieve all family history (condition) records associated with a user
+
+  FamilyHistoryAPI.post('/' ...)
+    - Use Allergy.create fn
+
+  FamilyHistoryAPI.put('/' ...)
+    -- Have the identifying info and what needs to be changed
+      inside an object sent as put request here.
+
+  FamilyHistoryAPI.delete('/' ...)
+    -- use the id and use Allergy.deleteById fn
+
+
+  Front-end note: 
+    -- On the front-end, users can only create/edit/delete family members.
+    -- They can only add a condition associated with an existing family member
+      record.
+
+    1) Click edit (associated with family member)
+    2) "x"s appear by each condition and the family member, AND an "add" button 
+       will appear, to add new conditions
+    3) "x" will delete either:
+      3a) Associated condition
+      3b) Family member record, AND all associated conditions
+    4) Clicking the "add" button should pop up a dialog box, where the user can 
+       input the new condition, and submit it.
+       4a) The condition should render upon submission.
+
+
+  ==============
+  Model
+  ==============
+
+
+FamilyMembers:
+
+Insurance:
+
+Pharmacy:
+
+Rx:
+
+User-Doctor:
+
+User:
+

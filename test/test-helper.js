@@ -16,6 +16,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 const Pharmacy = require(__server + '/models/pharmacy')
 const FamilyMember = require(__server + '/models/familymembers')
 const Insurance = require(__server + '/models/insurance')
+const Allergy = require(__server + '/models/allergy')
 
 //Make chai's 'expect' accessible from everywhere
 var chai = require('chai')
@@ -538,7 +539,7 @@ TH.createAllergyReturnAllergy = function(attrs) {
     .then( function(hopefullyOnlyOneResult) {
       return hopefullyOnlyOneResult.reduce( function(mostRecent, current) {
         return current.id_allergy > mostRecent.id_allergy ? current : mostRecent
-      })[0]
+      })
     })
 }
 
