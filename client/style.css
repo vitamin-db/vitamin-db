@@ -52,6 +52,10 @@ body {
     font-style: "Open Sans";
 }
 
+.add-doctor {
+    height: 125px;
+}
+
 .card-text {
     font-size: 12px;
     text-align: left;
@@ -63,8 +67,9 @@ body {
     align-items: center;
 }
 
-.card-button {
-
+.card-block {
+    height: 125px;
+    overflow-x: scroll;
 }
 
 .docApiCard {
@@ -79,6 +84,13 @@ body {
 .container-fluid {
     width:100%;
     text-align:center;
+    padding-top: 50px;
+    padding-bottom: 50p;
+}
+
+.patient-grid {
+    background-color: #777;
+    padding-top: 50px;
 }
 
 .patient-item {
