@@ -455,6 +455,26 @@ TH.isValidEyerx = function(eyerx) {
 	return TH.hasRightKeys(eyerx, props)
 }
 
+TH.allValidEyeRx = function(eyerxArray) {
+	return eyerxArray.reduce(function(bool, current) {
+		return bool && TH.isValidEyerx(current)
+	}, true)
+}
+
+TH.createEyeRxReturnEyeRx = function(attrs) {
+	return Eyerx.createEyeRx(attrs)
+}
+
+TH.propsMatchExceptMaybeCurrent = function(dbObj, sourceObj) {
+	return Object.keys(sourceObj).reduce( function(soFar, current) {
+		if (current === 'current') {
+			return true
+		} else {
+			return typeof sourceObj[current] === 'number' ? sourceObj[current]*100 === dbObj[current]*100 : sourceObj[current] === dbObj[current]
+		}
+	}, true)
+}
+
 /* 
   ====================================
   Rx Helper Methods
