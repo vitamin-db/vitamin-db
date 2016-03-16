@@ -67,6 +67,11 @@ body {
 
 }
 
+.docApiCard {
+    border: 3px solid black;
+    border-radius: 2px;
+}
+
 .card-type {
     margin: auto;
 }

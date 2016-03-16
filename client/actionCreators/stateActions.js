@@ -14,14 +14,37 @@ function SignInFail() {
 };
 
 function SignOut () {
-	document.cookie = "token=; expires=Thu, 01 Jan 1900 00:00:00 UTC";
+	document.cookie = "token=; expires=Thu, 01 Jan 1600 00:00:00 UTC";
 	return {
 		type: 'SIGNINFAIL'
-	}
-}
+	};
+};
+
+function AddDoc (doctor) { // doctor will be an object, i believe
+	return {
+		type: 'ADDDOCTOR',
+		doctor: doctor
+	};
+};
+
+function SetDocApi (list) {
+	return {
+		type: 'SETDOCAPI',
+		list: list
+	};
+};
+
+function ClearDocApi () {
+	return {
+		type: 'CLEARDOCAPI'
+	};
+};
 
 module.exports = {
 	SignInSuccess,
 	SignInFail,
-	SignOut
+	SignOut,
+	AddDoc,
+	SetDocApi,
+	ClearDocApi
 };

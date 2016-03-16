@@ -12,20 +12,21 @@ const AddDoc = require('./AddDoctor');
 const Insurance = require('../patient/PatientInfo/Insurance');
 const Pharmacy = require('../patient/PatientInfo/Pharmacy');
 
-const DoctorGrid = ({docInfo, insurance, pharmacy}) => (
-<div className="container-fluid">
-  <Grid>
-    <Row className="show-grid">
-      {docInfo.map((val) => 
-        <DocCard key={val.name} val={val} />
-      )}
-      	<Insurance insurance={insurance} />
-		<Pharmacy pharmacy={pharmacy} />
+const DoctorGrid = ({docApiList, addDoc, docInfo, insurance, pharmacy}) => (
+	  <Grid>
+		<div className="container-fluid">
+	    <Row className="show-grid">
+	      {docInfo.map((val) => 
+	        <DocCard key={val.name} val={val} />
+	      )}
 
-      <AddDoc />
-    </Row>
-  </Grid>
-  </div>
+	      	<Insurance insurance={insurance} />
+			<Pharmacy pharmacy={pharmacy} />
+
+	      <AddDoc docApiList={docApiList} addDoc={addDoc} />
+	    </Row>
+	  	</div>
+	  </Grid>
 );
 
 

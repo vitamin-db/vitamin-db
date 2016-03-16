@@ -6,12 +6,12 @@ const browserHistory = require('react-router').browserHistory;
 const bindActionCreators = require('redux').bindActionCreators;
 
 // components
+const apiAction = require('../actionCreators/apiActions');
 const DoctorGrid = require('../components/Dashboard/doctor/DoctorGrid');
 const PatientGrid = require('../components/Dashboard/patient/PatientGrid');
 const mock = require('../model/mockData');
 const Grid = require('react-bootstrap').Grid;
 const _ = require('lodash');
-const apiAction = require('../actionCreators/apiActions');
 
 //Grid
 //Row might go in Home instead components
@@ -19,10 +19,10 @@ const apiAction = require('../actionCreators/apiActions');
 // // CONTAINER
 // 
  // <PatientGrid patientInfo={patient} />
-const Home = ({doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
+const Home = ({docApiList, addDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
     return (
       <div className="home-body">
-        <DoctorGrid docInfo={doctor} insurance={insurance} pharmacy={pharmacy} />
+        <DoctorGrid docApiList={docApiList} addDoc={addDoc} docInfo={doctor} insurance={insurance} pharmacy={pharmacy} />
         <PatientGrid allergies={allergies} eyerx={eyerx} family={family} insurance={insurance} pharmacy={pharmacy} familyhistory={familyhistory} rx={rx} />
       </div>
   );
@@ -38,7 +38,9 @@ const mapStateToProps = (state, ownProps) => {
    insurance: mock.Insurance,
    pharmacy: mock.Pharmacy,
    familyhistory: mock.Familyhistory,
-   rx: mock.Rx
+   rx: mock.Rx,
+   patient: mock.users,
+   docApiList: state.docapi
   }
 };
 
@@ -46,6 +48,13 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getDocList: () => {
       apiAction.getDocList()
+    },
+    addDoc: (e) => {
+      e.preventDefault();
+      var firstName = e.target.firstname.value;
+      var lastName = e.target.lastname.value;
+      var body = {firstname:firstName, lastname:lastName};
+      dispatch(apiAction.GetDoctor(body));
     }
   }
 };
