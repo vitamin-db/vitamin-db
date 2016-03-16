@@ -132,6 +132,12 @@ TH.RxAttributes = function(id_user, id_pharmacy, id_doctor, refill_number, name,
 	this.current = current
 }
 
+TH.AllergyAttributes = function(id_user, allergen, current) {
+	this.id_user = id_user
+	this.allergen = allergen
+	this.current = current
+}
+
 
 /*
   Generic Functions: These do not have any table- or model-specific calls
