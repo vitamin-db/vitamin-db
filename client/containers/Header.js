@@ -31,6 +31,11 @@ const mapStateToProps = (state) => {
 	};
 };
 
+// currently doing this method because redirects/router changes trigger back end authentication where it checks for the body, url, and header
+// not being able to set headers or body for a link led to problems
+// putting it in the url for now until we find a better solution
+// refreshes would trigger it too, so even though router could redirect me, bypassing the backend auth, if a user refreshes, it triggers the backend auth
+// gotta see if server side can grab cookies
 const mapDispatchToProps = (dispatch) => {
 	return {
 		goSplash: () => {
