@@ -82,7 +82,7 @@ describe('/eyerx-api', function() {
 	  		  	return request(app)
 	  		  	  .post('/eyerx')
 	  		  	  .set('x-access-token', userAndToken.token)
-	  		  	  .send(JSON.stringify({properties: newEyeRx_props}))
+	  		  	  .send({properties: newEyeRx_props})
 	  		  	  .expect(201)
 	  		  	  .then(function(result) {
 	  		  	  	var newEyeRx = JSON.parse(result.text)
@@ -103,7 +103,7 @@ describe('/eyerx-api', function() {
 
 	})
 
-	xdescribe('PUT /eyerx', function() {
+	describe('PUT /eyerx', function() {
 
 		//set up app
 		var app = TH.createApp()
@@ -134,16 +134,17 @@ describe('/eyerx-api', function() {
 	  		  	return Auth.createToken(newUser1.username)
 	  		  })
 	  		  .then(function(token) {
+	  		  	var props = {id_eyerx: eyerx1_id, sphere_right: newEyeRx1_updated.sphere_right}
 	  		  	return request(app)
 	  		  	  .put('/eyerx')
 	  		  	  .set('x-access-token', token)
-	  		  	  .send(JSON.stringify({id_eyerx: user1_id, sphere_right: newEyeRx1_updated.sphere_right}))
+	  		  	  .send({properties: props})
 	  		  	  .expect(201)
 	  		  	  .then( function(result) {
-	  		  	  	var ob = JSON.parse(result)
+	  		  	  	var ob = JSON.parse(result.text)
 	  		  	  	expect(ob).to.be.an('object')
-	  		  	  	expect(TH.propsMatchExceptMaybeCurrent(ob, newEyeRx1_updated).to.be.true)
-	  		  	  	expect(TH.propsMatchExceptMaybeCurrent(ob, newEyeRx1).to.be.false)
+	  		  	  	expect(TH.propsMatchExceptMaybeCurrent(ob, newEyeRx1_updated)).to.be.true
+	  		  	  	expect(TH.propsMatchExceptMaybeCurrent(ob, newEyeRx1)).to.be.false
 
 	  		  	  })
 	  		  })
@@ -151,12 +152,12 @@ describe('/eyerx-api', function() {
 
 
 	  	it('modifies the specified prescription in the database', function() {
-	  		return EyeRx.getAllByUser()
+	  		return EyeRx.getAllByUser(user1_id)
 	  		  .then(function(all) {
 	  		  	expect(all).to.be.an('array')
 	  		  	expect(all).to.have.length(1)
-	  		  	expect(TH.propsMatchExceptMaybeCurrent(all[0], newEyeRx1_updated).to.be.true)
-	  		  	expect(TH.propsMatchExceptMaybeCurrent(all[0], newEyeRx1).to.be.false)
+	  		  	expect(TH.propsMatchExceptMaybeCurrent(all[0], newEyeRx1_updated)).to.be.true
+	  		  	expect(TH.propsMatchExceptMaybeCurrent(all[0], newEyeRx1)).to.be.false
 	  		  })
 	  	})
 
@@ -195,7 +196,6 @@ describe('/eyerx-api', function() {
 			  	  .expect(200)
 			  })
 		})
-
 
 
 	  	it('removes the prescription from the database', function() {

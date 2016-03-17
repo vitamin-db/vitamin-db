@@ -98,6 +98,21 @@ module.exports = function(tableName, allAttrs) {
 	}.bind(this)
 
 
+	/* UPDATE BY OBJ
+	  Same as Update By Id, but only takes one object, which includes both the id and attributes to change
+	*/
+	this.updateByObj = function(obj) {
+		var id = obj[this.idVarName]
+		var attrs = {}
+		for( var prop in obj) {
+			if (prop !== this.idVarName) {
+				attrs[prop] = obj[prop]
+			}
+		}
+		console.log('about to call update by id on id', id, 'attr', attrs)
+		return this.updateById(id, attrs)
+	}
+
 	/* FIND BY ID
 	  Returns an object from the table where the primary key matches the id passed in
 	  If the entry does not exist, returns undefined
@@ -105,7 +120,6 @@ module.exports = function(tableName, allAttrs) {
 	this.findById = function(id) {
 		var queryObj = {}
 		queryObj[this.idVarName] = id
-		console.log('in findById')
 
 		return db.select('*').from(this.table).where(queryObj)
 		  .then( this.returnSuccess('success in retrieving from ' + this.table) )

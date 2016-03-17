@@ -13,7 +13,6 @@ GET /eyerx
   Returns an object corresonding to the current prescription
 */
 EyeRxAPI.get('/', function(req, res) {
-	console.log('in eye rx api get')
 
 	return User.findByUsername( req.decoded.username)
 	  .then(function(user) {
@@ -23,7 +22,7 @@ EyeRxAPI.get('/', function(req, res) {
 	  	SendR.resData(res, 200, eyerx)
 	  })
 	  .catch( function(err) {
-	  	SendR.error(res, 500, 'Server error', err)
+	  	SendR.error(res, 500, 'Server error getting current eyerx', err)
 	  })
 })
 
@@ -39,13 +38,13 @@ POST /eyerx
     (THIS IS IMPORTANT)
 */
 EyeRxAPI.post('/', function(req, res) {
-	console.log('in eyerx post')
+	console.log('req body in post', req.body.properties)
 
 	return User.findByUsername( req.decoded.username)
 	  .then(function(user) {
-	  	console.log('FOUND USER', user)
 	  	var attrs = {id_user: user.id_user}
 	  	for (var prop in req.body.properties) {
+	  		console.log('body prop', prop)
 	  		attrs[prop] = req.body.prop
 	  	}
 	  	return EyeRx.createEyeRx(attrs)
@@ -54,7 +53,7 @@ EyeRxAPI.post('/', function(req, res) {
 	  	SendR.resData(res, 201, created)
 	  })
 	  .catch( function(err) {
-	  	SendR.error(res, 500, 'Server error', err)
+	  	SendR.error(res, 500, 'Server error posting eyerx', err)
 	  })
 
 })
@@ -68,6 +67,18 @@ PUT /eyerx
   There should be no unsuccessful posts (outside of server errors) because of client-side input checking
     (THIS IS IMPORTANT)
 */
+EyeRxAPI.put('/', function(req, res) {
+	console.log('req body in put', req.body.properties)
+
+	return EyeRx.updateByObj(req.body.properties)
+	  .then(function(updated) {
+	  	SendR.resData(res, 201, updated)
+	  })
+	  .catch( function(err) {
+	  	SendR.error(res, 500, 'Server error updating eyerx', err)
+	  })
+
+})
 
 
 /*
