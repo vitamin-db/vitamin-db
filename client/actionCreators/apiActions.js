@@ -95,6 +95,8 @@ function GetMyInfo () {
   return (dispatch) => {
     return fetch("/user", {
         headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
           'x-access-token': getCookie("token")
         }
     })
@@ -150,8 +152,12 @@ function GetApiDocs (doctor) {
 function SignOut () {
   return (dispatch) => {
     return fetch('/authenticate/logout', {
-      'method': 'post',
-      'x-access-token': getCookie("token")
+      method: 'post',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': getCookie("token")
+      }
     })
     .then((response) => {
       console.log("sign out res", response)
@@ -162,11 +168,16 @@ function SignOut () {
   };
 };
 
-function AddMyDoc () {
+function AddMyDoc (newInfo) {
   return (dispatch) => {
     return fetch('TEMPORARY_FILLER', {
-      'method': 'put',
-      'x-access-token': getCookie("token")
+      method: 'put',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': getCookie("token")
+      },
+      body: newInfo
     })
     .then((response) => {
       console.log("add doc res", response)
