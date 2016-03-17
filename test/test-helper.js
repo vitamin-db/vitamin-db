@@ -10,6 +10,7 @@ const db = require(__server + '/db')
 const request = require('supertest-as-promised')
 
 //Models and APIs
+const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
@@ -214,6 +215,19 @@ TH.createUserReturnId = function(attrs) {
 	return TH.createUserReturnUser(attrs)
 	  .then( function(user) {
 	  	return user.id_user
+	  })
+}
+
+//Creates a user and token - returns an object containing: {id_user: id_user (of just-created), token: token}
+TH.createUserReturnIdAndToken = function(attrs) {
+	var id = undefined
+	return TH.createUserReturnUser(attrs)
+	  .then( function(user) {
+	  	id = user.id_user
+	  	return Auth.createToken(user.username)
+	  })
+	  .then(function(token) {
+	  	return {id_user: id, token: token}
 	  })
 }
 
@@ -460,6 +474,14 @@ TH.allValidEyeRx = function(eyerxArray) {
 	return eyerxArray.reduce(function(bool, current) {
 		return bool && TH.isValidEyerx(current)
 	}, true)
+}
+
+//eventually, we may want to take id_user out of the public object; however, for now, leaving it in (so this function
+//  is identical to isValidEyerx)
+TH.isValidPublicEyerx = function(eyerx) {
+	return TH.isValidEyerx(eyerx)
+	// var props = ['id_eyerx', 'id_user', 'sphere_right', 'sphere_left', 'cylinder_right', 'cylinder_left', 'axis_right', 'axis_left', 'add_right', 'add_left', 'current']
+	// return TH.hasRightKeys(eyerx, props)
 }
 
 TH.createEyeRxReturnEyeRx = function(attrs) {
