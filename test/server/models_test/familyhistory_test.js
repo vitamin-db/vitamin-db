@@ -196,16 +196,13 @@ describe('**************** Family History Model ****************', function() {
         newFamilyHistory8 = new TH.FamilyHistoryAttributes(familymember_id5, 'Bone Cancer')
         return TH.createFamilyHistoryReturnId(newFamilyHistory8);
       })
-      // Now we have: 
-        // one user with two family member relations
-        // two family member relations with two conditions each
-      // from FamilyHistory.getAllByUser(id_user4) would expect to get back all four conditions
       .then(function() {
         return FamilyHistory.getAllByUser(id_user4);
       })
-      .then(function(allhistory) {
-        console.log('allhistory: ', allhistory);
-        return allhistory;
+      .then(function(allHistory) {
+        console.log('all family history by user: ', allHistory)
+        expect(allHistory).to.be.an('array')
+        expect(allHistory).to.have.length(4)
       })
 
 
