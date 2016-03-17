@@ -19,7 +19,7 @@ function SignOut () {
 		type: 'SIGNINFAIL'
 	};
 };
-
+// add a doctor to my doctor list state
 function AddDoc (doctor) { // doctor will be an object, i believe
 	return {
 		type: 'ADDDOCTOR',
@@ -27,6 +27,7 @@ function AddDoc (doctor) { // doctor will be an object, i believe
 	};
 };
 
+// this is for populating the doctor search api
 function SetDocApi (list) {
 	return {
 		type: 'SETDOCAPI',
@@ -34,9 +35,17 @@ function SetDocApi (list) {
 	};
 };
 
+// this clears the doctor api list
 function ClearDocApi () {
 	return {
 		type: 'CLEARDOCAPI'
+	};
+};
+
+function SetMyInfo (info) {
+	return {
+		type: 'SETMYINFO',
+		info: info
 	};
 };
 
@@ -46,5 +55,6 @@ module.exports = {
 	SignOut,
 	AddDoc,
 	SetDocApi,
-	ClearDocApi
+	ClearDocApi,
+	SetMyInfo
 };

@@ -9,11 +9,12 @@ const stateAction    = require('../actionCreators/stateActions');
 // browser history for path change
 const browserHistory = Router.browserHistory;
 
-const Header = ({ goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
+const Header = ({username, goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
 	return (
 	  <nav className="navbar navbar-default">
         <div className="container-fluid">
           <ul className="nav nav-tabs">
+          	  <li><h3>{username}</h3></li>
           	  <li><button onClick={goSplash}> LOGO </button></li>
 	          <li role="presentation">{logged && <button onClick={goHome}> Home </button>}</li>
 	          <li role="presentation">{logged && <button onClick={goProfile}> Profile </button>}</li>
@@ -30,7 +31,8 @@ const mapStateToProps = (state) => {
 
 	console.log('header state', state)
 	return {
-		logged: apiAction.getCookie("token")
+		logged: apiAction.getCookie("token"),
+		username: state.userinfo.user.username
 	};
 };
 
