@@ -341,6 +341,13 @@ TH.isValidPharma = function(pharma) {
 	return TH.hasRightKeys(pharma, props)
 }
 
+TH.isValidPublicPharma = function(pharma) {
+  return TH.isValidPharma(pharma)
+  // var props = ['id_pharmacy', 'id_user', 'business_name', 'address', 'phone', 'current']
+  // return TH.hasRightKeys(pharma, props)
+
+}
+
 TH.allValidPharmas = function(pharmacyArray) {
 	return pharmacyArray.reduce( function(bool, current) {
 		return bool && TH.isValidPharma(current)
