@@ -507,10 +507,12 @@ TH.createEyeRxReturnEyeRx = function(attrs) {
 
 TH.propsMatchExceptMaybeCurrent = function(dbObj, sourceObj) {
 	return Object.keys(sourceObj).reduce( function(soFar, current) {
+		console.log('soFar is', soFar)
 		if (current === 'current') {
-			return true
+			return soFar && true
 		} else {
-			return typeof sourceObj[current] === 'number' ? sourceObj[current]*100 === dbObj[current]*100 : sourceObj[current] === dbObj[current]
+			console.log('comparing',dbObj[current],'to', sourceObj[current])
+			return soFar && (typeof sourceObj[current] === 'number' ? sourceObj[current]*100 === dbObj[current]*100 : sourceObj[current] === dbObj[current])
 		}
 	}, true)
 }

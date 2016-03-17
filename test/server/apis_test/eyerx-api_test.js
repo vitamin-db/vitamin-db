@@ -31,7 +31,7 @@ describe('/eyerx-api', function() {
 			return TH.createUserReturnId(newUser1)
 			  .then(function(id) {
 			  	user1_id = id
-			  	newEyeRx1 = new TH.EyeRxAttributes(user1_id, 2.25, 2.00, 2.00, -1.25, 20, 48, 2, 2)
+			  	newEyeRx1 = new TH.EyeRxAttributes(user1_id, 2.32, 2.00, 2.00, -1.25, 20, 48, 2, 2)
 			  	return EyeRx.createEyeRx(newEyeRx1)
 			  })
 			  .then(function() {
@@ -49,10 +49,10 @@ describe('/eyerx-api', function() {
 			  	  .then(function(result) {
 			  	  	var got = JSON.parse(result.text)
 			  	  	expect(got).to.be.an('object')
-			  	  	expect(got.eyerx).to.be.an('object')
-			  	  	expect(got.eyerx.current).to.be.true
-			  	  	expect(TH.isValidPublicEyerx(got.eyerx)).to.be.true
-			  	  	expect(TH.propsMatchExceptMaybeCurrent(got.eyerx, newEyeRx2)).to.be.true
+			  	  	expect(got.current).to.be.true
+			  	  	expect(TH.isValidPublicEyerx(got)).to.be.true
+			  	  	expect(TH.propsMatchExceptMaybeCurrent(got, newEyeRx2)).to.be.true
+			  	  	expect(TH.propsMatchExceptMaybeCurrent(got, newEyeRx1)).to.be.false
 			  	  })
 			  })
 
@@ -72,21 +72,22 @@ describe('/eyerx-api', function() {
 
 
 	  	var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
+	  	var user1_id = undefined
 	  	var newEyeRx_props = new TH.EyeRxAttributesNoUser(2.25, 2.00, 2.00, -1.25, 20, 48, 2, 2)
 
 	  	it('returns the newly posted prescription', function() {
 	  		return TH.createUserReturnIdAndToken(newUser1)
 	  		  .then(function(userAndToken) {
+	  		  	user1_id = userAndToken.id_user
 	  		  	return request(app)
 	  		  	  .post('/eyerx')
 	  		  	  .set('x-access-token', userAndToken.token)
 	  		  	  .send(JSON.stringify({properties: newEyeRx_props}))
 	  		  	  .expect(201)
 	  		  	  .then(function(result) {
-	  		  	  	var newEyeRx = JSON.parse(result)
+	  		  	  	var newEyeRx = JSON.parse(result.text)
 	  		  	  	expect(newEyeRx).to.be.an('object')
 	  		  	  	expect(TH.isValidPublicEyerx(newEyeRx)).to.be.true
-	  		  	  	expect(TH.propsMatchExceptMaybeCurrent(newEyeRx, newEyeRx1)).to.be.true
 	  		  	  })
 	  		  })
 	  	})
@@ -97,7 +98,6 @@ describe('/eyerx-api', function() {
 	  		  	expect(allEyeRx).to.be.an('array')
 	  		  	expect(allEyeRx).to.have.length(1)
 	  		  	expect(TH.isValidPublicEyerx(allEyeRx[0])).to.be.true
-	  		  	expect(TH.propsMatchExceptMaybeCurrent(allEyeRx[0], newEyeRx1)).to.be.true
 	  		  })
 	  	})
 

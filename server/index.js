@@ -113,7 +113,7 @@ var userRouter = require('./apis/users-api')
 routes.use('/user', userRouter)
 
 //eyerx router
-var eyerxRouter = require('./apis/users-api')
+var eyerxRouter = require('./apis/eyerx-api')
 routes.use('/eyerx', eyerxRouter)
 
 

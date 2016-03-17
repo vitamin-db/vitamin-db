@@ -13,6 +13,7 @@ GET /eyerx
   Returns an object corresonding to the current prescription
 */
 EyeRxAPI.get('/', function(req, res) {
+	console.log('in eye rx api get')
 
 	return User.findByUsername( req.decoded.username)
 	  .then(function(user) {
@@ -37,7 +38,7 @@ POST /eyerx
   There should be no unsuccessful posts (outside of server errors) because of client-side input checking
     (THIS IS IMPORTANT)
 */
-EyeRx.post('/', function(req, res) {
+EyeRxAPI.post('/', function(req, res) {
 	console.log('in eyerx post')
 
 	return User.findByUsername( req.decoded.username)
