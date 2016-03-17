@@ -19,7 +19,7 @@ const FamilyMember = require(__server + '/models/familymembers')
 const Insurance = require(__server + '/models/insurance')
 const Allergy = require(__server + '/models/allergy')
 const Rx = require(__server + '/models/rx')
-
+const FamilyHistory = require(__server + '/models/familyhistory')
 
 //Make chai's 'expect' accessible from everywhere
 var chai = require('chai')
@@ -425,7 +425,9 @@ TH.createFamilyMemberReturnId = function(attrs) {
 
 //Returns a boolean indicating whether a family history object has the expected properties
 TH.isValidFamilyHistory = function(familyhistory) {
-	var props = ['id_familyhistory', 'id_familymember', 'condition']
+	var props = ['id_famhist', 'id_familymember', 'condition']
+	console.log('in isValidFamilyHistory')
+	console.log('familyhistory: ', familyhistory, ' props: ', props)
 	return TH.hasRightKeys(familyhistory, props)
 }
 
@@ -453,9 +455,11 @@ TH.createFamilyHistoryReturnFamilyHistory = function(attrs) {
 TH.createFamilyHistoryReturnId = function(attrs) {
 	return TH.createFamilyHistoryReturnFamilyHistory(attrs)
 	  .then( function(familyhistory) {
-	  	return familyhistory.id_familyhistory
+	  	return familyhistory.id_famhist
 	  })
 }
+
+
 
 
 

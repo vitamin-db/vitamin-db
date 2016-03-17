@@ -46,14 +46,14 @@ Functions to write:
 
 
 
-xdescribe('**************** Family History Model ****************', function() {
+describe('**************** Family History Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
   })
 
 
-  xit('creates a familyhistory record and finds it by id', function () {
+  it('creates a familyhistory record and finds it by id', function () {
 
     var famhist_id1 = undefined;
 
@@ -72,16 +72,18 @@ xdescribe('**************** Family History Model ****************', function() {
       })
       .then( function(id) {
         famhist_id1 = id
-        return FamilyHistory.findById(id)
+        console.log('famhist_id1', famhist_id1)
+        return FamilyHistory.findById(famhist_id1)
       })
       .then( function(familyhistory) {
+        console.log('familyhistory: ', familyhistory)
         expect(familyhistory).to.be.an('object')
         expect( TH.isValidFamilyHistory(familyhistory) ).to.be.true
         expect( TH.propsMatch(familyhistory, newFamilyHistory1) ).to.be.true
       })
   })
 
-  xit('deletes a family history record by id', function() {
+  it('deletes a family history record by id', function() {
 
     var familymember_id2 = undefined,
     familyhistory_id2 = undefined
@@ -112,14 +114,97 @@ xdescribe('**************** Family History Model ****************', function() {
         expect(deletedRecord).to.be.an('undefined')
       })
 
-  })  
+  }) 
 
-  xit('finds all family history records with a particular user', function() {
+  it('retrieves all family history records associated with a particular family member', function() {
 
-    /*
-    
-    
-    */
+    var newTestUser3 = new TH.UserAttributes('Ferdie', 'Brigham123654', 'ferdie@brigham.com', '123-789-3456')
+    var id_user3 = undefined
+
+    var newFamilyMember3 = undefined
+    var familymember_id3 = undefined
+
+    var newFamilyHistory3 = undefined
+    var newFamilyHistory4 = undefined
+
+    return TH.createUserReturnId(newTestUser3)
+      .then(function(id) {
+        newFamilyMember3 = new TH.FamilyMemberAttributes(id, 'Uncle Jerry')
+        return TH.createFamilyMemberReturnId(newFamilyMember3)
+      })
+      .then(function(id) {
+        familymember_id3 = id
+        newFamilyHistory3 = new TH.FamilyHistoryAttributes(familymember_id3, 'Pancreatic cancer')
+        return TH.createFamilyHistoryReturnId(newFamilyHistory3);
+      })
+      .then(function(id) {
+        newFamilyHistory4 = new TH.FamilyHistoryAttributes(familymember_id3, 'Osteoporosis')
+        return TH.createFamilyHistoryReturnId(newFamilyHistory4);
+      })
+      .then( function() {
+        return FamilyHistory.getAllByFamilyMember(familymember_id3)
+      })
+      .then( function(allByFamilyMember) {
+        console.log('allByFamilyMember: ', allByFamilyMember)
+        console.log('newFamilyHistory3: ', newFamilyHistory3)
+        console.log('newFamilyHistory4: ', newFamilyHistory4)
+        expect(allByFamilyMember).to.be.an('array')
+        expect(allByFamilyMember).to.have.length(2)
+        expect(TH.allValidFamilyHistory(allByFamilyMember)).to.be.true
+        expect(TH.propsMatchExceptMaybeCurrent(allByFamilyMember[0], newFamilyHistory3)).to.be.true
+        expect(TH.propsMatchExceptMaybeCurrent(allByFamilyMember[1], newFamilyHistory4)).to.be.true
+      })
+  }) 
+
+  it('finds all family history records with a particular user', function() {
+    var newTestUser4 = new TH.UserAttributes('Ferdie', 'Brigham123654', 'ferdie@brigham.com', '123-789-3456')
+    var id_user4 = undefined
+
+    var newFamilyMember4 = undefined, newFamilyMember5 = undefined
+    var familymember_id4 = undefined, familymember_id5 = undefined
+
+    var newFamilyHistory5 = undefined
+    var newFamilyHistory6 = undefined
+    var newFamilyHistory7 = undefined
+    var newFamilyHistory8 = undefined
+
+    return TH.createUserReturnId(newTestUser4) // CREATE USER
+      .then(function(id) {
+        id_user4 = id;
+        newFamilyMember4 = new TH.FamilyMemberAttributes(id, 'Uncle Jerry')
+        return TH.createFamilyMemberReturnId(newFamilyMember4)
+      })
+      .then(function(id) {
+        familymember_id4 = id
+        newFamilyMember5 = new TH.FamilyMemberAttributes(id_user4, 'Uncle Pablo')
+        return TH.createFamilyMemberReturnId(newFamilyMember5)
+        })
+      .then(function(id) {
+        familymember_id5 = id
+        newFamilyHistory5 = new TH.FamilyHistoryAttributes(familymember_id4, 'Pancreatic cancer')
+        return TH.createFamilyHistoryReturnId(newFamilyHistory5);
+      })
+      .then(function() {
+        newFamilyHistory6 = new TH.FamilyHistoryAttributes(familymember_id4, 'Heart disease')
+        return TH.createFamilyHistoryReturnId(newFamilyHistory6);
+      })
+      .then(function() {
+        newFamilyHistory7 = new TH.FamilyHistoryAttributes(familymember_id5, 'Osteoporosis')
+        return TH.createFamilyHistoryReturnId(newFamilyHistory7);
+      })
+      .then(function() {
+        newFamilyHistory8 = new TH.FamilyHistoryAttributes(familymember_id5, 'Bone Cancer')
+        return TH.createFamilyHistoryReturnId(newFamilyHistory8);
+      })
+      .then(function() {
+        return FamilyHistory.getAllByUser(id_user4);
+      })
+      .then(function(allHistory) {
+        console.log('all family history by user: ', allHistory)
+        expect(allHistory).to.be.an('array')
+        expect(allHistory).to.have.length(4)
+      })
+
 
 
   })
