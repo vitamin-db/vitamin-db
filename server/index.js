@@ -112,6 +112,10 @@ if ( process.env.NODE_ENV === 'test' ) {
 var userRouter = require('./apis/users-api')
 routes.use('/user', userRouter)
 
+//eyerx router
+var eyerxRouter = require('./apis/users-api')
+routes.use('/eyerx', eyerxRouter)
+
 
 /* Catch-all Route
  Make sure this route is always LAST

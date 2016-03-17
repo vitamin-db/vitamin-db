@@ -1,4 +1,12 @@
+// handles routes that start with /eyerx
 
+const EyeRx = require('../models/eyerx')
+const User = require('../models/user')
+const SendR = require('../sendresponse')
+
+const EyeRxAPI = require('express').Router();
+
+module.exports = EyeRxAPI
 
 /* 
 GET /eyerx
@@ -32,3 +40,6 @@ DELETE /eyerx
   In the body of the request, takes an object with the id_eyerx property equal to the record to be deleted
   Returns a 200 code on a successful delete
 */
+
+
+
