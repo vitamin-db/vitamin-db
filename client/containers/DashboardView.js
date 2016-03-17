@@ -7,11 +7,12 @@ const bindActionCreators = require('redux').bindActionCreators;
 
 // components
 const apiAction = require('../actionCreators/apiActions');
+const stateAction = require('../actionCreators/stateActions');
 const DoctorGrid = require('../components/Dashboard/doctor/DoctorGrid');
 const PatientGrid = require('../components/Dashboard/patient/PatientGrid');
 const mock = require('../model/mockData');
 const Grid = require('react-bootstrap').Grid;
-const _ = require('lodash');
+// const _ = require('lodash');
 
 //Grid
 //Row might go in Home instead components
@@ -19,12 +20,13 @@ const _ = require('lodash');
 // // CONTAINER
 // 
  // <PatientGrid patientInfo={patient} />
-const Home = ({docApiList, addDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
-    return (
-      <div className="home-body">
-        <DoctorGrid docApiList={docApiList} addDoc={addDoc} docInfo={doctor} insurance={insurance} pharmacy={pharmacy} />
-        <PatientGrid allergies={allergies} eyerx={eyerx} family={family} insurance={insurance} pharmacy={pharmacy} familyhistory={familyhistory} rx={rx} />
-      </div>
+const Home = ({getMyInfo, addDoc, docApiList, searchDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {  
+  getMyInfo();
+  return (
+    <div className="home-body">
+      <DoctorGrid addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} docInfo={doctor} insurance={insurance} pharmacy={pharmacy} />
+      <PatientGrid allergies={allergies} eyerx={eyerx} family={family} insurance={insurance} pharmacy={pharmacy} familyhistory={familyhistory} rx={rx} />
+    </div>
   );
 };
 
@@ -46,15 +48,19 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getDocList: () => {
-      apiAction.getDocList()
+    getMyInfo: () => {
+      dispatch(apiAction.GetMyInfo());
     },
-    addDoc: (e) => {
+    searchDoc: (e) => {
       e.preventDefault();
       var firstName = e.target.firstname.value;
       var lastName = e.target.lastname.value;
       var body = {firstname:firstName, lastname:lastName};
-      dispatch(apiAction.GetDoctor(body));
+      dispatch(apiAction.GetApiDocs(body));
+    },
+    addDoc: () => {
+      // this jsut clears the api list, but in the future it will add the chosen doctor to the database
+      dispatch(stateAction.ClearDocApi())
     }
   }
 };

@@ -51,7 +51,7 @@ getInitialState() {
           onHide={this.hideModal}
           dialogClassName="custom-modal">
 
-          <FormComponent docApiList={this.props.docApiList} addDoc={this.props.addDoc} />
+          <FormComponent addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />
 
         </Modal>
 

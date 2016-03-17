@@ -8,7 +8,7 @@ const apiAction         = require('../actionCreators/apiActions');
 // require history to change routes
 const browserHistory    = require('react-router').browserHistory;
 
-const Splash = ({ onSignIn, goSignup }) => {
+const Splash = ({ onSignIn, goSignup, logged }) => {
 	return (
 		<div>
 			<div>
@@ -24,9 +24,10 @@ const Splash = ({ onSignIn, goSignup }) => {
 };
 
 const mapStateToProps = (state) => {
-	// console.log("splash view state", state);
+	console.log(apiAction.getCookie("token"));
 	// ^^^ this console log returns each state in the reducers/reducer.js file
 	return {
+		logged: apiAction.getCookie("token")
 	};
 };
 
