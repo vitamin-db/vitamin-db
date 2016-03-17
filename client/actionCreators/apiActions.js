@@ -95,6 +95,8 @@ function GetMyInfo () {
   return (dispatch) => {
     return fetch("/user", {
         headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
           'x-access-token': getCookie("token")
         }
     })
@@ -130,14 +132,13 @@ function GetApiDocs (doctor) {
           var street    = doc.practices[0].visit_address.street;
           var street2   = doc.practices[0].visit_address.street2;
           var zip       = doc.practices[0].visit_address.zip;
-          var portrait  = doc.profile.image_url
           final.push({
             firstname: doc.profile.first_name,
             lastname: doc.profile.last_name,
             business: doc.practices[0].name,
             phone: doc.practices[0].phones[0].number,
             address: street + " " + street2 + " " + city + ", " + state + " " + zip,
-            portrait: portrait
+            portrait: doc.profile.image_url
           });
         })
         dispatch(stateAction.SetDocApi(final))
@@ -148,11 +149,51 @@ function GetApiDocs (doctor) {
   };
 };
 
+function SignOut () {
+  return (dispatch) => {
+    return fetch('/authenticate/logout', {
+      method: 'post',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': getCookie("token")
+      }
+    })
+    .then((response) => {
+      console.log("sign out res", response)
+    })
+    .catch((err) => {
+      console.errror(err)
+    })
+  };
+};
+
+function AddMyDoc (newInfo) {
+  return (dispatch) => {
+    return fetch('TEMPORARY_FILLER', {
+      method: 'put',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': getCookie("token")
+      },
+      body: newInfo
+    })
+    .then((response) => {
+      console.log("add doc res", response)
+    })
+    .catch((err) => {
+      console.error("add doc error", err)
+    })
+  };
+};
+
 // DONT FORGET TO ADD THE FUNCTIONS EXPORTS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module.exports = {
   SignIn,
   SignUp,
   getCookie,
   GetApiDocs,
-  GetMyInfo
+  GetMyInfo,
+  SignOut
 };
