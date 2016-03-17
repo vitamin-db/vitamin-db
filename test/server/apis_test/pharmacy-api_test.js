@@ -49,12 +49,12 @@ describe('/pharmacy-api', function() {
             .set('x-access-token', token)
             .expect(200)
             .then(function(result) {
-              // var got = JSON.parse(result.text)
-              // expect(got).to.be.an('object')
-              // expect(got.pharmacy).to.be.an('object')
-              // expect(got.pharmacy.current).to.be.true
-              // expect(TH.isValidPublicEyerx(got.pharmacy)).to.be.true
-              // expect(TH.propsMatchExceptMaybeCurrent(got.pharmacy, newEyeRx2)).to.be.true
+              var got = JSON.parse(result.text)
+              expect(got).to.be.an('array')
+              expect(got[0]).to.be.an('object')
+              expect(got[0].current).to.be.true
+              expect(TH.isValidPublicPharmacy(got[0])).to.be.true
+              expect(TH.propsMatchExceptMaybeCurrent(got[0], newPharmacy1)).to.be.true
             })
         })
 
