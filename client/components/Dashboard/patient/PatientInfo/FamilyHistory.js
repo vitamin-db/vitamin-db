@@ -4,7 +4,8 @@ const ListGroup = require('react-bootstrap').ListGroup;
 const ListGroupItem = require('react-bootstrap').ListGroupItem;
 const Col = require('react-bootstrap').Col;
 const AddButton = require('../common/AddButton');
-
+const EditButton = require('../common/EditButton');
+const DeleteButton = require('../common/DeleteButton');
 
 const FamilyHistPanel = ({familyhistory, family}) => {
 	var current = familyhistory.map((curr) =>  {
@@ -16,9 +17,14 @@ const FamilyHistPanel = ({familyhistory, family}) => {
 		<Col lg={8} lgOffset={4}>
 		<Panel collapsible header='Family History'>
 	 		<ListGroup fill>
-	 		{familyhistory.map((val) =>
+	 		{familyhistory.map((val, count) =>
 				<ListGroupItem key={val.name} className="family-item">
-				   {val.name + ': ' + val.condition}
+				   {count + ': ' + val.name + '  '+ val.condition}
+					
+					<div className="btn-group">
+						<EditButton />
+						<DeleteButton />
+					</div>
 				</ListGroupItem>
 			)}
 		 		{AddButton}

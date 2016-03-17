@@ -102,3 +102,19 @@ body {
 .patient-button {
     background-color: #777;
 }
+
+.allergies-item{
+    display: flex;
+    width:100%;
+    position: relative;
+}
+
+.btn-group {
+    right: 0;
+    bottom: 5px;
+    position: absolute;
+    display:flex;
+}
+
+
+
