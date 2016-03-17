@@ -134,6 +134,15 @@ Other methods to write:
 - Doctor: given an array of doctors, filter out types
 - ** need some way for users to enter doctors in the order they went to them... can't do it by 'created at'
 
+=====
+Notes 3/16: Auth
+=====
+
+Using req.query for redirects. If someone copy/pasted from the URL they could be in someone else's account
+- We check to see if the token matches a valid token that has not expired yet
+  - If yes, we give the user their data based on the information encoded in the token
+-
+
 
 =====
 Notes 3/16:

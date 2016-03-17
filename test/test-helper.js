@@ -17,6 +17,8 @@ const Pharmacy = require(__server + '/models/pharmacy')
 const FamilyMember = require(__server + '/models/familymembers')
 const Insurance = require(__server + '/models/insurance')
 const Allergy = require(__server + '/models/allergy')
+const Rx = require(__server + '/models/rx')
+
 
 //Make chai's 'expect' accessible from everywhere
 var chai = require('chai')
@@ -482,7 +484,7 @@ TH.propsMatchExceptMaybeCurrent = function(dbObj, sourceObj) {
 
 TH.isValidRx = function(rx) {
   var props = ['id_rx', 'id_user', 'id_pharmacy', 'id_doctor', 'refill_number', 'name', 'dosage', 'current']
-  return TH.hasRightKeys(user, props)
+  return TH.hasRightKeys(rx, props)
 }
 
 //Returns a boolean indicating whether every doctor in any array has all expected properties
@@ -492,17 +494,17 @@ TH.allValidRx = function(rxArray) {
   }, true)
 }
 
-
 TH.createRxReturnRx = function(attrs) {
-  return Rx.create(attrs)
-    .then( function(attrs) {
-      return db.select('*').from('rx').where(attrs)
-    })
-    .then( function(hopefullyOnlyOneResult) {
-      return hopefullyOnlyOneResult.reduce( function(mostRecent, current) {
-        return current.id_rx > mostRecent.id_rx ? current : mostRecent
-      })[0]
-    })
+
+	return Rx.create(attrs)
+		.then( function(attrs) {
+			return db.select('*').from('rx').where(attrs)
+		})
+		.then( function(hopefullyOnlyOneResult) {
+			return hopefullyOnlyOneResult.reduce( function(mostRecent, current) {
+				return current.id_rx > mostRecent.id_rx ? current : mostRecent
+			})
+		})
 }
 
 TH.createRxReturnId = function(attrs) {
