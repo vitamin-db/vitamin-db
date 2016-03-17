@@ -8,7 +8,7 @@ const FamilyMember = require(__server + '/models/familymembers')
 const User = require(__server + '/models/user')
 
 
-xdescribe('**************** Family Member Model ****************', function() {
+describe('**************** Family Member Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
@@ -95,6 +95,7 @@ xdescribe('**************** Family Member Model ****************', function() {
         return FamilyMember.getAllByUser(user_id3) //we need to write this
       })
       .then(function(family) {
+        console.log('all family by user: ', family)
         expect(family).to.be.an('array')
         expect(family).to.have.length(2)
         expect(TH.allValidFamilyMembers(family)).to.be.true
