@@ -32,10 +32,31 @@ EyeRxAPI.get('/', function(req, res) {
 POST /eyerx
   In the body of the request, takes an object with all the EyeRx attributes except id and current
     (it will automatically generate the primary key and set current to true)
+    This EyeRx object should be in req.body.properties
   On a successful post, returns the newly created object with a 201 code
   There should be no unsuccessful posts (outside of server errors) because of client-side input checking
     (THIS IS IMPORTANT)
 */
+EyeRx.post('/', function(req, res) {
+	console.log('in eyerx post')
+
+	return User.findByUsername( req.decoded.username)
+	  .then(function(user) {
+	  	console.log('FOUND USER', user)
+	  	var attrs = {id_user: user.id_user}
+	  	for (var prop in req.body.properties) {
+	  		attrs[prop] = req.body.prop
+	  	}
+	  	return EyeRx.createEyeRx(attrs)
+	  })
+	  .then(function(created) {
+	  	SendR.resData(res, 201, created)
+	  })
+	  .catch( function(err) {
+	  	SendR.error(res, 500, 'Server error', err)
+	  })
+
+})
 
 
 /*

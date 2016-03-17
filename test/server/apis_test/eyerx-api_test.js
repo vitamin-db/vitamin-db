@@ -59,7 +59,7 @@ describe('/eyerx-api', function() {
 		})
 	})
 
-	xdescribe('POST /eyerx', function() {
+	describe('POST /eyerx', function() {
 
 		//set up app
 		var app = TH.createApp()
@@ -72,16 +72,15 @@ describe('/eyerx-api', function() {
 
 
 	  	var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
-	  	var user1_id = undefined
-	  	var newEyeRx1 = undefined
+	  	var newEyeRx_props = new TH.EyeRxAttributesNoUser(2.25, 2.00, 2.00, -1.25, 20, 48, 2, 2)
 
 	  	it('returns the newly posted prescription', function() {
 	  		return TH.createUserReturnIdAndToken(newUser1)
 	  		  .then(function(userAndToken) {
-	  		  	user1_id = userAndToken.id_user
 	  		  	return request(app)
 	  		  	  .post('/eyerx')
 	  		  	  .set('x-access-token', userAndToken.token)
+	  		  	  .send(JSON.stringify({properties: newEyeRx_props}))
 	  		  	  .expect(201)
 	  		  	  .then(function(result) {
 	  		  	  	var newEyeRx = JSON.parse(result)
