@@ -38,7 +38,6 @@ POST /eyerx
     (THIS IS IMPORTANT)
 */
 EyeRxAPI.post('/', function(req, res) {
-	console.log('req body in post', req.body.properties)
 
 	return User.findByUsername( req.decoded.username)
 	  .then(function(user) {
@@ -68,7 +67,6 @@ PUT /eyerx
     (THIS IS IMPORTANT)
 */
 EyeRxAPI.put('/', function(req, res) {
-	console.log('req body in put', req.body.properties)
 
 	return EyeRx.updateByObj(req.body.properties)
 	  .then(function(updated) {
@@ -86,6 +84,17 @@ DELETE /eyerx
   In the body of the request, takes an object with the id_eyerx property equal to the record to be deleted
   Returns a 200 code on a successful delete
 */
+EyeRxAPI.delete('/:id_eyerx', function(req, res) {
+
+	return EyeRx.deleteById(req.params.id_eyerx)
+	  .then(function() {
+	  	SendR.sendStatus(res, 200)
+	  })
+	  .catch( function(err) {
+	  	SendR.error(res, 500, 'Server error deleting eyerx', err)
+	  })
+
+})
 
 
 

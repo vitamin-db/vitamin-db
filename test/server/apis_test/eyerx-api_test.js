@@ -164,7 +164,7 @@ describe('/eyerx-api', function() {
 
 	})
 
-	xdescribe('DELETE /eyerx', function() {
+	describe('DELETE /eyerx:id_eyerx', function() {
 
 		//set up app
 		var app = TH.createApp()
@@ -191,7 +191,7 @@ describe('/eyerx-api', function() {
 			  })
 			  .then(function(token) {
 			  	return request(app)
-			  	  .del('/eyerx')
+			  	  .del('/eyerx/' + newEyeRx1_id)
 			  	  .set('x-access-token', token)
 			  	  .expect(200)
 			  })
