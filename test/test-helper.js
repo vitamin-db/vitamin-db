@@ -127,6 +127,19 @@ TH.EyeRxAttributes = function(id_user, sphere_right, sphere_left, cylinder_right
   // this.current = current <<<<< We will add the current value when we add the record to the db
 }
 
+TH.EyeRxAttributesNoUser = function(sphere_right, sphere_left, cylinder_right, cylinder_left, axis_right, axis_left, add_right, add_left) {
+  // this.id_user = id_user <<<<< this will be added in the API handling
+  this.sphere_right = sphere_right
+  this.sphere_left = sphere_left
+  this.cylinder_right = cylinder_right
+  this.cylinder_left = cylinder_left
+  this.axis_right = axis_right
+  this.axis_left = axis_left
+  this.add_right = add_right
+  this.add_left = add_left
+  // this.current = current <<<<< We will add the current value when we add the record to the db
+}
+
 TH.RxAttributes = function(id_user, id_pharmacy, id_doctor, refill_number, name, dosage, current) {
 	this.id_user = id_user
 	this.id_pharmacy = id_pharmacy
@@ -495,9 +508,9 @@ TH.createEyeRxReturnEyeRx = function(attrs) {
 TH.propsMatchExceptMaybeCurrent = function(dbObj, sourceObj) {
 	return Object.keys(sourceObj).reduce( function(soFar, current) {
 		if (current === 'current') {
-			return true
+			return soFar && true
 		} else {
-			return typeof sourceObj[current] === 'number' ? sourceObj[current]*100 === dbObj[current]*100 : sourceObj[current] === dbObj[current]
+			return soFar && (typeof sourceObj[current] === 'number' ? sourceObj[current]*100 === dbObj[current]*100 : sourceObj[current] === dbObj[current])
 		}
 	}, true)
 }

@@ -22,6 +22,13 @@ SendR.resData = function(res, status, data) {
 
 
 /*
+  Sends only a response code
+*/
+SendR.sendStatus = function(res, status) {
+	res.status(status).end()
+}
+
+/*
   Sends the file at the location passed in to the clinet
 */
 SendR.resAsset = function(filePath) {
