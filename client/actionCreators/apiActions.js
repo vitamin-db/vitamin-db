@@ -17,6 +17,8 @@ function getCookie(cname) {
    return "";
 };
 
+
+
 function SignIn (body) {
   return (dispatch) => {
     return fetch('/authenticate/login', {
@@ -129,15 +131,15 @@ function GetDoctor (doctor) {
         var final = [];
         docList.data.forEach(function(doc){
           var firstname = doc.profile.first_name + "";
-          var lastname = doc.profile.last_name + "";
-          var business = doc.practices[0].name;
-          var phone = doc.practices[0].phones[0].number;
-          var city = doc.practices[0].visit_address.city;
-          var state = doc.practices[0].visit_address.state;
-          var street = doc.practices[0].visit_address.street;
-          var street2 = doc.practices[0].visit_address.street2;
-          var zip = doc.practices[0].visit_address.zip;
-          var result = {
+          var lastname  = doc.profile.last_name + "";
+          var business  = doc.practices[0].name;
+          var phone     = doc.practices[0].phones[0].number;
+          var city      = doc.practices[0].visit_address.city;
+          var state     = doc.practices[0].visit_address.state;
+          var street    = doc.practices[0].visit_address.street;
+          var street2   = doc.practices[0].visit_address.street2;
+          var zip       = doc.practices[0].visit_address.zip;
+          var result    = {
             business: business,
             firstname: firstname, 
             lastname: lastname, 

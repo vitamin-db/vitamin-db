@@ -45,22 +45,22 @@ const mapDispatchToProps = (dispatch) => {
 			browserHistory.push('/')
 		},
 		goHome: () => {
-			if(apiAction.getCookie("token")){ // once we find a different way to send auth, we probably won't need this cookie parsing function
-				browserHistory.push('/home?token=' + apiAction.getCookie("token"))
+			if(apiAction.getCookie("token")){
+				browserHistory.push('/home')
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		goProfile: () => {
 			if(apiAction.getCookie("token")){
-				browserHistory.push('/user?token=' + apiAction.getCookie("token"))
+				browserHistory.push('/user')
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		goAppoint: () => {
 			if(apiAction.getCookie("token")){
-				browserHistory.push('/appointments?token=' + apiAction.getCookie("token"))
+				browserHistory.push('/appointments')
 			}else{
 				browserHistory.push('/')
 			}
