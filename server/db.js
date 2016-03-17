@@ -20,10 +20,10 @@ db.deleteEverything = function() {
     return db('user_doctor').delete()
       .then( function(msg) {
       	console.log('deleted ', msg, ' records from user_doctor')
-      	return db('doctors').delete()
+      	return db('rx').delete()
       })
       .then(function(msg) {
-      	console.log('deleted ', msg, ' records from doctors')
+      	console.log('deleted ', msg, ' records from rx')
       	return db('familyhistory').delete()
       })
       .then(function(msg) {
@@ -44,10 +44,10 @@ db.deleteEverything = function() {
       })
       .then(function(msg) {
       	console.log('deleted ', msg, ' records from eyerx')
-      	return db('rx').delete()
+      	return db('doctors').delete()
       })
       .then(function(msg) {
-      	console.log('deleted ', msg, ' records from rx')
+      	console.log('deleted ', msg, ' records from doctors')
       	return db('allergies').delete()
       })
       .then(function(msg) {
