@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const EyeRx = require(__server + '/models/eyerx')
 
-xdescribe('/eyerx-api', function() {
+describe('/eyerx-api', function() {
 
 	//set up app
 	var app = TH.createApp()
@@ -59,7 +59,7 @@ xdescribe('/eyerx-api', function() {
 		})
 	})
 
-	describe('POST /eyerx', function() {
+	xdescribe('POST /eyerx', function() {
 
 		//set up app
 		var app = TH.createApp()
@@ -104,7 +104,7 @@ xdescribe('/eyerx-api', function() {
 
 	})
 
-	describe('PUT /eyerx', function() {
+	xdescribe('PUT /eyerx', function() {
 
 		//set up app
 		var app = TH.createApp()
@@ -164,7 +164,7 @@ xdescribe('/eyerx-api', function() {
 
 	})
 
-	describe('DELETE /eyerx', function() {
+	xdescribe('DELETE /eyerx', function() {
 
 		//set up app
 		var app = TH.createApp()

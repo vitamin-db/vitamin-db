@@ -12,6 +12,19 @@ module.exports = EyeRxAPI
 GET /eyerx
   Returns an object corresonding to the current prescription
 */
+EyeRxAPI.get('/', function(req, res) {
+
+	return User.findByUsername( req.decoded.username)
+	  .then(function(user) {
+	  	return EyeRx.getCurrentByUser(user.id_user)
+	  })
+	  .then(function(eyerx) {
+	  	SendR.resData(res, 200, eyerx)
+	  })
+	  .catch( function(err) {
+	  	SendR.error(res, 500, 'Server error', err)
+	  })
+})
 
 
 

@@ -191,5 +191,13 @@ module.exports = function(tableName, allAttrs) {
 		})
 	}.bind(this)
 
+	/* GET PUBLIC OB
+	  Right now, this just returns the whole object passed in
+	  Eventually, we could re-write these to scrape out private information such as the userid
+	*/
+	this.getPublicOb = function(obj) {
+		return obj
+	}
+
 
 }

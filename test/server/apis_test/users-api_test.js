@@ -8,8 +8,9 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
+const EyeRx = require(__server + '/models/eyerx')
 
-xdescribe("GET /user", function() {
+describe("GET /user", function() {
 
 	//set up app
 	var app = TH.createApp()
@@ -33,6 +34,7 @@ xdescribe("GET /user", function() {
 		var newTestUser = new TH.UserAttributes('bob', 'alice', 'bob@alice.com', '123-789-3456')
 		var newTestDoctor1 = new TH.DoctorAttributes('Dr. Walker', '125 Walnut Street', 'Austin', 'TX', 78751, 'doc@walker.com', 'docwalker.com', '1234567890', 'primary', true)
 		var newTestDoctor2 = new TH.DoctorAttributes('Dr. Rando', '3495 Avenue B', 'Austin', 'TX', 32532, 'doc@rando.com', 'docrando.com', '0987654321', 'hypnotist', false)
+		var newEyeRx1 = undefined
 
 		var userId = undefined
 		var doc1Id = undefined
@@ -50,6 +52,10 @@ xdescribe("GET /user", function() {
 		  	return TH.createUserdoctorReturnDoctor(userId, newTestDoctor2, 'nonprimary', true)
 		  })
 		  .then( function() {
+		  	newEyeRx1 = new TH.EyeRxAttributes(userId, 2.25, 2.00, 2.00, -1.25, 20, 48, 2, 2)
+		  	return EyeRx.createEyeRx(newEyeRx1)
+		  })
+		  .then( function() {
 		  	return Auth.createToken(newTestUser.username)
 		  })
 		  .then( function(token) {
@@ -64,10 +70,18 @@ xdescribe("GET /user", function() {
 		  	  	var objForClient = JSON.parse(result.text)
 
 		  	  	expect(objForClient).to.be.an('object')
+
+		  	  	//user
 		  	  	expect(TH.isValidPublicUser(objForClient['user']) ).to.be.true
+
+		  	  	//array of doctors
 		  	  	expect(objForClient['doctors']).to.be.an('array')
 		  	  	expect(objForClient['doctors']).to.have.length(2)
 		  	  	expect(TH.allValidDoctors(objForClient['doctors'])).to.be.true
+
+		  	  	//eye rx
+		  	  	expect(objForClient['eyerx']).to.be.an('object')
+		  	  	expect(TH.isValidPublicEyerx(objForClient['eyerx'])).to.be.true
 		  	  })
 		  })
 
