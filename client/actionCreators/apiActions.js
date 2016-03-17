@@ -130,14 +130,13 @@ function GetApiDocs (doctor) {
           var street    = doc.practices[0].visit_address.street;
           var street2   = doc.practices[0].visit_address.street2;
           var zip       = doc.practices[0].visit_address.zip;
-          var portrait  = doc.profile.image_url
           final.push({
             firstname: doc.profile.first_name,
             lastname: doc.profile.last_name,
             business: doc.practices[0].name,
             phone: doc.practices[0].phones[0].number,
             address: street + " " + street2 + " " + city + ", " + state + " " + zip,
-            portrait: portrait
+            portrait: doc.profile.image_url
           });
         })
         dispatch(stateAction.SetDocApi(final))
@@ -148,11 +147,27 @@ function GetApiDocs (doctor) {
   };
 };
 
+function SignOut () {
+  return (dispatch) => {
+    return fetch('/authenticate/logout', {
+      'method': 'post',
+      'x-access-token': getCookie("token")
+    })
+    .then((response) => {
+      console.log("sign out res", response)
+    })
+    .catch((err) => {
+      console.errror(err)
+    })
+  };
+};
+
 // DONT FORGET TO ADD THE FUNCTIONS EXPORTS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module.exports = {
   SignIn,
   SignUp,
   getCookie,
   GetApiDocs,
-  GetMyInfo
+  GetMyInfo,
+  SignOut
 };
