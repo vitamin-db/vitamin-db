@@ -19,7 +19,7 @@ EyeRxAPI.get('/', function(req, res) {
 	  	return EyeRx.getCurrentByUser(user.id_user)
 	  })
 	  .then(function(eyerx) {
-	  	SendR.resData(res, 200, eyerx)
+	  	SendR.resData(res, 200, EyeRx.getPublicOb(eyerx))
 	  })
 	  .catch( function(err) {
 	  	SendR.error(res, 500, 'Server error getting current eyerx', err)
@@ -50,8 +50,8 @@ EyeRxAPI.post('/', function(req, res) {
 	  	return EyeRx.createEyeRx(attrs)
 	  })
 	  .then(function(created) {
-      console.log('created EyeRx: ', created);
-	  	SendR.resData(res, 201, created)
+	  	SendR.resData(res, 201, EyeRx.getPublicOb(created))
+
 	  })
 	  .catch( function(err) {
 	  	SendR.error(res, 500, 'Server error posting eyerx', err)
@@ -72,7 +72,7 @@ EyeRxAPI.put('/', function(req, res) {
 
 	return EyeRx.updateByObj(req.body.properties)
 	  .then(function(updated) {
-	  	SendR.resData(res, 201, updated)
+	  	SendR.resData(res, 201, EyeRx.getPublicOb(updated))
 	  })
 	  .catch( function(err) {
 	  	SendR.error(res, 500, 'Server error updating eyerx', err)

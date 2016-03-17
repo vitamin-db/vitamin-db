@@ -36,10 +36,8 @@ module.exports = function(tableName, allAttrs) {
 
     /* CREATE
       Creates a new entry using attribute object passed in
-      Returns the new object created
     */
 	this.create = function(newItemAttrs) {
-		// console.log('trying to create user', newItemAttrs)
 		return db(this.table).insert(newItemAttrs, this.attrsToSet)
 		  .then( this.returnSuccess('successfully created new entry into table ' + this.table) )
 		  .then( function(result) { console.log('result should be an array', result); return result[0] })

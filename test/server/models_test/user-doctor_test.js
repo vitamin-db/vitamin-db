@@ -8,7 +8,7 @@ const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
 
 
-xdescribe('**************** User-Doctor Model ****************', function() {
+describe('**************** User-Doctor Model ****************', function() {
 
 
   beforeEach(function() {
@@ -96,5 +96,59 @@ xdescribe('**************** User-Doctor Model ****************', function() {
       })
 
   }) // end 'retrieves all doctors associated with a particular user' test
+
+
+  it('adds a doctor to both the doctors and user_doctor tables', function() {
+
+    var newTestUser3 = new TH.UserAttributes('Wally', 'w4ly5p45sw0rd', 'wally@wally.com', '123-789-3456')
+    var manual_id_user3 = undefined
+    var newTestDoctor5 = new TH.DoctorAttributes('Dr. Walker', '125 Walnut Street', 'Austin', 'TX', 78751, 'doc@walker.com', 'docwalker.com', '1234567890', 'chair')
+    var newTestDoctor6 = new TH.DoctorAttributes('Dr. Rando', '3495 Avenue B', 'Austin', 'TX', 32532, 'doc@rando.com', 'docrando.com', '0987654321', 'water bottle')
+    var manual_id_doctor5 = undefined
+    var manual_id_doctor6 = undefined
+
+    return TH.createUserReturnId(newTestUser3)
+      .then(function(id) {
+        manual_id_user3 = id
+
+        return UserDoctor.createDoctor(newTestDoctor5, manual_id_user3, 'super primary', false)
+      })
+      .then(function(doctor) {
+        manual_id_doctor5 = doctor.id_doctor
+
+        expect(doctor).to.be.an('object')
+        expect(TH.isValidDoctor(doctor)).to.be.true
+        expect(TH.propsMatch(doctor, newTestDoctor5)).to.be.true
+
+        return UserDoctor.createDoctor(newTestDoctor6, manual_id_user3, 'a primary', true)
+      })
+      .then(function(doctor) {
+        manual_id_doctor6 = doctor.id_doctor
+
+        expect(doctor).to.be.an('object')
+        expect(TH.isValidDoctor(doctor)).to.be.true
+        expect(TH.propsMatch(doctor, newTestDoctor6)).to.be.true
+
+        return UserDoctor.findAllDoctors(manual_id_user3)
+      })
+      .then(function(allDoctors) {
+        expect(allDoctors).to.be.an('array')
+        expect(allDoctors).to.have.length(2)
+        expect(TH.allValidDoctors(allDoctors)).to.be.true
+        expect(TH.propsMatch(allDoctors[0], newTestDoctor5)).to.be.true
+        expect(TH.propsMatch(allDoctors[1], newTestDoctor6)).to.be.true
+        return UserDoctor.getAll()
+      })
+      .then(function(all) {
+        expect(all).to.be.an('array')
+        expect(all).to.have.length(2)
+        expect(TH.propsMatch(all[0], {id_user: manual_id_user3, id_doctor: manual_id_doctor5, 
+                                      type_usermade: 'super primary', current: false})).to.be.true
+        expect(TH.propsMatch(all[1], {id_user: manual_id_user3, id_doctor: manual_id_doctor6, 
+                                      type_usermade: 'a primary', current: true})).to.be.true
+      })
+
+  })
+
 }) // end describe User-Doctor Model
 
