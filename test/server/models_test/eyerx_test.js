@@ -38,7 +38,7 @@ xdescribe('**************** EyeRx Model ****************', function() {
       .then( function(eyerx) {
         expect(eyerx).to.be.an('object')
         expect(TH.propsMatch(eyerx, newEyeRx1)).to.be.true
-        expect(TH.isValidEyerx(eyerx)).to.be.true
+        expect(TH.isValidPublicEyerx(eyerx)).to.be.true
       })
   })
 
