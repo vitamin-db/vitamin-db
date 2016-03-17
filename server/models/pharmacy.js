@@ -9,7 +9,7 @@ module.exports = Pharmacy
   Takes the id of the relevant user
   Returns an array of all pharmacies associated with that user
 */
-Pharmacy.getAllByUserId = function(id_user) {
+Pharmacy.getAllByUser = function(id_user) {
 	return this.findByAttribute('id_user', id_user)
 }
 

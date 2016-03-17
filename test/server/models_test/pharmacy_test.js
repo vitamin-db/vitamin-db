@@ -49,7 +49,7 @@ xdescribe('**************** Pharmacy Model ****************', function() {
         return TH.createPharmaReturnPharma(newPharmacy3)
       })
       .then( function() {
-        return Pharmacy.getAllByUserId(id_user2)
+        return Pharmacy.getAllByUser(id_user2)
       })
       .then( function(allPharmacies) {
         expect(allPharmacies).to.be.an('array')
