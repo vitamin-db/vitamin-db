@@ -4,7 +4,11 @@ const UserInfo = (state, action) => {
   }
   switch(action.type){
     case 'SETMYINFO':
-    	return {user: action.info.user, doctors: action.info.doctors};
+      if(!action.info.user){
+        return {...state, user: {username: ""}};
+      }else{
+        return {user: action.info.user, doctors: action.info.doctors};
+      }
     case 'ADDDOCTOR':
     	return {...state, doctors: action.list};
     case 'SUPERLOGOUT':

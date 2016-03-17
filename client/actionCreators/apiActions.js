@@ -47,9 +47,14 @@ function SignIn (body) {
         // window.localStorage.setItem("token", token.token);
         document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         // dispatch action
-        dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value 
-        browserHistory.push('/home')
+        dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value
       }
+    })
+    .then(() => {
+      dispatch(GetMyInfo());
+    })
+    .then(() => {
+      browserHistory.push('/home');
     })
     .catch(function(err) {
       console.error(err)
@@ -82,8 +87,10 @@ function SignUp (body) {
         // window.localStorage.setItem("token", token.token);
         document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         dispatch(stateAction.SignInSuccess(token.token));
-        browserHistory.push('/home')
       }
+    })
+    .then(() => {
+      browserHistory.push('/home')
     })
     .catch(function(err){
       console.error(err);
@@ -93,6 +100,7 @@ function SignUp (body) {
 
 function GetMyInfo () {
   return (dispatch) => {
+    console.log("getmyinfo token", getCookie("token"))
     return fetch("/user", {
         headers: {
           'Accept': 'application/json',
