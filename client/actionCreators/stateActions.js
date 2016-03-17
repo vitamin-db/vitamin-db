@@ -16,7 +16,7 @@ function SignInFail() {
 function SignOut () {
 	document.cookie = "token=; expires=Thu, 01 Jan 1600 00:00:00 UTC";
 	return {
-		type: 'SIGNINFAIL'
+		type: 'SUPERLOGOUT'
 	};
 };
 // add a doctor to my doctor list state

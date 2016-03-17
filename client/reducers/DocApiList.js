@@ -5,6 +5,7 @@ const DocApi = (state, action) => {
   switch(action.type){
     case 'SETDOCAPI':
     	return action.list;
+    case 'SUPERLOGOUT':
     case 'CLEARDOCAPI':
       return [];
     default:

@@ -11,6 +11,7 @@ const Signin = (state, action) => {
       // then re-assign the old keys to the new values just by setting the old keys to a new value
       return {...state, logged: true, token: action.token}; // This is the same as: Object.assign({}, state, {logged: true, token: action.token})
     case 'SIGNINFAIL':
+    case 'SUPERLOGOUT':
   	  return {...state, logged: false, token: null};
     default:
       return state;
