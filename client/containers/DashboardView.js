@@ -12,7 +12,7 @@ const DoctorGrid = require('../components/Dashboard/doctor/DoctorGrid');
 const PatientGrid = require('../components/Dashboard/patient/PatientGrid');
 const mock = require('../model/mockData');
 const Grid = require('react-bootstrap').Grid;
-const _ = require('lodash');
+// const _ = require('lodash');
 
 //Grid
 //Row might go in Home instead components
