@@ -4,7 +4,8 @@ const ListGroup = require('react-bootstrap').ListGroup;
 const ListGroupItem = require('react-bootstrap').ListGroupItem;
 const Col = require('react-bootstrap').Col;
 const AddButton = require('../common/AddButton');
-
+const EditButton = require('../common/EditButton');
+const DeleteButton = require('../common/DeleteButton');
 // const header = (
 //   	<div>
 // 		<Button bsStyle="success" bsSize="xsmall" className="card-button"><Glyphicon glyph='heart' /></Button>
@@ -18,16 +19,24 @@ const AllergiesPanel = ({allergies}) => {
 	})
 	console.log(current);
 
+	var edit = {EditButton};
+
 	return (
 		<Col xs={4} md={4}>
 		<Panel collapsible header='Allergies'>
 	 		<ListGroup fill>
-	 		{allergies.map((val) => 
-				<ListGroupItem className="allergies-item">
-				   {val.current + ': ' + val.allergen}
+	 		{allergies.map((val, count) => 
+				<ListGroupItem key={val.current} className="allergies-item">
+				   {count + ': '  + val.allergen + ' - ' + val.current} 
+					
+					<div className="btn-group">
+						<EditButton />
+						<DeleteButton />
+					</div>
 				</ListGroupItem>
 			)}
-		 		{AddButton}
+		 		<AddButton />
+				
 	 		</ListGroup>
   	 	</Panel>
   	 	</Col>
