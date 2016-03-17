@@ -162,6 +162,21 @@ function SignOut () {
   };
 };
 
+function AddMyDoc () {
+  return (dispatch) => {
+    return fetch('TEMPORARY_FILLER', {
+      'method': 'put',
+      'x-access-token': getCookie("token")
+    })
+    .then((response) => {
+      console.log("add doc res", response)
+    })
+    .catch((err) => {
+      console.error("add doc error", err)
+    })
+  };
+};
+
 // DONT FORGET TO ADD THE FUNCTIONS EXPORTS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module.exports = {
   SignIn,
