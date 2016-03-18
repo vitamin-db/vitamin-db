@@ -645,8 +645,14 @@ TH.createRxReturnId = function(attrs) {
 */ 
 
 TH.isValidAllergy = function(allergy) {
-  var props = ['id_allergy', 'id_user', 'current']
-  return TH.hasRightKeys(user, props)
+  var props = ['id_allergy', 'id_user', 'allergen', 'current']
+  return TH.hasRightKeys(allergy, props)
+}
+
+TH.isValidPublicAllergy = function(allergy) {
+  return TH.isValidAllergy(allergy)
+  // var props = ['id_allergy', 'id_user', 'allergen', 'current']
+  // return TH.hasRightKeys(user, props)
 }
 
 //Returns a boolean indicating whether every doctor in any array has all expected properties
