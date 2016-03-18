@@ -122,6 +122,15 @@ TH.InsuranceAttributes = function(id_user, plan_name, group_id, plan_id, rx_bin,
 	this.current = current
 }
 
+TH.InsuranceAttributesNoUser = function(plan_name, group_id, plan_id, rx_bin, current) {
+  // this.id_user = id_user
+  this.plan_name = plan_name
+  this.group_id = group_id
+  this.plan_id = plan_id
+  this.rx_bin = rx_bin
+  this.current = current
+}
+
 TH.EyeRxAttributes = function(id_user, sphere_right, sphere_left, cylinder_right, cylinder_left, axis_right, axis_left, add_right, add_left) {
   this.id_user = id_user
   this.sphere_right = sphere_right
@@ -375,6 +384,13 @@ TH.allValidPharmas = function(pharmacyArray) {
 TH.isValidInsurance = function(insurance) {
 	var props = ['id_insurance', 'id_user', 'plan_name', 'group_id', 'plan_id', 'rx_bin', 'current']
 	return TH.hasRightKeys(insurance, props)
+}
+
+TH.isValidPublicInsurance = function(insurance) {
+  return TH.isValidInsurance(insurance)
+  // var props = ['id_insurance', 'id_user', 'plan_name', 'group_id', 'plan_id', 'rx_bin', 'current']
+  // return TH.hasRightKeys(insurance, props)
+
 }
 
 //Returns a boolean indicating whether every doctor in any array has all expected properties

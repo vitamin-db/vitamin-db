@@ -42,7 +42,7 @@ module.exports = function(tableName, allAttrs) {
 		// console.log('trying to create user', newItemAttrs)
 		return db(this.table).insert(newItemAttrs, this.attrsToSet)
 		  .then( this.returnSuccess('successfully created new entry into table ' + this.table) )
-		  .then( function(result) { return result[0] })
+		  .then( function(result) { console.log('result should be an array', result); return result[0] })
 		  .catch( this.reportError('error inserting into table ' + this.table) )
 	}.bind(this)
 
