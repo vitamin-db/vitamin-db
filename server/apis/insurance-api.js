@@ -45,15 +45,11 @@ InsuranceAPI.post('/', function(req, res) {
     .then(function(user) {
       var attrs = {id_user: user.id_user}
       for (var prop in req.body.properties) {
-        console.log('body prop', prop)
         attrs[prop] = req.body.properties[prop]
       }
-      console.log('attrs in Insurance POST: ', attrs)
       return Insurance.createInsuranceReturnObj(attrs)
     })
     .then(function(created) {
-      console.log('created insurance: ', created);
-      //need to find the newly created object and return it
       SendR.resData(res, 201, created)
     })
     .catch( function(err) {

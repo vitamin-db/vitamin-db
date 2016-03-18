@@ -25,3 +25,14 @@ Rx.getCurrentByUser = function(id_user) {
 }
 
 
+Rx.createAndReturn = function(attrs) {
+	return Rx.create(attrs)
+	  .then(function(attrs) {
+	  	return db.select('*').from('rx').where(attrs)
+	  })
+	  .then(function(allMatching) {
+	    return allMatching.reduce(function(mostRecent, current) {
+	      return mostRecent.id_rx > current.id_rx ? mostRecent : current
+	    })
+	  })
+}
