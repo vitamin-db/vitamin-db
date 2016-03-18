@@ -21,6 +21,9 @@ const syncHiStore    = require('react-router-redux').syncHistoryWithStore;
 const browserHistory = ReactRouter.browserHistory;
 const history        = syncHiStore(browserHistory, store);
 
+const injectTapEventPlugin = require("react-tap-event-plugin");
+injectTapEventPlugin();
+
 // this  .render will be our paths
 // name="..." is just a name(that I know of), but works as a path IF NO path is specified
 // name is not needed with path, but whatever
