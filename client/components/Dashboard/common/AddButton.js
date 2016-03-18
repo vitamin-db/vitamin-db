@@ -1,14 +1,17 @@
 const React = require('react');
 const Row = require('react-bootstrap').Row;
 const Col = require('react-bootstrap').Col;
+const Grid = require('react-bootstrap').Grid;
+const Panel = require('react-bootstrap').Panel;
 const Button = require('react-bootstrap').Button;
 const Glyphicon = require('react-bootstrap').Glyphicon;
+const ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 const Modal = require('react-bootstrap').Modal;
 const Input = require('react-bootstrap').Input;
-const FormComponent = require('./Form');
+// const FormComponent = require('./Form');
+// const FormUI = require('./FormUI');
 
-
-const AddDoc = React.createClass({
+const AddButton = React.createClass({
 getInitialState() {
     return {show: false};
   },
@@ -19,30 +22,28 @@ getInitialState() {
     this.setState({show: false});
   },
   render() {
-	return(
+  return(
     <div>
+  
 
-        <Col xs={4} md={4}>
-        <div className="card">
-          <div className="card-header">
+          <div className="patient-item">
             <Button bsStyle="primary" bsSize="small" onClick={this.showModal}><Glyphicon glyph="plus" /></Button>
-            <h5 className="card-type">Add Doctor</h5>
+            <h6 className="card-type">Add New</h6>
           </div>
-        </div>
-        </Col>
+
         <Modal
           {...this.props}
           show={this.state.show}
           onHide={this.hideModal}
           dialogClassName="custom-modal">
 
-          <FormComponent addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />
-
+          
         </Modal>
+
 
     </div>
     )
   }
 });
 
-module.exports = AddDoc;
+module.exports = AddButton;

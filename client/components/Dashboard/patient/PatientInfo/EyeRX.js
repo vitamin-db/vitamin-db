@@ -3,9 +3,9 @@ const Panel = require('react-bootstrap').Panel;
 const ListGroup = require('react-bootstrap').ListGroup;
 const ListGroupItem = require('react-bootstrap').ListGroupItem;
 const Col = require('react-bootstrap').Col;
-const AddButton = require('../common/AddButton');
-const EditButton = require('../common/EditButton');
-const DeleteButton = require('../common/DeleteButton');
+const AddButton = require('../../common/AddButton');
+const EditButton = require('../../common/EditButton');
+const DeleteButton = require('../../common/DeleteButton');
 
 const EyePanel = ({eyerx}) => {
 	// var current = allergies.map((curr) =>  {
@@ -39,7 +39,7 @@ const EyePanel = ({eyerx}) => {
 				</ListGroupItem>
 			)}
 
-		 		{AddButton}
+		 		<AddButton />
 	 		</ListGroup>
   	 	</Panel>
   	 	</Col>

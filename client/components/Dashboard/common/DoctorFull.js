@@ -3,29 +3,15 @@ const Row = require('react-bootstrap').Row;
 const Col = require('react-bootstrap').Col;
 const Grid = require('react-bootstrap').Grid;
 const Panel = require('react-bootstrap').Panel;
-// const Button = require('react-bootstrap').Button;
-// const Glyphicon = require('react-bootstrap').Glyphicon;
+const Button = require('react-bootstrap').Button;
+const Glyphicon = require('react-bootstrap').Glyphicon;
 const ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 const Modal = require('react-bootstrap').Modal;
 const Input = require('react-bootstrap').Input;
 // const FormComponent = require('./Form');
+// const FormUI = require('./FormUI');
 
-
-const Button = require('react-bootstrap').Button;
-const Glyphicon = require('react-bootstrap').Glyphicon;
-
-// const AddButton = (
-// 	<div className="patient-item">
-// 	 	<Button className="patient-button" bsSize="xsmall" ><Glyphicon glyph="plus" /></Button>
-// 	    <h6 className="card-type">Add</h6>
-// 	</div>
-// );
-
-// module.exports = AddButton;
-
-
-
-const AddButton = React.createClass({
+const DoctorFull = React.createClass({
 getInitialState() {
     return {show: false};
   },
@@ -36,13 +22,13 @@ getInitialState() {
     this.setState({show: false});
   },
   render() {
-	return(
+  return(
     <div>
-      <ButtonToolbar>
+  
 
-          <div className="patient-item">
-            <Button bsStyle="primary" bsSize="small" onClick={this.showModal}><Glyphicon glyph="plus" /></Button>
-            <h6 className="card-type">Add New</h6>
+          <div className="card-header">
+            <Button bsStyle="success" bsSize="small" className="card-button" onClick={this.showModal}><Glyphicon glyph={this.props.glyph} /></Button>
+            <h5 className="card-type">{this.props.type}</h5>
           </div>
 
         <Modal
@@ -50,14 +36,14 @@ getInitialState() {
           show={this.state.show}
           onHide={this.hideModal}
           dialogClassName="custom-modal">
-
-
+              put doctor full info here
+          
         </Modal>
 
-      </ButtonToolbar>
+
     </div>
     )
   }
 });
 
-module.exports = AddButton;
+module.exports = DoctorFull;

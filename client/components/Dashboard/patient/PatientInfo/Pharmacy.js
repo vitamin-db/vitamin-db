@@ -5,15 +5,10 @@ const ListGroupItem = require('react-bootstrap').ListGroupItem;
 const Col = require('react-bootstrap').Col;
 const Button = require('react-bootstrap').Button;
 const Glyphicon = require('react-bootstrap').Glyphicon;
-const AddButton = require('../common/AddButton');
+const AddButton = require('../../common/AddButton');
 
 
 const PharmacyPanel = ({pharmacy}) => {
-	// var pharmacy = pharmacy.map((curr) =>  {
-	// 	return curr
-	// })
-	// // var pharmacy = pharm[0]
-	// console.log('pharmacy:',pharmacy);
 
 	return (
 		<Col xs={4} md={4}>

@@ -3,15 +3,13 @@ const Panel = require('react-bootstrap').Panel;
 const ListGroup = require('react-bootstrap').ListGroup;
 const ListGroupItem = require('react-bootstrap').ListGroupItem;
 const Col = require('react-bootstrap').Col;
-const AddButton = require('../common/AddButton');
-const EditButton = require('../common/EditButton');
-const DeleteButton = require('../common/DeleteButton');
+const AddButton = require('../../common/AddButton');
+const EditButton = require('../../common/EditButton');
+const DeleteButton = require('../../common/DeleteButton');
+
+// const FormUI = require('../../common/FormUI');
 
 const FamilyHistPanel = ({familyhistory, family}) => {
-	var current = familyhistory.map((curr) =>  {
-		console.log(curr)
-	})
-	console.log(current);
 
 	return (
 		<Col lg={8} lgOffset={4}>
@@ -27,7 +25,7 @@ const FamilyHistPanel = ({familyhistory, family}) => {
 					</div>
 				</ListGroupItem>
 			)}
-		 		{AddButton}
+		 		<AddButton />
 	 		</ListGroup>
   	 	</Panel>
   	 	</Col>
