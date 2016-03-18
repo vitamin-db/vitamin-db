@@ -47,5 +47,3 @@ getInitialState() {
 });
 
 module.exports = AddButton;
-
-module.exports = AddButton;
