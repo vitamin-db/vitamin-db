@@ -13,3 +13,15 @@ Allergy.getAllByUser = function(id_user) {
   return this.findByAttribute('id_user', id_user)
 }
 
+Allergy.createAllergyReturnObj = function(allergyAttrs) {
+  return Allergy.create(allergyAttrs)
+    .then(function(attrs) {
+      return db.select('*').from('allergies').where(attrs)
+    })
+    .then(function(allMatching) {
+      return allMatching.reduce(function(mostRecent, current) {
+        return mostRecent.id_allergy > current.id_allergy ? mostRecent : current
+      })
+    })
+}
+

@@ -62,50 +62,52 @@ describe('/allergy-api', function() {
     })
   })
 
-  // xdescribe('POST /allergy', function() {
+  describe('POST /allergy', function() {
 
-  //   //set up app
-  //   var app = TH.createApp()
-  //   app.use('/', routes)
-  //   app.testReady()
+    //set up app
+    var app = TH.createApp()
+    app.use('/', routes)
+    app.testReady()
 
-  //   before(function() {
-  //     return db.deleteEverything()
-  //   })
+    before(function() {
+      return db.deleteEverything()
+    })
 
 
-  //     var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
-  //     var user1_id = undefined
-  //     var user1_token = undefined
-  //     var newAllergy_props = new TH.AllergyAttributesNoUser('dogs', false)
+      var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
+      var user1_id = undefined
+      var user1_token = undefined
+      var newAllergy_props = new TH.AllergyAttributesNoUser('dogs', false)
 
-  //     it('returns the newly posted allergy', function() {
-  //       return TH.createUserReturnIdAndToken(newUser1)
-  //         .then(function(userAndToken) {
-  //           user1_id = userAndToken.id_user
-  //           return request(app)
-  //             .post('/allergy')
-  //             .set('x-access-token', userAndToken.token)
-  //             .send({properties: newAllergy_props})
-  //             .expect(201)
-  //             .then(function(result) {
-  //               var newAllergy = JSON.parse(result.text)
-  //               expect(newAllergy).to.be.an('object')
-  //               //expect(TH.isValidPublicAllergy(newAllergy)).to.be.true
-  //             })
-  //         })
-  //     })
+      it('returns the newly posted allergy', function() {
+        return TH.createUserReturnIdAndToken(newUser1)
+          .then(function(userAndToken) {
+            console.log('userAndToken: ', userAndToken)
+            user1_id = userAndToken.id_user
+            console.log('user1_id: ', user1_id)
+            return request(app)
+              .post('/allergy')
+              .set('x-access-token', userAndToken.token)
+              .send({properties: newAllergy_props})
+              .expect(201)
+              .then(function(result) {
+                var newAllergy = JSON.parse(result.text)
+                expect(newAllergy).to.be.an('object')
+                //expect(TH.isValidPublicAllergy(newAllergy)).to.be.true
+              })
+          })
+      })
 
-  //     it('adds an allergy record to the database', function() {
-  //       return Allergy.getAllByUser(user1_id)
-  //         .then(function(allAllergy) {
-  //           expect(allAllergy).to.be.an('array')
-  //           expect(allAllergy).to.have.length(1)
-  //           expect(TH.isValidPublicAllergy(allAllergy[0])).to.be.true
-  //         })
-  //     })
+      it('adds an allergy record to the database', function() {
+        return Allergy.getAllByUser(user1_id)
+          .then(function(allAllergy) {
+            expect(allAllergy).to.be.an('array')
+            expect(allAllergy).to.have.length(1)
+            expect(TH.isValidPublicAllergy(allAllergy[0])).to.be.true
+          })
+      })
 
-  // })
+  })
 
   // xdescribe('PUT /allergy', function() {
 
