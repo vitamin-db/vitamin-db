@@ -1,7 +1,7 @@
 const db = require('../db')
 const Model = require('./model-helper')
 
-const Allergy = new Model('allergies', ['id_allergy', 'id_user', 'current'])
+const Allergy = new Model('allergies', ['id_allergy', 'id_user', 'allergen', 'current'])
 module.exports = Allergy
 
 

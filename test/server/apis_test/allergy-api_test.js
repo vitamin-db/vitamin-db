@@ -109,66 +109,66 @@ describe('/allergy-api', function() {
 
   })
 
-  // xdescribe('PUT /allergy', function() {
+  describe('PUT /allergy', function() {
 
-  //   //set up app
-  //   var app = TH.createApp()
-  //   app.use('/', routes)
-  //   app.testReady()
+    //set up app
+    var app = TH.createApp()
+    app.use('/', routes)
+    app.testReady()
 
-  //   before(function() {
-  //     console.log('deleting everything - allergy api')
-  //     return db.deleteEverything()
-  //   })
+    before(function() {
+      console.log('deleting everything - allergy api')
+      return db.deleteEverything()
+    })
 
-  //   var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
-  //   var user1_id = undefined
-  //   var newAllergy1 = undefined
-  //   var newAllergy1_updated = undefined
-  //   var newAllergy1_id = undefined
+    var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
+    var user1_id = undefined
+    var newAllergy1 = undefined
+    var newAllergy1_updated = undefined
+    var newAllergy1_id = undefined
 
-  //     it('returns an updated allergy', function() {
-  //       return TH.createUserReturnId(newUser1)
-  //         .then(function(id) {
-  //           user1_id = id
-  //           newAllergy1 = new TH.AllergyAttributes(id, 'grass', true)
-  //           newAllergy1_updated = new TH.AllergyAttributes(id, 'peanuts', true)
-  //           return TH.createAllergyReturnAllergy(newAllergy1)
-  //         })
-  //         .then(function(allergy) {
-  //           newAllergy1_id = allergy.id_allergy
-  //           return Auth.createToken(newUser1.username)
-  //         })
-  //         .then(function(token) {
-  //           var props = {id_allergy: newAllergy1_id, plan_name: newAllergy1_updated.plan_name}
-  //           return request(app)
-  //             .put('/allergy')
-  //             .set('x-access-token', token)
-  //             .send({properties: props})
-  //             .expect(201)
-  //             .then( function(result) {
-  //               var ob = JSON.parse(result.text)
-  //               expect(ob).to.be.an('object')
-  //               expect(TH.propsMatchExceptMaybeCurrent(ob, newAllergy1_updated)).to.be.true
-  //               expect(TH.propsMatchExceptMaybeCurrent(ob, newAllergy1)).to.be.false
+      it('returns an updated allergy', function() {
+        return TH.createUserReturnId(newUser1)
+          .then(function(id) {
+            user1_id = id
+            newAllergy1 = new TH.AllergyAttributes(id, 'grass', true)
+            newAllergy1_updated = new TH.AllergyAttributes(id, 'peanuts', true)
+            return TH.createAllergyReturnAllergy(newAllergy1)
+          })
+          .then(function(allergy) {
+            newAllergy1_id = allergy.id_allergy
+            return Auth.createToken(newUser1.username)
+          })
+          .then(function(token) {
+            var props = {id_allergy: newAllergy1_id, allergen: newAllergy1_updated.allergen}
+            return request(app)
+              .put('/allergy')
+              .set('x-access-token', token)
+              .send({properties: props})
+              .expect(201)
+              .then( function(result) {
+                var ob = JSON.parse(result.text)
+                expect(ob).to.be.an('object')
+                expect(TH.propsMatchExceptMaybeCurrent(ob, newAllergy1_updated)).to.be.true
+                expect(TH.propsMatchExceptMaybeCurrent(ob, newAllergy1)).to.be.false
 
-  //             })
-  //         })
-  //     })
-
-
-  //     it('modifies the specified allergy in the database', function() {
-  //       return Allergy.getAllByUser(user1_id)
-  //         .then(function(all) {
-  //           expect(all).to.be.an('array')
-  //           expect(all).to.have.length(1)
-  //           expect(TH.propsMatchExceptMaybeCurrent(all[0], newAllergy1_updated)).to.be.true
-  //           expect(TH.propsMatchExceptMaybeCurrent(all[0], newAllergy1)).to.be.false
-  //         })
-  //     })
+              })
+          })
+      })
 
 
-  // })
+      it('modifies the specified allergy in the database', function() {
+        return Allergy.getAllByUser(user1_id)
+          .then(function(all) {
+            expect(all).to.be.an('array')
+            expect(all).to.have.length(1)
+            expect(TH.propsMatchExceptMaybeCurrent(all[0], newAllergy1_updated)).to.be.true
+            expect(TH.propsMatchExceptMaybeCurrent(all[0], newAllergy1)).to.be.false
+          })
+      })
+
+
+  })
 
   // xdescribe('DELETE /allergy/:id_allergy', function() {
 

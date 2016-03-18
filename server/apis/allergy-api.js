@@ -63,6 +63,28 @@ AllergyAPI.post('/', function(req, res) {
 
 })
 
+/*
+PUT /allergy
+  * In the body of the request, takes an object with:
+    1) the id_allergy property equal to that of the allergy record to be updated
+    2) the attributes to be updated with their new values
+  
+  * On a successful post, it returns the full updated object with a 201 code
+  * There should be no unsuccessful posts (outside of server errors) because of client-side input checking
+    (THIS IS IMPORTANT)
+*/
+AllergyAPI.put('/', function(req, res) {
+
+  return Allergy.updateByObj(req.body.properties)
+    .then(function(updated) {
+      SendR.resData(res, 201, updated)
+    })
+    .catch( function(err) {
+      SendR.error(res, 500, 'Server error updating allergy record', err)
+    })
+
+})
+
 
 
 
