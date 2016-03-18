@@ -179,7 +179,7 @@ function SignOut () {
 
 function AddMyDoc (doctor) { // send server the doctor's id/primary key and altered info
   return (dispatch) => {
-    return fetch('TEMPORARY_FILLER', {
+    return fetch('/doctor', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
@@ -191,6 +191,7 @@ function AddMyDoc (doctor) { // send server the doctor's id/primary key and alte
     .then((response) => {
       console.log("add doc res", response)
       // tell server to send back JUST the doctor object
+      
     })
     .catch((err) => {
       console.error("add doc error", err)
