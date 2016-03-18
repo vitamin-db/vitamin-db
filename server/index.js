@@ -116,9 +116,13 @@ routes.use('/user', userRouter)
 var eyerxRouter = require('./apis/eyerx-api')
 routes.use('/eyerx', eyerxRouter)
 
-//eyerx router
+//pharmacy router
 var pharmacyRouter = require('./apis/pharmacy-api')
 routes.use('/pharmacy', pharmacyRouter)
+
+//insurance router
+var insuranceRouter = require('./apis/insurance-api')
+routes.use('/insurance', insuranceRouter)
 
 
 /* Catch-all Route
