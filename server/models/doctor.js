@@ -80,4 +80,3 @@ Doctor.deleteById = function(id)
     returns undefined if there is no user with username 'bob'
 */
 
-
