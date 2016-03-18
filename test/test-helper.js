@@ -173,6 +173,12 @@ TH.AllergyAttributes = function(id_user, allergen, current) {
 	this.current = current
 }
 
+TH.AllergyAttributesNoUser = function(allergen, current) {
+  // this.id_user = id_user
+  this.allergen = allergen
+  this.current = current
+}
+
 
 /*
   Generic Functions: These do not have any table- or model-specific calls
