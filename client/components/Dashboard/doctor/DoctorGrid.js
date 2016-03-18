@@ -22,7 +22,7 @@ const DoctorGrid = ({addDoc, docApiList, searchDoc, docInfo, insurance, pharmacy
 
 	      	<Insurance insurance={insurance} />
 			<Pharmacy pharmacy={pharmacy} />
-
+			
 	      <AddDoc addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} />
 	    </Row>
 	  	</div>
