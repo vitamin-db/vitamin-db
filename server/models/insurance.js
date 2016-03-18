@@ -20,7 +20,7 @@ Insurance.createInsuranceReturnObj = function(insuranceAttrs) {
     })
     .then(function(allMatching) {
       return allMatching.reduce(function(mostRecent, current) {
-        return mostRecent.id_insurance > current.id_doctor ? mostRecent : current
+        return mostRecent.id_insurance > current.id_insurance ? mostRecent : current
       })
     })
 }
