@@ -16,11 +16,9 @@ AllergyAPI.get('/', function(req, res) {
 
   return User.findByUsername( req.decoded.username )
     .then(function(user) {
-      console.log('ima user?', user)
       return Allergy.getAllByUser(user.id_user) // takes id_user
     })
     .then(function(allergy) { // returned array of allergy objects
-      // console.log('allergy: ', allergy);
       SendR.resData(res, 200, allergy)
     })
     .catch( function(err) {
@@ -49,12 +47,10 @@ AllergyAPI.post('/', function(req, res) {
         console.log('body prop', prop)
         attrs[prop] = req.body.properties[prop]
       }
-      console.log('attrs in allergy POST: ', attrs)
       return Allergy.createAllergyReturnObj(attrs)
     })
     .then(function(created) {
       console.log('created allergy: ', created);
-      //need to find the newly created object and return it
       SendR.resData(res, 201, created)
     })
     .catch( function(err) {
