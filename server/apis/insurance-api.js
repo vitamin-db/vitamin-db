@@ -63,9 +63,9 @@ InsuranceAPI.post('/', function(req, res) {
 })
 
 /*
-PUT /pharmacy
+PUT /insurance
   * In the body of the request, takes an object with:
-    1) the id_pharmacy property equal to that of the pharmacy record to be updated
+    1) the id_insurance property equal to that of the insurance record to be updated
     2) the attributes to be updated with their new values
   
   * On a successful post, it returns the full updated object with a 201 code
@@ -84,3 +84,19 @@ InsuranceAPI.put('/', function(req, res) {
 
 })
 
+/*
+DELETE /insurance
+  In the body of the request, takes an object with the id_insurance property equal to the record to be deleted
+  Returns a 200 code on a successful delete
+*/
+InsuranceAPI.delete('/:id_insurance', function(req, res) {
+
+  return Insurance.deleteById(req.params.id_insurance)
+    .then(function() {
+      SendR.sendStatus(res, 200)
+    })
+    .catch( function(err) {
+      SendR.error(res, 500, 'Server error deleting insurance record', err)
+    })
+
+})

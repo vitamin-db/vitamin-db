@@ -168,7 +168,7 @@ describe('/insurance-api', function() {
 
   })
 
-  xdescribe('DELETE /insurance/:id_insurance', function() {
+  describe('DELETE /insurance/:id_insurance', function() {
 
     //set up app
     var app = TH.createApp()
