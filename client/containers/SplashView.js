@@ -7,8 +7,6 @@ const JumbotronInstance = require('../components/Splash/Jumbotron');
 const apiAction         = require('../actionCreators/apiActions');
 // require history to change routes
 const browserHistory    = require('react-router').browserHistory;
-// const JoogleMaps = require('../components/GoogleMaps/GoogleMaps');
-
 
 const Splash = ({ onSignIn, goSignup, logged }) => {
 	return (
