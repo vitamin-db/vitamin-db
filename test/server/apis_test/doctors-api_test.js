@@ -135,12 +135,53 @@ describe('/doctor api', function() {
 			return db.deleteEverything()
 		})
 
+		var newUser = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
+		var users_id = undefined
+		var newDoc1 = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '1233839292', 'primary')
+		var newUserDoc1 = TH.getUserDoctor(newDoc1, 'mah primary', true)
+		var newDoc_id = undefined
+
+
 		it('returns the newly updated doctor object', function() {
+
+			return TH.createUserReturnId(newUser)
+			  .then(function(id_user) {
+			  	users_id = id_user
+			  	return UserDoctor.createDoctor(newTestDoctor1, users_id, 'old primary', false)
+			  })
+			  .then(function(doctor) {
+			  	newDoc_id = doctor.id_doctor
+			  	return Auth.createToken(newUser.username)
+			  })
+			  .then(function(token) {
+			  	var props = {id_doctor: newDoc_id, street_address: '234 Main Street', city: 'Dallas'}
+			  	return request(app)
+			  	.set('x-access-token', token)
+			  	.send({properties: newUserDoc1})
+			  	.expect(201)
+			  	.then(function(result) {
+			  		var got = JSON.parse(result.text)
+			  		expect(got).to.be.an('object')
+			  		expect(TH.isValidPublicDoctor(got)).to.be.true
+			  		expect(got.name).to.equal('Dr. Smith')
+			  		expect(got.street_address).to.equal('234 Main Street')
+			  		expect(got.city).to.equal('Dallas')
+			  	})
+			  })
+
 
 		})
 
 		it('updates the doctor information in the database', function() {
 
+			return TH.findById(newDoc_id)
+			  .then(function(doctor) {
+			  	expect(doctor).to.be.an('object')
+			  	expect(TH.isValidPublicDoctor(doctor)).to.be.true
+			  	expect(doctor.name).to.equal('Dr. Smith')
+			  	expect(doctor.street_address).to.equal('234 Main Street')
+			  	expect(doctor.city).to.equal('Dallas')
+			  })
 		})
 
 	})

@@ -66,4 +66,14 @@ DoctorAPI.post('/', function(req, res) {
 })
 
 
+/* PUT /doctor
+  Takes an object with the properties:
+   - id_doctor (to be updated)
+   - new property values to be updated 
+   (eg: req.body.properties = {id_doctor: id, propertyToUpdate: newValue})
+
+  Returns the updated object
+*/
+
+
 
