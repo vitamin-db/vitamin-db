@@ -49,6 +49,7 @@ EyeRxAPI.post('/', function(req, res) {
 	  	return EyeRx.createEyeRx(attrs)
 	  })
 	  .then(function(created) {
+      console.log('created EyeRx: ', created);
 	  	SendR.resData(res, 201, created)
 	  })
 	  .catch( function(err) {

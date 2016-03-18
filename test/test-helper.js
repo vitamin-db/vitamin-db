@@ -95,6 +95,14 @@ TH.PharmacyAttributes = function(id_user, business_name, address, phone, current
   this.current = current
 }
 
+TH.PharmacyAttributesNoUser = function(business_name, address, phone, current) {
+  // this.id_user = id_user // this.id_user = id_user <<<<< this will be added in the API handling
+  this.business_name = business_name
+  this.address = address
+  this.phone = phone
+  this.current = current
+}
+
 TH.FamilyMemberAttributes = function(id_user, name) {
   this.id_user = id_user
   this.name = name
@@ -338,6 +346,8 @@ TH.createPharmaReturnId = function(attrs) {
 
 TH.isValidPharma = function(pharma) {
 	var props = ['id_pharmacy', 'id_user', 'business_name', 'address', 'phone', 'current']
+  console.log('pharma props: ', pharma);
+  console.log('compare props: ', props);
 	return TH.hasRightKeys(pharma, props)
 }
 

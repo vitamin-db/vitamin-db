@@ -116,6 +116,10 @@ routes.use('/user', userRouter)
 var eyerxRouter = require('./apis/eyerx-api')
 routes.use('/eyerx', eyerxRouter)
 
+//eyerx router
+var pharmacyRouter = require('./apis/pharmacy-api')
+routes.use('/pharmacy', pharmacyRouter)
+
 
 /* Catch-all Route
  Make sure this route is always LAST
