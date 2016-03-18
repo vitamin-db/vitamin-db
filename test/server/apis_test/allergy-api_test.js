@@ -8,14 +8,14 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const Allergy = require(__server + '/models/allergy')
 
-xdescribe('/allergy-api', function() {
+describe('/allergy-api', function() {
 
   //set up app
   var app = TH.createApp()
   app.use('/', routes)
   app.testReady()
 
-  xdescribe('GET /allergy', function() {
+  describe('GET /allergy', function() {
 
     before(function() {
       return db.deleteEverything()
@@ -33,12 +33,12 @@ xdescribe('/allergy-api', function() {
       return TH.createUserReturnId(newUser1)
         .then(function(id) {
           user1_id = id
-          newAllergy1 = new TH.AllergyAttributes(id, 'BlueCross', '13AX423B', '124039', 'rkd233kd', true)
+          newAllergy1 = new TH.AllergyAttributes(id, 'pollen', true)
           return Allergy.create(newAllergy1)
         })
         .then(function() {
-          newAllergy2 = new TH.AllergyAttributes(user1_id, 'Walgreens', '2501 S Lamar Blvd, Austin, TX 78704', '(512) 443-7534', true)
-        return Allergy.create(newAllergy2)
+          newAllergy2 = new TH.AllergyAttributes(user1_id, 'hay', true)
+          return Allergy.create(newAllergy2)
         })
         .then(function() {
           return Auth.createToken(newUser1.username)
@@ -50,7 +50,7 @@ xdescribe('/allergy-api', function() {
             .expect(200)
             .then(function(result) {
               var got = JSON.parse(result.text)
-              // console.log('got: ', got)
+              console.log('got: ', got)
               expect(got).to.be.an('array')
               expect(got[0]).to.be.an('object')
               expect(got[0].current).to.be.true
@@ -62,7 +62,7 @@ xdescribe('/allergy-api', function() {
     })
   })
 
-  xdescribe('POST /allergy', function() {
+  describe('POST /allergy', function() {
 
     //set up app
     var app = TH.createApp()
@@ -77,12 +77,14 @@ xdescribe('/allergy-api', function() {
       var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
       var user1_id = undefined
       var user1_token = undefined
-      var newAllergy_props = new TH.AllergyAttributesNoUser('Aetna', 'D3GR92D', '239384', 'asoiq983g', true)
+      var newAllergy_props = new TH.AllergyAttributesNoUser('dogs', false)
 
       it('returns the newly posted allergy', function() {
         return TH.createUserReturnIdAndToken(newUser1)
           .then(function(userAndToken) {
+            console.log('userAndToken: ', userAndToken)
             user1_id = userAndToken.id_user
+            console.log('user1_id: ', user1_id)
             return request(app)
               .post('/allergy')
               .set('x-access-token', userAndToken.token)
@@ -107,7 +109,7 @@ xdescribe('/allergy-api', function() {
 
   })
 
-  xdescribe('PUT /allergy', function() {
+  describe('PUT /allergy', function() {
 
     //set up app
     var app = TH.createApp()
@@ -129,8 +131,8 @@ xdescribe('/allergy-api', function() {
         return TH.createUserReturnId(newUser1)
           .then(function(id) {
             user1_id = id
-            newAllergy1 = new TH.AllergyAttributes(id, 'BlueCross', '13AX423B', '124039', 'rkd233kd', true)
-            newAllergy1_updated = new TH.AllergyAttributes(id, 'Aetna', '13AX423B', '124039', 'rkd233kd', true)
+            newAllergy1 = new TH.AllergyAttributes(id, 'grass', true)
+            newAllergy1_updated = new TH.AllergyAttributes(id, 'peanuts', true)
             return TH.createAllergyReturnAllergy(newAllergy1)
           })
           .then(function(allergy) {
@@ -138,7 +140,7 @@ xdescribe('/allergy-api', function() {
             return Auth.createToken(newUser1.username)
           })
           .then(function(token) {
-            var props = {id_allergy: newAllergy1_id, plan_name: newAllergy1_updated.plan_name}
+            var props = {id_allergy: newAllergy1_id, allergen: newAllergy1_updated.allergen}
             return request(app)
               .put('/allergy')
               .set('x-access-token', token)
@@ -168,7 +170,7 @@ xdescribe('/allergy-api', function() {
 
   })
 
-  xdescribe('DELETE /allergy/:id_allergy', function() {
+  describe('DELETE /allergy/:id_allergy', function() {
 
     //set up app
     var app = TH.createApp()
@@ -187,7 +189,7 @@ xdescribe('/allergy-api', function() {
       return TH.createUserReturnId(newUser1)
         .then(function(id) {
           user1_id = id
-          return TH.createAllergyReturnAllergy(new TH.AllergyAttributes(id, 'BlueCross', '13AX423B', '124039', 'rkd233kd', true))
+          return TH.createAllergyReturnAllergy(new TH.AllergyAttributes(id, 'peanuts', true))
         })
         .then(function(allergy) {
           newAllergy1_id = allergy.id_allergy
@@ -209,20 +211,3 @@ xdescribe('/allergy-api', function() {
     })
   })
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

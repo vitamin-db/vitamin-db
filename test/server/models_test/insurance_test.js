@@ -9,7 +9,7 @@ const Insurance = require(__server + '/models/insurance')
 const User = require(__server + '/models/user')
 
 
-xdescribe('**************** Insurance Model ****************', function() {
+describe('**************** Insurance Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()

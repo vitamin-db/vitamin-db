@@ -1,7 +1,7 @@
 const db = require('../db')
 const Model = require('./model-helper')
 
-const Allergy = new Model('allergies', ['id_allergy', 'id_user', 'current'])
+const Allergy = new Model('allergies', ['id_allergy', 'id_user', 'allergen', 'current'])
 module.exports = Allergy
 
 
@@ -11,5 +11,17 @@ module.exports = Allergy
 */
 Allergy.getAllByUser = function(id_user) {
   return this.findByAttribute('id_user', id_user)
+}
+
+Allergy.createAllergyReturnObj = function(allergyAttrs) {
+  return Allergy.create(allergyAttrs)
+    .then(function(attrs) {
+      return db.select('*').from('allergies').where(attrs)
+    })
+    .then(function(allMatching) {
+      return allMatching.reduce(function(mostRecent, current) {
+        return mostRecent.id_allergy > current.id_allergy ? mostRecent : current
+      })
+    })
 }
 
