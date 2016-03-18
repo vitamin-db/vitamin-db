@@ -138,7 +138,7 @@ describe('/doctor api', function() {
 		var newUser = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
 		var users_id = undefined
 		var newDoc1 = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '1233839292', 'primary')
-		var newUserDoc1 = TH.getUserDoctor(newDoc1, 'mah primary', true)
+		// var newUserDoc1 = TH.getUserDoctor(newDoc1, 'mah primary', true)
 		var newDoc_id = undefined
 
 
@@ -187,22 +187,63 @@ describe('/doctor api', function() {
 
 	})
 
-	xdescribe('DELETE /doctor/:id_doctor', function() {
+	describe('DELETE /doctor/:id_doctor', function() {
 
 		before(function() {
 			return db.deleteEverything()
 		})
 
+		var newUser = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
+		var users_id = undefined
+		var newDoc1 = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '1233839292', 'primary')
+		var newDoc2 = new TH.DoctorAttributes('Dr. Walker', '125 Walnut Street', 'Austin', 'TX', 78751, 'doc@walker.com', 'docwalker.com', '1234567890', 'therapist')
+
+		// var newUserDoc1 = TH.getUserDoctor(newDoc1, 'mah primary', true)
+		var newDoc_id = undefined
+		var newDoc2_id = undefined
+
 		it('returns 200', function() {
+
+			return TH.createUserReturnId(newUser)
+			  .then(function(id_user) {
+			  	users_id = id_user
+			  	return UserDoctor.createDoctor(newDoc1, users_id, 'old primary', false)
+			  })
+			  .then(function(doctor) {
+			  	newDoc_id = doctor.id_doctor
+
+			  	return UserDoctor.createDoctor(newDoc2, users_id, 'new primary', true)
+			  })
+			  .then(function(doctor) {
+			  	newDoc2_id = doctor.id_doctor
+			  	return Auth.createToken(newUser.username)
+			  })
+			  .then(function(token) {
+			  	return request(app)
+			  	  .del('/doctor/' + newDoc_id)
+			  	  .set('x-access-token', token)
+			  	  .expect(200)
+			  })
 
 		})
 
 		it('removes the user_doctor record', function() {
-
+			return UserDoctor.getAll()
+			  .then(function(all) {
+			  	expect(all).to.be.an('array')
+			  	expect(all).to.have.length(1)
+			  	expect(all[0].type_usermade).to.equal('new primary')
+			  	expect(all[0].current).to.be.true
+			  })
 		})
 
 		it('removes the doctor record', function() {
-
+			return Doctor.getAll()
+			  .then(function(allDocs) {
+			  	expect(allDocs).to.be.an('array')
+			  	expect(allDocs).to.have.length(1)
+			  	expect(TH.propsMatch(allDocs[0], newDoc2)).to.be.true
+			  })
 		})
 
 	})

@@ -147,8 +147,10 @@ module.exports = function(tableName, allAttrs) {
 	  Returns the number of records deleted (ie 1)
 	*/
 	this.deleteById = function(id) {
+		console.log('userdoctor id', id)
 		var queryObj = {}
 		queryObj[this.idVarName] = id
+		console.log('queryObj for delete', queryObj)
 
 		return db(this.table).where(queryObj).del()
 		  .then(this.returnSuccess('success deleting from ' + this.table))

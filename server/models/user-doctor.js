@@ -1,7 +1,7 @@
 const db = require('../db')
 const Model = require('./model-helper')
 
-const UserDoctor = new Model('user_doctor', ['id_user', 'id_doctor', 'type_usermade', 'current'])
+const UserDoctor = new Model('user_doctor', ['id_user_doctor', 'id_user', 'id_doctor', 'type_usermade', 'current'])
 const User = require('./user')
 const Doctor = require('./doctor')
 
@@ -111,8 +111,8 @@ UserDoctor.createDoctor = function(docAttrs, id_user, type_usermade, current) {
   var newDoctor = undefined
 
   return Doctor.create(docAttrs)
-    .then(function() {
-      return db.select('*').from('doctors').where(docAttrs)
+    .then(function(attrs) {
+      return db.select('*').from('doctors').where(attrs)
     })
     .then(function(allMatching) {
       return allMatching.reduce(function(mostRecent, current) {

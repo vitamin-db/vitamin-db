@@ -85,4 +85,30 @@ DoctorAPI.put('/', function(req, res) {
 	  })
 })
 
+/* DELETE /doctor/:id
+  Id to delete goes in the url
+  On a successful delete, sends back a 200
+*/
+DoctorAPI.delete('/:id_doctor', function(req, res) {
 
+	var userId = undefined
+
+	return User.findByUsername(req.decoded.username)
+	  .then( function(user) {
+	  	userId = user.id_user
+
+	  	return UserDoctor.findByAttribute('id_doctor', req.params.id_doctor)
+	  })
+	  .then(function(userdoctors) {
+	  	return UserDoctor.deleteById(userdoctors[0]['id_user_doctor'])
+	  })
+	  .then(function() {
+	  	return Doctor.deleteById(req.params.id_doctor)
+	  })
+	  .then( function() {
+	  	SendR.sendStatus(res, 200)
+	  })
+	  .catch( function(err) {
+	  	SendR.error(res, 500, 'Server error deleting doctor', err)
+	  })
+})
