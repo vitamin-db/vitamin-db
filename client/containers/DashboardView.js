@@ -35,6 +35,7 @@ const mapStateToProps = (state, ownProps) => {
    doctor: state.userinfo.doctors,
    allergies: mock.Allergies,
    eyerx: mock.Eyerx,
+   // eyerx: state.userinfo.eyerx,
    family: mock.Family,
    insurance: mock.Insurance,
    pharmacy: mock.Pharmacy,
