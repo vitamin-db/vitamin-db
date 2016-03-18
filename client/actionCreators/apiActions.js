@@ -191,7 +191,10 @@ function AddMyDoc (doctor) { // send server the doctor's id/primary key and alte
     .then((response) => {
       console.log("add doc res", response)
       // tell server to send back JUST the doctor object
-      
+      dispatch(stateAction.AddDoc(doctor));
+    })
+    .then(() => {
+      dispatch(stateAction.ClearDocApi());
     })
     .catch((err) => {
       console.error("add doc error", err)
