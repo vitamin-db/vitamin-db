@@ -18,7 +18,7 @@ const UserInfo = (state, action) => {
       newState.doctors.push(action.doctor);
       return newState;
     case 'SUPERLOGOUT':
-      return {user: {username: ""}, doctors: []};
+      return {user: {username: ""}, doctors: [], eyerx: {}};
     default:
       return state;
   }
