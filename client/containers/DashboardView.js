@@ -72,7 +72,8 @@ const mapDispatchToProps = (dispatch) => {
       var phone = e.target.phone.value;
       var address = e.target.address.value;
       var type = e.target.specialty.value;
-      var body = {name: name, phone: phone, address: address, type: type};
+      var portrait = e.target.portrait.value;
+      var body = {name: name, phone: phone, address: address, type: type, portrait: portrait};
       // this jsut clears the api list, but in the future it will add the chosen doctor to the database
       dispatch(apiAction.AddMyDoc(body));
     }

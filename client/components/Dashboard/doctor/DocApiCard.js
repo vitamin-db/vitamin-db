@@ -19,6 +19,7 @@ const docApiCard = ({doc, clearDoc, addDoc}) => (
 			<input type="hidden" name="address" value={doc.address} />
 			Address: {doc.address}
 			<br/>
+			<input type="hidden" name="portrait" value={doc.portrait} />
 			<img src={doc.portrait} />
 			<br/>
 			<button type="submit" >This is my doctor</button>
