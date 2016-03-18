@@ -48,5 +48,20 @@ RxAPI.post('/', function(req, res) {
 	  })
 })
 
+/* PUT /rx
+  Updates the rx based on the res.body.properties
+    >> res.body.properties.id_rx specifies the prescription to be updated
+    >> res.body.properties will also contain the updated elements
+  Returns the updated object
+*/
+RxAPI.put('/', function(req, res) {
 
-
+	return Rx.updateByObj(req.body.properties)
+	  .then(function(updated) {
+	    SendR.resData(res, 201, Rx.getPublicOb(updated))
+	  })
+	  .catch( function(err) {
+	    SendR.error(res, 500, 'Server error updating prescription record', err)
+	  })
+	  
+})

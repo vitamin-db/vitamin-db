@@ -143,8 +143,79 @@ describe('/rx-api', function() {
   			  })
   		})
   })
-  	
+
  })
+
+
+  describe('PUT /rx', function() {
+
+  	before(function() {
+  	  return db.deleteEverything()
+  	})
+
+  	var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
+  	var user1_id = undefined
+  	var newPharmacy1 = undefined
+  	var newPharmacy1_id = undefined
+  	var doc1 = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '1233839292', 'primary')
+  	var doc1_id = undefined
+  	var rx1 = undefined
+  	var rx1_id = undefined
+
+
+  	it('returns the newly updated object', function() {
+  		return TH.createUserReturnId(newUser1)
+  		  .then(function(id) {
+  		    user1_id = id
+  		    newPharmacy1 = new TH.PharmacyAttributes(id, 'CVS', '2927 Guadalupe St, Austin, TX 78705', '(512) 474-2323', true)
+  		    return TH.createPharmaReturnId(newPharmacy1)
+  		  })
+  		  .then(function(id) {
+  		  	newPharmacy1_id = id
+
+  		  	return UserDoctor.createDoctor(doc1, user1_id, 'primary', true)
+  		  })
+  		  .then(function(doctor) {
+  		  	doc1_id = doctor.id_doctor
+
+  		  	rx1 = new TH.RxAttributes(user1_id, newPharmacy1_id, doc1_id, 3493, 'antibiotic scientificus', '1 pill per day', true)
+  		  	return TH.createRxReturnRx(rx1)
+  		  })
+  		  .then(function(rx) {
+  		  	rx1_id = rx.id_rx
+  		  	return Auth.createToken(newUser1.username)
+  		  })
+  		  .then(function(token) {
+  		  	var update = {id_rx: rx1_id, dosage: '1 pill/hour'}
+  		  	return request(app)
+  		  	  .put('/rx')
+  		  	  .set('x-access-token', token)
+  		  	  .send({properties: update})
+  		  	  .expect(201)
+  		  	  .then( function(result) {
+  		  	  	var got = JSON.parse(result.text)
+  		  	  	expect(got).to.be.an('object')
+  		  	  	expect(TH.isValidPublicRx(got))
+  		  	  	expect(got.dosage).to.equal('1 pill/hour')
+  		  	  })
+  		  })
+  	})
+
+  	it('updates the prescription in the database', function() {
+  		return Rx.findById(rx1_id)
+  		  .then( function(rx) {
+  		  	expect(rx).to.be.an('object')
+  		  	expect(TH.propsMatch(rx, doc1)).to.be.false
+  		  	expect(rx.name).to.equal('antibiotic scientificus')
+  		  	expect(rx.dosage).to.equal('1 pill/hour')
+  		  })
+  	})
+
+  })
+
+  describe('DELETE /rx/:id_rx', function() {
+
+  })
 
 
 
