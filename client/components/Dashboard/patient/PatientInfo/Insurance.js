@@ -5,14 +5,10 @@ const ListGroupItem = require('react-bootstrap').ListGroupItem;
 const Col = require('react-bootstrap').Col;
 const Button = require('react-bootstrap').Button;
 const Glyphicon = require('react-bootstrap').Glyphicon;
-const AddButton = require('../common/AddButton');
+const AddButton = require('../../common/AddButton');
 
 
 const InsurancePanel = ({insurance}) => {
-	// var insurance = insurance.map((curr) =>  {
-	// 	return curr
-	// })
-	// console.log(insurance[0]);
 
 	return (
 		<Col xs={4} md={4}>
