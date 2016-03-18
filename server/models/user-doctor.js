@@ -1,7 +1,7 @@
 const db = require('../db')
 const Model = require('./model-helper')
 
-const UserDoctor = new Model('user_doctor', ['id_user', 'id_doctor', 'type_usermade', 'current'])
+const UserDoctor = new Model('user_doctor', ['id_user_doctor', 'id_user', 'id_doctor', 'type_usermade', 'current'])
 const User = require('./user')
 const Doctor = require('./doctor')
 
@@ -103,5 +103,28 @@ UserDoctor.findAllDoctorsOfType = function(id, docType){
     })
 }
 
+/* CREATE DOCTOR
+  Adds the doctor to the doctor table and creates a user-doctor relationship with id_user using type_usermade and current
+  Returns the newly created doctor object from the doctors table
+*/
+UserDoctor.createDoctor = function(docAttrs, id_user, type_usermade, current) {
+  var newDoctor = undefined
 
+  return Doctor.create(docAttrs)
+    .then(function(attrs) {
+      return db.select('*').from('doctors').where(attrs)
+    })
+    .then(function(allMatching) {
+      return allMatching.reduce(function(mostRecent, current) {
+        return mostRecent.id_doctor > current.id_doctor ? mostRecent : current
+      })
+    })
+    .then(function(newDoc) {
+      newDoctor = newDoc
+      return UserDoctor.create({id_user: id_user, id_doctor: newDoctor.id_doctor, type_usermade: type_usermade, current: current})
+    })
+    .then(function() {
+      return newDoctor
+    })
+}
 

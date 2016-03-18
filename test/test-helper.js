@@ -80,6 +80,20 @@ TH.DoctorAttributes = function(name, street_address, city, state_abbrev, zip, em
 	this.type = type
 }
 
+TH.UserDoctorAttributes = function(name, street_address, city, state_abbrev, zip, email, web, phone, type, type_usermade, current) {
+	this.name = name
+	this.street_address = street_address
+	this.city = city
+	this.state_abbrev = state_abbrev
+	this.zip = zip
+	this.email = email
+	this.web = web
+	this.phone = phone
+	this.type = type
+	this.type_usermade = type_usermade
+	this.current = current
+}
+
 TH.UserDoctorAttributes = function(id_user, id_doctor, type_usermade, current) {
   this.id_user = id_user;
   this.id_doctor = id_doctor;
@@ -281,6 +295,27 @@ TH.isValidDoctor = function(doctor) {
 	return TH.hasRightKeys(doctor, props)
 }
 
+TH.isValidPublicDoctor = function(doctor) {
+	return TH.isValidDoctor(doctor) //for now
+	// var props = ['id_doctor', 'name', 'street_address', 'city', 'state_abbrev', 'zip', 'email', 'web',
+	//              'phone', 'type', 'created_at', 'updated_at']
+	// return TH.hasRightKeys(doctor, props)
+}
+
+//Returns a boolean indicating whether every doctor in any array has all expected properties
+TH.allValidDoctors = function(doctorArray) {
+	return doctorArray.reduce( function(bool, current) {
+		return bool && TH.isValidDoctor(current)
+	}, true)
+}
+
+TH.allValidPublicDoctors = function(doctorArray) {
+	return TH.allValidDoctors(doctorArray) //for now
+	// return doctorArray.reduce( function(bool, current) {
+	// 	return bool && TH.isValidDoctor(current)
+	// }, true)
+}
+
 //Creates a doctor and returns the full doctor object
 TH.createDoctorReturnDoctor = function(attrs) {
 	return Doctor.create(attrs)
@@ -306,12 +341,23 @@ TH.createDoctorReturnId = function(attrs) {
   ====================================
 */ 
 
-//Returns a boolean indicating whether every doctor in any array has all expected properties
-TH.allValidDoctors = function(doctorArray) {
-	return doctorArray.reduce( function(bool, current) {
-		return bool && TH.isValidDoctor(current)
-	}, true)
+//Simulates the object the client will send to create a new doctor and userdoctor record
+TH.getUserDoctor = function(doctorAttr, type_usermade, current) {
+	var userDoc = {}
+	for (var p in doctorAttr) {
+		userDoc[p] = doctorAttr[p]
+	}
+	userDoc.type_usermade = type_usermade
+	userDoc.current = current
+
+	return userDoc
 }
+
+TH.isValidUserDoctor = function(userdoctor) {
+	var props = ['id_user_doctor', 'id_user', 'id_doctor', 'type_usermade', 'current', 'created_at', 'updated_at']
+	return TH.hasRightKeys(userdoctor, props)
+}
+
 
 //Adds to a doctor with properties doctorAttrs to the doctors table
 //Creates an entry in user_doctor with the passed-in user ID, usermade type, and current values,

@@ -36,10 +36,8 @@ module.exports = function(tableName, allAttrs) {
 
     /* CREATE
       Creates a new entry using attribute object passed in
-      Returns the new object created
     */
 	this.create = function(newItemAttrs) {
-		// console.log('trying to create user', newItemAttrs)
 		return db(this.table).insert(newItemAttrs, this.attrsToSet)
 		  .then( this.returnSuccess('successfully created new entry into table ' + this.table) )
 		  .then( function(result) { console.log('result should be an array', result); return result[0] })
@@ -149,8 +147,10 @@ module.exports = function(tableName, allAttrs) {
 	  Returns the number of records deleted (ie 1)
 	*/
 	this.deleteById = function(id) {
+		console.log('userdoctor id', id)
 		var queryObj = {}
 		queryObj[this.idVarName] = id
+		console.log('queryObj for delete', queryObj)
 
 		return db(this.table).where(queryObj).del()
 		  .then(this.returnSuccess('success deleting from ' + this.table))
