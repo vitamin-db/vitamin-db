@@ -46,13 +46,13 @@ function SignIn (body) {
         document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         // dispatch action
         dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value
+        dispatch(GetMyInfo());
       }
     })
     .then(() => {
-      dispatch(GetMyInfo());
-    })
-    .then(() => {
-      browserHistory.push('/home');
+      if(getCookie("token")){
+        browserHistory.push('/home');
+      }
     })
     .catch(function(err) {
       console.error("signin err", err)
@@ -88,7 +88,9 @@ function SignUp (body) {
       }
     })
     .then(() => {
-      browserHistory.push('/home')
+      if(getCookie("token")){
+        browserHistory.push('/home')
+      }
     })
     .catch(function(err){
       console.error("signup err", err);
@@ -144,7 +146,8 @@ function GetApiDocs (doctor) {
             business: doc.practices[0].name,
             phone: doc.practices[0].phones[0].number,
             address: street + " " + street2 + " " + city + ", " + state + " " + zip,
-            portrait: doc.profile.image_url
+            portrait: doc.profile.image_url,
+            specialty: doc.specialties[0].name
           });
         })
         dispatch(stateAction.SetDocApi(final))
@@ -174,20 +177,24 @@ function SignOut () {
   };
 };
 
-function AddMyDoc (newInfo) { // send server the doctor's id/primary key and altered info
+function AddMyDoc (doctor) { // send server the doctor's id/primary key and altered info
   return (dispatch) => {
-    return fetch('TEMPORARY_FILLER', {
+    return fetch('/doctor', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'x-access-token': getCookie("token")
       },
-      body: newInfo
+      body: doctor
     })
     .then((response) => {
       console.log("add doc res", response)
       // tell server to send back JUST the doctor object
+      dispatch(stateAction.AddDoc(doctor));
+    })
+    .then(() => {
+      dispatch(stateAction.ClearDocApi());
     })
     .catch((err) => {
       console.error("add doc error", err)
@@ -219,7 +226,7 @@ function RemoveMyDoc (doctor) { // this will be the doctor's id/primary key
   };
 };
 
-function ChangeMyDoc (doctor) {
+function ChangeMyDoc (newInfo) {
   return (dispatch) => {
     return fetch('TEMPORARY_FILLER', {
       method: 'put',
@@ -228,7 +235,7 @@ function ChangeMyDoc (doctor) {
         'Content-Type': 'application/json',
         'x-access-token': getCookie("token")
       },
-      body: doctor
+      body: newInfo
     })
     .then((response) => {
       console.log("change doc res", response);

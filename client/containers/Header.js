@@ -9,7 +9,8 @@ const stateAction    = require('../actionCreators/stateActions');
 // browser history for path change
 const browserHistory = Router.browserHistory;
 
-const Header = ({username, goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
+const Header = ({check, username, goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
+	check();
 	return (
 	  <nav className="navbar navbar-default">
         <div className="container-fluid">
@@ -28,7 +29,6 @@ const Header = ({username, goHome, signOut, goProfile, goAppoint, signUp, logged
 };
 
 const mapStateToProps = (state) => {
-
 	console.log('header state', state)
 	return {
 		logged: apiAction.getCookie("token"),
@@ -43,6 +43,11 @@ const mapStateToProps = (state) => {
 // gotta see if server side can grab cookies
 const mapDispatchToProps = (dispatch) => {
 	return {
+		check: () => {
+			if(apiAction.getCookie("token")){
+				dispatch(apiAction.GetMyInfo())
+			}
+		},
 		goSplash: () => {
 			browserHistory.push('/')
 		},

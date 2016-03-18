@@ -30,11 +30,12 @@ const Home = ({addDoc, docApiList, searchDoc, doctor, allergies, eyerx, family, 
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(mock.allergies)
+  // console.log(mock.allergies)
   return { 
-   doctor: mock.Doctor,
+   doctor: state.userinfo.doctors,
    allergies: mock.Allergies,
    eyerx: mock.Eyerx,
+   // eyerx: state.userinfo.eyerx,
    family: mock.Family,
    insurance: mock.Insurance,
    pharmacy: mock.Pharmacy,
@@ -42,6 +43,17 @@ const mapStateToProps = (state, ownProps) => {
    rx: mock.Rx,
    patient: mock.users,
    docApiList: state.docapi
+// ------------------------------------------------------------------------
+   // doctor: mock.Doctor,
+   // allergies: mock.Allergies,
+   // eyerx: mock.Eyerx,
+   // family: mock.Family,
+   // insurance: mock.Insurance,
+   // pharmacy: mock.Pharmacy,
+   // familyhistory: mock.Familyhistory,
+   // rx: mock.Rx,
+   // patient: mock.users,
+   // docApiList: state.docapi
   }
 };
 
@@ -54,9 +66,16 @@ const mapDispatchToProps = (dispatch) => {
       var body = {firstname:firstName, lastname:lastName};
       dispatch(apiAction.GetApiDocs(body));
     },
-    addDoc: () => {
+    addDoc: (e) => {
+      e.preventDefault();
+      var name = e.target.firstname.value + " " + e.target.lastname.value;
+      var phone = e.target.phone.value;
+      var address = e.target.address.value;
+      var type = e.target.specialty.value;
+      var portrait = e.target.portrait.value;
+      var body = {name: name, phone: phone, address: address, type: type, portrait: portrait};
       // this jsut clears the api list, but in the future it will add the chosen doctor to the database
-      dispatch(stateAction.ClearDocApi())
+      dispatch(apiAction.AddMyDoc(body));
     }
   }
 };

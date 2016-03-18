@@ -13,11 +13,11 @@ const DocCard = ({ val }) => (
 	<Col xs={4} md={4}>
 		 <div className="card">
 
-			<DoctorFull type={val.type} glyph={val.glyph}/>
+			<DoctorFull type={val.type} glyph={val.portrait}/>
 
 		     <div className="card-block">
 			     <p className="card-text"><b>Name</b>: {val.name}</p>
-			     <p className="card-text"><b>Address</b>: {val.street_address}</p>
+			     <p className="card-text"><b>Address</b>: {val.address}</p>
 			     <p className="card-text"><b>Phone</b>: {val.phone}</p>
 
 		     </div>

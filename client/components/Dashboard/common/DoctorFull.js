@@ -27,7 +27,7 @@ getInitialState() {
   
 
           <div className="card-header">
-            <Button bsStyle="success" bsSize="small" className="card-button" onClick={this.showModal}><Glyphicon glyph={this.props.glyph} /></Button>
+            <Button bsStyle="success" bsSize="small" className="card-button" onClick={this.showModal}><img src={this.props.glyph} /></Button>
             <h5 className="card-type">{this.props.type}</h5>
           </div>
 
