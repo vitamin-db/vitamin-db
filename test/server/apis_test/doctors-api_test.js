@@ -9,7 +9,7 @@ const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
 
-xdescribe('/doctor api', function() {
+describe('/doctor api', function() {
 
 	//set up app
 	var app = TH.createApp()
@@ -56,7 +56,7 @@ xdescribe('/doctor api', function() {
 			  		var got = JSON.parse(result.text)
 			  		expect(got).to.be.an('array')
 			  		expect(got).to.have.length(2)
-			  		expect(TH.allValidDoctors(got)).to.be.true
+			  		expect(TH.allValidPublicDoctors(got)).to.be.true
 			  		expect(TH.propsMatch(got[0], newTestDoctor1)).to.be.true
 			  		expect(TH.propsMatch(got[0], newTestDoctor2)).to.be.false
 			  		expect(TH.propsMatch(got[1], newTestDoctor1)).to.be.false
@@ -75,20 +75,61 @@ xdescribe('/doctor api', function() {
 			return db.deleteEverything()
 		})
 
-		it('returns the newly created doctor object', function() {
+		var newUser = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
+		var users_id = undefined
+		var newDoc1 = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '1233839292', 'primary')
+		var newUserDoc1 = TH.getUserDoctor(newDoc1, 'mah primary', true)
+
+
+		it('returns a 201 status and the newly created doctor object', function() {
+
+			return TH.createUserReturnId(newUser)
+			  .then(function(id_user) {
+			  	users_id = id_user
+
+			  	return Auth.createToken(newUser.username)
+			  })
+			  .then(function(token) {
+
+			  	return request(app)
+			  	  .post('/doctor')
+			  	  .set('x-access-token', token)
+			  	  .send({properties: newUserDoc1})
+			  	  .expect(201)
+			  	  .then(function(result) {
+			  	  	var got = JSON.parse(result.text)
+			  	  	expect(got).to.be.an('object')
+			  	  	expect(TH.isValidPublicDoctor(got)).to.be.true
+			  	  	expect(TH.propsMatch(got, newDoc1)).to.be.true
+			  	  })
+			  })
+
 
 		})
 
 		it('adds a doctor to the doctors table', function() {
-
+			return UserDoctor.findAllDoctors(users_id)
+			  .then(function(doctors) {
+			  	expect(doctors).to.be.an('array')
+			  	expect(doctors).to.have.length(1)
+			  	expect(doctors[0]).to.be.an('object')
+			  	expect(TH.isValidDoctor(doctors[0])).to.be.true
+			  	expect(TH.propsMatch(doctors[0], newDoc1)).to.be.true
+			  })
 		})
 
 		it('creates a record in the user_doctor table', function() {
-
+			return UserDoctor.getAll()
+			  .then(function(result) {
+			  	expect(result).to.be.an('array')
+			  	expect(result).to.have.length(1)
+			  	expect(result[0]).to.be.an('object')
+			  	expect(TH.isValidUserDoctor(result[0])).to.be.true
+			  })
 		})
 	})
 
-	describe('PUT /doctor', function() {
+	xdescribe('PUT /doctor', function() {
 
 		before(function() {
 			return db.deleteEverything()
@@ -104,7 +145,7 @@ xdescribe('/doctor api', function() {
 
 	})
 
-	describe('DELETE /doctor/:id_doctor', function() {
+	xdescribe('DELETE /doctor/:id_doctor', function() {
 
 		before(function() {
 			return db.deleteEverything()

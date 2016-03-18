@@ -112,6 +112,10 @@ if ( process.env.NODE_ENV === 'test' ) {
 var userRouter = require('./apis/users-api')
 routes.use('/user', userRouter)
 
+//doctor router
+var doctorRouter = require('./apis/doctor-api')
+routes.use('/doctor', doctorRouter)
+
 //eyerx router
 var eyerxRouter = require('./apis/eyerx-api')
 routes.use('/eyerx', eyerxRouter)
