@@ -43,9 +43,10 @@ EyeRxAPI.post('/', function(req, res) {
 	  .then(function(user) {
 	  	var attrs = {id_user: user.id_user}
 	  	for (var prop in req.body.properties) {
-	  		console.log('body prop', prop)
-	  		attrs[prop] = req.body.prop
+        console.log('body prop', prop, 'defined as', req.body.properties[prop])
+        attrs[prop] = req.body.properties[prop]
 	  	}
+      console.log('attrs in Eyerx POST: ', attrs)
 	  	return EyeRx.createEyeRx(attrs)
 	  })
 	  .then(function(created) {

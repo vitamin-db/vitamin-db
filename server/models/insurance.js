@@ -12,3 +12,16 @@ module.exports = Insurance
 Insurance.getAllByUser = function(id_user) {
   return this.findByAttribute('id_user', id_user)
 }
+
+Insurance.createInsuranceReturnObj = function(insuranceAttrs) {
+  return Insurance.create(insuranceAttrs)
+    .then(function(attrs) {
+      return db.select('*').from('insurance').where(attrs)
+    })
+    .then(function(allMatching) {
+      return allMatching.reduce(function(mostRecent, current) {
+        return mostRecent.id_insurance > current.id_doctor ? mostRecent : current
+      })
+    })
+}
+

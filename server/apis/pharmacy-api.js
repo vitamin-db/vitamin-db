@@ -46,7 +46,7 @@ PharmacyAPI.post('/', function(req, res) {
       var attrs = {id_user: user.id_user}
       for (var prop in req.body.properties) {
         console.log('body prop', prop)
-        attrs[prop] = req.body.prop
+        attrs[prop] = req.body.properties[prop]
       }
       return Pharmacy.create(attrs)
     })
