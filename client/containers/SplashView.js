@@ -8,7 +8,7 @@ const apiAction         = require('../actionCreators/apiActions');
 // require history to change routes
 const browserHistory    = require('react-router').browserHistory;
 
-const Splash = ({ onSignIn, goSignup, logged }) => {
+const Splash = ({onSignIn, goSignup, logged }) => {
 	return (
 		<div>
 			<div>
@@ -16,9 +16,9 @@ const Splash = ({ onSignIn, goSignup, logged }) => {
 				<JumbotronInstance />
 				</div>
 			</div>
-			<div className="col-md-12">
+			{!logged && <div className="col-md-12">
 		    	<SignIn goSignup={goSignup} onSignIn={onSignIn} />
-			</div>
+			</div>}
 		</div>
 	);
 };

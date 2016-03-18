@@ -46,13 +46,13 @@ function SignIn (body) {
         document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         // dispatch action
         dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value
+        dispatch(GetMyInfo());
       }
     })
     .then(() => {
-      dispatch(GetMyInfo());
-    })
-    .then(() => {
-      browserHistory.push('/home');
+      if(getCookie("token")){
+        browserHistory.push('/home');
+      }
     })
     .catch(function(err) {
       console.error("signin err", err)
@@ -88,7 +88,9 @@ function SignUp (body) {
       }
     })
     .then(() => {
-      browserHistory.push('/home')
+      if(getCookie("token")){
+        browserHistory.push('/home')
+      }
     })
     .catch(function(err){
       console.error("signup err", err);
