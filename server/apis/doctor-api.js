@@ -72,8 +72,17 @@ DoctorAPI.post('/', function(req, res) {
    - new property values to be updated 
    (eg: req.body.properties = {id_doctor: id, propertyToUpdate: newValue})
 
-  Returns the updated object
+  Returns the updated object and a 201 on success
 */
+DoctorAPI.put('/', function(req, res) {
 
+	return Doctor.updateByObj(req.body.properties) 
+	  .then(function(updated) {
+	  	SendR.resData(res, 201, Doctor.getPublicOb(updated))
+	  })
+	  .catch( function(err) {
+	  	SendR.error(res, 500, 'Server error updating doctor', err)
+	  })
+})
 
 

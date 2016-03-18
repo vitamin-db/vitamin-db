@@ -129,7 +129,7 @@ describe('/doctor api', function() {
 		})
 	})
 
-	xdescribe('PUT /doctor', function() {
+	describe('PUT /doctor', function() {
 
 		before(function() {
 			return db.deleteEverything()
@@ -147,7 +147,7 @@ describe('/doctor api', function() {
 			return TH.createUserReturnId(newUser)
 			  .then(function(id_user) {
 			  	users_id = id_user
-			  	return UserDoctor.createDoctor(newTestDoctor1, users_id, 'old primary', false)
+			  	return UserDoctor.createDoctor(newDoc1, users_id, 'old primary', false)
 			  })
 			  .then(function(doctor) {
 			  	newDoc_id = doctor.id_doctor
@@ -156,8 +156,9 @@ describe('/doctor api', function() {
 			  .then(function(token) {
 			  	var props = {id_doctor: newDoc_id, street_address: '234 Main Street', city: 'Dallas'}
 			  	return request(app)
+			  	.put('/doctor')
 			  	.set('x-access-token', token)
-			  	.send({properties: newUserDoc1})
+			  	.send({properties: props})
 			  	.expect(201)
 			  	.then(function(result) {
 			  		var got = JSON.parse(result.text)
@@ -174,7 +175,7 @@ describe('/doctor api', function() {
 
 		it('updates the doctor information in the database', function() {
 
-			return TH.findById(newDoc_id)
+			return Doctor.findById(newDoc_id)
 			  .then(function(doctor) {
 			  	expect(doctor).to.be.an('object')
 			  	expect(TH.isValidPublicDoctor(doctor)).to.be.true
