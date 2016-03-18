@@ -20,7 +20,7 @@ const store          = Store();
 const syncHiStore    = require('react-router-redux').syncHistoryWithStore;
 const browserHistory = ReactRouter.browserHistory;
 const history        = syncHiStore(browserHistory, store);
-
+//needed for material UI
 const injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 

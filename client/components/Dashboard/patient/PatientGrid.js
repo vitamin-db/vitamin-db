@@ -14,12 +14,6 @@ const Pharmacy = require('./PatientInfo/Pharmacy');
 
 const PatientGrid = ({allergies, eyerx, family, familyhistory, insurance, pharmacy, rx}) => {
 
-// console.log(allergies, eyerx, family);
-
-const item = allergies.map((val) =>
-	console.log(val)
-)
-
 return(
   <div className="container-fluid">
   <Grid className="patient-grid">
