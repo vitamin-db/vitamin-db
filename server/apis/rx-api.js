@@ -63,5 +63,29 @@ RxAPI.put('/', function(req, res) {
 	  .catch( function(err) {
 	    SendR.error(res, 500, 'Server error updating prescription record', err)
 	  })
-	  
+
 })
+
+
+/* DELETE /rx/:id_rx
+  Deletes the prescription specified in the url
+  Returns a 200 on success
+*/
+RxAPI.delete('/:id_rx', function(req, res) {
+
+	return Rx.deleteById(req.params.id_rx)
+	  .then(function() {
+	    SendR.sendStatus(res, 200)
+	  })
+	  .catch( function(err) {
+	    SendR.error(res, 500, 'Server error deleting prescription record', err)
+	  })
+
+})
+
+
+
+
+
+
+
