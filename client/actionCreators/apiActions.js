@@ -17,8 +17,6 @@ function getCookie(cname) {
    return "";
 };
 
-
-
 function SignIn (body) {
   return (dispatch) => {
     return fetch('/authenticate/login', {
@@ -47,12 +45,17 @@ function SignIn (body) {
         // window.localStorage.setItem("token", token.token);
         document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         // dispatch action
-        dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value 
-        browserHistory.push('/home')
+        dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value
       }
     })
+    .then(() => {
+      dispatch(GetMyInfo());
+    })
+    .then(() => {
+      browserHistory.push('/home');
+    })
     .catch(function(err) {
-      console.error(err)
+      console.error("signin err", err)
       dispatch(stateAction.SignInFail());
     });
   };
@@ -82,17 +85,20 @@ function SignUp (body) {
         // window.localStorage.setItem("token", token.token);
         document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         dispatch(stateAction.SignInSuccess(token.token));
-        browserHistory.push('/home')
       }
     })
+    .then(() => {
+      browserHistory.push('/home')
+    })
     .catch(function(err){
-      console.error(err);
+      console.error("signup err", err);
     })
   };
 };
 
 function GetMyInfo () {
   return (dispatch) => {
+    console.log("getmyinfo token", getCookie("token"))
     return fetch("/user", {
         headers: {
           'Accept': 'application/json',
@@ -109,7 +115,7 @@ function GetMyInfo () {
       dispatch(stateAction.SetMyInfo(info))
     })
     .catch((err) => {
-      console.log(err)
+      console.error("get my info err",err)
     })
   };
 };
@@ -144,7 +150,7 @@ function GetApiDocs (doctor) {
         dispatch(stateAction.SetDocApi(final))
       })
       .catch(function (err) {
-        console.error('Doctor error:', err);
+        console.error('Doctor api error:', err);
       });
   };
 };
@@ -153,7 +159,7 @@ function SignOut () {
   return (dispatch) => {
     return fetch('/authenticate/logout', {
       method: 'post',
-      headers:{
+      headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'x-access-token': getCookie("token")
@@ -163,16 +169,16 @@ function SignOut () {
       console.log("sign out res", response)
     })
     .catch((err) => {
-      console.errror(err)
+      console.error("signout err", err)
     })
   };
 };
 
-function AddMyDoc (newInfo) {
+function AddMyDoc (newInfo) { // send server the doctor's id/primary key and altered info
   return (dispatch) => {
     return fetch('TEMPORARY_FILLER', {
-      method: 'put',
-      headers:{
+      method: 'post',
+      headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'x-access-token': getCookie("token")
@@ -181,12 +187,97 @@ function AddMyDoc (newInfo) {
     })
     .then((response) => {
       console.log("add doc res", response)
+      // tell server to send back JUST the doctor object
     })
     .catch((err) => {
       console.error("add doc error", err)
     })
   };
 };
+
+function RemoveMyDoc (doctor) { // this will be the doctor's id/primary key
+  return (dispatch) => {
+    return fetch('TEMPORARY_FILLER', {
+      method: 'delete',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': getCookie("token")
+      },
+      body: doctor
+    })
+    .then((response) => {
+      console.log("remove doc res", response);
+      // tell server to send back the whole doctor list
+      // this way when i try to update the doctor list state
+      // i don't have to do too much logic in the reducer to delete one doctor
+      // i can just replace the whole list
+    })
+    .catch((err) => {
+      console.error("removemydoc error", err);
+    })
+  };
+};
+
+function ChangeMyDoc (doctor) {
+  return (dispatch) => {
+    return fetch('TEMPORARY_FILLER', {
+      method: 'put',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': getCookie("token")
+      },
+      body: doctor
+    })
+    .then((response) => {
+      console.log("change doc res", response);
+    })
+    .catch((err) => {
+      console.error("change doc err", err);
+    })
+  };
+};
+
+// function AddEyeRx (eyeRx) {
+//   return (dispatch) => {
+//     return fetch('TEMPORARY_FILLER', {
+//       method: 'put',
+//       headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json',
+//         'x-access-token': getCookie("token")
+//       },
+//       body: eyeRx
+//     })
+//     .then((response) => {
+//       console.log("add eye res", response);
+//     })
+//     .catch((err) => {
+//       console.error("add eye err", err);
+//     })
+//   };
+// };
+
+// function ChangeEyeRx (newEye) {
+//   return (dispatch) => {
+//     return fetch('TEMPORARY_FILLER', {
+//       method: 'put',
+//       headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json',
+//         'x-access-token': getCookie("token")
+//       },
+//       body: newEye
+//     })
+//     .then((response) => {
+//       console.log("change eye res", response);
+//     })
+//     .catch((err) => {
+//       console.error("change eye err", err);
+//     })
+//   };
+// };
 
 // DONT FORGET TO ADD THE FUNCTIONS EXPORTS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module.exports = {
@@ -195,5 +286,8 @@ module.exports = {
   getCookie,
   GetApiDocs,
   GetMyInfo,
-  SignOut
+  SignOut,
+  RemoveMyDoc,
+  AddMyDoc,
+  ChangeMyDoc
 };

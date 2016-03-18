@@ -20,8 +20,7 @@ const Grid = require('react-bootstrap').Grid;
 // // CONTAINER
 // 
  // <PatientGrid patientInfo={patient} />
-const Home = ({getMyInfo, addDoc, docApiList, searchDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {  
-  getMyInfo();
+const Home = ({addDoc, docApiList, searchDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
   return (
     <div className="home-body">
       <DoctorGrid addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} docInfo={doctor} insurance={insurance} pharmacy={pharmacy} />
@@ -48,9 +47,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getMyInfo: () => {
-      dispatch(apiAction.GetMyInfo());
-    },
     searchDoc: (e) => {
       e.preventDefault();
       var firstName = e.target.firstname.value;
