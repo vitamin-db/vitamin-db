@@ -85,7 +85,22 @@ AllergyAPI.put('/', function(req, res) {
 
 })
 
+/*
+DELETE /allergy
+  In the body of the request, takes an object with the id_allergy property equal to the record to be deleted
+  Returns a 200 code on a successful delete
+*/
+AllergyAPI.delete('/:id_allergy', function(req, res) {
 
+  return Allergy.deleteById(req.params.id_allergy)
+    .then(function() {
+      SendR.sendStatus(res, 200)
+    })
+    .catch( function(err) {
+      SendR.error(res, 500, 'Server error deleting allergy record', err)
+    })
+
+})
 
 
 
