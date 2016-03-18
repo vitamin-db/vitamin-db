@@ -107,7 +107,7 @@ describe('/insurance-api', function() {
 
   })
 
-  xdescribe('PUT /insurance', function() {
+  describe('PUT /insurance', function() {
 
     //set up app
     var app = TH.createApp()
