@@ -3,23 +3,18 @@ const Panel = require('react-bootstrap').Panel;
 const ListGroup = require('react-bootstrap').ListGroup;
 const ListGroupItem = require('react-bootstrap').ListGroupItem;
 const Col = require('react-bootstrap').Col;
-const AddButton = require('../common/AddButton');
-const EditButton = require('../common/EditButton');
-const DeleteButton = require('../common/DeleteButton');
+const AddButton = require('../../common/AddButton');
+const EditButton = require('../../common/EditButton');
+const DeleteButton = require('../../common/DeleteButton');
 // const header = (
 //   	<div>
 // 		<Button bsStyle="success" bsSize="xsmall" className="card-button"><Glyphicon glyph='heart' /></Button>
 // 		<h5 className="card-type">Prescriptions</h5>
 // 	</div>
 // )
+// const FormUI = require('../../common/FormUI');
 
 const AllergiesPanel = ({allergies}) => {
-	var current = allergies.map((curr) =>  {
-		return curr.current;
-	})
-	console.log(current);
-
-	var edit = {EditButton};
 
 	return (
 		<Col xs={4} md={4}>
