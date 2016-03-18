@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const EyeRx = require(__server + '/models/eyerx')
 
-xdescribe('/eyerx-api', function() {
+describe('/eyerx-api', function() {
 
 	//set up app
 	var app = TH.createApp()
@@ -48,6 +48,7 @@ xdescribe('/eyerx-api', function() {
 			  	  .expect(200)
 			  	  .then(function(result) {
 			  	  	var got = JSON.parse(result.text)
+			  	  	console.log('got: ', got);
 			  	  	expect(got).to.be.an('object')
 			  	  	expect(got.current).to.be.true
 			  	  	expect(TH.isValidPublicEyerx(got)).to.be.true
@@ -86,6 +87,7 @@ xdescribe('/eyerx-api', function() {
 	  		  	  .expect(201)
 	  		  	  .then(function(result) {
 	  		  	  	var newEyeRx = JSON.parse(result.text)
+	  		  	  	console.log('newEyeRx test: ', newEyeRx)
 	  		  	  	expect(newEyeRx).to.be.an('object')
 	  		  	  	expect(TH.isValidPublicEyerx(newEyeRx)).to.be.true
 	  		  	  })

@@ -102,6 +102,8 @@ module.exports = function(tableName, allAttrs) {
 	  Same as Update By Id, but only takes one object, which includes both the id and attributes to change
 	*/
 	this.updateByObj = function(obj) {
+		console.log('obj in modelhelper: ', obj)
+		console.log('obj[this.idVarName]: ', obj[this.idVarName])
 		var id = obj[this.idVarName]
 		var attrs = {}
 		for( var prop in obj) {

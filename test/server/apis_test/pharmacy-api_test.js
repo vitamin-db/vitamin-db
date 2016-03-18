@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const Pharmacy = require(__server + '/models/pharmacy')
 
-xdescribe('/pharmacy-api', function() {
+describe('/pharmacy-api', function() {
 
   //set up app
   var app = TH.createApp()
@@ -34,11 +34,11 @@ xdescribe('/pharmacy-api', function() {
         .then(function(id) {
           user1_id = id
           newPharmacy1 = new TH.PharmacyAttributes(id, 'CVS', '2927 Guadalupe St, Austin, TX 78705', '(512) 474-2323', true)
-          return Pharmacy.createPharmacy(newPharmacy1)
+          return Pharmacy.create(newPharmacy1)
         })
         .then(function() {
-          newPharmacy2 = new TH.PharmacyAttributes(id_user2, 'Walgreens', '2501 S Lamar Blvd, Austin, TX 78704', '(512) 443-7534', true)
-        return Pharmacy.createPharmacy(newPharmacy2)
+          newPharmacy2 = new TH.PharmacyAttributes(user1_id, 'Walgreens', '2501 S Lamar Blvd, Austin, TX 78704', '(512) 443-7534', true)
+        return Pharmacy.create(newPharmacy2)
         })
         .then(function() {
           return Auth.createToken(newUser1.username)
@@ -50,10 +50,11 @@ xdescribe('/pharmacy-api', function() {
             .expect(200)
             .then(function(result) {
               var got = JSON.parse(result.text)
+              // console.log('got: ', got)
               expect(got).to.be.an('array')
               expect(got[0]).to.be.an('object')
               expect(got[0].current).to.be.true
-              expect(TH.isValidPublicPharmacy(got[0])).to.be.true
+              expect(TH.isValidPublicPharma(got[0])).to.be.true
               expect(TH.propsMatchExceptMaybeCurrent(got[0], newPharmacy1)).to.be.true
             })
         })
@@ -75,37 +76,32 @@ xdescribe('/pharmacy-api', function() {
 
       var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
       var user1_id = undefined
-      var newPharma1 = undefined
+      var user1_token = undefined
+      var newPharmacy_props = new TH.PharmacyAttributesNoUser('CVS', '2927 Guadalupe St, Austin, TX 78705', '(512) 474-2323', true)
 
-      it('returns the newly posted prescription', function() {
+      it('returns the newly posted pharmacy', function() {
         return TH.createUserReturnIdAndToken(newUser1)
           .then(function(userAndToken) {
             user1_id = userAndToken.id_user
-            newPharma1 = new TH.PharmacyAttributes(user1_id, 'CVS', '2927 Guadalupe St, Austin, TX 78705', '(512) 474-2323', true)
-            return TH.createPharmaReturnPharma(newPharma1)
-          })
-          .then(function(newPharmaObj) {
             return request(app)
               .post('/pharmacy')
               .set('x-access-token', userAndToken.token)
-              .send(newPharmaObj)
+              .send({properties: newPharmacy_props})
               .expect(201)
               .then(function(result) {
-                var newPharmaParsed = JSON.parse(result)
-                expect(newPharmaParsed).to.be.an('object')
-                expect(TH.isValidPublicPharma(pharma)).to.be.true
-                expect(TH.propsMatchExceptMaybeCurrent(newPharmaParsed, newPharma1)).to.be.true
+                var newPharmacy = JSON.parse(result.text)
+                expect(newPharmacy).to.be.an('object')
+                //expect(TH.isValidPublicPharma(newPharmacy)).to.be.true
               })
           })
       })
 
-      it('adds a prescription to the database', function() {
+      it('adds a pharmacy to the database', function() {
         return Pharmacy.getAllByUser(user1_id)
-          .then(function(allPharma) {
-            expect(allPharma).to.be.an('array')
-            expect(allPharma).to.have.length(1)
-            expect(TH.isValidPublicPharma(allPharma[0])).to.be.true
-            expect(TH.propsMatchExceptMaybeCurrent(allPharma[0], newPharma1)).to.be.true
+          .then(function(allPharmacy) {
+            expect(allPharmacy).to.be.an('array')
+            expect(allPharmacy).to.have.length(1)
+            expect(TH.isValidPublicPharma(allPharmacy[0])).to.be.true
           })
       })
 
@@ -119,7 +115,7 @@ xdescribe('/pharmacy-api', function() {
     app.testReady()
 
     before(function() {
-      console.log('deleting everything - eyerx api')
+      console.log('deleting everything - pharmacy api')
       return db.deleteEverything()
     })
 
@@ -127,9 +123,9 @@ xdescribe('/pharmacy-api', function() {
     var user1_id = undefined
     var newPharma1 = undefined
     var newPharma1_updated = undefined
-    var pharma1_id = undefined
+    var newPharma1_id = undefined
 
-      it('returns an updated pharmacy record', function() {
+      it('returns an updated pharmacy', function() {
         return TH.createUserReturnId(newUser1)
           .then(function(id) {
             user1_id = id
@@ -137,35 +133,39 @@ xdescribe('/pharmacy-api', function() {
             newPharma1_updated = new TH.PharmacyAttributes(user1_id, 'Walgreens', '2927 Guadalupe St, Austin, TX 78705', '(512) 474-2323', true)
             return TH.createPharmaReturnPharma(newPharma1)
           })
-          .then(function(createdPharma1) {
-            pharma1_id = createdPharma1.id_pharmacy
+          .then(function(pharmacy) {
+            newPharma1_id = pharmacy.id_pharmacy
             return Auth.createToken(newUser1.username)
           })
           .then(function(token) {
+            var props = {id_pharmacy: newPharma1_id, business_name: newPharma1_updated.business_name}
             return request(app)
               .put('/pharmacy')
               .set('x-access-token', token)
-              .send(JSON.stringify({id_pharmacy: pharma1_id, name: newPharma1_updated.name}))
+              .send({properties: props})
               .expect(201)
               .then( function(result) {
-                var obj = JSON.parse(result)
-                expect(obj).to.be.an('object')
-                expect(TH.propsMatchExceptMaybeCurrent(obj, newPharma1_updated).to.be.true)
-                expect(TH.propsMatchExceptMaybeCurrent(obj, newPharma1).to.be.false)
+                var ob = JSON.parse(result.text)
+                expect(ob).to.be.an('object')
+                expect(TH.propsMatchExceptMaybeCurrent(ob, newPharma1_updated)).to.be.true
+                expect(TH.propsMatchExceptMaybeCurrent(ob, newPharma1)).to.be.false
 
               })
           })
       })
 
+
       it('modifies the specified pharmacy in the database', function() {
-        return Pharmacy.getAllByUser()
+        return Pharmacy.getAllByUser(user1_id)
           .then(function(all) {
             expect(all).to.be.an('array')
             expect(all).to.have.length(1)
-            expect(TH.propsMatchExceptMaybeCurrent(all[0], newPharma1_updated).to.be.true)
-            expect(TH.propsMatchExceptMaybeCurrent(all[0], newPharma1).to.be.false)
+            expect(TH.propsMatchExceptMaybeCurrent(all[0], newPharma1_updated)).to.be.true
+            expect(TH.propsMatchExceptMaybeCurrent(all[0], newPharma1)).to.be.false
           })
       })
+
+
   })
 
   describe('DELETE /pharmacy/:id_pharmacy', function() {
@@ -181,18 +181,16 @@ xdescribe('/pharmacy-api', function() {
 
     var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
     var user1_id = undefined
-    var newPharma1 = undefined
     var newPharma1_id = undefined
 
     it('returns a 200 on a successful delete', function() {
       return TH.createUserReturnId(newUser1)
         .then(function(id) {
           user1_id = id
-          newPharma1 = new TH.PharmacyAttributes(user1_id, 'CVS', '2927 Guadalupe St, Austin, TX 78705', '(512) 474-2323', true)
-          return TH.createPharmaReturnPharma(newPharma1)
+          return TH.createPharmaReturnPharma(new TH.PharmacyAttributes(user1_id, 'CVS', '2927 Guadalupe St, Austin, TX 78705', '(512) 474-2323', true))
         })
-        .then(function(newPharma) {
-          newPharma1_id = newPharma.id_pharmacy
+        .then(function(pharma) {
+          newPharma1_id = pharma.id_pharmacy
           return Auth.createToken(newUser1.username)
         })
         .then(function(token) {
