@@ -27,7 +27,7 @@ getInitialState() {
   
 
           <div className="card-header">
-            <Button bsStyle="success" bsSize="small" className="card-button" onClick={this.showModal}><img src={this.props.glyph} /></Button>
+            <Button bsStyle="success" bsSize="small" className="card-button" onClick={this.showModal}><Glyphicon glyph="plus-sign" /></Button>
             <h5 className="card-type">{this.props.type}</h5>
           </div>
 
@@ -36,6 +36,7 @@ getInitialState() {
           show={this.state.show}
           onHide={this.hideModal}
           dialogClassName="custom-modal">
+            <img src={this.props.glyph} />
               put doctor full info here
           
         </Modal>
