@@ -2,17 +2,27 @@ const React = require('react');
 
 const docApiCard = ({doc, clearDoc, addDoc}) => (
 	<div className="docApiCard" >
-		Name: {doc.firstname} {doc.lastname}
-		<br/>
-		Phone: {doc.phone}
-		<br/>
-		Business: {doc.business}
-		<br/>
-		Address: {doc.address}
-		<br/>
-		<img src={doc.portrait} />
-		<br/>
-		<button onClick={addDoc} >This is my doctor</button>
+		<form onSubmit={addDoc} >
+			<input type="hidden" name="specialty" value={doc.specialty} />
+			Specialty: {doc.specialty}
+			<br/>
+			<input type="hidden" name="firstname" value={doc.firstname} />
+			<input type="hidden" name="lastname" value={doc.lastname} />
+			Name: {doc.firstname} {doc.lastname}
+			<br/>
+			<input type="hidden" name="phone" value={doc.phone} />
+			Phone: {doc.phone}
+			<br/>
+			<input type="hidden" name="business" value={doc.business} />
+			Business: {doc.business}
+			<br/>
+			<input type="hidden" name="address" value={doc.address} />
+			Address: {doc.address}
+			<br/>
+			<img src={doc.portrait} />
+			<br/>
+			<button type="submit" >This is my doctor</button>
+		</form>
 	</div>
 );
 

@@ -146,7 +146,8 @@ function GetApiDocs (doctor) {
             business: doc.practices[0].name,
             phone: doc.practices[0].phones[0].number,
             address: street + " " + street2 + " " + city + ", " + state + " " + zip,
-            portrait: doc.profile.image_url
+            portrait: doc.profile.image_url,
+            specialty: doc.specialties[0].name
           });
         })
         dispatch(stateAction.SetDocApi(final))
@@ -176,7 +177,7 @@ function SignOut () {
   };
 };
 
-function AddMyDoc (newInfo) { // send server the doctor's id/primary key and altered info
+function AddMyDoc (doctor) { // send server the doctor's id/primary key and altered info
   return (dispatch) => {
     return fetch('TEMPORARY_FILLER', {
       method: 'post',
@@ -185,7 +186,7 @@ function AddMyDoc (newInfo) { // send server the doctor's id/primary key and alt
         'Content-Type': 'application/json',
         'x-access-token': getCookie("token")
       },
-      body: newInfo
+      body: doctor
     })
     .then((response) => {
       console.log("add doc res", response)
@@ -221,7 +222,7 @@ function RemoveMyDoc (doctor) { // this will be the doctor's id/primary key
   };
 };
 
-function ChangeMyDoc (doctor) {
+function ChangeMyDoc (newInfo) {
   return (dispatch) => {
     return fetch('TEMPORARY_FILLER', {
       method: 'put',
@@ -230,7 +231,7 @@ function ChangeMyDoc (doctor) {
         'Content-Type': 'application/json',
         'x-access-token': getCookie("token")
       },
-      body: doctor
+      body: newInfo
     })
     .then((response) => {
       console.log("change doc res", response);
