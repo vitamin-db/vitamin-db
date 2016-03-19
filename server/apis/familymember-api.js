@@ -98,4 +98,3 @@ FamilyMemberAPI.delete('/:id_familymember', function(req, res) {
     })
 
 })
-
