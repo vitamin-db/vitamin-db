@@ -8,6 +8,7 @@ const Glyphicon = require('react-bootstrap').Glyphicon;
 const ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 const Modal = require('react-bootstrap').Modal;
 const Input = require('react-bootstrap').Input;
+const JoogleMaps = require('../../GoogleMaps/GoogleMaps');
 // const FormComponent = require('./Form');
 // const FormUI = require('./FormUI');
 
@@ -24,8 +25,6 @@ getInitialState() {
   render() {
   return(
     <div>
-  
-
           <div className="card-header">
             <Button bsStyle="success" bsSize="small" className="card-button" onClick={this.showModal}><Glyphicon glyph="plus-sign" /></Button>
             <h5 className="card-headline">{this.props.type}</h5>
@@ -38,10 +37,9 @@ getInitialState() {
           dialogClassName="custom-modal">
             <img src={this.props.glyph} />
               put doctor full info here
-          
+
+            <h4><JoogleMaps lon={-97.740520}  lat={30.268884} /></h4>
         </Modal>
-
-
     </div>
     )
   }
