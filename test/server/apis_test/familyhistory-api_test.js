@@ -193,6 +193,63 @@ describe('Family History, API', function() {
 
 	})
 
+	describe('DELETE /FamilyHistory/:id_famhist', function() {
+
+		before(function() {
+			return db.deleteEverything()
+		})
+
+		var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
+		var user1_id = undefined
+		var newFam1 = undefined
+		var newFam1_id = undefined
+		var newCondition1 = undefined
+		var newCond1_id = undefined
+
+		it('sends back a 200 status', function() {
+			return TH.createUserReturnId(newUser1)
+			  .then(function(id) {
+			    user1_id = id
+
+			    newFam1 = new TH.FamilyMemberAttributes(id, 'Mommy')
+			    return FamilyMember.create(newFam1)
+			  })
+			  .then(function() {
+			  	return FamilyMember.getAllByUser(user1_id)
+			  })
+			  .then(function(family) {
+			  	newFam1_id = family[0].id_familymember
+
+			  	newCondition1 = new TH.FamilyHistoryAttributes(newFam1_id, 'leprosy')
+			  	return FamilyHistory.create(newCondition1)
+			  })
+			  .then(function() {
+			  	return FamilyHistory.getAllByFamilyMember(newFam1_id)
+			  })
+			  .then(function(all) {
+			  	newCond1_id = all[0].id_famhist
+			  })
+			  .then(function() {
+			  	return Auth.createToken(newUser1.username)
+			  })
+			  .then(function(token) {
+			  	return request(app)
+			  	  .del('/familyhistory/' + newCond1_id)
+			  	  .set('x-access-token', token)
+			  	  .expect(200)
+			  })
+		})
+
+		it('deletes the object from the database', function() {
+			return FamilyHistory.getAll()
+			  .then( function(all) {
+			  	expect(all).to.be.an('array')
+			  	expect(all).to.have.length(0)
+			  })
+		})
+
+	})
+
 
 
 })

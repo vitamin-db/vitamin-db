@@ -58,9 +58,21 @@ FamilyHistoryAPI.put('/', function(req, res) {
 	  .catch( function(err) {
 	  	SendR.error(res, 500, 'Server error updating condition', err)
 	  })
-	  
+
 })
 
 
-
+/* DELETE /familyhistory/:id_famhist
+  Deletes the object specified in the url from the database
+  Returns a 200
+*/
+FamilyHistoryAPI.delete('/:id_famhist', function(req, res) {
+	return FamilyHistory.deleteById(req.params.id_famhist)
+	  .then(function() {
+	  	SendR.sendStatus(res, 200)
+	  })
+	  .catch( function(err) {
+	    SendR.error(res, 500, 'Server error deleting family history record', err)
+	  })
+})
 
