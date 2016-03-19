@@ -43,17 +43,6 @@ const mapStateToProps = (state, ownProps) => {
    rx: mock.Rx,
    patient: mock.users,
    docApiList: state.docapi
-// ------------------------------------------------------------------------
-   // doctor: mock.Doctor,
-   // allergies: mock.Allergies,
-   // eyerx: mock.Eyerx,
-   // family: mock.Family,
-   // insurance: mock.Insurance,
-   // pharmacy: mock.Pharmacy,
-   // familyhistory: mock.Familyhistory,
-   // rx: mock.Rx,
-   // patient: mock.users,
-   // docApiList: state.docapi
   }
 };
 
