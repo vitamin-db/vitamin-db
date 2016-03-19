@@ -255,5 +255,15 @@ Allergies
     position: relative;
 }
 
+.btn-group {
+    right: 0;
+    bottom: 5px;
+    position: absolute;
+    display:flex;
+}
+
+.table>thead:first-child>tr:first-child>th {
+    padding-left: 5%
+}
 
 

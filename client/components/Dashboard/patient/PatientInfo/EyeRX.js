@@ -1,7 +1,6 @@
 const React = require('react');
 const Panel = require('react-bootstrap').Panel;
-const ListGroup = require('react-bootstrap').ListGroup;
-const ListGroupItem = require('react-bootstrap').ListGroupItem;
+const Table = require('react-bootstrap').Table;
 const Col = require('react-bootstrap').Col;
 const AddButton = require('../../common/AddButton');
 const EditButton = require('../../common/EditButton');
@@ -16,31 +15,42 @@ const EyePanel = ({eyerx}) => {
 	return (
 		<Col xs={12} md={8}>
 		<Panel collapsible header='Eye Prescription'>
-	 		<ListGroup fill>
-	 		{eyerx.map((val) => 
-				<ListGroupItem key={val.sphere_right} className="eye-item">
-				   <b>Right: </b>{val.sphere_right + ': ' + val.cylinder_right + ' ' + val.axis_right + ' ' + val.add_right}
-				
-					<div className="btn-group">
-						<EditButton />
-						<DeleteButton />
-					</div>	
-				</ListGroupItem>
-			)}
+	 	  <Table responsive>
+	 		<thead>
+	 		  <tr>
+	 			<th>Eye:</th>
+	 			<th>Sphere:</th>
+	 			<th>Cylinder:</th>
+	 			<th>Axis:</th>
+	 			<th>Add:</th>
+	  		  </tr>
+	  		</thead>
+	  		{eyerx.map((val) => 
+	  		<tbody>
 
-			{eyerx.map((val) => 
-				<ListGroupItem key={val.sphere_left} className="eye-item">
-				   <b>Left: </b>{val.sphere_left + ': ' + val.cylinder_left + ' ' + val.axis_left + ' ' + val.add_left}
-					
-					<div className="btn-group">
-						<EditButton />
-						<DeleteButton />
-					</div>				
-				</ListGroupItem>
-			)}
+	  			<tr>
+	  				<td>Right(OD)</td>
+	  				<td>{val.sphere_right}</td>
+	  				<td>{val.cylinder_right}</td>
+	  				<td>{val.axis_right}</td>
+	  				<td>{val.add_right}</td>
+	  				<td><EditButton /></td>
+	  				<td><DeleteButton /></td>
+	  			</tr>
 
-		 		<AddButton />
-	 		</ListGroup>
+	  			<tr>
+	  				<td>Left(OS)</td>
+	  				<td>{val.sphere_left}</td>
+	  				<td>{val.cylinder_left}</td>
+	  				<td>{val.axis_left}</td>
+	  				<td>{val.add_left}</td>
+	  				<td><EditButton /></td>
+	  				<td><DeleteButton /></td>
+	  			</tr>
+
+	  		</tbody>
+	  		)}
+	 	  </Table>
   	 	</Panel>
   	 	</Col>
 	)
