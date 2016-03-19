@@ -28,7 +28,7 @@ getInitialState() {
 
           <div className="patient-item">
             <Button bsStyle="primary" bsSize="small" onClick={this.showModal}><Glyphicon glyph="plus" /></Button>
-            <h6 className="card-type">Add New</h6>
+            <h6 className="card-headline">Add New</h6>
           </div>
 
         <Modal

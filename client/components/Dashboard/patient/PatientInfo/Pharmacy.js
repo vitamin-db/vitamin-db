@@ -11,11 +11,11 @@ const AddButton = require('../../common/AddButton');
 const PharmacyPanel = ({pharmacy}) => {
 
 	return (
-		<Col xs={4} md={4}>
+		<Col xs={12} md={4}>
 			 <div className="card">
 			     <div className="card-header">
 				     <Button bsStyle="success" bsSize="small" className="card-button"><Glyphicon glyph="cloud" /></Button>
-				      <h5 className="card-type">Pharmacy</h5>
+				      <h5 className="card-headline">Pharmacy</h5>
 			     </div>
 			     {pharmacy.map((item) =>
 			     <div className="card-block">

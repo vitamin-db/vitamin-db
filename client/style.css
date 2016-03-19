@@ -1,6 +1,18 @@
-.sign-out {
-	float: right;
+/*
+////////////////////////////////////////
+TOC
+
+*/
+
+body {
+    background-image: url("./img/Patterned-background.png");    
 }
+
+/*
+========================================
+text
+========================================
+*/
 
 h1 {
 	text-align: center;
@@ -9,6 +21,40 @@ h1 {
 p {
 	text-align: center;
 }
+
+.center {
+    margin: auto;
+}
+
+.center-text {
+    text-align:center;
+}
+
+/*
+========================================
+buttons
+========================================
+*/
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+/*    background-color: #1abc9c;*/
+    /*border-color: #1abc9c;*/
+    font-style: "Open Sans";
+}
+
+.btn-group {
+    right: 0;
+    bottom: 5px;
+    position: absolute;
+    display:flex;
+}
+
+
+/*
+========================================
+jumbotron
+========================================
+*/
 
 .jumbotron {
     height: 364px;
@@ -24,12 +70,18 @@ p {
 	background-size: cover;
 }
 
+/*
+========================================
+authentication
+========================================
+*/
+
 .forgot {
 	text-align: center;
 }
 
-body {
-	background-image: url("./img/Patterned-background.png");	
+.sign-out {
+    float: right;
 }
 
 .Signin {
@@ -42,15 +94,21 @@ body {
     border-top-right-radius: 10px;
     /*border: 1px solid red;*/
     /* align-content: center; */
-    background-color: lightgray;
+    background-color: #ccc;
     width: 700px;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-/*    background-color: #1abc9c;*/
-    /*border-color: #1abc9c;*/
-    font-style: "Open Sans";
-}
+/*
+========================================
+Dashboard
+========================================
+*/
+
+/*
+==============
+Doctor
+==============
+*/
 
 .add-doctor {
     height: 125px;
@@ -67,9 +125,14 @@ body {
     align-items: center;
 }
 
+.card-headline {
+    margin-left:10px;
+}
+
 .card-block {
-    height: 125px;
+    height: 175px;
     overflow-y: scroll;
+    /*height:100%;*/
 }
 
 .docApiCard {
@@ -77,9 +140,9 @@ body {
     border-radius: 2px;
 }
 
-.card-type {
+/*.card-type {
     margin: auto;
-}
+}*/
 
 .container-fluid {
     width:100%;
@@ -87,6 +150,12 @@ body {
     padding-top: 50px;
     padding-bottom: 50p;
 }
+
+/*
+==============
+Patient
+==============
+*/
 
 .patient-grid {
     background-color: #777;
@@ -103,17 +172,16 @@ body {
     background-color: #777;
 }
 
+/*
+==============
+Allergies
+==============
+*/
+
 .allergies-item{
     display: flex;
     width:100%;
     position: relative;
-}
-
-.btn-group {
-    right: 0;
-    bottom: 5px;
-    position: absolute;
-    display:flex;
 }
 
 

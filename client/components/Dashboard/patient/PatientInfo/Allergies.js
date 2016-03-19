@@ -17,7 +17,7 @@ const DeleteButton = require('../../common/DeleteButton');
 const AllergiesPanel = ({allergies}) => {
 
 	return (
-		<Col xs={4} md={4}>
+		<Col xs={12} md={4}>
 		<Panel collapsible header='Allergies'>
 	 		<ListGroup fill>
 	 		{allergies.map((val, count) => 

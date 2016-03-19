@@ -12,7 +12,7 @@ const DeleteButton = require('../../common/DeleteButton');
 const FamilyHistPanel = ({familyhistory, family}) => {
 
 	return (
-		<Col lg={8} lgOffset={4}>
+		<Col xs={12} lg={8} lgOffset={4}>
 		<Panel collapsible header='Family History'>
 	 		<ListGroup fill>
 	 		{familyhistory.map((val, count) =>

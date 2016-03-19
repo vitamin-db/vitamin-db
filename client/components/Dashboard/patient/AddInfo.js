@@ -34,7 +34,7 @@ const Example = React.createClass({
 	      <div className="card">
 	        <div className="card-header">
 	          <Button bsStyle="primary" bsSize="small" ><Glyphicon glyph="plus" /></Button>
-	          <h5 className="card-type">Add</h5>
+	          <h5 className="card-headline">Add</h5>
 	        </div>
 	      </div>
       </Col>
