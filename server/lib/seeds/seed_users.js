@@ -35,6 +35,11 @@ exports.seed = function(knex, Promise) {
         })
     })
     .then( function() {
+        return knex.schema.table('immun', function(table) {
+            table.dropForeign('id_user')
+        })
+    })
+    .then( function() {
         return knex('users').truncate()
     })
     .then( function() {
@@ -69,6 +74,11 @@ exports.seed = function(knex, Promise) {
     })
     .then( function() {
         return knex.schema.table('allergies', function(table) {
+            table.foreign('id_user').references('id_user').inTable('users')
+        })
+    })
+    .then( function() {
+        return knex.schema.table('immun', function(table) {
             table.foreign('id_user').references('id_user').inTable('users')
         })
     })

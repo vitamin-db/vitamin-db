@@ -197,6 +197,13 @@ TH.AllergyAttributesNoUser = function(allergen, current) {
   this.current = current
 }
 
+TH.ImmunAttributes = function(id_user, date, type, notes) {
+	this.id_user = id_user
+	this.date = date
+	this.type = type
+	this.notes = notes
+}
+
 
 /*
   Generic Functions: These do not have any table- or model-specific calls
@@ -709,7 +716,28 @@ TH.createAllergyReturnId = function(attrs) {
 }
 
 
+/* 
+  ====================================
+  Immunization Helper Methods
+  ====================================
+*/ 
+TH.isValidImmun = function(obj) {
+	var props = ['id_immun', 'id_user', 'date', 'type', 'notes']
+	return TH.hasRightKeys(obj, props)
+}
 
+TH.isValidPublicImmun = function(obj) {
+	return TH.isValidPublicImmun(obj)
+}
 
+TH.allValidImmun = function(immunArray) {
+	return immunArray.reduce( function(bool, current) {
+	  return bool && TH.isValidImmun(current)
+	}, true)
+}
+
+TH.allValidPublicImmun = function(immunArray) {
+	return TH.allValidImmun(immunArray)
+}
 
 
