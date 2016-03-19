@@ -197,7 +197,7 @@ Patient
 */
 
 .patient-grid {
-    background-color: #777;
+    /*background-color: #777;*/
     padding-top: 50px;
 }
 
@@ -209,6 +209,11 @@ Patient
 
 .patient-button {
     background-color: #777;
+}
+
+.patient-container {
+    background-color: #16a085;
+    margin-top:15px;
 }
 
 /*
