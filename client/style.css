@@ -1,6 +1,19 @@
-.sign-out {
-	float: right;
+/*
+////////////////////////////////////////
+TOC
+
+*/
+
+body {
+    background-image: url("./img/Patterned-background.png");   
+    font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif; 
 }
+
+/*
+========================================
+text
+========================================
+*/
 
 h1 {
 	text-align: center;
@@ -9,6 +22,78 @@ h1 {
 p {
 	text-align: center;
 }
+
+.center {
+    margin: auto;
+}
+
+.center-text {
+    text-align:center;
+}
+
+/*
+========================================
+buttons
+========================================
+*/
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+/*    background-color: #1abc9c;*/
+    /*border-color: #1abc9c;*/
+    font-style: "Open Sans";
+}
+
+.btn-group {
+    right: 0;
+    bottom: 5px;
+    position: absolute;
+    display:flex;
+}
+
+
+/*
+========================================
+navigation
+========================================
+*/
+
+/*.navbar-default {
+    background-color:#16a085;
+    border-color:none;
+}*/
+
+p.nav-welcome {
+    margin:0;
+    text-align:right;
+    /*color:#fff;*/
+}
+
+.navbar-nav>li>a {
+    font-weight: 400;
+    font-size: 1.1rem;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.nav>li>a {
+    padding: 10px 0px 10px 10px;
+}
+
+.navbar-nav>li>a>button {
+    /*width: 80px;*/
+    background: none;
+    cursor: pointer;
+    color: #16a085;
+    border: 0px;
+    /*margin: 0px;
+    padding: 0px;*/
+}
+
+/*
+========================================
+jumbotron
+========================================
+*/
 
 .jumbotron {
     height: 364px;
@@ -24,12 +109,18 @@ p {
 	background-size: cover;
 }
 
+/*
+========================================
+authentication
+========================================
+*/
+
 .forgot {
 	text-align: center;
 }
 
-body {
-	background-image: url("./img/Patterned-background.png");	
+.sign-out {
+    float: right;
 }
 
 .Signin {
@@ -42,15 +133,21 @@ body {
     border-top-right-radius: 10px;
     /*border: 1px solid red;*/
     /* align-content: center; */
-    background-color: lightgray;
+    background-color: #ccc;
     width: 700px;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-/*    background-color: #1abc9c;*/
-    /*border-color: #1abc9c;*/
-    font-style: "Open Sans";
-}
+/*
+========================================
+Dashboard
+========================================
+*/
+
+/*
+==============
+Doctor
+==============
+*/
 
 .add-doctor {
     height: 125px;
@@ -67,9 +164,18 @@ body {
     align-items: center;
 }
 
+.card-headline {
+    margin-left:10px;
+}
+
+h6.card-headline {
+    margin-top:5px;
+}
+
 .card-block {
-    height: 125px;
+    height: 175px;
     overflow-y: scroll;
+    /*height:100%;*/
 }
 
 .docApiCard {
@@ -77,43 +183,76 @@ body {
     border-radius: 2px;
 }
 
-.card-type {
+/*.card-type {
     margin: auto;
-}
+}*/
 
 .container-fluid {
     width:100%;
     text-align:center;
     padding-top: 50px;
-    padding-bottom: 50p;
+    padding-bottom: 50px;
 }
 
+/*
+==============
+Patient
+==============
+*/
+
 .patient-grid {
-    background-color: #777;
+    /*background-color: #777;*/
     padding-top: 50px;
+}
+
+.btn {
+    padding: 0rem 1rem;
 }
 
 .patient-item {
     text-align: left;
     font-size: 12px;
     display: flex;
+    margin: 15px 5px 10px 5px;
 }
 
 .patient-button {
     background-color: #777;
 }
 
+.patient-container {
+    margin-top:30px;
+    /* fallback */
+      background-color: #16a085;
+      background: url(images/linear_bg_2.png);
+      background-repeat: repeat-x;
+
+      /* Safari 4-5, Chrome 1-9 */
+      background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#16a085), to(#1abc9c));
+
+      /* Safari 5.1, Chrome 10+ */
+      background: -webkit-linear-gradient(top, #1abc9c, #16a085);
+
+      /* Firefox 3.6+ */
+      background: -moz-linear-gradient(top, #1abc9c, #16a085);
+
+      /* IE 10 */
+      background: -ms-linear-gradient(top, #1abc9c, #16a085);
+
+      /* Opera 11.10+ */
+      background: -o-linear-gradient(top, #1abc9c, #16a085);
+}
+
+/*
+==============
+Allergies
+==============
+*/
+
 .allergies-item{
     display: flex;
     width:100%;
     position: relative;
-}
-
-.btn-group {
-    right: 0;
-    bottom: 5px;
-    position: absolute;
-    display:flex;
 }
 
 

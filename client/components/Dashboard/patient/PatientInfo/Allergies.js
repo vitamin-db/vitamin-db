@@ -17,12 +17,12 @@ const DeleteButton = require('../../common/DeleteButton');
 const AllergiesPanel = ({allergies}) => {
 
 	return (
-		<Col xs={4} md={4}>
+		<Col xs={12} md={4}>
 		<Panel collapsible header='Allergies'>
 	 		<ListGroup fill>
 	 		{allergies.map((val, count) => 
-				<ListGroupItem key={val.current} className="allergies-item">
-				   {count + ': '  + val.allergen + ' - ' + val.current} 
+				<ListGroupItem key={val.current} className="allergies-item card-text">
+				   { (count+1) + ': '  + val.allergen + ' - ' + val.current } 
 					
 					<div className="btn-group">
 						<EditButton />

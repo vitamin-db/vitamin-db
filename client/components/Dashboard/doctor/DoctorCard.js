@@ -10,7 +10,7 @@ const Picker = require('../common/DatePicker');
 const DoctorFull = require('../common/DoctorFull');
 
 const DocCard = ({ val }) => (
-	<Col xs={4} md={4}>
+	<Col xs={12} md={4}>
 		 <div className="card">
 
 			<DoctorFull type={val.type} glyph={val.portrait}/>

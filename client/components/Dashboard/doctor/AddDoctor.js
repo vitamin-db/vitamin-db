@@ -22,11 +22,11 @@ getInitialState() {
 	return(
     <div>
 
-        <Col xs={4} md={4}>
+        <Col xs={12} md={4}>
         <div className="card">
           <div className="card-header">
             <Button bsStyle="primary" bsSize="small" onClick={this.showModal}><Glyphicon glyph="plus" /></Button>
-            <h5 className="card-type">Add Doctor</h5>
+            <h5 className="card-headline">Add Doctor</h5>
           </div>
         </div>
         </Col>
