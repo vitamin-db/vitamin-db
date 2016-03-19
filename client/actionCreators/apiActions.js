@@ -202,23 +202,19 @@ function AddMyDoc (doctor) { // send server the doctor's id/primary key and alte
   };
 };
 
-function RemoveMyDoc (doctor) { // this will be the doctor's id/primary key
+function RemoveMyDoc (docId) { // this will be the doctor's id/primary key
   return (dispatch) => {
-    return fetch('TEMPORARY_FILLER', {
+    return fetch('/doctor', {
       method: 'delete',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'x-access-token': getCookie("token")
       },
-      body: doctor
+      body: docId
     })
     .then((response) => {
       console.log("remove doc res", response);
-      // tell server to send back the whole doctor list
-      // this way when i try to update the doctor list state
-      // i don't have to do too much logic in the reducer to delete one doctor
-      // i can just replace the whole list
     })
     .catch((err) => {
       console.error("removemydoc error", err);
