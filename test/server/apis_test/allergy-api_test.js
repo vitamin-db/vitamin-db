@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const Allergy = require(__server + '/models/allergy')
 
-xdescribe('/allergy-api', function() {
+describe('/allergy-api', function() {
 
   //set up app
   var app = TH.createApp()
