@@ -46,7 +46,7 @@ Functions to write:
 
 
 
-describe('**************** Family History Model ****************', function() {
+xdescribe('**************** Family History Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()

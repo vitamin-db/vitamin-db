@@ -87,7 +87,7 @@ routes.use( function(req, res, next) {
 	if (token) {
 		return Auth.verifyToken(token)
 		  .then( function(decoded) {
-		  	console.log('got decoded', decoded)
+		  	console.log('got decoded..? ', decoded)
 		  	req.decoded = decoded //save decoded for use in other routes
 		  	next()
 		  })
@@ -132,10 +132,14 @@ routes.use('/insurance', insuranceRouter)
 var allergyRouter = require('./apis/allergy-api')
 routes.use('/allergy', allergyRouter)
 
+
 //rx router
 var rxRouter = require('./apis/rx-api')
 routes.use('/rx', rxRouter)
 
+//familymember router
+var familymemberRouter = require('./apis/familymember-api')
+routes.use('/familymember', familymemberRouter)
 
 /* Catch-all Route
  Make sure this route is always LAST
