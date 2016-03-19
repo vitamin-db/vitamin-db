@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const Insurance = require(__server + '/models/insurance')
 
-describe('/insurance-api', function() {
+xdescribe('/insurance-api', function() {
 
   //set up app
   var app = TH.createApp()
