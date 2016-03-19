@@ -550,8 +550,8 @@ TH.allValidFamilyHistory = function(familyArray) {
 	})
 }
 
-Th.allValidPublicFamilyHistory = function(familyArray) {
-	return Th.allValidFamilyHistory(familyArray)
+TH.allValidPublicFamilyHistory = function(familyArray) {
+	return TH.allValidFamilyHistory(familyArray)
 }
 
 //Adds a family history record to the db and returns the newly created object

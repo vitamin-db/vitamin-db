@@ -16,7 +16,7 @@ describe('Family History, API', function() {
 	app.use('/', routes)
 	app.testReady()
 
-	describe('GET /:id_familymember/familyhistory', function() {
+	describe('GET /familyhistory/:id_familymember', function() {
 
 		before(function() {
 			return db.deleteEverything()
@@ -44,11 +44,11 @@ describe('Family History, API', function() {
 			  	newFam1_id = family[0].id_familymember
 
 			  	newCondition1 = new TH.FamilyHistoryAttributes(newFam1_id, 'leprosy')
-			  	return FamilyMember.create(newCondition1)
+			  	return FamilyHistory.create(newCondition1)
 			  })
 			  .then(function() {
 			  	newCondition2 = new TH.FamilyHistoryAttributes(newFam1_id, 'smallpox')
-			  	return FamilyMember.create(newCondition2)
+			  	return FamilyHistory.create(newCondition2)
 			  })
 			  .then(function() {
 			  	return Auth.createToken(newUser1.username)
