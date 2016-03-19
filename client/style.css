@@ -140,10 +140,7 @@ authentication
 */
 
 .forgot {
-<<<<<<< 932ee71a946b6ec9a9c8868074a99ebdbe69f0ee
     text-align: center;
-=======
-	text-align: center;
     margin-top:20px;
     color:#1abc9c;
 }
@@ -229,7 +226,6 @@ border-radius: 10px;
 .hvr-fade:hover, .hvr-fade:focus, .hvr-fade:active {
   background-color: #1abc9c;
   color: #fff;
->>>>>>> signup positioning and styling changes, hover effect for links, brand styling for appname placeholder
 }
 
 .sign-out {
