@@ -34,8 +34,8 @@ FamilyHistory.getAllByUser = function(id_user) {
 /* GET MOST RECENTLY CREATED
   Returns the most recently created of all family history records corresonding to the user
 */
-FamilyHistory.getMostRecent = function(id_user) {
-  return FamilyHistory.getAllByUser(id_user)
+FamilyHistory.getMostRecentByFamilyMember = function(id_familymember) {
+  return FamilyHistory.getAllByFamilyMember(id_familymember)
     .then(function(all) {
       return all.reduce(function(mostRecent, current) {
         return mostRecent.id_famhist > current.id_famhist ? mostRecent : current

@@ -80,6 +80,7 @@ describe('Family History, API', function() {
 		var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
 		var user1_id = undefined
 		var newFam1 = undefined
+		var newFam1_id = undefined
 		var newCondition1 = undefined
 
 		it('returns the newly added condition', function() {
@@ -93,7 +94,8 @@ describe('Family History, API', function() {
 			  	return FamilyMember.getAllByUser(user1_id)
 			  })
 			  .then(function(family) {
-			  	newCondition1 = new TH.FamilyHistoryAttributes(family[0].id_familymember, 'leprosy')
+			  	newFam1_id = family[0].id_familymember
+			  	newCondition1 = new TH.FamilyHistoryAttributes(newFam1_id, 'leprosy')
 			  	return Auth.createToken(newUser1.username)
 			  })
 			  .then(function(token) {
@@ -114,7 +116,7 @@ describe('Family History, API', function() {
 
 		it('adds the new condition to the database', function() {
 
-			return FamilyHistory.getAllByUser(user1_id)
+			return FamilyHistory.getAllByFamilyMember(newFam1_id)
 			  .then(function(all) {
 			  	expect(all).to.have.length(1)
 			  	expect(TH.propsMatch(all[0], newCondition1)).to.be.true
