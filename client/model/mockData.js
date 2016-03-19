@@ -187,6 +187,60 @@ Insurance: [
         }
     ],
 
+  Immunizations: [
+    {
+    "id": "5443d24d0d2a0e0c4b3672e8",
+    "name": "Tetanus+Dip ADULT (Td)",
+    "source": "emr-1-320",
+    "dates": ["2005-09-27T04:00:00.000Z", "1995-01-01T05:00:00.000Z"],
+    "patient": {
+      "name": "Maxwell Forrest"
+    },
+    "updatedAt": "2014-10-19T21:02:17.949Z",
+    "createdAt": "2014-10-19T21:02:17.949Z",
+    "organization": {
+      "id": "53c050ac51c69003200aa998",
+      "name": "Cleveland Clinic",
+      "href": "/medical/organizations/53c050ac51c69003200aa998"
+    }
+  }, {
+    "id": "5443d24d0d2a0e0c4b3672eb",
+    "name": "Pneumococcal Conjugate PCV13",
+    "source": "emr-1-320",
+    "dates": ["2014-03-14T04:00:00.000Z"],
+    "patient": {
+      "name": "Maxwell Forrest"
+    },
+    "updatedAt": "2014-10-19T21:02:17.949Z",
+    "createdAt": "2014-10-19T21:02:17.949Z",
+    "organization": {
+      "id": "53c050ac51c69003200aa998",
+      "name": "Cleveland Clinic",
+      "href": "/medical/organizations/53c050ac51c69003200aa998"
+    },
+    "codes": []
+    }
+  ],
+
+  Appointments: [ 
+    {
+      "id": "55e692540c7deefb7cfe90f7",
+      "createdAt": "2014-09-01T20:46:35.731Z",
+      "updatedAt": "2014-09-01T20:46:35.731Z",
+      "source": "emr-1-320",
+      "name": "encounter",
+      "text": "11/13/2015 Appointment Physical Therapy ",
+      "organization": {
+          "href": "/medical/organizations/53c050ac51c69003200aa998",
+          "id": "53c050ac51c69003200aa998",
+          "name": "Cleveland Clinic"
+      },
+      "codes": []
+  } 
+]
+
+
+
 //     allergies: [
 //       {
 //           id_user: 1,
