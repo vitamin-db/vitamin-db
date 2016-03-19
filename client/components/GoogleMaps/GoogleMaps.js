@@ -10,7 +10,7 @@ const JoogleMaps = (props) => {
         containerElement={<div style={{height: "100%"}} />}
         googleMapElement={
           <GoogleMap
-            defaultZoom={3}
+            defaultZoom={16}
             defaultCenter={{lat: props.lat, lng: props.lon}}>
           </GoogleMap>
         }

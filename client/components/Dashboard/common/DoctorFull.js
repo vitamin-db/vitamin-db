@@ -37,8 +37,7 @@ getInitialState() {
           dialogClassName="custom-modal">
             <img src={this.props.glyph} />
               put doctor full info here
-
-            <h4><JoogleMaps lon={-97.740520}  lat={30.268884} /></h4>
+            <div className="JoogleMaps"><JoogleMaps lon={-97.740520}  lat={30.268884} /></div>
         </Modal>
     </div>
     )
