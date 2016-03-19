@@ -33,14 +33,34 @@ FamilyHistoryAPI.post('/', function(req, res) {
 
 	return FamilyHistory.create(req.body.properties)
 	  .then(function() {
-	  	console.log('successful creation, looking for id', req.body.properties.id_familymember)
 	  	return FamilyHistory.getMostRecentByFamilyMember(req.body.properties.id_familymember)
 	  })
 	  .then(function(famHist) {
-	  	console.log('got back from get all by family member id', famHist)
 	  	SendR.resData(res, 201, FamilyHistory.getPublicOb(famHist))
 	  })
 	  .catch( function(err) {
 	  	SendR.error(res, 500, 'Server error posting condition', err)
 	  })
 })
+
+
+
+/* PUT /familyhistory
+  Expects req.body.properties to contain an object with the id_familyhistory to be updated and the properties to update
+  Returns the updated object
+*/
+FamilyHistoryAPI.put('/', function(req, res) {
+
+	return FamilyHistory.updateByObj(req.body.properties)
+	  .then(function(updated) {
+	  	SendR.resData(res, 201, FamilyHistory.getPublicOb(updated))
+	  })
+	  .catch( function(err) {
+	  	SendR.error(res, 500, 'Server error updating condition', err)
+	  })
+	  
+})
+
+
+
+
