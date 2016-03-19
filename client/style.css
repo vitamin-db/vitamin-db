@@ -16,11 +16,11 @@ text
 */
 
 h1 {
-	text-align: center;
+    text-align: center;
 }
 
 p {
-	text-align: center;
+    text-align: center;
 }
 
 .center {
@@ -105,8 +105,8 @@ jumbotron
 }
 
 .jumboBackground {
-	background-image: url("./img/Background_placeholder.png") !important;
-	background-size: cover;
+    background-image: url("./img/Background_placeholder.png") !important;
+    background-size: cover;
 }
 
 /*
@@ -116,7 +116,7 @@ authentication
 */
 
 .forgot {
-	text-align: center;
+    text-align: center;
 }
 
 .sign-out {
@@ -265,5 +265,4 @@ Allergies
 .table>thead:first-child>tr:first-child>th {
     padding-left: 5%
 }
-
 
