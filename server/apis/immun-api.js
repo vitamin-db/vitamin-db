@@ -55,7 +55,7 @@ ImmunAPI.put('/', function(req, res) {
 	  .then(function(updated) {
 	  	SendR.resData(res, 201, Immun.getPublicOb(updated))
 	  })
-	  catch(function(err) {
+	  .catch(function(err) {
 	  	SendR.error(res, 500, 'Server error updated immunization records', err)
 	  })
 })

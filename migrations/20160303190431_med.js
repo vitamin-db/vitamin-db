@@ -119,7 +119,7 @@ exports.up = function(knex, Promise) {
            .inTable('users');
       table.string('allergen');
       table.boolean('current');
-    })
+    }),
 
     knex.schema.createTable('immun', function(table) {
       table.increments('id_immun').primary()
@@ -129,7 +129,7 @@ exports.up = function(knex, Promise) {
       table.string('date')
       table.string('type')
       table.string('notes')
-    })
+    }),
 
     knex.schema.createTable('appointments', function(table) {
       table.increments('id_appointment').primary()

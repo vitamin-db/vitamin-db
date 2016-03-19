@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
         table.dropForeign('id_doctor')
     })
     .then( function() {
-        return knex.schema.table('appointmnts', function(table) {
+        return knex.schema.table('appointments', function(table) {
             table.dropForeign('id_user_doctor')
         })
     })
@@ -35,7 +35,7 @@ exports.seed = function(knex, Promise) {
         })
     })
     .then( function() {
-        return knex.schema.table('appointmnts', function(table) {
+        return knex.schema.table('appointments', function(table) {
             table.foreign('id_user_doctor').references('id_user_doctor').inTable('user_doctor')
         })
     })

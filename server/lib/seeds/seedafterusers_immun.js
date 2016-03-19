@@ -31,7 +31,8 @@ exports.seed = function(knex, Promise) {
 				type: 'measles',
 				notes: 'n/a'
 			}
-	])
+	    ])
+	})
 	.catch( function(err) {
 		console.log('Error seeding immun: ', err)
 	})
