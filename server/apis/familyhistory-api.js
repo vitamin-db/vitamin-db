@@ -23,3 +23,16 @@ FamilyHistoryAPI.get('/:id_familymember', function(req, res) {
 	  	SendR.error(res, 500, 'Server error getting family member conditions', err)
 	  })
 })
+
+
+/* POST /familyhistory
+  Expects req.body.properties to equal the new object to be created
+  Returns the newly created object
+*/
+FamilyHistoryAPI.post('/', function(req, res) {
+
+	return FamilyHistory.create(req.body.properties)
+	  .then(function(attrs) {
+	  	//blah
+	  })
+})

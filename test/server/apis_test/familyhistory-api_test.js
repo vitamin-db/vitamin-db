@@ -69,7 +69,58 @@ describe('Family History, API', function() {
 			  })
 		})
 
+	})
 
+	describe('POST /familyhistory', function() {
+
+		before(function() {
+			return db.deleteEverything()
+		})
+
+		var newUser1 = new TH.UserAttributes('imauser', 'password', 'something@gmail.com', '453-245-2423')
+		var user1_id = undefined
+		var newFam1 = undefined
+		var newCondition1 = undefined
+
+		it('returns the newly added condition', function() {
+			return TH.createUserReturnId(newUser1)
+			  .then(function(id) {
+			  	user1_id = id
+			    newFam1 = new TH.FamilyMemberAttributes(user1_id, 'Mommy')
+			    return FamilyMember.create(newFam1)
+			  })
+			  .then(function() {
+			  	return FamilyMember.getAllByUser(user1_id)
+			  })
+			  .then(function(family) {
+			  	newCondition1 = new TH.FamilyHistoryAttributes(family[0].id_familymember, 'leprosy')
+			  	return Auth.createToken(newUser1.username)
+			  })
+			  .then(function(token) {
+			  	return request(app)
+			  	.post('/familyhistory')
+			  	.set('x-access-token', token)
+			  	.send({properties: newCondition1})
+			  	.expect(201)
+			  	.then(function(result) {
+			  		var got = JSON.parse(result.text)
+			  		expect(got).to.be.an('object')
+			  		expect(TH.isValidPublicFamilyHiistory(got)).to.be.true
+			  		expect(TH.propsMatch(got, newCondition1)).to.be.true
+			  	})
+			  })
+
+		})
+
+		it('adds the new condition to the database', function() {
+
+			return FamilyHistory.getAllByUser(user1_id)
+			  .then(function(all) {
+			  	expect(all).to.have.length(1)
+			  	expect(TH.propsMatch(all[0], newCondition1)).to.be.true
+			  })
+
+		})
 	})
 
 
