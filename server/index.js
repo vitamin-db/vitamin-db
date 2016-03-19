@@ -132,6 +132,10 @@ routes.use('/insurance', insuranceRouter)
 var allergyRouter = require('./apis/allergy-api')
 routes.use('/allergy', allergyRouter)
 
+//rx router
+var rxRouter = require('./apis/rx-api')
+routes.use('/rx', rxRouter)
+
 
 /* Catch-all Route
  Make sure this route is always LAST

@@ -611,11 +611,19 @@ TH.isValidRx = function(rx) {
   return TH.hasRightKeys(rx, props)
 }
 
+TH.isValidPublicRx = function(rx) {
+	return TH.isValidRx(rx)
+}
+
 //Returns a boolean indicating whether every doctor in any array has all expected properties
 TH.allValidRx = function(rxArray) {
   return rxArray.reduce( function(bool, current) {
     return bool && TH.isValidRx(current)
   }, true)
+}
+
+TH.allValidPublicRx = function(rxArray) {
+	return TH.allValidRx(rxArray)
 }
 
 TH.createRxReturnRx = function(attrs) {
@@ -681,4 +689,9 @@ TH.createAllergyReturnId = function(attrs) {
       return allergy.id_allergy
     })
 }
+
+
+
+
+
 
