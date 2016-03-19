@@ -177,7 +177,8 @@ function SignOut () {
   };
 };
 
-function AddMyDoc (doctor) { // send server the doctor's id/primary key and altered info
+function AddMyDoc (doctor, portrait) { // send server the doctor's id/primary key and altered info
+  console.log("add my doc", doctor)
   return (dispatch) => {
     return fetch('/doctor', {
       method: 'post',
@@ -186,12 +187,14 @@ function AddMyDoc (doctor) { // send server the doctor's id/primary key and alte
         'Content-Type': 'application/json',
         'x-access-token': getCookie("token")
       },
-      body: doctor
+      body: JSON.stringify(doctor)
     })
     .then((response) => {
-      console.log("add doc res", response)
-      // tell server to send back JUST the doctor object
-      dispatch(stateAction.AddDoc(doctor));
+      return response.json()
+    })
+    .then((data) => {
+      console.log("add doc DATA", data)
+      dispatch(stateAction.AddDoc(data, portrait));
     })
     .then(() => {
       dispatch(stateAction.ClearDocApi());
@@ -202,19 +205,19 @@ function AddMyDoc (doctor) { // send server the doctor's id/primary key and alte
   };
 };
 
-function RemoveMyDoc (docId) { // this will be the doctor's id/primary key
+function RemoveMyDoc (id_doctor) { // this will be the doctor's id/primary key
   return (dispatch) => {
-    return fetch('/doctor', {
+    return fetch('/doctor/' + id_doctor, {
       method: 'delete',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'x-access-token': getCookie("token")
-      },
-      body: docId
+      }
     })
     .then((response) => {
       console.log("remove doc res", response);
+      dispatch(stateAction.RemoveDoc(id_doctor))
     })
     .catch((err) => {
       console.error("removemydoc error", err);
@@ -224,14 +227,14 @@ function RemoveMyDoc (docId) { // this will be the doctor's id/primary key
 
 function ChangeMyDoc (newInfo) {
   return (dispatch) => {
-    return fetch('TEMPORARY_FILLER', {
+    return fetch('/doctor', {
       method: 'put',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'x-access-token': getCookie("token")
       },
-      body: newInfo
+      body: JSON.stringify(newInfo)
     })
     .then((response) => {
       console.log("change doc res", response);

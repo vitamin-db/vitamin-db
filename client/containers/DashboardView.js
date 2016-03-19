@@ -20,10 +20,10 @@ const Grid = require('react-bootstrap').Grid;
 // // CONTAINER
 // 
  // <PatientGrid patientInfo={patient} />
-const Home = ({addDoc, docApiList, searchDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
+const Home = ({removeDoc, addDoc, docApiList, searchDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
   return (
     <div className="home-body">
-      <DoctorGrid addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} docInfo={doctor} insurance={insurance} pharmacy={pharmacy} />
+      <DoctorGrid removeDoc={removeDoc} addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} docInfo={doctor} insurance={insurance} pharmacy={pharmacy} />
       <PatientGrid allergies={allergies} eyerx={eyerx} family={family} insurance={insurance} pharmacy={pharmacy} familyhistory={familyhistory} rx={rx} />
     </div>
   );
@@ -73,9 +73,21 @@ const mapDispatchToProps = (dispatch) => {
       var address = e.target.address.value;
       var type = e.target.specialty.value;
       var portrait = e.target.portrait.value;
-      var body = {name: name, phone: phone, address: address, type: type, portrait: portrait};
+      var body = { properties: {
+        name: name, 
+        phone: phone, 
+        street_address: address, 
+        type_usermade: type,
+        current: false
+      }};
       // this jsut clears the api list, but in the future it will add the chosen doctor to the database
-      dispatch(apiAction.AddMyDoc(body));
+      dispatch(apiAction.AddMyDoc(body, portrait));
+    },
+    removeDoc: (e) => {
+      e.preventDefault();
+      var id = e.target.docId.value;
+      console.log("idididi", id)
+      dispatch(apiAction.RemoveMyDoc(id))
     }
   }
 };

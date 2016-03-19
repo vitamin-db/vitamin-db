@@ -20,10 +20,17 @@ function SignOut () {
 	};
 };
 // add a doctor to my doctor list state
-function AddDoc (doctor) { // doctor will be an object, i believe
+function AddDoc (doctor, portrait) { // doctor will be an object, i believe
 	return {
 		type: 'ADDDOCTOR',
-		doctor: doctor
+		doctor: {...doctor, portrait: portrait}
+	};
+};
+
+function RemoveDoc (id) {
+	return {
+		type: 'REMOVEDOCTOR',
+		id: id
 	};
 };
 
@@ -56,5 +63,6 @@ module.exports = {
 	AddDoc,
 	SetDocApi,
 	ClearDocApi,
-	SetMyInfo
+	SetMyInfo,
+	RemoveDoc
 };

@@ -17,6 +17,14 @@ const UserInfo = (state, action) => {
     	var newState = {...state};
       newState.doctors.push(action.doctor);
       return newState;
+    case 'REMOVEDOCTOR':
+      var newList = state.doctors.slice(0);
+      for(var i=0; i<newList.length; i++){
+        if(JSON.stringify(newList[i].id_doctor) === action.id){
+          newList.splice(i,1);
+        }
+      }
+      return {...state, doctors: newList};
     case 'SUPERLOGOUT':
       return {user: {username: ""}, doctors: [], eyerx: {}};
     default:
