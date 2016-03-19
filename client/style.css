@@ -150,6 +150,12 @@ Doctor
 ==============
 */
 
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    /*background-color: #1abc9c;*/
+    /*border-color: #1abc9c;*/
+    font-style: "Open Sans";
+}
+
 .add-doctor {
     height: 125px;
 }
