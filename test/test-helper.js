@@ -727,7 +727,7 @@ TH.isValidImmun = function(obj) {
 }
 
 TH.isValidPublicImmun = function(obj) {
-	return TH.isValidPublicImmun(obj)
+	return TH.isValidImmun(obj)
 }
 
 TH.allValidImmun = function(immunArray) {

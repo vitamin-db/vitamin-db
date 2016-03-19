@@ -146,7 +146,7 @@ routes.use('/familymember', familymemberRouter)
 
 //immunization router
 var immunRouter = require('./apis/immun-api')
-routes.use('immun', immunRouter)
+routes.use('/immun', immunRouter)
 
 /* Catch-all Route
  Make sure this route is always LAST
