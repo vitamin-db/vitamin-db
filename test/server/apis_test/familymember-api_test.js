@@ -62,7 +62,7 @@ describe('/familymember-api', function() {
     })
   })
 
-  describe('POST /familymember', function() {
+  xdescribe('POST /familymember', function() {
 
     //set up app
     var app = TH.createApp()
@@ -109,7 +109,7 @@ describe('/familymember-api', function() {
 
   })
 
-  describe('PUT /familymember', function() {
+  xdescribe('PUT /familymember', function() {
 
     //set up app
     var app = TH.createApp()
@@ -170,7 +170,7 @@ describe('/familymember-api', function() {
 
   })
 
-  describe('DELETE /familymember/:id_familymember', function() {
+  xdescribe('DELETE /familymember/:id_familymember', function() {
 
     //set up app
     var app = TH.createApp()

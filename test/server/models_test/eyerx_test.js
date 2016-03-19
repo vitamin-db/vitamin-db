@@ -17,7 +17,7 @@ Methods to write:
  - getAllById
 
 */
-describe('**************** EyeRx Model ****************', function() {
+xdescribe('**************** EyeRx Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()

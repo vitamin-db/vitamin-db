@@ -12,3 +12,15 @@ module.exports = FamilyMember
 FamilyMember.getAllByUser = function(id_user) {
 	return this.findByAttribute('id_user', id_user)
 }
+
+FamilyMember.createFamilyMemberReturnObj = function(familymemberAttrs) {
+  return FamilyMember.create(familymemberAttrs)
+    .then(function(attrs) {
+      return db.select('*').from('familymembers').where(attrs)
+    })
+    .then(function(allMatching) {
+      return allMatching.reduce(function(mostRecent, current) {
+        return mostRecent.id_familymember > current.id_familymember ? mostRecent : current
+      })
+    })
+}
