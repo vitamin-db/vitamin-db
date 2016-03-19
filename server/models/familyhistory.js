@@ -1,6 +1,6 @@
 const db = require('../db')
 const Model = require('./model-helper')
-const FamilyMember = require(__server + '/models/familymembers')
+const FamilyMember = require('./familymembers')
 
 const FamilyHistory = new Model('familyhistory', ['id_famhist', 'id_familymember', 'condition'])
 module.exports = FamilyHistory
