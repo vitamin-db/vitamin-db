@@ -8,43 +8,6 @@ const FamilyMember = require(__server + '/models/familymembers')
 const FamilyHistory = require(__server + '/models/familyhistory')
 const User = require(__server + '/models/user')
 
-/*
-Functions we need to write:
-- FamilyMember.getAllByUser(id_user)
- >> returns an array of all family members corresponding to id_user
-*/
-
-/*
-
-Functions written: 
-- FamilyMember.getAllByUser(id_user)
- >> returns an array of all family members corresponding to id_user
-
-Functions to write:
-- FamilyHistory.getAllByFamilyMember(id_familymember)
- >> returns an array of all family history records corresponding to one family member (id_familymember)
-
-- Ultimately:
- >> need to write a function that will take teh array output of FamilyMember.getAllByUser, and map over it to
-    include the data gathered from FamilyHistory.getAllByFamilyMember, resulting in 'condition' information
-    being included in the main user info object returned to the client
-
- /user GET
-
- main obj: {
-    userprop: [{}, {}, {}, ...]
-    doctors: [{}, {}, {}, ...]
-    family: [{
-      name:
-      id:
-      conditions: [ , , ,] <<<=//
-    }]
-
- }
-
-*/
-
-
 
 xdescribe('**************** Family History Model ****************', function() {
 

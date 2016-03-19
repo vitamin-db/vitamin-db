@@ -539,11 +539,19 @@ TH.isValidFamilyHistory = function(familyhistory) {
 	return TH.hasRightKeys(familyhistory, props)
 }
 
+TH.isValidPublicFamilyHiistory = function(familyhistory) {
+	return TH.isValidFamilyHistory(familyhistory)
+}
+
 //Returns a boolean indicating whether each family history object in an array has the expected properties
 TH.allValidFamilyHistory = function(familyArray) {
 	return familyArray.reduce( function(bool, current) {
 		return bool && TH.isValidFamilyHistory(current)
 	})
+}
+
+Th.allValidPublicFamilyHistory = function(familyArray) {
+	return Th.allValidFamilyHistory(familyArray)
 }
 
 //Adds a family history record to the db and returns the newly created object
