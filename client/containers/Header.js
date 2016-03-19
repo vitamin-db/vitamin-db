@@ -1,5 +1,15 @@
 // require react packages
 const React          = require('react');
+
+const Navbar = require('react-bootstrap/lib/Navbar')
+const NavbarHeader = require('react-bootstrap/lib/NavbarHeader')
+const NavbarToggle = require('react-bootstrap/lib/NavbarToggle')
+const NavbarCollapse = require('react-bootstrap/lib/NavbarCollapse')
+const Nav = require('react-bootstrap/lib/').Nav;
+const NavItem = require('react-bootstrap/lib/NavItem')
+const NavbarBrand = require('react-bootstrap/lib/NavbarBrand')
+
+
 const Router         = require('react-router');
 const Link           = Router.Link;
 const connect        = require('react-redux').connect;
@@ -9,22 +19,27 @@ const stateAction    = require('../actionCreators/stateActions');
 // browser history for path change
 const browserHistory = Router.browserHistory;
 
+
 const Header = ({check, username, goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
 	check();
 	return (
-	  <nav className="navbar navbar-default">
-        <div className="container-fluid">
-          <ul className="nav nav-tabs">
-          	  <li><h3>{username}</h3></li>
-          	  <li><button onClick={goSplash}> LOGO </button></li>
-	          <li role="presentation">{logged && <button onClick={goHome}> Home </button>}</li>
-	          <li role="presentation">{logged && <button onClick={goProfile}> Profile </button>}</li>
-	          <li role="presentation">{logged && <button onClick={goAppoint}> Appointments </button>}</li>
-	          <li role="presentation">{logged && <button onClick={signOut}> Sign out </button>}</li>
-	          <li role="presentation">{!logged && <button onClick={signUp}> Sign up </button>}</li>
-          </ul>
-        </div> 
-	  </nav>
+		<Navbar>
+
+			<span>{ logged && <p className="nav-welcome">Welcome, {username}!</p> }</span>
+
+	    <Nav>
+          <NavItem><button bsStyle="primary" onClick={goSplash}> Vitamin DB </button></NavItem>
+          <NavItem role="presentation">{logged && <button bsStyle="primary" onClick={goHome}> Dashboard </button>}</NavItem>
+          <NavItem role="presentation">{logged && <button bsStyle="primary" onClick={goAppoint}> Appointments </button>}</NavItem>
+    	</Nav>
+
+    	<Nav pullRight>
+    		<NavItem role="presentation">{logged && <button bsStyle="primary" onClick={goProfile}> Account </button>}</NavItem>
+    		<NavItem role="presentation">{logged && <button bsStyle="primary" onClick={signOut}> Sign out </button>}</NavItem>
+        <NavItem role="presentation">{!logged && <button bsStyle="primary" onClick={signUp}> Sign up </button>}</NavItem>
+    	</Nav>
+
+    </Navbar>
 	);
 };
 

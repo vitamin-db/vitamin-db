@@ -5,7 +5,8 @@ TOC
 */
 
 body {
-    background-image: url("./img/Patterned-background.png");    
+    background-image: url("./img/Patterned-background.png");   
+    font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif; 
 }
 
 /*
@@ -49,6 +50,44 @@ buttons
     display:flex;
 }
 
+
+/*
+========================================
+navigation
+========================================
+*/
+
+/*.navbar-default {
+    background-color:#16a085;
+    border-color:none;
+}*/
+
+p.nav-welcome {
+    margin:0;
+    text-align:right;
+    /*color:#fff;*/
+}
+
+.navbar-nav>li>a {
+    font-weight: 400;
+    font-size: 1.1rem;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.nav>li>a {
+    padding: 10px 0px 10px 10px;
+}
+
+.navbar-nav>li>a>button {
+    /*width: 80px;*/
+    background: none;
+    cursor: pointer;
+    color: #16a085;
+    border: 0px;
+    /*margin: 0px;
+    padding: 0px;*/
+}
 
 /*
 ========================================
