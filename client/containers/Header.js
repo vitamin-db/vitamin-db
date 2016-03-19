@@ -28,7 +28,9 @@ const Header = ({check, username, goHome, signOut, goProfile, goAppoint, signUp,
 			<span>{ logged && <p className="nav-welcome">Welcome, {username}!</p> }</span>
 
 	    <Nav>
-          <NavItem><button bsStyle="primary" onClick={goSplash}> Vitamin DB </button></NavItem>
+	    		<NavbarBrand>
+          	<NavItem><button bsStyle="primary" onClick={goSplash}> Vitamin DB </button></NavItem>
+          </NavbarBrand>
           <NavItem role="presentation">{logged && <button bsStyle="primary" onClick={goHome}> Dashboard </button>}</NavItem>
           <NavItem role="presentation">{logged && <button bsStyle="primary" onClick={goAppoint}> Appointments </button>}</NavItem>
     	</Nav>
@@ -36,7 +38,7 @@ const Header = ({check, username, goHome, signOut, goProfile, goAppoint, signUp,
     	<Nav pullRight>
     		<NavItem role="presentation">{logged && <button bsStyle="primary" onClick={goProfile}> Account </button>}</NavItem>
     		<NavItem role="presentation">{logged && <button bsStyle="primary" onClick={signOut}> Sign out </button>}</NavItem>
-        <NavItem role="presentation">{!logged && <button bsStyle="primary" onClick={signUp}> Sign up </button>}</NavItem>
+        <NavItem role="presentation">{!logged && <button bsStyle="primary" className="hvr-sweep-to-top" onClick={signUp}> Sign up </button>}</NavItem>
     	</Nav>
 
     </Navbar>
