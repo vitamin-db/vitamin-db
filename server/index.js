@@ -132,6 +132,10 @@ routes.use('/insurance', insuranceRouter)
 var allergyRouter = require('./apis/allergy-api')
 routes.use('/allergy', allergyRouter)
 
+//family history router
+var famHistRouter = require('./apis/familyhistory-api')
+routes.use('/familyhistory', famHistRouter)
+
 
 //rx router
 var rxRouter = require('./apis/rx-api')
