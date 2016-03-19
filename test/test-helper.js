@@ -122,6 +122,10 @@ TH.FamilyMemberAttributes = function(id_user, name) {
   this.name = name
 }
 
+TH.FamilyMemberAttributesNoUser = function(name) {
+  this.name = name
+}
+
 TH.FamilyHistoryAttributes = function(id_familymember, condition) {
 	this.id_familymember = id_familymember
 	this.condition = condition
@@ -485,6 +489,12 @@ TH.createInsuranceReturnId = function(attrs) {
 TH.isValidFamilyMember = function(familymember) {
 	var props = ['id_familymember', 'id_user', 'name']
 	return TH.hasRightKeys(familymember, props)
+}
+
+TH.isValidPublicFamilyMember = function(familymember) {
+  return TH.isValidFamilyMember(familymember)
+  // var props = ['id_familymember', 'id_user', 'name']
+  // return TH.hasRightKeys(familymember, props)
 }
 
 //Returns a boolean indicating whether each family member object in an array has the expected properties
