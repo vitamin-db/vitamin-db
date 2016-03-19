@@ -53,7 +53,6 @@ describe('/familymember-api', function() {
               console.log('got: ', got)
               expect(got).to.be.an('array')
               expect(got[0]).to.be.an('object')
-              expect(got[0].current).to.be.true
               expect(TH.isValidPublicFamilyMember(got[0])).to.be.true
               expect(TH.propsMatchExceptMaybeCurrent(got[0], newFamilyMember1)).to.be.true
             })
@@ -62,7 +61,7 @@ describe('/familymember-api', function() {
     })
   })
 
-  xdescribe('POST /familymember', function() {
+  describe('POST /familymember', function() {
 
     //set up app
     var app = TH.createApp()
@@ -109,7 +108,7 @@ describe('/familymember-api', function() {
 
   })
 
-  xdescribe('PUT /familymember', function() {
+  describe('PUT /familymember', function() {
 
     //set up app
     var app = TH.createApp()
@@ -170,7 +169,7 @@ describe('/familymember-api', function() {
 
   })
 
-  xdescribe('DELETE /familymember/:id_familymember', function() {
+  describe('DELETE /familymember/:id_familymember', function() {
 
     //set up app
     var app = TH.createApp()

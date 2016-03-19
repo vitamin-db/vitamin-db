@@ -87,7 +87,7 @@ routes.use( function(req, res, next) {
 	if (token) {
 		return Auth.verifyToken(token)
 		  .then( function(decoded) {
-		  	console.log('got decoded', decoded)
+		  	console.log('got decoded..? ', decoded)
 		  	req.decoded = decoded //save decoded for use in other routes
 		  	next()
 		  })
