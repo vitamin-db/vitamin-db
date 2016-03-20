@@ -3,24 +3,22 @@ const React       = require('react');
 const connect     = require('react-redux').connect;
 // components/files
 const stateAction = require('../actionCreators/stateActions');
-const SearchBar   = require('../components/Search/SearchBar');
-// const AddInformation = require('../reducers/AddInformation');
+const Schedule   = require('../components/Appointment/Schedule');
+const mock = require('../model/mockData');
 
-// look up ways to keep track of time
-// alarms, calender, etc.
-
-const Appointment = ({AddInformation}) => {
+const Appointment = ({immunization, appointment}) => {
   return (
     <div>
       <h1>Appointment's view</h1>
-      <SearchBar onAdd={AddInformation} />
+      <Schedule immunization={immunization} appointment={appointment}/>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-
+    immunization: mock.Immunizations,
+    appointment: mock.Appointments
   }
 };
 
