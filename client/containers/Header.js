@@ -27,20 +27,25 @@ const Header = ({check, username, goHome, signOut, goProfile, goAppoint, signUp,
 
 			<span>{ logged && <p className="nav-welcome">Welcome, {username}!</p> }</span>
 
-	    <Nav>
-	    		<NavbarBrand>
-          	<NavItem><button bsStyle="primary" onClick={goSplash}> Vitamin DB </button></NavItem>
-          </NavbarBrand>
-          <NavItem role="presentation">{logged && <button bsStyle="primary" onClick={goHome}> Dashboard </button>}</NavItem>
-          <NavItem role="presentation">{logged && <button bsStyle="primary" onClick={goAppoint}> Appointments </button>}</NavItem>
-    	</Nav>
+	    <NavbarHeader>
+    		<NavbarBrand>
+        	<NavItem onClick={goSplash}> Vitamin DB </NavItem>
+        </NavbarBrand>
+        <NavbarToggle />
+      </NavbarHeader>
 
-    	<Nav pullRight>
-    		<NavItem role="presentation">{logged && <button bsStyle="primary" onClick={goProfile}> Account </button>}</NavItem>
-    		<NavItem role="presentation">{logged && <button bsStyle="primary" onClick={signOut}> Sign out </button>}</NavItem>
-        <NavItem role="presentation">{!logged && <button bsStyle="primary" className="hvr-sweep-to-top" onClick={signUp}> Sign up </button>}</NavItem>
-    	</Nav>
+      <NavbarCollapse>
+	      <Nav>
+	          {logged && <NavItem onClick={goHome}> Dashboard </NavItem>}
+	          {logged && <NavItem onClick={goAppoint}> Appointments </NavItem>}
+	    	</Nav>
 
+	    	<Nav pullRight>
+	    		{logged && <NavItem onClick={goProfile}> Account </NavItem>}
+	    		{logged && <NavItem onClick={signOut}> Sign out </NavItem>}
+	        {!logged && <NavItem className="hvr-sweep-to-top" onClick={signUp}> Sign up </NavItem>}
+	    	</Nav>
+	    	</NavbarCollapse>
     </Navbar>
 	);
 };
