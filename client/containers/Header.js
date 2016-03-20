@@ -29,20 +29,20 @@ const Header = ({check, username, goHome, signOut, goProfile, goAppoint, signUp,
 
 	    <NavbarHeader>
     		<NavbarBrand>
-        	<NavItem onClick={goSplash}> Vitamin DB </NavItem>
+        	<a onClick={goSplash}> Vitamin DB </a>
         </NavbarBrand>
         <NavbarToggle />
       </NavbarHeader>
 
       <NavbarCollapse>
 	      <Nav>
-	          {logged && <NavItem onClick={goHome}> Dashboard </NavItem>}
-	          {logged && <NavItem onClick={goAppoint}> Appointments </NavItem>}
+	          {logged && <NavItem className="hvr-sweep-to-top" onClick={goHome}> Dashboard </NavItem>}
+	          {logged && <NavItem className="hvr-sweep-to-top" onClick={goAppoint}> Appointments </NavItem>}
 	    	</Nav>
 
 	    	<Nav pullRight>
-	    		{logged && <NavItem onClick={goProfile}> Account </NavItem>}
-	    		{logged && <NavItem onClick={signOut}> Sign out </NavItem>}
+	    		{logged && <NavItem className="hvr-sweep-to-top" onClick={goProfile}> Account </NavItem>}
+	    		{logged && <NavItem className="hvr-sweep-to-top" onClick={signOut}> Sign out </NavItem>}
 	        {!logged && <NavItem className="hvr-sweep-to-top" onClick={signUp}> Sign up </NavItem>}
 	    	</Nav>
 	    	</NavbarCollapse>

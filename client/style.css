@@ -87,11 +87,32 @@ navigation
 p.nav-welcome {
     margin:0;
     text-align:right;
-    /*color:#fff;*/
 }
 
 .navbar {
     border-radius:0;
+}
+
+.navbar-default .navbar-brand {
+    color: #16a085;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    color: #28e2bc;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    color:#fff;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:active {
+    color: #16a085;
+}
+
+a.navbar-brand {
+    padding-top:10px;
+    cursor: pointer;
+    color: #16a085;
 }
 
 .navbar-nav>li>a {
@@ -109,7 +130,7 @@ p.nav-welcome {
 }
 
 .nav>li>a {
-    padding: 10px 0px 10px 10px;
+    padding: 10px 10px 10px 10px;
 }
 
 .navbar-nav>li>a>button {
