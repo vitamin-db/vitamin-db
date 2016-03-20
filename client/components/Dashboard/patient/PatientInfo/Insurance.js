@@ -18,7 +18,7 @@ const InsurancePanel = ({insurance}) => {
 				      <h5 className="card-headline">Insurance</h5>
 			     </div>
 			     {insurance.map((item) =>
-			     <div className="card-block">
+			     <div key={item.plan_id} className="card-block">
 	 		     <p className="card-text"><b>Provider</b>: {item.plan_name}</p>
 	 		     <p className="card-text"><b>Plan</b>: {item.plan_id}</p>
 	 		     <p className="card-text"><b>Group ID</b>: {item.group_id}</p>

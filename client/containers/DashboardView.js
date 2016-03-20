@@ -50,6 +50,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     searchDoc: (e) => {
       e.preventDefault();
+      console.log("this.state", this.state)
       var firstName = e.target.firstname.value;
       var lastName = e.target.lastname.value;
       var body = {firstname:firstName, lastname:lastName};
@@ -67,6 +68,7 @@ const mapDispatchToProps = (dispatch) => {
         phone: phone, 
         street_address: address, 
         type_usermade: type,
+        type: type,
         current: false
       }};
       // this jsut clears the api list, but in the future it will add the chosen doctor to the database

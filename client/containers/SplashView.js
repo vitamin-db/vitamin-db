@@ -5,10 +5,15 @@ const connect           = require('react-redux').connect;
 const SignIn            = require('../components/Splash/SignIn');
 const JumbotronInstance = require('../components/Splash/Jumbotron');
 const apiAction         = require('../actionCreators/apiActions');
+const stateAction		= require('../actionCreators/stateActions');
 // require history to change routes
 const browserHistory    = require('react-router').browserHistory;
 
 const Splash = ({onSignIn, goSignup, logged }) => {
+	if(apiAction.getCookie("token")){
+		stateAction.SignInSuccess(apiAction.getCookie("token"))
+		apiAction.GetMyInfo();
+	}
 	return (
 		<div>
 			<div>

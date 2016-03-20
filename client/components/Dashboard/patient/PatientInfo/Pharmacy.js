@@ -18,7 +18,7 @@ const PharmacyPanel = ({pharmacy}) => {
 				      <h5 className="card-headline">Pharmacy</h5>
 			     </div>
 			     {pharmacy.map((item) =>
-			     <div className="card-block">
+			     <div className="card-block" key={item.id_user} >
 		 		     <p className="card-text"><b>Name</b>: {item.business_name}</p>
 				     <p className="card-text"><b>Address</b>: {item.address}</p>
 				     <p className="card-text"><b>Phone</b>: {item.phone}</p>
