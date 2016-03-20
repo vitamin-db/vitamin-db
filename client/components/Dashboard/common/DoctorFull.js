@@ -26,7 +26,7 @@ getInitialState() {
   return(
     <div>
           <div className="card-header">
-            <Button bsStyle="success" bsSize="small" className="card-button" onClick={this.showModal}><Glyphicon glyph="plus-sign" /></Button>
+            <Button bsStyle="primary" bsSize="small" className="card-button" onClick={this.showModal}><Glyphicon glyph="plus-sign" /></Button>
             <h5 className="card-headline">{this.props.type}</h5>
           </div>
 

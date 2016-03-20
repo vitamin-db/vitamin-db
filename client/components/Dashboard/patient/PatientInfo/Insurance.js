@@ -14,7 +14,7 @@ const InsurancePanel = ({insurance}) => {
 		<Col xs={12} md={4}>
 			 <div className="card">
 			     <div className="card-header">
-				     <Button bsStyle="success" bsSize="small" className="card-button"><Glyphicon glyph="cloud" /></Button>
+				     <Button bsStyle="primary" bsSize="small" className="card-button"><Glyphicon glyph="cloud" /></Button>
 				      <h5 className="card-headline">Insurance</h5>
 			     </div>
 			     {insurance.map((item) =>
