@@ -1,6 +1,7 @@
 //handles routes that start with /authenticate
 const User = require('../models/user')
 const Auth = require('../models/auth')
+const nodemailer = require('nodemailer');
 
 const AuthAPI = require('express').Router();
 
@@ -74,7 +75,24 @@ AuthAPI.post('/signup', function(req, res) {
 
 	var enteredUsername = req.body.username
 	var enteredPw = req.body.password
-	console.log('enteredUsername: ', enteredUsername, 'enteredPw: ', enteredPw);
+	var enteredEmail = req.body.email
+	console.log('enteredUsername: ', enteredUsername, 'enteredPw: ', enteredPw, 'enteredEmail: ', enteredEmail);
+
+	var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'vitamindb.thesis@gmail.com', // Your email id
+        pass: 'm4k3r5qu4r3!' // Your password
+    }
+  });
+
+  var mailOptions = {
+    from: 'vitamindb.thesis@gmail.com', // sender address
+    to: enteredEmail, // list of receivers
+    subject: 'ima email subject line', // Subject line
+    text: 'Hello! Your username is: ' + enteredUsername + ' and your password is: ' + enteredPw + '. Thanks!'
+    // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+  };
 
 	return User.existsByUsername(enteredUsername)
 	  .then( function(exists) {
@@ -84,7 +102,7 @@ AuthAPI.post('/signup', function(req, res) {
 	  		var newUserObj = {
 	  			username: enteredUsername,
 	  			password: enteredPw,
-	  			email: req.body.email,
+	  			email: enteredEmail,
 	  			phone: req.body.phone
 	  		}
 	  		//this will not hash the pw
@@ -100,6 +118,14 @@ AuthAPI.post('/signup', function(req, res) {
 	  	if(token) {
 	  		res.json({token: token})
 	  	}
+	  })
+	  .then( function() {
+			transporter.sendMail(mailOptions, function(error, info){
+				if(error){
+				  return console.log(error);
+				}
+				console.log('Message sent: ' + info.response);
+			});
 	  })
 })
 

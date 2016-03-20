@@ -58,8 +58,8 @@ routes.use(express.static(assetFolder))
 //======================================================
 
 //mail router
-var mailerRouter = require('./apis/mailer-api')
-routes.use('/mailer', mailerRouter)
+// var mailerRouter = require('./apis/mailer-api')
+// routes.use('/mailer', mailerRouter)
 
 
 //======================================================
