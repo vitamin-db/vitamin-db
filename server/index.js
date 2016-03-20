@@ -53,14 +53,6 @@ routes.use(express.static(assetFolder))
 
 // })
 
-//======================================================
-// Nodemailer
-//======================================================
-
-//mail router
-// var mailerRouter = require('./apis/mailer-api')
-// routes.use('/mailer', mailerRouter)
-
 
 //======================================================
 // Dynamic assets

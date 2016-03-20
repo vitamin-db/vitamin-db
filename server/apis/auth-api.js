@@ -69,6 +69,7 @@ Checks to see if username is taken
 TO DO:
  - refactor to store hashed passwords
  - make responses more what client will expect
+ - refactor to streamline mail handling
 */
 AuthAPI.post('/signup', function(req, res) {
 	console.log('req body', req.body)
@@ -81,18 +82,16 @@ AuthAPI.post('/signup', function(req, res) {
 	var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'vitamindb.thesis@gmail.com', // Your email id
-        pass: 'm4k3r5qu4r3!' // Your password
+        user: 'vitamindb.thesis@gmail.com',
+        pass: 'm4k3r5qu4r3!'
     }
   });
 
   var mailOptions = {
-    from: 'vitamindb.thesis@gmail.com', // sender address
-    to: enteredEmail, // list of receivers
-    subject: 'ima email subject line', // Subject line
-    // text: 'Hello! Your username is: ' + enteredUsername + ' and your password is: ' + enteredPw + '. Thanks!'
-    html: '<table width="600" cellpadding="0" cellspacing="0" align="center"><tr><td width="600"><h2>Welcome to Vitamin DB!</h2><p>Your username is: ' + enteredUsername + '. Your password is: ' + enteredPw + '.</p></td></tr></table>'
-    // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+    from: 'vitamindb.thesis@gmail.com',
+    to: enteredEmail,
+    subject: 'ima email subject line',
+    html: '<table style="border: 1px solid #ccc;" width="600" cellpadding="10" cellspacing="0" align="center"><tr><td width="600"><h1 style="color:#16a085; font-weight:bold; text-align:center;">Welcome to Vitamin DB!</h1><p>Your username is <strong>' + enteredUsername + '</strong>, and your password is <strong>' + enteredPw + '</strong>.</p><br /><p>Happy trails!</p><p>The Vitamin DB team</p></td></tr></table>'
   };
 
 	return User.existsByUsername(enteredUsername)
