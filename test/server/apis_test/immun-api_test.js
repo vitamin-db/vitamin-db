@@ -88,6 +88,7 @@ describe('/immun-api', function() {
 			  	  .expect(201)
 			  	  .then( function(result) {
 			  	  	var got = JSON.parse(result.text)
+			  	  	console.log('got from post', got)
 			  	  	expect(got).to.be.an('object')
 			  	  	expect(TH.isValidPublicImmun(got)).to.be.true
 			  	  	expect(TH.propsMatch(got, imm1)).to.be.true

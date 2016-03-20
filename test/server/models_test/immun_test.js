@@ -9,7 +9,7 @@ const Immun = require(__server + '/models/immun')
 const User = require(__server + '/models/user')
 
 
-describe('**************** Immunization Model ****************', function() {
+xdescribe('**************** Immunization Model ****************', function() {
 
   before(function() {
     return db.deleteEverything()

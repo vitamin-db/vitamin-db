@@ -1,5 +1,6 @@
 const db = require('../db')
 const Model = require('./model-helper')
+const User = require('./user')
 
 const Immun = new Model('immun', ['id_immun', 'id_user', 'date', 'type', 'notes'])
 module.exports = Immun
@@ -18,6 +19,7 @@ Immun.getAllByUser = function(id_user) {
   Returns the most recently created immunizaiton record matching the user
 */
 Immun.getMostRecentByUser = function(id_user) {
+	console.log('inside get most recent by user looking for id', id_user)
 	return Immun.getAllByUser(id_user)
 	.then( function(all) {
 		return all.reduce(function(recent, curr) {
@@ -53,7 +55,7 @@ Immun.packageUserId = function(username, attrs) {
 */
 Immun.createAndReturn = function(attrs) {
 	return this.create(attrs)
-	  then(function() {
+	  .then(function(attr) {
 	  	return Immun.getMostRecentByUser(attrs.id_user)
 	  })
 }
@@ -65,7 +67,7 @@ Immun.createAndReturn = function(attrs) {
 Immun.packageCreateReturn = function(username, attrs) {
 	return Immun.packageUserId(username, attrs)
 	  .then(function(allAttr) {
-	  	return Immun.createAndReturn(attrs)
+	  	return Immun.createAndReturn(allAttr)
 	  })
 }
 

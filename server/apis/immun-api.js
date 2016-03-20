@@ -36,8 +36,11 @@ ImmunAPI.get('/', function(req, res) {
 */
 ImmunAPI.post('/', function(req, res) {
 
+	console.log('inside post immune with decoded', req.decoded)
+
 	return Immun.packageCreateReturn(req.decoded.username, req.body.properties)
 	  .then(function(newOb) {
+	  	console.log('got newOb', newOb)
 	  	SendR.resData(res, 201, Immun.getPublicOb(newOb))
 	  })
 	  .catch(function(err) {
