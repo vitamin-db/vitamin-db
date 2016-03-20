@@ -15,6 +15,7 @@ const morgan = require('morgan')
 
 const SendR = require('./sendresponse')
 const Auth = require('./models/auth')
+const nodemailer = require('nodemailer');
 
 //webpack stuff
 // const config = require('../webpack.config.js');
@@ -51,6 +52,14 @@ routes.use(express.static(assetFolder))
 // routes.get('/', function(req, res) {
 
 // })
+
+//======================================================
+// Nodemailer
+//======================================================
+
+//mail router
+var mailerRouter = require('./apis/mailer-api')
+routes.use('/mailer', mailerRouter)
 
 
 //======================================================
