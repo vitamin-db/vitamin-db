@@ -48,7 +48,7 @@ const Schedule = ({immunization}) => (
         <TableRowColumn> {val.name} </TableRowColumn>
         <TableRowColumn> {val.organization.name} </TableRowColumn>
         <TableRowColumn> {val.dates[0]} </TableRowColumn>
-        <TableRowColumn> true </TableRowColumn>
+        <TableRowColumn> Current </TableRowColumn>
       </TableRow>
 
       <TableRow>
