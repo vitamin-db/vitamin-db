@@ -17,7 +17,7 @@ const DoctorGrid = ({removeDoc, addDoc, docApiList, searchDoc, docInfo, insuranc
 		<div className="container-fluid">
 	    <Row className="show-grid">
 	      {docInfo.map((val) => 
-	        <DocCard key={val.name} removeDoc={removeDoc} val={val} />
+	        <DocCard key={val.id_doctor} removeDoc={removeDoc} val={val} />
 	      )}
 
 	      	<Insurance insurance={insurance} />

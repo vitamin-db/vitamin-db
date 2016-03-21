@@ -32,7 +32,7 @@ const mapStateToProps = (state) => {
 	console.log(apiAction.getCookie("token"));
 	// ^^^ this console log returns each state in the reducers/reducer.js file
 	return {
-		logged: apiAction.getCookie("token")
+		logged: state.signin.logged
 	};
 };
 

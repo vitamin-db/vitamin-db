@@ -34,8 +34,8 @@ const mapStateToProps = (state, ownProps) => {
   return { 
    doctor: state.userinfo.doctors,
    allergies: mock.Allergies,
-   // eyerx: mock.Eyerx,
-   eyerx: [state.userinfo.eyerx],
+   eyerx: mock.Eyerx,
+   // eyerx: [state.userinfo.eyerx],
    family: mock.Family,
    insurance: mock.Insurance,
    pharmacy: mock.Pharmacy,
@@ -50,13 +50,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     searchDoc: (e) => {
       e.preventDefault();
-      console.log("this.state", this.state)
       var firstName = e.target.firstname.value;
       var lastName = e.target.lastname.value;
       var body = {firstname:firstName, lastname:lastName};
       dispatch(apiAction.GetApiDocs(body));
     },
-    addDoc: (e) => {
+    addDoc: (e) => {// change this container
       e.preventDefault();
       var name = e.target.firstname.value + " " + e.target.lastname.value;
       var phone = e.target.phone.value;
