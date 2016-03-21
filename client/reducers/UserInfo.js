@@ -1,18 +1,14 @@
 const UserInfo = (state, action) => {
   if(state === undefined){
-    return state = {user: {username: ""}, doctors: [], eyerx: {}};
+    return state = {user: {}, doctors: [], eyerx: []};
   }
   switch(action.type){
     case 'SETMYINFO':
-      if(!action.info.user){
-        return {...state, user: {username: ""}};
-      }else{
         return {
-          user: action.info.user, 
-          doctors: action.info.doctors, 
-          eyerx: action.info.eyerx
+          user: action.info.user ? action.info.user : {}, 
+          doctors: action.info.doctors ? action.info.doctors : [], 
+          eyerx: action.info.eyerx ? [action.info.eyerx] : []
         };
-      }
     case 'ADDDOCTOR':
     	var newState = {...state};
       newState.doctors.push(action.doctor);
@@ -26,7 +22,7 @@ const UserInfo = (state, action) => {
       }
       return {...state, doctors: newList};
     case 'SUPERLOGOUT':
-      return {user: {username: ""}, doctors: [], eyerx: {}};
+      return {user: {username: ""}, doctors: [], eyerx: [{}]};
     default:
       return state;
   }

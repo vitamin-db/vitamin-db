@@ -19,7 +19,7 @@ const AllergiesPanel = ({allergies}) => {
 	return (
 		<Col xs={12} md={4}>
 		<Panel collapsible header='Allergies'>
-	 		<ListGroup fill>
+	 		{allergies[0] && <ListGroup fill>
 	 		{allergies.map((val, count) => 
 				<ListGroupItem key={val.allergen} className="allergies-item card-text">
 				   { (count+1) + ': '  + val.allergen + ' - ' + val.current } 
@@ -30,9 +30,8 @@ const AllergiesPanel = ({allergies}) => {
 					</div>
 				</ListGroupItem>
 			)}
-		 		<AddButton />
-				
-	 		</ListGroup>
+	 		</ListGroup>}
+		 	<AddButton />
   	 	</Panel>
   	 	</Col>
 	)

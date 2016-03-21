@@ -8,6 +8,7 @@ const bindActionCreators = require('redux').bindActionCreators;
 // components
 const doctorAction       = require('../actionCreators/doctorActions');
 const stateAction        = require('../actionCreators/stateActions');
+const eyeAction          = require('../actionCreators/eyeActions');
 const DoctorGrid         = require('../components/Dashboard/doctor/DoctorGrid');
 const PatientGrid        = require('../components/Dashboard/patient/PatientGrid');
 const mock               = require('../model/mockData');
@@ -20,11 +21,11 @@ const Grid               = require('react-bootstrap').Grid;
 // // CONTAINER
 // 
  // <PatientGrid patientInfo={patient} />
-const Home = ({removeDoc, addDoc, docApiList, searchDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
+const Home = ({addEye, removeDoc, addDoc, docApiList, searchDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
   return (
     <div className="home-body">
       <DoctorGrid removeDoc={removeDoc} addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} docInfo={doctor} insurance={insurance} pharmacy={pharmacy} />
-      <PatientGrid allergies={allergies} eyerx={eyerx} family={family} insurance={insurance} pharmacy={pharmacy} familyhistory={familyhistory} rx={rx} />
+      <PatientGrid addEye={addEye} allergies={allergies} eyerx={eyerx} family={family} insurance={insurance} pharmacy={pharmacy} familyhistory={familyhistory} rx={rx} />
     </div>
   );
 };
@@ -34,8 +35,8 @@ const mapStateToProps = (state, ownProps) => {
   return { 
    doctor: state.userinfo.doctors,
    allergies: mock.Allergies,
-   eyerx: mock.Eyerx,
-   // eyerx: [state.userinfo.eyerx],
+   // eyerx: mock.Eyerx,
+   eyerx: state.userinfo.eyerx,
    family: mock.Family,
    insurance: mock.Insurance,
    pharmacy: mock.Pharmacy,
@@ -83,6 +84,28 @@ const mapDispatchToProps = (dispatch) => {
       var id = e.target.docId.value;
       console.log("idididi", id)
       dispatch(doctorAction.RemoveMyDoc(id))
+    },
+    addEye: (e) => {
+      e.preventDefault();
+      var sphere_right = e.target.sphere_right.value;
+      var cyl_right = e.target.cylinder_right.value;
+      var axis_right = e.target.axis_right.value;
+      var add_right = e.target.add_right.value;
+      var sphere_left = e.target.sphere_left.value;
+      var cyl_left = e.target.cylinder_left.value;
+      var axis_left = e.target.axis_left.value;
+      var add_left = e.target.add_left.value;
+      var body = {properties:{
+        sphere_right: sphere_right,
+        sphere_left: sphere_left,
+        cylinder_right: cyl_right,
+        cylinder_left: cyl_left,
+        axis_right: axis_right,
+        axis_left: axis_left,
+        add_right: add_right,
+        add_left: add_left
+      }};
+      dispatch(eyeAction.AddEyeRx(body))
     }
   }
 };

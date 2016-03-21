@@ -39,6 +39,20 @@ getInitialState() {
           onHide={this.hideModal}
           dialogClassName="custom-modal">
 
+		<form onSubmit={this.props.addEye} >
+			<h3>Right(OD)</h3>
+			<input name="sphere_right" placeholder="Sphere" required />
+			<input name="cylinder_right" placeholder="Cylinder" required />
+			<input name="axis_right" placeholder="Axis" required />
+			<input name="add_right" placeholder="Add" required />
+			<h3>Left(OS)</h3>
+			<input name="sphere_left" placeholder="Sphere" required />
+			<input name="cylinder_left" placeholder="Cylinder" required />
+			<input name="axis_left" placeholder="Axis" required />
+			<input name="add_left" placeholder="Add" required />
+			<br/>
+			<button type="submit">Add Info</button>
+		</form>
 
         </Modal>
 

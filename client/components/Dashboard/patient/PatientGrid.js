@@ -12,7 +12,7 @@ const FamilyHistory = require('./PatientInfo/FamilyHistory');
 const Insurance = require('./PatientInfo/Insurance');
 const Pharmacy = require('./PatientInfo/Pharmacy');
 
-const PatientGrid = ({allergies, eyerx, family, familyhistory, insurance, pharmacy, rx}) => {
+const PatientGrid = ({addEye, allergies, eyerx, family, familyhistory, insurance, pharmacy, rx}) => {
 
 return(
   <div className="patient-container">
@@ -21,7 +21,7 @@ return(
       <Row className="show-grid">
 
       		<AllergiesPanel allergies={allergies} />
-      		<EyePanel eyerx={eyerx} />
+      		<EyePanel addEye={addEye} eyerx={eyerx} />
       		<FamilyHistory family={family} familyhistory={familyhistory} />
 
       </Row>

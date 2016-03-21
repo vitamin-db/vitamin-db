@@ -5,8 +5,9 @@ const Col = require('react-bootstrap').Col;
 const AddButton = require('../../common/AddButton');
 const EditButton = require('../../common/EditButton');
 const DeleteButton = require('../../common/DeleteButton');
+const NewEye = require('./AddPatientInfo/NewEyeRX');
 
-const EyePanel = ({eyerx}) => {
+const EyePanel = ({addEye, eyerx}) => {
 	// var current = allergies.map((curr) =>  {
 	// 	return curr.current;
 	// })
@@ -15,7 +16,7 @@ const EyePanel = ({eyerx}) => {
 	return (
 		<Col xs={12} md={8}>
 		<Panel collapsible header='Eye Prescription'>
-	 	  <Table responsive>
+	 	  {eyerx[0] && <Table responsive>
 	 		<thead>
 	 		  <tr>
 	 			<th>Eye:</th>
@@ -49,7 +50,10 @@ const EyePanel = ({eyerx}) => {
 	  			</tr>
 	  		</tbody>
 	  		)}
-	 	  </Table>
+	 	  </Table>}
+
+	 	  <NewEye addEye={addEye} />
+
   	 	</Panel>
   	 	</Col>
 	)
