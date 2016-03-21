@@ -70,6 +70,13 @@ function AddEye (eye) {
 	};
 };
 
+function GetAllergy (list) {
+	return {
+		type: 'GETALLERGY',
+		list: list
+	};
+};
+
 module.exports = {
 	SignInSuccess,
 	SignInFail,
@@ -80,5 +87,6 @@ module.exports = {
 	SetMyInfo,
 	RemoveDoc,
 	RemoveEye,
-	AddEye
+	AddEye,
+	GetAllergy
 };
