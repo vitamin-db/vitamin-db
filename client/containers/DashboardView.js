@@ -56,19 +56,14 @@ const mapDispatchToProps = (dispatch) => {
       var body = {firstname:firstName, lastname:lastName};
       dispatch(doctorAction.GetApiDocs(body));
     },
-    addDoc: (e) => {// change this container to a react component later
-      e.preventDefault();
-      var name = e.target.firstname.value + " " + e.target.lastname.value;
-      var phone = e.target.phone.value;
-      var address = e.target.address.value;
-      var type = e.target.specialty.value;
-      var portrait = e.target.portrait.value;
+    addDoc: (doc) => {
+      var portrait = doc.portrait;
       var body = { properties: {
-        name: name, 
-        phone: phone, 
-        street_address: address, 
-        type_usermade: type,
-        type: type,
+        name: doc.firstname + " " + doc.lastname, 
+        phone: doc.phone, 
+        street_address: doc.address, 
+        type_usermade: doc.specialty,
+        type: doc.specialty,
         current: false
       }};
       // this jsut clears the api list, but in the future it will add the chosen doctor to the database
@@ -79,31 +74,20 @@ const mapDispatchToProps = (dispatch) => {
       // grab info from form(that has yet to be created)
       dispatch(doctorAction.ChangeMyDoc())// pass in doctor id and new info
     },
-    removeDoc: (e) => {
-      e.preventDefault();
-      var id = e.target.docId.value;
-      console.log("idididi", id)
+    removeDoc: (id) => {
       dispatch(doctorAction.RemoveMyDoc(id))
     },
     addEye: (e) => {
       e.preventDefault();
-      var sphere_right = e.target.sphere_right.value;
-      var cyl_right = e.target.cylinder_right.value;
-      var axis_right = e.target.axis_right.value;
-      var add_right = e.target.add_right.value;
-      var sphere_left = e.target.sphere_left.value;
-      var cyl_left = e.target.cylinder_left.value;
-      var axis_left = e.target.axis_left.value;
-      var add_left = e.target.add_left.value;
       var body = {properties:{
-        sphere_right: sphere_right,
-        sphere_left: sphere_left,
-        cylinder_right: cyl_right,
-        cylinder_left: cyl_left,
-        axis_right: axis_right,
-        axis_left: axis_left,
-        add_right: add_right,
-        add_left: add_left
+        sphere_right: e.target.sphere_right.value,
+        sphere_left: e.target.sphere_left.value,
+        cylinder_right: e.target.cylinder_right.value,
+        cylinder_left: e.target.cylinder_left.value,
+        axis_right: e.target.axis_right.value,
+        axis_left: e.target.axis_left.value,
+        add_right: e.target.add_right.value,
+        add_left: e.target.add_left.value
       }};
       dispatch(eyeAction.AddEyeRx(body))
     }

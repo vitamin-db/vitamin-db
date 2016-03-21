@@ -16,7 +16,7 @@ const UserInfo = (state, action) => {
     case 'REMOVEDOCTOR':
       var newList = state.doctors.slice(0);
       for(var i=0; i<newList.length; i++){
-        if(newList[i].id_doctor.toString() === action.id){
+        if(newList[i].id_doctor === action.id){
           newList.splice(i,1);
         }
       }
