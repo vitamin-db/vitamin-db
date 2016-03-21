@@ -1,8 +1,15 @@
 const React = require('react');
+const Col = require('react-bootstrap').Col;
+const Button = require('react-bootstrap').Button;
 
 const docApiCard = ({doc, clearDoc, addDoc}) => (
+
 	<div className="docApiCard" >
-			Specialty: {doc.specialty}
+		<Col xs={12} md={4}>
+			<img src={doc.portrait} />
+		</Col>
+		<Col xs={12} md={8}>
+			<p>Specialty: {doc.specialty}
 			<br/>
 			Name: {doc.firstname} {doc.lastname}
 			<br/>
@@ -11,10 +18,9 @@ const docApiCard = ({doc, clearDoc, addDoc}) => (
 			Business: {doc.business}
 			<br/>
 			Address: {doc.address}
-			<br/>
-			<img src={doc.portrait} />
-			<br/>
-			<button onClick={addDoc.bind(null, doc)}>This is my doctor</button>
+			<br/></p>
+			<Button onClick={addDoc.bind(null, doc)} type="submit" bsStyle="primary" bsSize="large" block>This is my doctor</Button>
+		</Col>
 	</div>
 );
 

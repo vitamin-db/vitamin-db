@@ -339,8 +339,12 @@ h6.card-headline {
 }
 
 .docApiCard {
-    border: 3px solid black;
+    border-top: 1px solid #ccc;
     border-radius: 2px;
+}
+
+.docApiCard>div>p {
+    text-align:left;
 }
 
 /*.card-type {
@@ -365,6 +369,21 @@ h6.card-headline {
 
 .modal-content h1 {
     padding-top:25px;
+}
+
+.docApiCard {
+    min-height:250px;
+}
+
+.docApiCard>div {
+    background-color: #fff;
+    padding-top:15px;
+    height:100%;
+    text-align:center;
+}
+
+.docApiCard>div>p {
+    text-align:left;
 }
 
 /*
