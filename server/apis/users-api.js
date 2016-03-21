@@ -6,7 +6,12 @@ const UserDoctor = require('../models/user-doctor')
 const EyeRx = require('../models/eyerx')
 const Allergy = require('../models/allergy')
 const Appointment = require('../models/appointment')
-
+const FamilyHistory = require('../models/familyhistory')
+const FamilyMember = require('../models/familymembers')
+const Immun = require('../models/immun')
+const Insurance = require('../models/insurance')
+const Pharmacy = require('../models/pharmacy')
+const Rx = require('../models/rx')
 
 const SendR = require('../sendresponse')
 
@@ -55,6 +60,7 @@ UserAPI.get('/', function(req, res) {
 	  .then( function(doctors) {
 	  	dataForUser.doctors = doctors.map(doctor => Doctor.getPublicOb(doctor))
 	  	return Appointment.transformDoctors(req.decoded.username, doctors)
+	  })
 	  .then( function(appointments) {
 	  	dataForUser.appointments = appointments
 	  	return EyeRx.getCurrentByUser(userId)
