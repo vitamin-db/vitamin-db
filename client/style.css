@@ -359,6 +359,10 @@ h6.card-headline {
     width: 250px;
 }
 
+.form-horizontal {
+    padding: 40px 25px;
+}
+
 /*
 ==============
 Patient
