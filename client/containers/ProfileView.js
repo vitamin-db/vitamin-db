@@ -1,24 +1,24 @@
 const React = require('react');
 const connect = require('react-redux').connect;
 
-const Profiler = require('../components/User/Profile');
+const UserProfile = require('../components/User/Profile');
 
-const Profile = ({info}) => {
+const Profile = () => {
   return (
     <div>
       <h1>User's Profile view</h1>
-      <Profiler userInfo={info}/>
+      <UserProfile />
     </div>
   );
 };
 const mapStateToProps = (state) => {
+  console.log("ProfileView state: ", state)
   return {
-    info: 'test'
   }
 };
 const mapDispatchToProps = (dispatch) => {
+  console.log("ProfileView dispatch: ", dispatch)
   return {
-    
   }
 };
 var wrappedProfile = connect(
