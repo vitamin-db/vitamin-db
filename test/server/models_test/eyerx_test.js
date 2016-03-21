@@ -3,21 +3,10 @@ require(TEST_HELPER)
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
 
-// EYERX MODEL NOT WRITTEN YET
 const EyeRx = require(__server + '/models/eyerx')
 const User = require(__server + '/models/user')
 
-/*
-Methods to write:
- - addNew - takes new attrs as the argument
- - if there is a current one, makes the current one not current
- - adds the new as ahte current
-
- -Toggle current
- - getAllById
-
-*/
-xdescribe('**************** EyeRx Model ****************', function() {
+describe('**************** EyeRx Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()

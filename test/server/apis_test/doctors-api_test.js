@@ -9,7 +9,7 @@ const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
 
-xdescribe('/doctor api', function() {
+describe('/doctor api', function() {
 
 	//set up app
 	var app = TH.createApp()
