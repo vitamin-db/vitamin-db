@@ -4,6 +4,10 @@ const User = require('../models/user')
 const Doctor = require('../models/doctor')
 const UserDoctor = require('../models/user-doctor')
 const EyeRx = require('../models/eyerx')
+const Allergy = require('../models/allergy')
+const Appointment = require('../models/appointment')
+
+
 const SendR = require('../sendresponse')
 
 const UserAPI = require('express').Router();
@@ -13,27 +17,19 @@ module.exports = UserAPI
 
 /*
   Returns: {
-	user: {
-	  username: blah,
-	  email: email,
-	  phone: phone
-	},
+	user: { username, email, phone },
 	doctors: [
-	  {
-	  	name: name,
-	  	street_address address,
-	  	city: city,
-	  	state_abbrev: state,
-	  	zip: zip,
-	  	email: email,
-	  	web: web,
-	  	phone: phone,
-	  	type: type
-	  	created_at: createdAt,
-	  	updated_at: updated_at
-	  },
-	  {}, {}
-	]
+	  {name, street_address, city, state_abbrev, zip, email, web, phone, type, created_at, updated_at }, {}, {} ],
+	appointments: [ { id_doctor: #, 
+	                  appointments: [{id_appointment, id_user_doctor, date, time}, {}, .... ] 
+	                }, {}, {}, ... 
+	              ],
+	allergies: [{id_allergy, id_user, allergen, current}, {}, ..],
+	family: [ { id_familymember: #, history: [{id_famhist, id_familymember, condition}, {}, {}, ... ],
+	insurance: [ {id_insurance, id_user, plan_name, group_id, plan_id, rx_bin, current}, {}, {}, ...],
+	pharmacies: [{id_pharmacy, id_user, business_name, address, phone, current}, {}, ...],
+	rx: [ {id_rx, id_user, id_pharmacy, id_doctor, refill_number, name, dosage, current}, {}, ...],
+	immunizations: [{id_immun, id_user, date, type, notes}, {}, ..]
   }
 */
 UserAPI.get('/', function(req, res) {
@@ -58,11 +54,40 @@ UserAPI.get('/', function(req, res) {
 	  })
 	  .then( function(doctors) {
 	  	dataForUser.doctors = doctors.map(doctor => Doctor.getPublicOb(doctor))
-
+	  	return Appointment.transformDoctors(req.decoded.username, doctors)
+	  .then( function(appointments) {
+	  	dataForUser.appointments = appointments
 	  	return EyeRx.getCurrentByUser(userId)
 	  })
 	  .then( function(eyerx) {
 	  	dataForUser.eyerx = EyeRx.getPublicOb(eyerx)
+	  	return Allergy.getAllByUser(userId)
+	  })
+	  .then( function(allergies) {
+	  	dataForUser.allergies = allergies.map(allergy => Allergy.getPublicOb(allergy))
+	  	return FamilyMember.getAllByUser(userId)
+	  })
+	  .then( function(family) {
+	  	return FamilyHistory.transformFamilyList(family)
+	  })
+	  .then( function(familyHist) {
+	  	dataForUser.family = familyHist
+	  	return Insurance.getAllByUser(userId)
+	  })
+	  .then(function(insurance) {
+	  	dataForUser.insurance = insurance.map(insur => Insurance.getPublicOb(insur))
+	  	return Pharmacy.getAllByUser(userId)
+	  })
+	  .then( function(pharmacies) {
+	  	dataForUser.pharmacies = pharmacies.map(pharma => Pharmacy.getPublicOb(pharma))
+	  	return Rx.getAllByUser(userId)
+	  })
+	  .then( function(rx) {
+	  	dataForUser.rx = rx.map(script => Rx.getPublicOb(script))
+	  	return Immun.getAllByUser(userId)
+	  })
+	  .then( function(immuns) {
+	  	dataForUser.immunizations = immuns.map(i => Immun.getPublicOb(i))
 
 	  	//Send data after dealing with all data types
 	  	SendR.resData(res, 200, dataForUser)

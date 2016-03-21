@@ -22,11 +22,9 @@ AppointmentAPI.get('/', function(req, res) {
 	  	return UserDoctor.findAllDoctors(user.id_user)
 	  })
 	  .then(function(docs) {
-	  	console.log('doctor array to be transformed', docs)
 	  	return Appointment.transformDoctors(req.decoded.username, docs)
 	  })
 	  .then(function(transformed) {
-	  	console.log('transformed these doctors into', transformed)
 	  	SendR.resData(res, 200, transformed)
 	  })
 	  .catch( function(err) {
