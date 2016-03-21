@@ -39,6 +39,9 @@ Appointment.findByUsernameAndDocId = function(username, id_doctor) {
 	  })
 }
 
+/* GET ALL BY USER
+  Based on a username, gets every 
+*/
 
 /* PACKAGE
   Taking a username, doctor id, and object of other attributes, adds the id_user_doctor to the attributes
@@ -66,20 +69,56 @@ OtherAttrs should contain the properties:
   - time as string
 Returns the newly created appointment
 */
-Appointment.createAndReturn = function(username, id_doctor, otherAttrs) {
+Appointment.createAndReturn = function(username, id_doctor, otherAttrs, log) {
+	console.log('log var', log)
+	console.log('inside createAndReturn with args', username, id_doctor, otherAttrs)
+
+	var rand = Math.random()
 
 	return Appointment.package(username, id_doctor, otherAttrs)
 	  .then(function(packaged) {
+	  	console.log('pakcaged', packaged, rand)
 	  	return Appointment.create(packaged)
 	  })
 	  .then(function(attrs) {
+	  	console.log('attributes are', attrs, rand)
 	  	return db.select('*').from('appointments').where(attrs)
 	  })
 	  .then(function(found) {
-	  	return found.reduce(function(mostRecent, current) {
+	  	console.log('found from db: ', found, rand)
+	  	return found.length < 1 ? undefined : found.reduce(function(mostRecent, current) {
 	  		return mostRecent.id_appointment > current.id_appointment ? mostRecent : current
 	  	})
 	  })
 }
+
+
+
+/*
+  Takes an array of doctors
+  Turns it into an array keeping track of doctors and apointmetns:
+  [{doc1}, {doc2}, {doc3}] => [{id_doctor, appointments}, ...]
+*/
+Appointment.transformDoctors = function(username, doctors) {
+
+	var transformed = []
+
+	return Promise.all(doctors.map( function(doctor) {
+		var docOb = {}
+		docOb.id_doctor = doctor.id_doctor
+		return Appointment.findByUsernameAndDocId(username, doctor.id_doctor)
+		  .then(function(appts) {
+		  	docOb.appointments = appts
+		  })
+	}))
+	.then( function() {
+		return transformed
+	})
+
+}
+
+
+
+
 
 

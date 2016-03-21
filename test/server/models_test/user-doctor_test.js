@@ -9,7 +9,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 const Appointment = require(__server + '/models/appointment')
 
 
-describe('**************** User-Doctor Model ****************', function() {
+xdescribe('**************** User-Doctor Model ****************', function() {
 
 
   beforeEach(function() {
@@ -196,11 +196,11 @@ describe('**************** User-Doctor Model ****************', function() {
       .then( function(all) {
         expect(all).to.be.an('array')
         expect(all).to.have.length(1)
-        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '08/01/2016', time: '9am'})
+        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '08/01/2016', time: '9am'}, 'blah3')
       })
       .then(function(appt) {
         appt1 = appt
-        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '06/01/2016', time: '10am'})
+        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '06/01/2016', time: '10am'}, 'blah4')
       })
       .then(function(appt) {
         appt2 = appt

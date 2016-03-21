@@ -136,12 +136,11 @@ UserDoctor.createDoctor = function(docAttrs, id_user, type_usermade, current) {
 UserDoctor.findId = function(username, id_doctor) {
   return User.findByUsername(username)
     .then(function(user) {
-      console.log('found user', user)
       return db('user_doctor').select('*').where({id_user: user.id_user, id_doctor: id_doctor}) || user
       //returns undefined if no matches
     })
     .then(function(arr) {
-      return arr[0].id_user_doctor 
+      return arr.length > 0 ? arr[0].id_user_doctor : undefined
     })
 }
 
@@ -172,5 +171,8 @@ UserDoctor.deleteDoctor = function(id_doctor) {
       return Doctor.deleteById(id_doctor)
     })
 }
+
+
+
 
 

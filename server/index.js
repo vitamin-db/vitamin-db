@@ -148,6 +148,10 @@ routes.use('/familymember', familymemberRouter)
 var immunRouter = require('./apis/immun-api')
 routes.use('/immun', immunRouter)
 
+//appointmnet router
+var appointmentRouter = require('./apis/appointment-api')
+routes.use('/appointmnet', appointmentRouter)
+
 /* Catch-all Route
  Make sure this route is always LAST
 */

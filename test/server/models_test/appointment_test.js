@@ -12,7 +12,6 @@ const User = require(__server + '/models/user')
 
 describe('**************** Appointment Model ****************', function() {
 
-
   before(function() {
     return db.deleteEverything()
   })
@@ -27,15 +26,17 @@ describe('**************** Appointment Model ****************', function() {
   var appt2 = undefined
 
   it('creates new appointments and returns the newly created object', function() {
+
   	return TH.createUserReturnId(newTestUser1)
   	  .then( function(id) {
+        console.log('created user with id', id)
   	  	user1_id = id
 
   	  	var doc = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '1233839292', 'primary')
   	  	return UserDoctor.createDoctor(doc, user1_id, 'primary1', true)
   	  })
   	  .then( function(doctor) {
-        console.log('created first doctor', doctor)
+        console.log('created doctor', doctor)
   	  	newDoc1 = doctor
   	  	var doc = new TH.DoctorAttributes('Dr. Otherman', '235 Franklin Ave', 'Austin', 'TX', 29384, 'otherman@doc.com', 'theotherdoc.com', '0987654321', 'hypnotist')
   	  	return UserDoctor.createDoctor(doc, user1_id, 'primary2', true)
@@ -43,20 +44,19 @@ describe('**************** Appointment Model ****************', function() {
   	  .then( function(doctor) {
         console.log('created second doctor', doctor)
   	  	newDoc2 = doctor
-  	  	return Appointment.createAndReturn(newTestUser1.username, newDoc1.id_doctor, {date: '03/22/4994', time: '2:30pm'})
+  	  	return Appointment.createAndReturn(newTestUser1.username, newDoc1.id_doctor, {date: '03/22/4994', time: '2:30pm'}, 'blah1')
   	  })
   	  .then( function(appointment) {
-        console.log('created first appointment', appointment)
+        console.log('created appointment', appointment)
   	  	appt1 = appointment
   	  	expect(appt1).to.be.an('object')
   	  	expect(TH.isValidAppt(appt1)).to.be.true
   	  	expect(TH.propsMatch(appt1, {date: '03/22/4994', time: '2:30pm'})).to.be.true
   	  	expect(appt1.id_user_doctor > 0).to.be.true
 
-  	  	return Appointment.createAndReturn(newTestUser1.username, newDoc1.id_doctor, {date: '04/22/1991', time: 'noon'})
+  	  	return Appointment.createAndReturn(newTestUser1.username, newDoc1.id_doctor, {date: '04/22/1991', time: 'noon'}, 'blah2')
   	  })
   	  .then(function(appt) {
-        console.log('created second appointment', appt)
   	  	appt2 = appt
   	  	return Appointment.getAll()
   	  })
@@ -68,8 +68,8 @@ describe('**************** Appointment Model ****************', function() {
   	  	expect(TH.propsMatch(all[1], appt1)).to.be.false
   	  	expect(TH.propsMatch(all[0], appt2)).to.be.false
   	  	expect(TH.propsMatch(all[1], appt2)).to.be.true
-
   	  })
+
   })
 
   it('finds appointments based on the username and id_doctor', function() {
@@ -89,6 +89,7 @@ describe('**************** Appointment Model ****************', function() {
   	  	expect(TH.propsMatch(matchingAppts[0], appt2)).to.be.false
   	  	expect(TH.propsMatch(matchingAppts[1], appt2)).to.be.true
   	  })
+
   })
 
   // it('gets all appointments related to a user', function() {
@@ -103,8 +104,8 @@ describe('**************** Appointment Model ****************', function() {
   	  .then(function(allAppts) {
   	  	expect(allAppts).to.have.length(1)
   	  	expect(TH.propsMatch(allAppts[0], appt2)).to.be.true
-
   	  })
+
   })
 
   it('updates an appointment information based on a passed-in object, and returns the updated appointment obj', function() {
@@ -116,8 +117,8 @@ describe('**************** Appointment Model ****************', function() {
   	  	expect(ob.date).to.equal(appt2.date)
   	  	expect(ob.time === appt2.time).to.be.false
   	  	expect(ob.time).to.equal(updateObj.time)
-
   	  })
+
   })
 
 
