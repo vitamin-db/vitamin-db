@@ -161,14 +161,25 @@ describe('/appointment API', function() {
 		})
 	})
 
-	xdescribe('DELETE appointment', function() {
+	describe('DELETE appointment', function() {
 
 		it('returns 200', function() {
-
+			return Auth.createToken(newTestUser1.username)
+			  .then( function(token) {
+			  	return request(app)
+			  	  .del('/appointment/' + appt1.id_appointment)
+			  	  .set('x-access-token', token)
+			  	  .expect(200)
+			  })
 		})
 
 		it('deletes the appointment from the database', function() {
-
+			return Appointment.findByUsernameAndDocId(newTestUser1.username, newDoc1.id_doctor)
+			  .then(function(all) {
+			  	expect(all).to.be.an('array')
+			  	expect(all).to.have.length(1)
+			  	expect(TH.propsMatch(all[0], appt2)).to.be.true
+			  })
 		})
 
 	})

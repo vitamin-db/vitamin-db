@@ -71,7 +71,18 @@ AppointmentAPI.put('/', function(req, res) {
 
 
 
-
-
-
+/* DELETE /appointment/:id_appointment
+  Deletes the appointment referenced in the url
+  Returns a 200 on success
+*/
+AppointmentAPI.delete('/:id_appointment', function(req, res) {
+	
+	return Appointment.deleteById(req.params.id_appointment)
+	  .then( function() {
+	  	SendR.sendStatus(res, 200)
+	  })
+	  .catch( function(err) {
+	  	SendR.error(res, 500, 'Server error deleting appointment record', err)
+	  })
+})
 
