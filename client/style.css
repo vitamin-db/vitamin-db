@@ -61,6 +61,16 @@ buttons
     padding:10px !important;
 }
 
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.btn-primary.dropdown-toggle.focus, .open>.btn-primary.dropdown-toggle:focus, .open>.btn-primary.dropdown-toggle:hover {
+    background-color: #1abc9c;
+    color:#fff;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+    background-color: #1abc9c;
+    color:#fff;
+}
+
 .btn-group {
     right: 0;
     bottom: 5px;
@@ -341,6 +351,7 @@ h6.card-headline {
 .docApiCard {
     border-top: 1px solid #ccc;
     border-radius: 2px;
+    min-height:260px;
 }
 
 .docApiCard>div>p {
@@ -369,10 +380,6 @@ h6.card-headline {
 
 .modal-content h1 {
     padding-top:25px;
-}
-
-.docApiCard {
-    min-height:250px;
 }
 
 .docApiCard>div {
