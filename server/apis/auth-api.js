@@ -90,7 +90,7 @@ AuthAPI.post('/signup', function(req, res) {
   var mailOptions = {
     from: 'vitamindb.thesis@gmail.com',
     to: enteredEmail,
-    subject: 'ima email subject line',
+    subject: 'Welcome to VitaminDB!',
     html: '<table style="border: 1px solid #ccc;" width="600" cellpadding="10" cellspacing="0" align="center"><tr><td width="600"><h1 style="color:#16a085; font-weight:bold; text-align:center;">Welcome to Vitamin DB!</h1><p>Your username is <strong>' + enteredUsername + '</strong>, and your password is <strong>' + enteredPw + '</strong>.</p><br /><p>Happy trails!</p><p>The Vitamin DB team</p></td></tr></table>'
   };
 

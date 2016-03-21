@@ -1,18 +1,19 @@
 const React = require('react');
+const Col = require('react-bootstrap').Col;
+const Input = require('react-bootstrap').Input;
+const Button = require('react-bootstrap').Button;
 
 const SignIn = ({onSignUp}) => (
-	<div>
-		<h1>Sign up below!</h1>
+		<Col xs={12} md={8} mdOffset={2} className="signup-container">
+		<h1>Sign up below:</h1>
 		<form onSubmit={onSignUp}>
-			<input name="username" type="text" placeholder="Username" required />
-			<input name="password" type="password" placeholder="Password" required />
-			<br/>
-			<input name="email" type="text" placeholder="Email" required />
-			<input name="phone" type="text" placeholder="Phone number" required />
-			<br/>
-			<button type="submit">Sign up</button>
+			<Input name="username" type="username" label="Username:" placeholder="Username" required />
+	    <Input name="password" type="password" label="Password:" placeholder="Password" required />
+			<Input name="email" type="text" label="Email:" placeholder="Email" required />
+			<Input name="phone" type="text" label="Phone:" placeholder="Phone" required />
+			<Button type="submit" bsStyle="primary" bsSize="large" block>Sign up</Button>
 		</form>
-	</div>
+		</Col>
 );
 
 module.exports = SignIn;

@@ -281,6 +281,22 @@ border-radius: 10px;
     padding-bottom:20px;
 }
 
+.signup-container {
+    padding: 35px 60px;
+    border-radius: 10px;
+    background-color: #dbdbdb;
+    margin-top:30px;
+}
+
+.signup-container>form {
+    padding-bottom:20px;
+}
+
+.signup-container>h1 {
+    color:#1abc9c;
+    padding-bottom:15px;
+}
+
 /*
 ========================================
 Dashboard
