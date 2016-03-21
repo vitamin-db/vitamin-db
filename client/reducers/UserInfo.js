@@ -21,6 +21,10 @@ const UserInfo = (state, action) => {
         }
       }
       return {...state, doctors: newList};
+    case 'ADDEYE':
+      return {...state, eyerx:[action.eyerx]}
+    case 'REMOVEEYE':
+      return {...state, eyerx: []};
     case 'SUPERLOGOUT':
       return {user: {username: ""}, doctors: [], eyerx: [{}]};
     default:

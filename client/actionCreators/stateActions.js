@@ -50,10 +50,22 @@ function ClearDocApi () {
 };
 
 function SetMyInfo (info) {
-	console.log("set my info", info)
 	return {
 		type: 'SETMYINFO',
 		info: info
+	};
+};
+
+function RemoveEye () {
+	return {
+		type: 'REMOVEEYE'
+	};
+};
+
+function AddEye (eye) {
+	return {
+		type: 'ADDEYE',
+		eyerx: eye
 	};
 };
 
@@ -65,5 +77,7 @@ module.exports = {
 	SetDocApi,
 	ClearDocApi,
 	SetMyInfo,
-	RemoveDoc
+	RemoveDoc,
+	RemoveEye,
+	AddEye
 };

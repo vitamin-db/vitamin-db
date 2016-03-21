@@ -2,12 +2,13 @@ const React = require('react');
 const Panel = require('react-bootstrap').Panel;
 const Table = require('react-bootstrap').Table;
 const Col = require('react-bootstrap').Col;
+const Button = require('react-bootstrap').Button;
+const Glyphicon = require('react-bootstrap').Glyphicon;
 const AddButton = require('../../common/AddButton');
 const EditButton = require('../../common/EditButton');
-const DeleteButton = require('../../common/DeleteButton');
-const NewEye = require('./AddPatientInfo/NewEyeRX');
+const NewEye = require('./PatientHelpers/NewEyeRX');
 
-const EyePanel = ({addEye, eyerx}) => {
+const EyePanel = ({removeEye, addEye, eyerx}) => {
 	// var current = allergies.map((curr) =>  {
 	// 	return curr.current;
 	// })
@@ -36,7 +37,9 @@ const EyePanel = ({addEye, eyerx}) => {
 	  				<td>{val.axis_right}</td>
 	  				<td>{val.add_right}</td>
 	  				<td><EditButton /></td>
-	  				<td><DeleteButton /></td>
+	  				<td>
+	  				<Button onClick={removeEye.bind(null, val.id_eyerx)} className="edit-button" bsSize="xsmall" ><Glyphicon glyph="trash" /></Button>
+	  				</td>
 	  			</tr>
 
 	  			<tr>
@@ -46,7 +49,9 @@ const EyePanel = ({addEye, eyerx}) => {
 	  				<td>{val.axis_left}</td>
 	  				<td>{val.add_left}</td>
 	  				<td><EditButton /></td>
-	  				<td><DeleteButton /></td>
+	  				<td>
+	  				<Button onClick={removeEye.bind(null, val.id_eyerx)} className="edit-button" bsSize="xsmall" ><Glyphicon glyph="trash" /></Button>
+	  				</td>
 	  			</tr>
 	  		</tbody>
 	  		)}

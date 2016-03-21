@@ -21,11 +21,11 @@ const Grid               = require('react-bootstrap').Grid;
 // // CONTAINER
 // 
  // <PatientGrid patientInfo={patient} />
-const Home = ({addEye, removeDoc, addDoc, docApiList, searchDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
+const Home = ({removeEye, addEye, removeDoc, addDoc, docApiList, searchDoc, doctor, allergies, eyerx, family, insurance, pharmacy, familyhistory, rx}) => {
   return (
     <div className="home-body">
       <DoctorGrid removeDoc={removeDoc} addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} docInfo={doctor} insurance={insurance} pharmacy={pharmacy} />
-      <PatientGrid addEye={addEye} allergies={allergies} eyerx={eyerx} family={family} insurance={insurance} pharmacy={pharmacy} familyhistory={familyhistory} rx={rx} />
+      <PatientGrid removeEye={removeEye} addEye={addEye} allergies={allergies} eyerx={eyerx} family={family} insurance={insurance} pharmacy={pharmacy} familyhistory={familyhistory} rx={rx} />
     </div>
   );
 };
@@ -90,6 +90,9 @@ const mapDispatchToProps = (dispatch) => {
         add_left: e.target.add_left.value
       }};
       dispatch(eyeAction.AddEyeRx(body))
+    },
+    removeEye: (id) => {
+      dispatch(eyeAction.RemoveEyeRx(id))
     }
   }
 };

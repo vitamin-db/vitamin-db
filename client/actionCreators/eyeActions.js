@@ -28,9 +28,30 @@ function AddEyeRx (eyeRx) {
     })
     .then((data) => {
     	console.log("add eye data", data);
+      dispatch(stateAction.AddEye(data))
     })
     .catch((err) => {
       console.error("add eye err", err);
+    })
+  };
+};
+
+function RemoveEyeRx (id) {
+  return (dispatch) => {
+    return fetch('/eyerx/' + id, {
+      method: 'delete',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': getCookie("token")
+      }
+    })
+    .then((response) => {
+      console.log("remove eye res", response)
+      dispatch(stateAction.RemoveEye())
+    })
+    .catch((err) => {
+      console.error("remove err", err);
     })
   };
 };
@@ -57,5 +78,6 @@ function ChangeEyeRx (newEye) {
 
 module.exports = {
 	AddEyeRx,
-	ChangeEyeRx
+	ChangeEyeRx,
+  RemoveEyeRx
 }
