@@ -27,7 +27,38 @@ const TableFooter = require('material-ui/lib/table/table-footer');
 const TextField = require('material-ui/lib/text-field');
 const Toggle = require('material-ui/lib/toggle');
 
-const Schedule = ({immunization}) => (
+const Schedule = ({appointment, immunization}) => (
+ <div>
+  <Table>
+    <TableHeader>
+      <TableRow>
+        <TableHeaderColumn>#</TableHeaderColumn>
+        <TableHeaderColumn>Appointment</TableHeaderColumn>
+        <TableHeaderColumn>Clinic</TableHeaderColumn>
+        <TableHeaderColumn>Next</TableHeaderColumn>
+        <TableHeaderColumn>Status</TableHeaderColumn>
+      </TableRow>
+    </TableHeader>
+
+    {appointment.map((val, count) => 
+
+    <TableBody key={count}>
+
+      <TableRow>
+        <TableRowColumn> {count++} </TableRowColumn>
+        <TableRowColumn> {val.text} </TableRowColumn>
+        <TableRowColumn> {val.organization.name} </TableRowColumn>
+        <TableRowColumn> {val.date} </TableRowColumn>
+        <TableRowColumn> Current </TableRowColumn>
+      </TableRow>
+
+    </TableBody>
+       )}
+
+  </Table>
+
+  <br/>
+
   <Table>
     <TableHeader>
       <TableRow>
@@ -41,7 +72,7 @@ const Schedule = ({immunization}) => (
 
     {immunization.map((val, count) => 
 
-    <TableBody key={val.id}>
+    <TableBody key={count}>
 
       <TableRow>
         <TableRowColumn> {count++} </TableRowColumn>
@@ -56,21 +87,13 @@ const Schedule = ({immunization}) => (
         <TableRowColumn>fill me in</TableRowColumn>
         <TableRowColumn>fill me in</TableRowColumn>
       </TableRow>
-      <TableRow>
-        <TableRowColumn>{count++}</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>{count++}</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-      </TableRow>
-
+   
     </TableBody>
        )}
 
   </Table>
+
+  </div>
 );
 
 module.exports = Schedule;

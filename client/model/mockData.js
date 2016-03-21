@@ -236,7 +236,8 @@ Insurance: [
        updatedAt: '2014-09-01T20:46:35.731Z',
        source: 'emr-1-320',
        name: 'encounter',
-       text: '11/13/2015 Appointment Physical Therapy ',
+       date: '11/13/2015',
+       text: 'Appointment Physical Therapy',
        organization: {
           href: "/medical/organizations/53c050ac51c69003200aa998",
           id: "53c050ac51c69003200aa998",
