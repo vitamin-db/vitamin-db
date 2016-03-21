@@ -4,7 +4,7 @@ const Input = require('react-bootstrap').Input;
 const Button = require('react-bootstrap').Button;
 
 const SignIn = ({onSignUp}) => (
-		<Col xs={12} md={8} mdOffset={2} className="signup-container">
+		<Col xs={12} md={6} mdOffset={3} className="signup-container">
 		<h1>Sign up below:</h1>
 		<form onSubmit={onSignUp}>
 			<Input name="username" type="username" label="Username:" placeholder="Username" required />
