@@ -26,7 +26,7 @@ const EyePanel = ({eyerx}) => {
 	  		  </tr>
 	  		</thead>
 	  		{eyerx.map((val) => 
-	  		<tbody>
+	  		<tbody key={val.id_eyerx} >
 
 	  			<tr>
 	  				<td>Right(OD)</td>
@@ -47,7 +47,6 @@ const EyePanel = ({eyerx}) => {
 	  				<td><EditButton /></td>
 	  				<td><DeleteButton /></td>
 	  			</tr>
-
 	  		</tbody>
 	  		)}
 	 	  </Table>

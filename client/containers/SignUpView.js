@@ -3,7 +3,7 @@ const React       = require('react');
 const connect     = require('react-redux').connect;
 // components/files
 const SignUp      = require('../components/SignUp/SignUp');
-const apiAction   = require('../actionCreators/apiActions');
+const userAction  = require('../actionCreators/userActions');
 const stateAction = require('../actionCreators/stateActions');
 
 const SignUpComp = ({onSignUp}) => {
@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 			var email = e.target.email.value;
 			var phone = e.target.phone.value;
 			var body = {username: username, password: password, email: email, phone: phone};
-			dispatch(apiAction.SignUp(body));
+			dispatch(userAction.SignUp(body));
 		}
 	};
 };

@@ -3,8 +3,8 @@ const React       = require('react');
 const connect     = require('react-redux').connect;
 // components/files
 const stateAction = require('../actionCreators/stateActions');
-const Schedule   = require('../components/Appointment/Schedule');
-const mock = require('../model/mockData');
+const Schedule    = require('../components/Appointment/Schedule');
+const mock        = require('../model/mockData');
 
 const Appointment = ({immunization, appointment}) => {
   return (

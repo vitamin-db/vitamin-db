@@ -4,11 +4,16 @@ const connect           = require('react-redux').connect;
 // require components/files
 const SignIn            = require('../components/Splash/SignIn');
 const JumbotronInstance = require('../components/Splash/Jumbotron');
-const apiAction         = require('../actionCreators/apiActions');
+const userAction        = require('../actionCreators/userActions');
+const stateAction		= require('../actionCreators/stateActions');
 // require history to change routes
 const browserHistory    = require('react-router').browserHistory;
 
 const Splash = ({onSignIn, goSignup, logged }) => {
+	if(userAction.getCookie("token")){
+		stateAction.SignInSuccess(userAction.getCookie("token"))
+		userAction.GetMyInfo();
+	}
 	return (
 		<div>
 			<div>
@@ -24,10 +29,10 @@ const Splash = ({onSignIn, goSignup, logged }) => {
 };
 
 const mapStateToProps = (state) => {
-	console.log(apiAction.getCookie("token"));
+	// console.log(userAction.getCookie("token"));
 	// ^^^ this console log returns each state in the reducers/reducer.js file
 	return {
-		logged: apiAction.getCookie("token")
+		logged: state.signin.logged
 	};
 };
 
@@ -41,7 +46,7 @@ const mapDispatchToProps = (dispatch) => {
 			var username = e.target.username.value;
 			var password = e.target.password.value;
 			var body = {username: username, password: password};
-			dispatch(apiAction.SignIn(body)) // you have to call dispatch here even though you dispatch the action object in the api promise, idk why, check later
+			dispatch(userAction.SignIn(body)) // you have to call dispatch here even though you dispatch the action object in the api promise, idk why, check later
 		},
 		goSignup: () => {
 			browserHistory.push('/signup')

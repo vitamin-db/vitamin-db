@@ -1,17 +1,17 @@
-const React = require('react');
-const connect = require('react-redux').connect;
+const React              = require('react');
+const connect            = require('react-redux').connect;
 
-const browserHistory = require('react-router').browserHistory;
+const browserHistory     = require('react-router').browserHistory;
 
 const bindActionCreators = require('redux').bindActionCreators;
 
 // components
-const apiAction = require('../actionCreators/apiActions');
-const stateAction = require('../actionCreators/stateActions');
-const DoctorGrid = require('../components/Dashboard/doctor/DoctorGrid');
-const PatientGrid = require('../components/Dashboard/patient/PatientGrid');
-const mock = require('../model/mockData');
-const Grid = require('react-bootstrap').Grid;
+const doctorAction       = require('../actionCreators/doctorActions');
+const stateAction        = require('../actionCreators/stateActions');
+const DoctorGrid         = require('../components/Dashboard/doctor/DoctorGrid');
+const PatientGrid        = require('../components/Dashboard/patient/PatientGrid');
+const mock               = require('../model/mockData');
+const Grid               = require('react-bootstrap').Grid;
 // const _ = require('lodash');
 
 //Grid
@@ -35,7 +35,7 @@ const mapStateToProps = (state, ownProps) => {
    doctor: state.userinfo.doctors,
    allergies: mock.Allergies,
    eyerx: mock.Eyerx,
-   // eyerx: state.userinfo.eyerx,
+   // eyerx: [state.userinfo.eyerx],
    family: mock.Family,
    insurance: mock.Insurance,
    pharmacy: mock.Pharmacy,
@@ -53,9 +53,9 @@ const mapDispatchToProps = (dispatch) => {
       var firstName = e.target.firstname.value;
       var lastName = e.target.lastname.value;
       var body = {firstname:firstName, lastname:lastName};
-      dispatch(apiAction.GetApiDocs(body));
+      dispatch(doctorAction.GetApiDocs(body));
     },
-    addDoc: (e) => {
+    addDoc: (e) => {// change this container to a react component later
       e.preventDefault();
       var name = e.target.firstname.value + " " + e.target.lastname.value;
       var phone = e.target.phone.value;
@@ -67,16 +67,22 @@ const mapDispatchToProps = (dispatch) => {
         phone: phone, 
         street_address: address, 
         type_usermade: type,
+        type: type,
         current: false
       }};
       // this jsut clears the api list, but in the future it will add the chosen doctor to the database
-      dispatch(apiAction.AddMyDoc(body, portrait));
+      dispatch(doctorAction.AddMyDoc(body, portrait));
+    },
+    editDoc: (e) => {
+      e.preventDefault();
+      // grab info from form(that has yet to be created)
+      dispatch(doctorAction.ChangeMyDoc())// pass in doctor id and new info
     },
     removeDoc: (e) => {
       e.preventDefault();
       var id = e.target.docId.value;
       console.log("idididi", id)
-      dispatch(apiAction.RemoveMyDoc(id))
+      dispatch(doctorAction.RemoveMyDoc(id))
     }
   }
 };

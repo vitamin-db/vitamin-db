@@ -16,7 +16,7 @@ const FamilyHistPanel = ({familyhistory, family}) => {
 		<Panel collapsible header='Family History'>
 	 		<ListGroup fill>
 	 		{familyhistory.map((val, count) =>
-				<ListGroupItem key={val.name} className="family-item card-text">
+				<ListGroupItem key={val.key_id} className="family-item card-text">
 				   {count + ': ' + val.name + '  '+ val.condition}
 					
 					<div className="btn-group">

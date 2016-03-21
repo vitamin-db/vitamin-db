@@ -1,20 +1,20 @@
 // require react packages
 const React          = require('react');
 
-const Navbar = require('react-bootstrap/lib/Navbar')
-const NavbarHeader = require('react-bootstrap/lib/NavbarHeader')
-const NavbarToggle = require('react-bootstrap/lib/NavbarToggle')
+const Navbar         = require('react-bootstrap/lib/Navbar')
+const NavbarHeader   = require('react-bootstrap/lib/NavbarHeader')
+const NavbarToggle   = require('react-bootstrap/lib/NavbarToggle')
 const NavbarCollapse = require('react-bootstrap/lib/NavbarCollapse')
-const Nav = require('react-bootstrap/lib/').Nav;
-const NavItem = require('react-bootstrap/lib/NavItem')
-const NavbarBrand = require('react-bootstrap/lib/NavbarBrand')
+const Nav            = require('react-bootstrap/lib/').Nav;
+const NavItem        = require('react-bootstrap/lib/NavItem')
+const NavbarBrand    = require('react-bootstrap/lib/NavbarBrand')
 
 
 const Router         = require('react-router');
 const Link           = Router.Link;
 const connect        = require('react-redux').connect;
 // require action creators
-const apiAction      = require('../actionCreators/apiActions');
+const userAction     = require('../actionCreators/userActions');
 const stateAction    = require('../actionCreators/stateActions');
 // browser history for path change
 const browserHistory = Router.browserHistory;
@@ -53,7 +53,7 @@ const Header = ({check, username, goHome, signOut, goProfile, goAppoint, signUp,
 const mapStateToProps = (state) => {
 	console.log('header state', state)
 	return {
-		logged: apiAction.getCookie("token"),
+		logged: state.signin.logged,
 		username: state.userinfo.user.username
 	};
 };
@@ -66,42 +66,42 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		check: () => {
-			if(apiAction.getCookie("token")){
-				dispatch(apiAction.GetMyInfo())
+			if(userAction.getCookie("token")){
+				dispatch(userAction.GetMyInfo())
 			}
 		},
 		goSplash: () => {
 			browserHistory.push('/')
 		},
 		goHome: () => {
-			if(apiAction.getCookie("token")){
+			if(userAction.getCookie("token")){
 				browserHistory.push('/home')
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		goProfile: () => {
-			if(apiAction.getCookie("token")){
+			if(userAction.getCookie("token")){
 				browserHistory.push('/user')
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		goAppoint: () => {
-			if(apiAction.getCookie("token")){
+			if(userAction.getCookie("token")){
 				browserHistory.push('/appointments')
 			}else{
 				browserHistory.push('/')
 			}
 		},
 		signUp: () => {
-			if(!apiAction.getCookie("token")){
+			if(!userAction.getCookie("token")){
 				browserHistory.push('/signup')
 			}
 		},
 		signOut: () => {
 			dispatch(stateAction.SignOut());
-			if(!apiAction.getCookie("token")){
+			if(!userAction.getCookie("token")){
 				browserHistory.push('/')
 			}
 		}
