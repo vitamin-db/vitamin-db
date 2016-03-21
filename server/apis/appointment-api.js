@@ -54,6 +54,21 @@ AppointmentAPI.post('/:id_doctor', function(req, res) {
 })
 
 
+/* PUT /appointment
+  Takes an object in the body {properties: {id_appointment: id_to_update, props to update}}
+  Returns the newly updated object and a 201 status
+*/
+AppointmentAPI.put('/', function(req, res) {
+
+	return Appointment.updateByObj(req.body.properties)
+	  .then(function(updated) {
+	  	SendR.resData(res, 201, Appointment.getPublicOb(updated))
+	  })
+	  .catch(function(err) {
+	  	SendR.error(res, 500, 'Server error updating appointment', err)
+	  })
+})
+
 
 
 

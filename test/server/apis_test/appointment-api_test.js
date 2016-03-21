@@ -125,14 +125,39 @@ describe('/appointment API', function() {
 
 	})
 
-	xdescribe('PUT appointment', function() {
+	describe('PUT appointment', function() {
 
 		it('returns 201 and the updated appointment object', function() {
+			var update = {id_appointment: appt1.id_appointment, time: '4:30pm'}
+			return Auth.createToken(newTestUser1.username)
+			  .then( function(token) {
+			  	return request(app)
+			  	  .put('/appointment')
+			  	  .set('x-access-token', token)
+			  	  .send({properties: update})
+			  	  .expect(201)
+			  	  .then( function(result) {
+			  	  	var got = JSON.parse(result.text)
+			  	  	expect(got).to.be.an('object')
+			  	  	expect(TH.isValidPublicAppt(got)).to.be.true
+			  	  	expect(TH.propsMatch(got, appt1)).to.be.false
+			  	  	expect(got.id_appointment).to.equal(appt1.id_appointment)
+			  	  	expect(got.id_user_doctor).to.equal(appt1.id_user_doctor)
+			  	  	expect(got.date).to.equal(appt1.date)
+			  	  	expect(got.time).to.equal(update.time)
+			  	  })
+			  })
 
 		})
 
 		it('changes the stored appointment data', function() {
-
+			return Appointment.findById(appt1.id_appointment)
+			  .then(function(appt) {
+			  	expect(TH.isValidAppt(appt)).to.be.true
+			  	expect(TH.propsMatch(appt, appt1)).to.be.false
+			  	expect(appt.date).to.equal(appt1.date)
+			  	expect(appt.time).to.equal('4:30pm')
+			  })
 		})
 	})
 
