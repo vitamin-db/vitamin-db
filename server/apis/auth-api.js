@@ -1,6 +1,7 @@
 //handles routes that start with /authenticate
 const User = require('../models/user')
 const Auth = require('../models/auth')
+const nodemailer = require('nodemailer');
 
 const AuthAPI = require('express').Router();
 
@@ -68,13 +69,30 @@ Checks to see if username is taken
 TO DO:
  - refactor to store hashed passwords
  - make responses more what client will expect
+ - refactor to streamline mail handling
 */
 AuthAPI.post('/signup', function(req, res) {
 	console.log('req body', req.body)
 
 	var enteredUsername = req.body.username
 	var enteredPw = req.body.password
-	console.log('enteredUsername: ', enteredUsername, 'enteredPw: ', enteredPw);
+	var enteredEmail = req.body.email
+	console.log('enteredUsername: ', enteredUsername, 'enteredPw: ', enteredPw, 'enteredEmail: ', enteredEmail);
+
+	var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'vitamindb.thesis@gmail.com',
+        pass: 'm4k3r5qu4r3!'
+    }
+  });
+
+  var mailOptions = {
+    from: 'vitamindb.thesis@gmail.com',
+    to: enteredEmail,
+    subject: 'ima email subject line',
+    html: '<table style="border: 1px solid #ccc;" width="600" cellpadding="10" cellspacing="0" align="center"><tr><td width="600"><h1 style="color:#16a085; font-weight:bold; text-align:center;">Welcome to Vitamin DB!</h1><p>Your username is <strong>' + enteredUsername + '</strong>, and your password is <strong>' + enteredPw + '</strong>.</p><br /><p>Happy trails!</p><p>The Vitamin DB team</p></td></tr></table>'
+  };
 
 	return User.existsByUsername(enteredUsername)
 	  .then( function(exists) {
@@ -84,7 +102,7 @@ AuthAPI.post('/signup', function(req, res) {
 	  		var newUserObj = {
 	  			username: enteredUsername,
 	  			password: enteredPw,
-	  			email: req.body.email,
+	  			email: enteredEmail,
 	  			phone: req.body.phone
 	  		}
 	  		//this will not hash the pw
@@ -100,6 +118,14 @@ AuthAPI.post('/signup', function(req, res) {
 	  	if(token) {
 	  		res.json({token: token})
 	  	}
+	  })
+	  .then( function() {
+			transporter.sendMail(mailOptions, function(error, info){
+				if(error){
+				  return console.log(error);
+				}
+				console.log('Message sent: ' + info.response);
+			});
 	  })
 })
 

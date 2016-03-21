@@ -12,7 +12,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 const Rx = require(__server + '/models/rx')
 
 
-describe('/rx-api', function() {
+xdescribe('/rx-api', function() {
 
   //set up app
   var app = TH.createApp()

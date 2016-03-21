@@ -15,6 +15,7 @@ const morgan = require('morgan')
 
 const SendR = require('./sendresponse')
 const Auth = require('./models/auth')
+const nodemailer = require('nodemailer');
 
 //webpack stuff
 // const config = require('../webpack.config.js');
