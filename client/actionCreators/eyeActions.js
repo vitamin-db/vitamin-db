@@ -27,7 +27,6 @@ function AddEyeRx (eyeRx) {
     	return response.json();
     })
     .then((data) => {
-    	console.log("add eye data", data);
       dispatch(stateAction.AddEye(data))
     })
     .catch((err) => {
@@ -48,7 +47,7 @@ function RemoveEyeRx (id) {
     })
     .then((response) => {
       console.log("remove eye res", response)
-      dispatch(stateAction.RemoveEye())
+      dispatch(stateAction.RemoveEye(id))
     })
     .catch((err) => {
       console.error("remove err", err);

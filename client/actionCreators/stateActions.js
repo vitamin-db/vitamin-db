@@ -56,9 +56,10 @@ function SetMyInfo (info) {
 	};
 };
 
-function RemoveEye () {
+function RemoveEye (id) {
 	return {
-		type: 'REMOVEEYE'
+		type: 'REMOVEEYE',
+		id: id
 	};
 };
 
