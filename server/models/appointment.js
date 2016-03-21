@@ -70,7 +70,6 @@ OtherAttrs should contain the properties:
 Returns the newly created appointment
 */
 Appointment.createAndReturn = function(username, id_doctor, otherAttrs, log) {
-	console.log('log var', log)
 	console.log('inside createAndReturn with args', username, id_doctor, otherAttrs)
 
 	var rand = Math.random()
@@ -109,6 +108,7 @@ Appointment.transformDoctors = function(username, doctors) {
 		return Appointment.findByUsernameAndDocId(username, doctor.id_doctor)
 		  .then(function(appts) {
 		  	docOb.appointments = appts
+		  	transformed.push(docOb)
 		  })
 	}))
 	.then( function() {

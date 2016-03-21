@@ -9,7 +9,7 @@ const User = require(__server + '/models/user')
 const UserDoctor = require(__server + '/models/user-doctor')
 const Appointment = require(__server + '/models/appointment')
 
-xdescribe('/appointment API', function() {
+describe('/appointment API', function() {
 
 	var app = TH.createApp()
 	app.use('/', routes)
@@ -27,6 +27,7 @@ xdescribe('/appointment API', function() {
 
 	var appt1 = undefined
 	var appt2 = undefined
+	var appt3 = undefined
 
 
 	describe('GET appointment', function() {
@@ -48,6 +49,7 @@ xdescribe('/appointment API', function() {
 			  	return Appointment.createAndReturn(newTestUser1.username, newDoc1.id_doctor, {date: '03/22/4994', time: '2:30pm'}, 'blah5')
 			  })
 			  .then( function(appointment) {
+			  	appt1 = appointment
 			  	return Appointment.createAndReturn(newTestUser1.username, newDoc1.id_doctor, {date: '04/22/1991', time: 'noon'}, 'blah6')
 			  })
 			  .then(function(appt) {
@@ -63,15 +65,25 @@ xdescribe('/appointment API', function() {
 			  	  .then( function(result) {
 			  	  	var got = JSON.parse(result.text)
 			  	  	console.log('got in /get appointment', got)
+
 			  	  	expect(got).to.be.an('array')
-			  	  	expect(got).to.have.length(1)
-			  	  	expect(got[0]).to.be.an('object')
-			  	  	expect(got[0].id_doctor).to.equal(newDoc1.id_doctor)
-			  	  	expect(got[0]['appointments']).to.be.an('array')
-			  	  	expect(got[0]['appointments']).to.have.length(2)
-			  	  	expect(TH.allValidPublicAppts(got[0]['appointments'])).to.be.true
-			  	  	expect(TH.propsMatch(got[0]['appointments'][0], appt1)).to.be.true
-			  	  	expect(TH.propsMatch(got[0]['appointments'][1], appt2)).to.be.true
+			  	  	expect(got).to.have.length(2)
+
+			  	  	var withContent = got[0]['appointments'].length > 0 ? got[0] : got[1]
+			  	  	var withoutContent = got[0]['appointments'].length > 0 ? got[1] : got[0]
+
+	
+			  	  	expect(withContent).to.be.an('object')
+			  	  	expect(withContent.id_doctor).to.equal(newDoc1.id_doctor)
+			  	  	expect(withContent['appointments']).to.be.an('array')
+			  	  	expect(withContent['appointments']).to.have.length(2)
+			  	  	expect(TH.allValidPublicAppts(withContent['appointments'])).to.be.true
+			  	  	expect(TH.propsMatch(withContent['appointments'][0], appt1)).to.be.true
+			  	  	expect(TH.propsMatch(withContent['appointments'][1], appt2)).to.be.true
+			  	  	expect(withoutContent).to.be.an('object')
+			  	  	expect(withoutContent.id_doctor).to.equal(newDoc2.id_doctor)
+			  	  	expect(withoutContent['appointments']).to.be.an('array')
+			  	  	expect(withoutContent['appointments']).to.have.length(0)
 			  	  })
 			  })
 
@@ -79,14 +91,36 @@ xdescribe('/appointment API', function() {
 
 	})
 
-	xdescribe('POST appointment', function() {
+	describe('POST appointment/:id_doctor', function() {
 
 		it('returns 201 and the newly created appointment', function() {
+			var props = {date: '10/03/2015', time: '10am'}
+			return Auth.createToken(newTestUser1.username)
+			  .then(function(token) {
+			  	return request(app)
+				  	.post('/appointment/' + newDoc2.id_doctor)
+				  	.set('x-access-token', token)
+				  	.send({properties: props})
+				  	.expect(201)
+				  	.then( function(result) {
+				  		var got = JSON.parse(result.text)
+				  		expect(got).to.be.an('object')
+				  		expect(TH.isValidPublicAppt(got)).to.be.true
+				  		expect(got.date).to.equal(props.date)
+				  		expect(got.time).to.equal(props.time)
+				  		appt3 = got
+				  	})
+			  })
 
 		})
 
 		it('adds an appointment to the database', function() {
-
+			return Appointment.findByUsernameAndDocId(newTestUser1.username, newDoc2.id_doctor)
+			  .then( function(result) {
+			  	expect(result).to.be.an('array')
+			  	expect(result).to.have.length(1)
+			  	expect(TH.propsMatch(result[0], appt3)).to.be.true
+			  })
 		})
 
 	})
