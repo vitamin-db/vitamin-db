@@ -93,19 +93,7 @@ DoctorAPI.delete('/:id_doctor', function(req, res) {
 
 	var userId = undefined
 
-	return User.findByUsername(req.decoded.username)
-	  .then( function(user) {
-	  	userId = user.id_user
-
-	  	return UserDoctor.findByAttribute('id_doctor', req.params.id_doctor)
-	  })
-	  .then(function(userdoctors) {
-	  	//NEED TO DELETE ALL APPOINTEMENTS WITH THESE USERDOCTORS AS WELL!!!!!
-	  	return UserDoctor.deleteById(userdoctors[0]['id_user_doctor'])
-	  })
-	  .then(function() {
-	  	return Doctor.deleteById(req.params.id_doctor)
-	  })
+	return Doctor.deleteDoctor(req.params.id_doctor)
 	  .then( function() {
 	  	SendR.sendStatus(res, 200)
 	  })

@@ -100,8 +100,6 @@ module.exports = function(tableName, allAttrs) {
 	  Same as Update By Id, but only takes one object, which includes both the id and attributes to change
 	*/
 	this.updateByObj = function(obj) {
-		console.log('obj in modelhelper: ', obj)
-		console.log('obj[this.idVarName]: ', obj[this.idVarName])
 		var id = obj[this.idVarName]
 		var attrs = {}
 		for( var prop in obj) {
@@ -111,7 +109,7 @@ module.exports = function(tableName, allAttrs) {
 		}
 		console.log('about to call update by id on id', id, 'attr', attrs)
 		return this.updateById(id, attrs)
-	}
+	}.bind(this)
 
 	/* FIND BY ID
 	  Returns an object from the table where the primary key matches the id passed in

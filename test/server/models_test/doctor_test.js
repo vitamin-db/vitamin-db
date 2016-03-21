@@ -4,6 +4,8 @@ const db = require(__server + '/db')
 const request = require('supertest-as-promised')
 
 const Doctor = require(__server + '/models/doctor')
+const UserDoctor = require(__server + '/models/user-doctor')
+
 
 
 xdescribe('**************** Doctor Model ****************', function() {
@@ -85,40 +87,6 @@ xdescribe('**************** Doctor Model ****************', function() {
     })
   })
 
-  it('deletes a doctor', function() {
-    // Note: assigned after the db entries are created
-    var testDoctorId6 = undefined
-    var testDoctorId7 = undefined
-
-    var newTestDoctor6 = new TH.DoctorAttributes('Dr. Kinney', '1292 Wandering Drive', 'Dallas', 'TX', 23948, 'wanderpractice@gmail.com', 'wanderpractice.com', '2938493049', 'homepathic specialist')
-    var newTestDoctor7 = new TH.DoctorAttributes('Dr. Namaste', '09238 Bell Lane', 'Austin', 'TX', 93832, 'nama@stay.com', 'namastay.com', '3940399922', 'life coach')
-
-    return TH.createDoctorReturnId(newTestDoctor6)
-      .then( function(id) {
-        testDoctorId6 = id
-
-        return TH.createDoctorReturnId(newTestDoctor7)
-      })
-      .then( function(id) {
-        testDoctorId7 = id
-
-        return Doctor.deleteById(testDoctorId7)
-      })
-      .then( function(recordsDeleted) {
-        expect(recordsDeleted).to.equal(1)
-
-        return Doctor.findById(testDoctorId7)
-      })
-      .then( function(deletedRecord) {
-        expect(deletedRecord).to.be.an('undefined')
-
-        return Doctor.getAll()
-      })
-      .then( function(allDoctors) {
-        expect(allDoctors).to.have.length(1)
-      })
-
-  })
 
 })
 

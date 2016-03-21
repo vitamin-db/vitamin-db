@@ -741,3 +741,27 @@ TH.allValidPublicImmun = function(immunArray) {
 }
 
 
+/* 
+  ====================================
+  Appointment Helper Methods
+  ====================================
+*/ 
+TH.isValidAppt = function(obj) {
+	var props = ['id_appointment', 'id_user_doctor', 'date', 'time']
+	return TH.hasRightKeys(obj, props)
+}
+
+TH.isValidPublicAppt = function(obj) {
+	return TH.isValidAppt(obj)
+}
+
+TH.allValidAppts = function(arr) {
+	return arr.reduce( function(bool, current) {
+		return bool && TH.isValidAppt(current)
+	}, true)
+}
+
+TH.allValidPublicAppts = function(arr) {
+	return TH.allValidAppts(arr)
+}
+
