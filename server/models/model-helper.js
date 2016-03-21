@@ -40,7 +40,7 @@ module.exports = function(tableName, allAttrs) {
 	this.create = function(newItemAttrs) {
 		return db(this.table).insert(newItemAttrs, this.attrsToSet)
 		  .then( this.returnSuccess('successfully created new entry into table ' + this.table) )
-		  .then( function(result) { console.log('result should be an array', result); return result[0] })
+		  .then( function(result) { return result[0] })
 		  .catch( this.reportError('error inserting into table ' + this.table) )
 	}.bind(this)
 
@@ -107,7 +107,6 @@ module.exports = function(tableName, allAttrs) {
 				attrs[prop] = obj[prop]
 			}
 		}
-		console.log('about to call update by id on id', id, 'attr', attrs)
 		return this.updateById(id, attrs)
 	}.bind(this)
 
@@ -145,10 +144,8 @@ module.exports = function(tableName, allAttrs) {
 	  Returns the number of records deleted (ie 1)
 	*/
 	this.deleteById = function(id) {
-		console.log('userdoctor id', id)
 		var queryObj = {}
 		queryObj[this.idVarName] = id
-		console.log('queryObj for delete', queryObj)
 
 		return db(this.table).where(queryObj).del()
 		  .then(this.returnSuccess('success deleting from ' + this.table))

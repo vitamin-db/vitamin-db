@@ -31,13 +31,13 @@ describe('**************** Appointment Model ****************', function() {
   	  .then( function(id) {
   	  	user1_id = id
 
-  	  	var doc = new TH.UserDoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '1233839292', 'primary')
+  	  	var doc = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '1233839292', 'primary')
   	  	return UserDoctor.createDoctor(doc, user1_id, 'primary1', true)
   	  })
   	  .then( function(doctor) {
         console.log('created first doctor', doctor)
   	  	newDoc1 = doctor
-  	  	var doc = new TH.UserDoctorAttributes('Dr. Otherman', '235 Franklin Ave', 'Austin', 'TX', 29384, 'otherman@doc.com', 'theotherdoc.com', '0987654321', 'hypnotist')
+  	  	var doc = new TH.DoctorAttributes('Dr. Otherman', '235 Franklin Ave', 'Austin', 'TX', 29384, 'otherman@doc.com', 'theotherdoc.com', '0987654321', 'hypnotist')
   	  	return UserDoctor.createDoctor(doc, user1_id, 'primary2', true)
   	  })
   	  .then( function(doctor) {
@@ -51,7 +51,7 @@ describe('**************** Appointment Model ****************', function() {
   	  	expect(appt1).to.be.an('object')
   	  	expect(TH.isValidAppt(appt1)).to.be.true
   	  	expect(TH.propsMatch(appt1, {date: '03/22/4994', time: '2:30pm'})).to.be.true
-  	  	expect(TH.id_user_doctor > 0).to.be.true
+  	  	expect(appt1.id_user_doctor > 0).to.be.true
 
   	  	return Appointment.createAndReturn(newTestUser1.username, newDoc1.id_doctor, {date: '04/22/1991', time: 'noon'})
   	  })
@@ -103,6 +103,7 @@ describe('**************** Appointment Model ****************', function() {
   	  .then(function(allAppts) {
   	  	expect(allAppts).to.have.length(1)
   	  	expect(TH.propsMatch(allAppts[0], appt2)).to.be.true
+
   	  })
   })
 
@@ -115,6 +116,7 @@ describe('**************** Appointment Model ****************', function() {
   	  	expect(ob.date).to.equal(appt2.date)
   	  	expect(ob.time === appt2.time).to.be.false
   	  	expect(ob.time).to.equal(updateObj.time)
+
   	  })
   })
 

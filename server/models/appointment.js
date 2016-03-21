@@ -27,6 +27,8 @@ Appointment.deleteAllFromUserDoctor = function(id_user_doctor) {
 	  })
 }
 
+
+
 /* FIND BY USERNAME AND DOCID
   Based on a username and a doctor id, returns an array of all matching appointments
 */
@@ -36,6 +38,7 @@ Appointment.findByUsernameAndDocId = function(username, id_doctor) {
 	  	return Appointment.findByAttribute('id_user_doctor', id)
 	  })
 }
+
 
 /* PACKAGE
   Taking a username, doctor id, and object of other attributes, adds the id_user_doctor to the attributes
@@ -48,7 +51,7 @@ Appointment.package = function(username, id_doctor, otherAttrs) {
 		attrs[p] = otherAttrs[p]
 	}
 
-	return UserDoctor.findId(useranme, id_doctor)
+	return UserDoctor.findId(username, id_doctor)
 	  .then(function(id) {
 	  	attrs.id_user_doctor = id
 	  	return attrs
@@ -78,6 +81,5 @@ Appointment.createAndReturn = function(username, id_doctor, otherAttrs) {
 	  	})
 	  })
 }
-
 
 

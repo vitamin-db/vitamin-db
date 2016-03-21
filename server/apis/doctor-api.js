@@ -93,7 +93,7 @@ DoctorAPI.delete('/:id_doctor', function(req, res) {
 
 	var userId = undefined
 
-	return Doctor.deleteDoctor(req.params.id_doctor)
+	return UserDoctor.deleteDoctor(req.params.id_doctor)
 	  .then( function() {
 	  	SendR.sendStatus(res, 200)
 	  })

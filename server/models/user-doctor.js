@@ -110,7 +110,6 @@ UserDoctor.findAllDoctorsOfType = function(id, docType){
   Returns the newly created doctor object from the doctors table
 */
 UserDoctor.createDoctor = function(docAttrs, id_user, type_usermade, current) {
-  console.log('i know what Doctor is', Doctor)
   var newDoctor = undefined
 
   return Doctor.create(docAttrs)
@@ -137,10 +136,12 @@ UserDoctor.createDoctor = function(docAttrs, id_user, type_usermade, current) {
 UserDoctor.findId = function(username, id_doctor) {
   return User.findByUsername(username)
     .then(function(user) {
-      return db('user_doctor').select('*').where({id_user: user.id_user, id_doctor: id_doctor})
+      console.log('found user', user)
+      return db('user_doctor').select('*').where({id_user: user.id_user, id_doctor: id_doctor}) || user
+      //returns undefined if no matches
     })
     .then(function(arr) {
-      return arr[0].id_user_doctor
+      return arr[0].id_user_doctor 
     })
 }
 
@@ -150,7 +151,7 @@ UserDoctor.findId = function(username, id_doctor) {
 */
 UserDoctor.deleteUserDoctor = function(id_user_doctor) {
 
-  return Appointment.deleteAllFromUserDoctor(id_user_doctor)
+  return db('appointments').where({id_user_doctor: id_user_doctor}).del()
     .then(function() {
       return UserDoctor.deleteById(id_user_doctor)
     })
@@ -163,9 +164,9 @@ UserDoctor.deleteUserDoctor = function(id_user_doctor) {
 UserDoctor.deleteDoctor = function(id_doctor) {
   return UserDoctor.findByAttribute('id_doctor', id_doctor)
     .then(function(userdocs) {
-      return Promise.all([
-        userdocs.forEach(userdoc => UserDoctor.deleteUserDoctor(userdoc.id_user_doctor))
-      ])
+      return Promise.all(
+        userdocs.map(userdoc => UserDoctor.deleteUserDoctor(userdoc.id_user_doctor))
+      )
     })
     .then( function() {
       return Doctor.deleteById(id_doctor)

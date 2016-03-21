@@ -9,7 +9,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 const Appointment = require(__server + '/models/appointment')
 
 
-xdescribe('**************** User-Doctor Model ****************', function() {
+describe('**************** User-Doctor Model ****************', function() {
 
 
   beforeEach(function() {
@@ -196,11 +196,11 @@ xdescribe('**************** User-Doctor Model ****************', function() {
       .then( function(all) {
         expect(all).to.be.an('array')
         expect(all).to.have.length(1)
-        return Appointment.createAndReturn(newTestUser1, id_doc, {date: '08/01/2016', time: '9am'})
+        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '08/01/2016', time: '9am'})
       })
       .then(function(appt) {
         appt1 = appt
-        return Appointment.createAndReturn(newTestUser1, id_doc, {date: '06/01/2016', time: '10am'})
+        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '06/01/2016', time: '10am'})
       })
       .then(function(appt) {
         appt2 = appt
@@ -240,16 +240,24 @@ xdescribe('**************** User-Doctor Model ****************', function() {
       })
       .then(function(doctor) {
         id_doc = doctor.id_doctor
+        return Doctor.getAll()
+      })
+      .then(function(allDocs) {
+        expect(allDocs).to.be.an('array')
+        expect(allDocs).to.have.length(1)
+
+        id_doc = allDocs[0].id_doctor
+
         return UserDoctor.getAll()
       })
-      .then( function(all) {
-        expect(all).to.be.an('array')
-        expect(all).to.have.length(1)
-        return Appointment.createAndReturn(newTestUser1, id_doc, {date: '08/01/2016', time: '9am'})
+      .then( function(allUserDocs) {
+        expect(allUserDocs).to.be.an('array')
+        expect(allUserDocs).to.have.length(1)
+        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '08/01/2016', time: '9am'})
       })
       .then(function(appt) {
         appt1 = appt
-        return Appointment.createAndReturn(newTestUser1, id_doc, {date: '06/01/2016', time: '10am'})
+        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '06/01/2016', time: '10am'})
       })
       .then(function(appt) {
         appt2 = appt
@@ -260,9 +268,9 @@ xdescribe('**************** User-Doctor Model ****************', function() {
       .then(function(allAppts) {
         expect(allAppts).to.be.an('array')
         expect(allAppts).to.have.length(2)
-        return UserDoctor.deleteDoctor(appt1.id_user_doctor)
+        return UserDoctor.deleteDoctor(id_doc)
       })
-      .the(function() {
+      .then(function() {
         return Doctor.getAll()
       })
       .then(function(allDocs) {
