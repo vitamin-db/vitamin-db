@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const Allergy = require(__server + '/models/allergy')
 
-xdescribe('/allergy-api', function() {
+describe('/allergy-api', function() {
 
   //set up app
   var app = TH.createApp()
@@ -82,9 +82,7 @@ xdescribe('/allergy-api', function() {
       it('returns the newly posted allergy', function() {
         return TH.createUserReturnIdAndToken(newUser1)
           .then(function(userAndToken) {
-            console.log('userAndToken: ', userAndToken)
             user1_id = userAndToken.id_user
-            console.log('user1_id: ', user1_id)
             return request(app)
               .post('/allergy')
               .set('x-access-token', userAndToken.token)

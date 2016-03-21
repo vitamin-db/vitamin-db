@@ -3,13 +3,12 @@ const TH = require(__test + '/test-helper')
 const db = require(__server + '/db')
 const request = require('supertest-as-promised')
 
-// FAMILYMEMBER MODEL NOT WRITTEN YET
 const FamilyMember = require(__server + '/models/familymembers')
 const FamilyHistory = require(__server + '/models/familyhistory')
 const User = require(__server + '/models/user')
 
 
-xdescribe('**************** Family History Model ****************', function() {
+describe('**************** Family History Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()

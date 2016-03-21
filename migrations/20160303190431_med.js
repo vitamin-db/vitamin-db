@@ -119,6 +119,25 @@ exports.up = function(knex, Promise) {
            .inTable('users');
       table.string('allergen');
       table.boolean('current');
+    }),
+
+    knex.schema.createTable('immun', function(table) {
+      table.increments('id_immun').primary()
+      table.integer('id_user')
+           .references('id_user')
+           .inTable('users')
+      table.string('date')
+      table.string('type')
+      table.string('notes')
+    }),
+
+    knex.schema.createTable('appointments', function(table) {
+      table.increments('id_appointment').primary()
+      table.integer('id_user_doctor')
+           .references('id_user_doctor')
+           .inTable('user_doctor')
+      table.string('date')
+      table.string('time')
     })
 
   ])
@@ -128,6 +147,8 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   
   return Promise.all([
+      knex.schema.dropTable('immun'),
+      knex.schema.dropTable('appointments'),
       knex.schema.dropTable('insurance'),
       knex.schema.dropTable('pharmacy'),
       knex.schema.dropTable('eyerx'),
@@ -138,7 +159,6 @@ exports.down = function(knex, Promise) {
       knex.schema.dropTable('users'),
       knex.schema.dropTable('doctors'),
       knex.schema.dropTable('user_doctor')
- 
   ])
 
 };

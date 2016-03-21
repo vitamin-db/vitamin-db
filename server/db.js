@@ -17,13 +17,18 @@ db.deleteEverything = function() {
 		return Promise.reject()
 	}
 
-    return db('user_doctor').delete()
+
+    return db('appointments').delete()
       .then( function(msg) {
-      	console.log('deleted ', msg, ' records from user_doctor')
-      	return db('rx').delete()
+            console.log('deleted ', msg, ' records from appointments')
+          return db('rx').delete()  
       })
       .then(function(msg) {
       	console.log('deleted ', msg, ' records from rx')
+            return db('immun').delete()
+      })
+      .then(function(msg) {
+            console.log('deleted ', msg, ' records from immun')
       	return db('familyhistory').delete()
       })
       .then(function(msg) {
@@ -32,6 +37,10 @@ db.deleteEverything = function() {
       })
       .then(function(msg) {
       	console.log('deleted ', msg, ' records from familymembers')
+            return db('user_doctor').delete()
+      })
+      .then(function(msg) {
+          console.log('deleted ', msg, ' records from user_doctor')
       	return db('insurance').delete()
       })
       .then(function(msg) {

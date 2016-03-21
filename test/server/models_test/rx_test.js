@@ -5,14 +5,13 @@ const request = require('supertest-as-promised')
 
 const TH = require(__test + '/test-helper')
 
-// INSURANCE MODEL WRITTEN YET
 const Rx = require(__server + '/models/rx')
 const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const Pharmacy = require(__server + '/models/pharmacy')
 
 
-xdescribe('**************** Rx Model ****************', function() {
+describe('**************** Rx Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()

@@ -5,6 +5,11 @@ exports.seed = function(knex, Promise) {
         table.dropForeign('id_doctor')
     })
     .then( function() {
+        return knex.schema.table('appointments', function(table) {
+            table.dropForeign('id_user_doctor')
+        })
+    })
+    .then( function() {
         return knex('user_doctor').truncate()
     })
     .then( function() {
@@ -27,6 +32,11 @@ exports.seed = function(knex, Promise) {
         return knex.schema.table('user_doctor', function(table) {
             table.foreign('id_user').references('id_user').inTable('users')
             table.foreign('id_doctor').references('id_doctor').inTable('doctors')
+        })
+    })
+    .then( function() {
+        return knex.schema.table('appointments', function(table) {
+            table.foreign('id_user_doctor').references('id_user_doctor').inTable('user_doctor')
         })
     })
     .catch( function(error) {

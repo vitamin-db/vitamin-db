@@ -6,13 +6,40 @@ const request = require('supertest-as-promised')
 const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
+const Appointment = require(__server + '/models/appointment')
 
 
-xdescribe('**************** User-Doctor Model ****************', function() {
+describe('**************** User-Doctor Model ****************', function() {
 
 
   beforeEach(function() {
     return db.deleteEverything()
+  })
+
+
+  it('returns the id_user_doctor based on a username and id_doctor', function() {
+
+    var newTestUser = new TH.UserAttributes('patricia', 'bobpass123', 'bob@alice.com', '123-789-3456')
+    var newTestDoctor = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '5869348594', 'primary')
+    var id_doc = undefined
+    var createdUserDoctor = undefined
+
+    return TH.createUserReturnId(newTestUser)
+      .then(function(id) {
+        return UserDoctor.createDoctor(newTestDoctor, id, 'new primary', false)
+      })
+      .then(function(doctor) {
+        id_doc = doctor.id_doctor
+        return UserDoctor.getAll()
+      })
+      .then(function(all) {
+        createdUserDoctor = all[0]
+        return UserDoctor.findId(newTestUser.username, id_doc)
+      })
+      .then(function(id) {
+        expect(id).to.equal(createdUserDoctor.id_user_doctor)
+      })
+
   })
 
   it('retrieves all doctors associated with a particular user', function () {
@@ -146,6 +173,117 @@ xdescribe('**************** User-Doctor Model ****************', function() {
                                       type_usermade: 'super primary', current: false})).to.be.true
         expect(TH.propsMatch(all[1], {id_user: manual_id_user3, id_doctor: manual_id_doctor6, 
                                       type_usermade: 'a primary', current: true})).to.be.true
+      })
+
+  })
+
+  it('deletes all appointments associated with a userdoctor', function() {
+
+    var newTestUser = new TH.UserAttributes('patricia', 'bobpass123', 'bob@alice.com', '123-789-3456')
+    var newTestDoctor = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '5869348594', 'primary')
+    var id_doc = undefined
+    var appt1 = undefined
+    var appt2 = undefined
+
+    return TH.createUserReturnId(newTestUser)
+      .then(function(id) {
+        return UserDoctor.createDoctor(newTestDoctor, id, 'new primary', false)
+      })
+      .then(function(doctor) {
+        id_doc = doctor.id_doctor
+        return UserDoctor.getAll()
+      })
+      .then( function(all) {
+        expect(all).to.be.an('array')
+        expect(all).to.have.length(1)
+        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '08/01/2016', time: '9am'}, 'blah3')
+      })
+      .then(function(appt) {
+        appt1 = appt
+        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '06/01/2016', time: '10am'}, 'blah4')
+      })
+      .then(function(appt) {
+        appt2 = appt
+        expect(appt1.id_user_doctor).to.equal(appt2.id_user_doctor)
+
+        return Appointment.findByUsernameAndDocId(newTestUser.username, id_doc)
+      })
+      .then(function(allAppts) {
+        expect(allAppts).to.be.an('array')
+        expect(allAppts).to.have.length(2)
+        return UserDoctor.deleteUserDoctor(appt1.id_user_doctor)
+      })
+      .then(function() {
+        return UserDoctor.getAll()
+      })
+      .then(function(allUserDocs) {
+        expect(allUserDocs).to.have.length(0)
+        return Appointment.getAll()
+      })
+      .then(function(appts) {
+        expect(appts).to.have.length(0)
+      })
+
+  })
+
+  it('deletes all userdoctors and appointments associated with a doctor', function() {
+
+    var newTestUser = new TH.UserAttributes('patricia', 'bobpass123', 'bob@alice.com', '123-789-3456')
+    var newTestDoctor = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.com', 'docsmith.com', '5869348594', 'primary')
+    var id_doc = undefined
+    var appt1 = undefined
+    var appt2 = undefined
+
+    return TH.createUserReturnId(newTestUser)
+      .then(function(id) {
+        return UserDoctor.createDoctor(newTestDoctor, id, 'new primary', false)
+      })
+      .then(function(doctor) {
+        id_doc = doctor.id_doctor
+        return Doctor.getAll()
+      })
+      .then(function(allDocs) {
+        expect(allDocs).to.be.an('array')
+        expect(allDocs).to.have.length(1)
+
+        id_doc = allDocs[0].id_doctor
+
+        return UserDoctor.getAll()
+      })
+      .then( function(allUserDocs) {
+        expect(allUserDocs).to.be.an('array')
+        expect(allUserDocs).to.have.length(1)
+        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '08/01/2016', time: '9am'})
+      })
+      .then(function(appt) {
+        appt1 = appt
+        return Appointment.createAndReturn(newTestUser.username, id_doc, {date: '06/01/2016', time: '10am'})
+      })
+      .then(function(appt) {
+        appt2 = appt
+        expect(appt1.id_user_doctor).to.equal(appt2.id_user_doctor)
+
+        return Appointment.findByUsernameAndDocId(newTestUser.username, id_doc)
+      })
+      .then(function(allAppts) {
+        expect(allAppts).to.be.an('array')
+        expect(allAppts).to.have.length(2)
+        return UserDoctor.deleteDoctor(id_doc)
+      })
+      .then(function() {
+        return Doctor.getAll()
+      })
+      .then(function(allDocs) {
+        expect(allDocs).to.have.length(0)
+
+        return UserDoctor.getAll()
+      })
+      .then(function(allUserDocs) {
+        expect(allUserDocs).to.have.length(0)
+        return Appointment.getAll()
+      })
+      .then(function(appts) {
+        expect(appts).to.have.length(0)
       })
 
   })

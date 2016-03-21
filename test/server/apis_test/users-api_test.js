@@ -10,7 +10,7 @@ const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
 const EyeRx = require(__server + '/models/eyerx')
 
-xdescribe("GET /user", function() {
+describe("GET /user", function() {
 
 	//set up app
 	var app = TH.createApp()

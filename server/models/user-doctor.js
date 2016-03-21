@@ -1,9 +1,11 @@
 const db = require('../db')
 const Model = require('./model-helper')
+const Promise = require('bluebird')
 
-const UserDoctor = new Model('user_doctor', ['id_user_doctor', 'id_user', 'id_doctor', 'type_usermade', 'current'])
 const User = require('./user')
 const Doctor = require('./doctor')
+
+const UserDoctor = new Model('user_doctor', ['id_user_doctor', 'id_user', 'id_doctor', 'type_usermade', 'current'])
 
 module.exports = UserDoctor
 
@@ -127,4 +129,50 @@ UserDoctor.createDoctor = function(docAttrs, id_user, type_usermade, current) {
       return newDoctor
     })
 }
+
+/* FIND ID
+  Given a username and a doctor id, returns the corresponding id_user_doctor
+*/
+UserDoctor.findId = function(username, id_doctor) {
+  return User.findByUsername(username)
+    .then(function(user) {
+      return db('user_doctor').select('*').where({id_user: user.id_user, id_doctor: id_doctor}) || user
+      //returns undefined if no matches
+    })
+    .then(function(arr) {
+      return arr.length > 0 ? arr[0].id_user_doctor : undefined
+    })
+}
+
+
+/* DELETE USER DOCTOR
+  Deletes all the userdoctor and any linked appointments
+*/
+UserDoctor.deleteUserDoctor = function(id_user_doctor) {
+
+  return db('appointments').where({id_user_doctor: id_user_doctor}).del()
+    .then(function() {
+      return UserDoctor.deleteById(id_user_doctor)
+    })
+
+}
+
+/* DELETE DOCTOR
+  Deletes the doctor and all associated userdoctors and appointments
+*/
+UserDoctor.deleteDoctor = function(id_doctor) {
+  return UserDoctor.findByAttribute('id_doctor', id_doctor)
+    .then(function(userdocs) {
+      return Promise.all(
+        userdocs.map(userdoc => UserDoctor.deleteUserDoctor(userdoc.id_user_doctor))
+      )
+    })
+    .then( function() {
+      return Doctor.deleteById(id_doctor)
+    })
+}
+
+
+
+
 

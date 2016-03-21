@@ -4,6 +4,7 @@ const Model = require('./model-helper')
 const Doctor = new Model('doctors', ['id_doctor', 'name', 'street_address', 'city', 'state_abbrev', 'zip', 'email', 'web', 'phone', 'type'])
 module.exports = Doctor
 
+
 // METHODS DEFINED IN MODEL-HELPER
 
 /* 
@@ -79,4 +80,9 @@ Doctor.deleteById = function(id)
                   }
     returns undefined if there is no user with username 'bob'
 */
+
+
+
+
+
 
