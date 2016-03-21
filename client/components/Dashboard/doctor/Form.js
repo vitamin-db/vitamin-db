@@ -6,6 +6,7 @@ const Button = require('react-bootstrap').Button;
 const AddForm = ({addDoc, searchDoc, docApiList}) => {
   return (
    <div>
+    <h1>Search your doctor:</h1>
 	   <form onSubmit={searchDoc} className="form-horizontal">
 		    <Input name="firstname" type="text" label="First Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10" placeholder="First Name" />
 		    <Input name="lastname" type="text" label="Last Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10" placeholder="Last Name" />

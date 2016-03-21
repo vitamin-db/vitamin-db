@@ -363,6 +363,10 @@ h6.card-headline {
     padding: 40px 25px;
 }
 
+.modal-content h1 {
+    padding-top:25px;
+}
+
 /*
 ==============
 Patient
