@@ -31,7 +31,7 @@ const EyePanel = ({removeEye, addEye, eyerx}) => {
 	  		<tbody key={val.id_eyerx} >
 
 	  			<tr>
-	  				<td>Right(OD)</td>
+	  				<td>Right (OD):</td>
 	  				<td>{val.sphere_right}</td>
 	  				<td>{val.cylinder_right}</td>
 	  				<td>{val.axis_right}</td>
@@ -43,7 +43,7 @@ const EyePanel = ({removeEye, addEye, eyerx}) => {
 	  			</tr>
 
 	  			<tr>
-	  				<td>Left(OS)</td>
+	  				<td>Left (OS):</td>
 	  				<td>{val.sphere_left}</td>
 	  				<td>{val.cylinder_left}</td>
 	  				<td>{val.axis_left}</td>

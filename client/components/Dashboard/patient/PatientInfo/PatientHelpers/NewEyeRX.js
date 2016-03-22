@@ -39,20 +39,35 @@ getInitialState() {
           onHide={this.hideModal}
           dialogClassName="custom-modal">
 
-		<form onSubmit={this.props.addEye} >
-			<h3>Right(OD)</h3>
-			<input name="sphere_right" placeholder="Sphere" required />
-			<input name="cylinder_right" placeholder="Cylinder" required />
-			<input name="axis_right" placeholder="Axis" required />
-			<input name="add_right" placeholder="Add" required />
-			<h3>Left(OS)</h3>
-			<input name="sphere_left" placeholder="Sphere" required />
-			<input name="cylinder_left" placeholder="Cylinder" required />
-			<input name="axis_left" placeholder="Axis" required />
-			<input name="add_left" placeholder="Add" required />
-			<br/>
-			<button type="submit">Add Info</button>
-		</form>
+        <div className="card-full-text">
+        <h1>Add an eye prescription:</h1>
+
+      		<form onSubmit={this.props.addEye}>
+      			<h3>Right (OD):</h3>
+            <Col xs={12} md={6}>
+        			<Input name="sphere_right" type="text" label="Sphere (right):" placeholder="Sphere" required />
+        			<Input name="cylinder_right" type="text" label="Cylinder (right):" placeholder="Cylinder" required />
+            </Col>
+            <Col xs={12} md={6}>
+        			<Input name="axis_right" type="text" label="Axis (right):" placeholder="Axis" required />
+        			<Input name="add_right" type="text" label="Add (right):" placeholder="Add" required />
+            </Col>
+
+
+      			<h3>Left (OS):</h3>
+            <Col xs={12} md={6}>
+        			<Input name="sphere_left" type="text" label="Sphere (left):" placeholder="Sphere" required />
+        			<Input name="cylinder_left" type="text" label="Cylinder (left):" placeholder="Cylinder" required />
+      			</Col>
+            <Col xs={12} md={6}>
+              <Input name="axis_left" type="text" label="Axis (left):" placeholder="Axis" required />
+        			<Input name="add_left" type="text" label="Add (left):" placeholder="Add" required />
+            </Col>
+      			<br/>
+      			<Button type="submit" bsStyle="primary" bsSize="large" block>Add new eye prescription</Button>
+      		</form>
+
+        </div>
 
         </Modal>
 
