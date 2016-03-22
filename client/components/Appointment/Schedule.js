@@ -27,7 +27,36 @@ const TableFooter = require('material-ui/lib/table/table-footer');
 const TextField = require('material-ui/lib/text-field');
 const Toggle = require('material-ui/lib/toggle');
 
-const Schedule = ({immunization}) => (
+const Schedule = ({appointment, immunization}) => (
+ <div>
+  <Table>
+    <TableHeader>
+      <TableRow>
+        <TableHeaderColumn>#</TableHeaderColumn>
+        <TableHeaderColumn>Appointment</TableHeaderColumn>
+        <TableHeaderColumn>Clinic</TableHeaderColumn>
+        <TableHeaderColumn>Next</TableHeaderColumn>
+        <TableHeaderColumn>Status</TableHeaderColumn>
+      </TableRow>
+    </TableHeader> 
+
+    <TableBody>
+
+ 	{appointment.map((val, count) =>
+      <TableRow key={count++}>
+        <TableRowColumn> {count++} </TableRowColumn>
+        <TableRowColumn> {val.text} </TableRowColumn>
+        <TableRowColumn> {val.organization.name} </TableRowColumn>
+        <TableRowColumn> {val.date} </TableRowColumn>
+        <TableRowColumn> Current </TableRowColumn>
+      </TableRow>
+       )}
+
+    </TableBody>
+  </Table>
+
+  <br/>
+
   <Table>
     <TableHeader>
       <TableRow>
@@ -39,38 +68,25 @@ const Schedule = ({immunization}) => (
       </TableRow>
     </TableHeader>
 
-    {immunization.map((val, count) => 
+   
 
-    <TableBody key={val.id}>
-
-      <TableRow>
-        <TableRowColumn> {count++} </TableRowColumn>
+    <TableBody>
+{immunization.map((val, count) => 
+      <TableRow key={count++}>
+        <TableRowColumn> {count++}</TableRowColumn>
         <TableRowColumn> {val.name} </TableRowColumn>
         <TableRowColumn> {val.organization.name} </TableRowColumn>
         <TableRowColumn> {val.dates[0]} </TableRowColumn>
         <TableRowColumn> Current </TableRowColumn>
       </TableRow>
-
-      <TableRow>
-        <TableRowColumn>{count++}</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>{count++}</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>{count++}</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-      </TableRow>
+        )}
 
     </TableBody>
-       )}
+
 
   </Table>
+
+  </div>
 );
 
 module.exports = Schedule;
