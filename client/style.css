@@ -374,7 +374,14 @@ h6.card-headline {
 }
 
 .card-full-text {
-    padding:20px;
+    padding: 10px 20px 20px 20px
+}
+
+.card-full-text>h1{
+    text-align:left;
+}
+
+.card-full-text>p{
     text-align:left;
 }
 
