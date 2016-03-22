@@ -9,7 +9,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 const Appointment = require(__server + '/models/appointment')
 
 
-describe('**************** User-Doctor Model ****************', function() {
+xdescribe('**************** User-Doctor Model ****************', function() {
 
 
   beforeEach(function() {

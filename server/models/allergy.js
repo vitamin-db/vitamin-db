@@ -16,6 +16,7 @@ Allergy.getAllByUser = function(id_user) {
 Allergy.createAllergyReturnObj = function(allergyAttrs) {
   return Allergy.create(allergyAttrs)
     .then(function(attrs) {
+      console.log('should have created allergy with ', attrs)
       return db.select('*').from('allergies').where(attrs)
     })
     .then(function(allMatching) {

@@ -43,21 +43,18 @@ FamilyHistory.getMostRecentByFamilyMember = function(id_familymember) {
     })
 }
 
-FamilyHistory.transformFamilyList = function(familyList) {
+FamilyHistory.transformFamilyList = function(familyMembers) {
 
   var transformed = []
 
-  return FamilyMember.getAllByUser(id_user)
-    .then( function(familyMembers) {
-      return Promise.all( familyMembers.map( function(fam) {
-        return FamilyHistory.getAllByFamilyMember(fam.id_familymember)
-          .then( function(history) {
-            var famMem = {id_familymember: fam.id_familymember}
-            famMem.history = history
-            transformed.push(famMem)
-          })
-      }))
-    })
+  return Promise.all( familyMembers.map( function(fam) {
+    return FamilyHistory.getAllByFamilyMember(fam.id_familymember)
+      .then( function(history) {
+        var famMem = {id_familymember: fam.id_familymember}
+        famMem.history = history
+        transformed.push(famMem)
+      })
+  }))
     .then( function() {
       return transformed
     })

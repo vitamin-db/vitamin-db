@@ -8,7 +8,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 
 
 
-describe('**************** Doctor Model ****************', function() {
+xdescribe('**************** Doctor Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
