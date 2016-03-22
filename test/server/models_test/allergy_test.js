@@ -10,7 +10,7 @@ const Allergy = require(__server + '/models/allergy')
 const User = require(__server + '/models/user')
 
 
-describe('**************** Allergy Model ****************', function() {
+xdescribe('**************** Allergy Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
@@ -28,6 +28,11 @@ describe('**************** Allergy Model ****************', function() {
       })
       .then ( function(result) {
         expect( TH.propsMatch(result, newAllergy1) ).to.be.true
+        return Allergy.getAll()
+      })
+      .then(function(allAllergies) {
+        expect(allAllergies).to.be.an('array')
+        expect(allAllergies).to.have.length(1)
       })
   })
 

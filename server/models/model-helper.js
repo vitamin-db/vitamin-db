@@ -40,7 +40,7 @@ module.exports = function(tableName, allAttrs) {
 	this.create = function(newItemAttrs) {
 		return db(this.table).insert(newItemAttrs, this.attrsToSet)
 		  .then( this.returnSuccess('successfully created new entry into table ' + this.table) )
-		  .then( function(result) { return result[0] })
+		  .then( function(result) { console.log('result of insert', result); return result[0] })
 		  .catch( this.reportError('error inserting into table ' + this.table) )
 	}.bind(this)
 

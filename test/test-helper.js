@@ -436,6 +436,9 @@ TH.allValidPharmas = function(pharmacyArray) {
 	}, true)
 }
 
+TH.allValidPublicPharmas = function(pharmacyArray) {
+	return TH.allValidPharmas(pharmacyArray)
+}
 
 
 /* 
@@ -463,6 +466,9 @@ TH.allValidInsurance = function(insuranceArray) {
 	}, true)
 }
 
+TH.allValidPublicInsurance = function(insuranceArray) {
+	return TH.allValidInsurance(insuranceArray)
+}
 
 TH.createInsuranceReturnInsurance = function(attrs) {
 
@@ -541,8 +547,6 @@ TH.createFamilyMemberReturnId = function(attrs) {
 //Returns a boolean indicating whether a family history object has the expected properties
 TH.isValidFamilyHistory = function(familyhistory) {
 	var props = ['id_famhist', 'id_familymember', 'condition']
-	console.log('in isValidFamilyHistory')
-	console.log('familyhistory: ', familyhistory, ' props: ', props)
 	return TH.hasRightKeys(familyhistory, props)
 }
 
@@ -552,7 +556,7 @@ TH.isValidPublicFamilyHiistory = function(familyhistory) {
 
 //Returns a boolean indicating whether each family history object in an array has the expected properties
 TH.allValidFamilyHistory = function(familyArray) {
-	return familyArray.reduce( function(bool, current) {
+	return familyArray.length < 1 ? true : familyArray.reduce( function(bool, current) {
 		return bool && TH.isValidFamilyHistory(current)
 	})
 }
@@ -695,6 +699,9 @@ TH.allValidAllergy = function(allergyArray) {
   }, true)
 }
 
+TH.allValidPublicAllergy = function(allergyArray) {
+	return TH.allValidAllergy(allergyArray)
+}
 
 TH.createAllergyReturnAllergy = function(attrs) {
   return Allergy.create(attrs)
