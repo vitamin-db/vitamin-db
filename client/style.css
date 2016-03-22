@@ -85,7 +85,7 @@ buttons
 
 /*
 ========================================
-navigation
+customnavigation
 ========================================
 */
 
@@ -390,7 +390,7 @@ h6.card-headline {
 }
 
 .modal-content h1 {
-    padding-top:20px;
+    padding:20px 0px;
 }
 
 .docApiCard>div {

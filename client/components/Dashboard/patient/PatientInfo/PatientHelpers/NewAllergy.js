@@ -40,7 +40,7 @@ getInitialState() {
           dialogClassName="custom-modal">
 
             <div className="card-full-text">
-              <h2>Add an allergy:</h2>
+              <h1>Add an allergy:</h1>
       
               <form onSubmit={this.props.addAllergy} >
               	<Input name="allergen" type="text" label="Allergy:" placeholder="Allergy"/>
