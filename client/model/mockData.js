@@ -200,7 +200,7 @@ Insurance: [
    { id: '5443d24d0d2a0e0c4b3672e8',
        name: 'Tetanus+Dip ADULT (Td)',
        source: 'emr-1-320',
-       dates: ["2005-09-27T04:00:00.000Z", "1995-01-01T05:00:00.000Z"],
+       dates: ["2005-09-27"],
        patient:  {
          name: "Maxwell Forrest"
       },
