@@ -145,40 +145,6 @@ AuthAPI.post('/signup', function(req, res) {
   	  	}
   	  })
   }
-
-	// return User.existsByUsername(enteredUsername)
-	//   .then( function(exists) {
-	//   	if (exists) {
-	//   		res.json({msg: 'username taken'})
-	//   	} else {
-	//   		var newUserObj = {
-	//   			username: enteredUsername,
-	//   			password: enteredPw,
-	//   			email: enteredEmail,
-	//   			phone: req.body.phone
-	//   		}
-	//   		//this hash the pw
-	//   		return User.createUser(newUserObj)
-	//   	}
-	//   })
-	//   .then( function(user) {
-	//   	if(user) {
-	//   		return Auth.createToken(user.username)
-	//   	}
-	//   })
-	//   .then( function(token) {
-	//   	if(token) {
-	//   		res.json({token: token})
-	//   	}
-	//   })
-	//   .then( function() {
-	// 		transporter.sendMail(mailOptions, function(error, info){
-	// 			if(error){
-	// 			  return console.log(error);
-	// 			}
-	// 			console.log('Message sent: ' + info.response);
-	// 		});
-	//   })
 })
 
 

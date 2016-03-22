@@ -19,7 +19,7 @@ const Pharmacy = require(__server + '/models/pharmacy')
 const Rx = require(__server + '/models/rx')
 
 
-xdescribe('user API', function() {
+describe('user API', function() {
 
 	describe("GET /user", function() {
 
