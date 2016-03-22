@@ -50,10 +50,9 @@ function ClearDocApi () {
 };
 
 function SetMyInfo (info) {
-	console.log("setmyinfo info", info)
 	return {
 		type: 'SETMYINFO',
-		list: list
+		list: info
 	};
 };
 
