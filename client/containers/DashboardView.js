@@ -27,7 +27,7 @@ const Home = ({states, dispatches}) => {
       <DoctorGrid removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} 
           docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
         docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} />
-      <PatientGrid removeEye={dispatches.removeEye} addEye={dispatches.addEye} 
+      <PatientGrid addAllergy={dispatches.addAllergy} removeEye={dispatches.removeEye} addEye={dispatches.addEye} 
           allergies={states.allergies} eyerx={states.eyerx} family={states.family} 
           insurance={states.insurance} pharmacy={states.pharmacy} familyhistory={states.familyhistory} 
         rx={states.rx} />
@@ -101,6 +101,16 @@ const mapDispatchToProps = (dispatch) => {
       },
       removeEye: (id) => {
         dispatch(eyeAction.RemoveEyeRx(id))
+      },
+      addAllergy: (e) => {
+        e.preventDefault();
+        var body = {
+          properties: {
+            allergen: e.target.allergen.value,
+            current: e.target.currently.checked
+          }
+        };
+        console.log("add allergy body", body)
       }
     }
   };

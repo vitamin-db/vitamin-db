@@ -14,7 +14,7 @@ const DeleteButton = require('../../common/DeleteButton');
 // )
 // const FormUI = require('../../common/FormUI');
 
-const AllergiesPanel = ({allergies}) => {
+const AllergiesPanel = ({addAllergy, allergies}) => {
 
 	return (
 		<Col xs={12} md={4}>
@@ -31,7 +31,7 @@ const AllergiesPanel = ({allergies}) => {
 				</ListGroupItem>
 			)}
 	 		</ListGroup>}
-		 	<AddButton />
+		 	<AddButton addAllergy={addAllergy} />
   	 	</Panel>
   	 	</Col>
 	)
