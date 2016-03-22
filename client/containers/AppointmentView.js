@@ -9,7 +9,6 @@ const mock        = require('../model/mockData');
 const Appointment = ({immunization, appointment}) => {
   return (
     <div>
-      <h1>Appointment's view</h1>
       <Schedule immunization={immunization} appointment={appointment}/>
     </div>
   );
