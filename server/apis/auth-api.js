@@ -1,81 +1,91 @@
 //handles routes that start with /authenticate
 const User = require('../models/user')
 const Auth = require('../models/auth')
+const SendR = require('../sendresponse')
 const nodemailer = require('nodemailer');
 
 const AuthAPI = require('express').Router();
-
-
 module.exports = AuthAPI
 
 
-/* Login route - NOTE THAT THIS ONLY COMPARES AGAINST PLAINTEXT PASSWORDS SINCE THAT'S HOW WE'RE SEEDING
+/* Login route 
+If username or password not entred:
+ - returns 400
+ - returns an error message: "Please enter a [username/password]"
 Checks if username exists in db
   If yes, checks if password matches stored password for that username
     If password is right:
-      Generates and sends an API token
-    Otherwise: 
-      Sends error message - 'Invalid username and password combo'
-  If not, sends back error message - 'Please create an account'
-
-TO DO:
- - check against hashed passwords
- - make responses more what client will expect
+      - sends 200
+      - generates and sends an API token (stored in the response object under key 'token')
+    If password is wrong:
+      - Sends 400
+      - Sends error message: 'Invalid username and password combination'
+  If no account is associated with that username:
+    -sends back 400
+    -sends back msg: 'No account associated with that username'
 */
 AuthAPI.post('/login', function(req, res) {
-	console.log('req body', req.body)
+	// console.log('req body', req.body)
 	var enteredUsername = req.body.username
 	var enteredPw = req.body.password
 
-	return User.existsByUsername(enteredUsername)
-	  .then( function(exists) {
-	  	console.log('exists? ', exists)
-	  	if (!exists) {
-	  		res.json({msg: 'Please create an account'})
-	  	} else {
-	  		return User.validPassword(enteredUsername, enteredPw)
-	  	}
-	  })
-	  .then( function(valid) {
-	  	if (valid === undefined) {
-	  		console.log('nope, not valid')
-	  		return;
-	  	}
-	  	else if (!valid) {
-	  		res.json({msg: 'Invalid username and password combo'})
-	  	} else {
-	  		return Auth.createToken(enteredUsername)
-	    }
-	  })
-	  .then( function(token) {
-	  	if (token) {
-	  		res.json({token: token})
-	  		console.log('token in final send: ', token)
-	  	} else {
-	  		console.log('no token')
-	  	}
-	  })
+	if (!enteredUsername) {
+		SendR.errMsg(res, 400, "Please enter a username")
+	} else if (!enteredPw) {
+		SendR.errMsg(res, 400, "Please enter a password")
+	} else {
+		return User.existsByUsername(enteredUsername)
+		  .then( function(exists) {
+		  	if (!exists) {
+		  		throw new Error('No account associated with that username')
+		  	}
+		  })
+		  .then( function() {
+		  	return User.validPassword(enteredUsername, enteredPw)
+		  })
+		  .then( function(valid) {
+		  	if (!valid) {
+		  		throw new Error('Invalid username and password combination')
+		  	}
+		  })
+		  .then( function() {
+		  	return Auth.createToken(enteredUsername)
+		  })
+		  .then( function(token) {
+		  	SendR.resData(res, 200, {token: token})
+		  })
+		  .catch( function(err) {
+		  	if (err.message === 'No account associated with that username' || err.message === 'Invalid username and password combination') {
+		  		SendR.error(res, 400, err.message, err)
+		  	} else {
+		  		SendR.error(res, 500, 'Server error logging in', err)
+		  	}
+		  })
+	}
 })
 
 
 /* Signup route -
-Checks to see if username is taken
-  If yes:
-    Sends back error message 'username taken'
-  If no:
-    Adds user to db
-    Creates and sends back token
+If a field is empty:
+ - returns 400
+ - Returns an error message: 'Please complete all fields'
+If username is taken:
+ - Returns 400
+ - Returns an error message: 'Username ___ is taken'
+Otherwise:
+ - Adds the user to the database
+ - Returns 201
+ - Sends a token as property 'token'
 TO DO:
- - refactor to store hashed passwords
  - make responses more what client will expect
  - refactor to streamline mail handling
 */
 AuthAPI.post('/signup', function(req, res) {
-	console.log('req body', req.body)
 
 	var enteredUsername = req.body.username
 	var enteredPw = req.body.password
 	var enteredEmail = req.body.email
+	var enteredPhone = req.body.phone
 	console.log('enteredUsername: ', enteredUsername, 'enteredPw: ', enteredPw, 'enteredEmail: ', enteredEmail);
 
 	var transporter = nodemailer.createTransport({
@@ -93,39 +103,48 @@ AuthAPI.post('/signup', function(req, res) {
     html: '<table style="border: 1px solid #ccc;" width="600" cellpadding="10" cellspacing="0" align="center"><tr><td width="600"><h1 style="color:#16a085; font-weight:bold; text-align:center;">Welcome to Vitamin DB!</h1><p>Your username is <strong>' + enteredUsername + '</strong>, and your password is <strong>' + enteredPw + '</strong>.</p><br /><p>Happy trails!</p><p>The Vitamin DB team</p></td></tr></table>'
   };
 
-	return User.existsByUsername(enteredUsername)
-	  .then( function(exists) {
-	  	if (exists) {
-	  		res.json({msg: 'username taken'})
-	  	} else {
-	  		var newUserObj = {
-	  			username: enteredUsername,
-	  			password: enteredPw,
-	  			email: enteredEmail,
-	  			phone: req.body.phone
-	  		}
-	  		//this hash the pw
-	  		return User.createUser(newUserObj)
-	  	}
-	  })
-	  .then( function(user) {
-	  	if(user) {
-	  		return Auth.createToken(user.username)
-	  	}
-	  })
-	  .then( function(token) {
-	  	if(token) {
-	  		res.json({token: token})
-	  	}
-	  })
+  if (!enteredUsername || !enteredPw || !enteredEmail || !enteredPhone) {
+  	SendR.errMsg(res, 400, 'Please complete all fields')
+  } else {
+  	return User.existsByUsername(enteredUsername)
+  	  .then( function(exists) {
+  	  	if (exists) {
+  	  		throw new Error('taken')
+  	  	}
+  	  })
+  	  .then( function() {
+
+  	  	var newUserObj = {
+  	  		username: enteredUsername,
+  	  		password: enteredPw,
+  	  		email: enteredEmail,
+  	  		phone: enteredPhone
+  	  	}
+
+  	  	return User.createUser(newUserObj)
+  	  })
+  	  .then( function(user) {
+  	  	return Auth.createToken(user.username)
+  	  })
+  	  .then(function(token) {
+  	  	SendR.resData(res, 201, {token: token})
+  	  })
 	  .then( function() {
-			transporter.sendMail(mailOptions, function(error, info){
-				if(error){
-				  return console.log(error);
-				}
-				console.log('Message sent: ' + info.response);
-			});
+  		transporter.sendMail(mailOptions, function(error, info){
+  			if(error){
+  			  return console.log(error);
+  			}
+  			console.log('Message sent: ' + info.response);
+  		});
 	  })
+  	  .catch( function(err) {
+  	  	if (err.message === 'taken') {
+  	  		SendR.error(res, 400, 'Username ' + enteredUsername + ' is taken', err)
+  	  	} else {
+  	  		SendR.error(res, 500, 'Server error signing up', err)
+  	  	}
+  	  })
+  }
 })
 
 

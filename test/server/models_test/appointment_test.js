@@ -5,7 +5,6 @@ const request = require('supertest-as-promised')
 
 const TH = require(__test + '/test-helper')
 
-// ALLERGY MODEL NOT WRITTEN YET
 const Appointment = require(__server + '/models/appointment')
 const UserDoctor = require((__server + '/models/user-doctor'))
 const User = require(__server + '/models/user')
