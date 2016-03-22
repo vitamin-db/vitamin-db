@@ -52,7 +52,7 @@ function ClearDocApi () {
 function SetMyInfo (info) {
 	return {
 		type: 'SETMYINFO',
-		info: info
+		list: info
 	};
 };
 

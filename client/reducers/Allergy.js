@@ -3,8 +3,8 @@ const Allergy = (state, action) => {
     return state = [];
   }
   switch(action.type){
-  	case 'GETALLERGY':
-  		return action.list;
+  	case 'SETMYINFO':
+  		return action.list.allergies;
   	case 'ADDALLERGY':
   		var newAllergy = [...state];
   		newAllergy.push(action.allergy);
@@ -12,7 +12,6 @@ const Allergy = (state, action) => {
   	case 'REMOVEALLERGY':
       var newRemove = [...state];
       for(var i=0; i<newRemove.length; i++){
-        console.log("remove@@@", newRemove[i].id_allergy, "/", action.id)
         if(newRemove[i].id_allergy === action.id){
           newRemove.splice(i,1);
         }

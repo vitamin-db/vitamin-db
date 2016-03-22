@@ -26,6 +26,7 @@ const JoogleMaps = (props) => {
             console.log("GOOGLE MARKER:", marker)
               return (
                 <Marker
+                  key={marker.position.lat}
                   {...marker}
             />
             );

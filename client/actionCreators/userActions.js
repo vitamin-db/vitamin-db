@@ -48,7 +48,6 @@ function SignIn (body) {
     })
     .then(() => {
         dispatch(GetMyInfo());
-        dispatch(allergyAction.GetAllergy())
     })
     .then(() => {
       if(getCookie("token")){
