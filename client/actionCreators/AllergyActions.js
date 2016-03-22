@@ -44,7 +44,11 @@ function AddAllergy (allergy) {
 			body: JSON.stringify(allergy)
 		})
 		.then((response) => {
-			console.log("add allergy res", response);
+			return response.json();
+		})
+		.then((data) => {
+			console.log("add allergy res", data);
+			dispatch(stateAction.AddAllergy(data));
 		})
 		.catch((err) => {
 			console.error("add allergy err", err);
@@ -54,17 +58,17 @@ function AddAllergy (allergy) {
 
 function RemoveAllergy (id) {
 	return (dispatch) => {
-		return fetch('/allergy', {
+		return fetch('/allergy/' + id, {
 			method: 'delete',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
 				'x-access-token': getCookie("token")
-			},
-			body: id
+			}
 		})
 		.then((response) => {
 			console.log("add allergy res", response);
+			dispatch(stateAction.RemoveAllergy())
 		})
 		.catch((err) => {
 			console.error("add allergy err", err);

@@ -19,7 +19,6 @@ const SchedulePicker = () => (
     <DatePicker hintText="Schedule Next Appointment" />
 
       <TimePicker
-          ref="picker24hr"
           format="24hr"
           hintText="24hr Format"
         />

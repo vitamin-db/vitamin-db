@@ -77,6 +77,20 @@ function GetAllergy (list) {
 	};
 };
 
+function AddAllergy (allergy) {
+	return {
+		type: 'ADDALLERGY',
+		allergy: allergy
+	};
+};
+
+function RemoveAllergy (id) {
+	return {
+		type: 'REMOVEALLERGY',
+		id: id
+	};
+};
+
 module.exports = {
 	SignInSuccess,
 	SignInFail,
@@ -88,5 +102,7 @@ module.exports = {
 	RemoveDoc,
 	RemoveEye,
 	AddEye,
-	GetAllergy
+	GetAllergy,
+	AddAllergy,
+	RemoveAllergy
 };

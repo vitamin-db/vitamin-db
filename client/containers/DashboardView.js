@@ -6,6 +6,7 @@ const browserHistory     = require('react-router').browserHistory;
 const bindActionCreators = require('redux').bindActionCreators;
 
 // components
+const allergyAction      = require('../actionCreators/allergyActions');
 const doctorAction       = require('../actionCreators/doctorActions');
 const stateAction        = require('../actionCreators/stateActions');
 const eyeAction          = require('../actionCreators/eyeActions');
@@ -27,7 +28,8 @@ const Home = ({states, dispatches}) => {
       <DoctorGrid removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} 
           docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
         docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} />
-      <PatientGrid removeEye={dispatches.removeEye} addEye={dispatches.addEye} 
+      <PatientGrid removeAllergy={dispatches.removeAllergy} addAllergy={dispatches.addAllergy} 
+          removeEye={dispatches.removeEye} addEye={dispatches.addEye} 
           allergies={states.allergies} eyerx={states.eyerx} family={states.family} 
           insurance={states.insurance} pharmacy={states.pharmacy} familyhistory={states.familyhistory} 
         rx={states.rx} />
@@ -101,6 +103,19 @@ const mapDispatchToProps = (dispatch) => {
       },
       removeEye: (id) => {
         dispatch(eyeAction.RemoveEyeRx(id))
+      },
+      addAllergy: (e) => {
+        e.preventDefault();
+        var body = {
+          properties: {
+            allergen: e.target.allergen.value,
+            current: e.target.currently.checked
+          }
+        };
+        dispatch(allergyAction.AddAllergy(body));
+      },
+      removeAllergy: (id) => {
+        dispatch(allergyAction.RemoveAllergy(id))
       }
     }
   };
