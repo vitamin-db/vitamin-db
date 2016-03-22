@@ -61,6 +61,16 @@ buttons
     padding:10px !important;
 }
 
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.btn-primary.dropdown-toggle.focus, .open>.btn-primary.dropdown-toggle:focus, .open>.btn-primary.dropdown-toggle:hover {
+    background-color: #1abc9c;
+    color:#fff;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+    background-color: #1abc9c;
+    color:#fff;
+}
+
 .btn-group {
     right: 0;
     bottom: 5px;
@@ -339,8 +349,13 @@ h6.card-headline {
 }
 
 .docApiCard {
-    border: 3px solid black;
+    border-top: 1px solid #ccc;
     border-radius: 2px;
+    min-height:260px;
+}
+
+.docApiCard>div>p {
+    text-align:left;
 }
 
 /*.card-type {
@@ -357,6 +372,25 @@ h6.card-headline {
 .JoogleMaps {
     height: 200px;
     width: 250px;
+}
+
+.form-horizontal {
+    padding: 40px 25px;
+}
+
+.modal-content h1 {
+    padding-top:25px;
+}
+
+.docApiCard>div {
+    background-color: #fff;
+    padding-top:15px;
+    height:100%;
+    text-align:center;
+}
+
+.docApiCard>div>p {
+    text-align:left;
 }
 
 /*
