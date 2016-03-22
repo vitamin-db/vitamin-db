@@ -44,7 +44,11 @@ function AddAllergy (allergy) {
 			body: JSON.stringify(allergy)
 		})
 		.then((response) => {
-			console.log("add allergy res", response);
+			return response.json();
+		})
+		.then((data) => {
+			console.log("add allergy res", data);
+			dispatch(stateAction.AddAllergy(data));
 		})
 		.catch((err) => {
 			console.error("add allergy err", err);

@@ -14,19 +14,19 @@ const DeleteButton = require('../../common/DeleteButton');
 // )
 // const FormUI = require('../../common/FormUI');
 
-const AllergiesPanel = ({addAllergy, allergies}) => {
+const AllergiesPanel = ({removeAllergy, addAllergy, allergies}) => {
 
 	return (
 		<Col xs={12} md={4}>
 		<Panel collapsible header='Allergies'>
 	 		{allergies[0] && <ListGroup fill>
 	 		{allergies.map((val, count) => 
-				<ListGroupItem key={val.allergen} className="allergies-item card-text">
+				<ListGroupItem key={val.id_allergy} className="allergies-item card-text">
 				   { (count+1) + ': '  + val.allergen + ' - ' + val.current } 
 					
 					<div className="btn-group">
 						<EditButton />
-						<DeleteButton />
+						<Button onClick={removeAllergy.bind(null, val.id_allergy)} className="edit-button" bsSize="xsmall" ><Glyphicon glyph="trash" /></Button>
 					</div>
 				</ListGroupItem>
 			)}
