@@ -30,64 +30,64 @@ const TextField = require('material-ui/lib/text-field');
 const Toggle = require('material-ui/lib/toggle');
 
 const Schedule = ({appointment, immunization}) => (
- <Col xs={12} md={10} mdOffset={1}>
-  <Table responsive>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Appointment</th>
-        <th>Clinic</th>
-        <th>Next</th>
-        <th>Status</th>
-      </tr>
-    </thead> 
+  <Col xs={12} md={12} className="scheduleContainer">
+    <Col xs={12} md={10} mdOffset={1} className="scheduleContent">
+    <h1>My Appointments</h1>
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Appointment</th>
+            <th>Clinic</th>
+            <th>Next</th>
+            <th>Status</th>
+          </tr>
+        </thead> 
 
-    <tbody>
+        <tbody>
 
- 	{appointment.map((val, count) =>
-      <tr key={count++}>
-        <td> {count++} </td>
-        <td> {val.text} </td>
-        <td> {val.organization.name} </td>
-        <td> {val.date} </td>
-        <td> Current </td>
-      </tr>
-       )}
+     	{appointment.map((val, count) =>
+          <tr key={count++}>
+            <td> {count++} </td>
+            <td> {val.text} </td>
+            <td> {val.organization.name} </td>
+            <td> {val.date} </td>
+            <td> Current </td>
+          </tr>
+           )}
 
-    </tbody>
-  </Table>
-
-  <br/>
-
-  <Table responsive>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Immunizations</th>
-        <th>Clinic</th>
-        <th>Next</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-
-   
-
-    <tbody>
-{immunization.map((val, count) => 
-      <tr key={count++}>
-        <td> {count++}</td>
-        <td> {val.name} </td>
-        <td> {val.organization.name} </td>
-        <td> {val.dates[0]} </td>
-        <td> Current </td>
-      </tr>
-        )}
-
-    </tbody>
+        </tbody>
+      </Table>
+    </Col>
 
 
-  </Table>
+    <Col xs={12} md={10} mdOffset={1} className="scheduleContent">
+    <h1>My Immunizations</h1>
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Immunizations</th>
+            <th>Clinic</th>
+            <th>Next</th>
+            <th>Status</th>
+          </tr>
+        </thead>
 
+        <tbody>
+    {immunization.map((val, count) => 
+          <tr key={count++}>
+            <td> {count++}</td>
+            <td> {val.name} </td>
+            <td> {val.organization.name} </td>
+            <td> {val.dates[0]} </td>
+            <td> Current </td>
+          </tr>
+            )}
+
+        </tbody>
+      </Table>
+    </Col>
   </Col>
 );
 
