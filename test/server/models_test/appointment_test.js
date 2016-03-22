@@ -10,7 +10,7 @@ const Appointment = require(__server + '/models/appointment')
 const UserDoctor = require((__server + '/models/user-doctor'))
 const User = require(__server + '/models/user')
 
-xdescribe('**************** Appointment Model ****************', function() {
+describe('**************** Appointment Model ****************', function() {
 
   before(function() {
     return db.deleteEverything()

@@ -99,3 +99,79 @@ UserAPI.get('/', function(req, res) {
 	  })
 
 })
+
+
+/* POST
+  Properties to be updated go in req.body.properties
+  If you try to change the username to something that already exists:
+   - it will return a 400 (bad request)
+   - it will return an error with error.msg = 'Username already exists!'
+  Otherwise, will try to run the changes - if successful, it will return:
+   - a 201
+   - teh updated public user data
+*/
+
+UserAPI.put('/', function(req, res) {
+
+	var id = undefined
+
+	var newUsername = req.body.properties.username
+	var newPassword = req.body.properties.password
+
+	var nonPw = {}
+	var haveOthers = false
+	for (var p in req.body.properties) {
+		if (p !== 'password') {
+			haveOthers = true
+			nonPw[p] = req.body.properties[p]
+		}
+	}
+
+	return User.findByUsername(req.decoded.username)
+	  .then(function(user) {
+	  	id = user.id_user
+
+	  	if (newUsername) {
+	  		return User.existsByUsername(newUsername)
+	  		  .then(function(exists) {
+	  		  	if(exists) {
+	  		  		throw new Error('Username already exists!')
+	  		  	}
+	  		  })
+	  	}
+	  })
+	  .catch(function(err) {
+	  	if (err.message === 'Username already exists!') {
+	  		SendR.error(res, 400, err.message, err)
+	  		throw Error(err.message)
+	  	}
+	  	throw Error('server error updating user')
+	  })
+	  .then(function() {
+	  	if (newPassword) {
+	  		return User.changePassword(id, newPassword)
+	  	}
+	  })
+	  .then(function() {
+	  	if (haveOthers) {
+	  		return User.updateById(id, nonPw)
+	  	}
+	  })
+	  .then(function() {
+	  	return User.findById(id)
+	  })
+	  .then(function(user) {
+	  	return User.getPublic(user)
+	  })
+	  .then(function(publicUser) {
+	  	SendR.resData(res, 201, publicUser)
+	  })
+	  .catch(function(err) {
+	  	if (err.message !== 'Username already exists!') {
+	  		SendR.error(res, 500, 'Server error updating user', err)
+	  	}
+	  })
+
+})
+
+

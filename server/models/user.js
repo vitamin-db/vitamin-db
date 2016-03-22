@@ -106,6 +106,20 @@ User.passwordMatches = function(enteredPw, storedHash) {
     })
 }
 
+/*
+  Updates the password
+*/
+User.changePassword = function(id, newPassword) {
+  return bcrypt.genSaltAsync(10)
+    .then( function(salt) {
+      // console.log('got salt', salt)
+      return bcrypt.hashAsync(newPassword, salt, null)
+    })
+    .then( function(hash) {
+      var newPwOb = {password: hash}
+      return User.updateById(id, newPwOb)
+    })
+}
 
 /* eg: User.findByUsername('bob')
   => returns: 

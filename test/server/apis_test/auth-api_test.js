@@ -8,7 +8,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 const TH = require(__test + '/test-helper')
 
 
-xdescribe("POST /authenticate", function() {
+describe("POST /authenticate", function() {
 
   //set up app
   var app = TH.createApp()
@@ -56,7 +56,7 @@ xdescribe("POST /authenticate", function() {
       .then( function(user) {
         return request(app)
           .post('/authenticate/login')
-          .send({ username: user.username, password: user.password })
+          .send({ username: newTestUser.username, password: newTestUser.password })
           .expect(200)
         .then( function(result) {
 
@@ -78,8 +78,8 @@ xdescribe("POST /authenticate", function() {
       .then( function(user) {
         return request(app)
           .post('/authenticate/login')
-          .send({ username: 'JoshLyman', password: user.password })
-          .expect(200)
+          .send({ username: 'JoshLyman', password: 'sup' })
+          .expect(200) //want to refactor to 400
         .then( function(result) {
 
           var loginRes = JSON.parse(result.text)
@@ -105,7 +105,7 @@ xdescribe("POST /authenticate", function() {
         return request(app)
           .post('/authenticate/login')
           .send({ username: 'Josh', password: 'Cregg' })
-          .expect(200)
+          .expect(200) //400
         .then( function(result) {
 
           var loginRes = JSON.parse(result.text)
@@ -149,7 +149,7 @@ xdescribe("POST /authenticate", function() {
         return request(app)
           .post('/authenticate/signup')
           .send({ username: 'Toby', password: 'Ziegler', email: 'leak@wh.com', phone: '934-345-2948' })
-          .expect(200)
+          .expect(200) //400
         .then( function(result) {
 
           var loginRes = JSON.parse(result.text)
