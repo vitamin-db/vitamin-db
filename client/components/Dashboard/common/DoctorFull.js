@@ -36,8 +36,15 @@ getInitialState() {
           onHide={this.hideModal}
           dialogClassName="custom-modal">
             <img src={this.props.glyph} />
-              put doctor full info here
-            <div className="JoogleMaps"><JoogleMaps lon={-97.740520}  lat={30.268884} /></div>
+              <div className="card-full-text">
+                <h2>Name: Doctor Name</h2>
+                <p><strong>Specialty:</strong> Obstetrics & Gynecology<br />
+                <strong>Name:</strong> Jane Doeblin<br />
+                <strong>Phone:</strong> 5852443430<br />
+                <strong>Business:</strong> Women Gynecology & Childbirth Associates, P.c.<br />
+                <strong>Address:</strong> 1815 Clinton Ave S Ste 610 Rochester, NY 14618</p>
+              </div>
+              <div className="JoogleMaps"><JoogleMaps lon={-97.740520}  lat={30.268884} /></div>
         </Modal>
     </div>
     )
