@@ -3,21 +3,22 @@ const connect = require('react-redux').connect;
 
 const UserProfile = require('../components/User/Profile');
 
-const Profile = () => {
+const Profile = ({userInfo, email, phone}) => {
+  console.log("ProfileView: ", userInfo)
   return (
     <div>
-      <h1>User's Profile view</h1>
-      <UserProfile />
+      <UserProfile userInfo={userInfo} email={email} phone={phone}/>
     </div>
   );
 };
 const mapStateToProps = (state) => {
-  console.log("ProfileView state: ", state)
   return {
+    userInfo: state.userinfo.user.username,
+    email: state.userinfo.user.email,
+    phone: state.userinfo.user.phone
   }
 };
 const mapDispatchToProps = (dispatch) => {
-  console.log("ProfileView dispatch: ", dispatch)
   return {
   }
 };
