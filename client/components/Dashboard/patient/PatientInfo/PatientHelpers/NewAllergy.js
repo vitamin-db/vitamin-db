@@ -24,8 +24,8 @@ getInitialState() {
     this.setState({show: false});
   },
   render() {
-  return(
-    <div>
+  	return(
+    	<div>
   
 
           <div className="patient-item">
@@ -39,6 +39,7 @@ getInitialState() {
           onHide={this.hideModal}
           dialogClassName="custom-modal">
 
+          <h1>TEST</h1>
 
         </Modal>
 

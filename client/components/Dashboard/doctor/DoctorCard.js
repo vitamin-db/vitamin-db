@@ -14,10 +14,7 @@ const DocCard = ({ removeDoc, val }) => (
 		 <div className="card">
 
 			<DoctorFull type={val.type} glyph={val.portrait}/>
-			<form onSubmit={removeDoc} >
-				<input type="hidden" name="docId" value={val.id_doctor} />
-				<button type="submit" >Remove</button>
-			</form>
+				<button onClick={removeDoc.bind(null, val.id_doctor)} >Remove</button>
 		     <div className="card-block">
 			     <p className="card-text"><b>Name</b>: {val.name}</p>
 			     <p className="card-text"><b>Address</b>: {val.street_address}</p>

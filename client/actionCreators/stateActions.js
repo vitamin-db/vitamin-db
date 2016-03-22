@@ -56,6 +56,27 @@ function SetMyInfo (info) {
 	};
 };
 
+function RemoveEye (id) {
+	return {
+		type: 'REMOVEEYE',
+		id: id
+	};
+};
+
+function AddEye (eye) {
+	return {
+		type: 'ADDEYE',
+		eyerx: eye
+	};
+};
+
+function GetAllergy (list) {
+	return {
+		type: 'GETALLERGY',
+		list: list
+	};
+};
+
 module.exports = {
 	SignInSuccess,
 	SignInFail,
@@ -64,5 +85,8 @@ module.exports = {
 	SetDocApi,
 	ClearDocApi,
 	SetMyInfo,
-	RemoveDoc
+	RemoveDoc,
+	RemoveEye,
+	AddEye,
+	GetAllergy
 };

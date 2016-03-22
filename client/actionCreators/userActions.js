@@ -1,4 +1,5 @@
 const stateAction    = require('./stateActions');
+const allergyAction  = require('./allergyActions');
 const browserHistory = require('react-router').browserHistory;
 
 // this is just a cookie parser. Put in the string "token" into the argument and it will
@@ -24,10 +25,10 @@ function SignIn (body) {
       },
       body: JSON.stringify(body)
     })
-    .then(function(response) {
+    .then((response) => {
       return response.json();
     })
-    .then(function(token) { // later, ask for user info too, except password, to display on profile page
+    .then((token) => { // later, ask for user info too, except password, to display on profile page
       if(token.token === undefined){ // later, move this logic to the back end. Have it throw an error in the back end, so it will fall to this .catch
         dispatch(stateAction.SignInFail());
         return;
@@ -43,8 +44,11 @@ function SignIn (body) {
         document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         // dispatch action
         dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value
-        dispatch(GetMyInfo());
       }
+    })
+    .then(() => {
+        dispatch(GetMyInfo());
+        dispatch(allergyAction.GetAllergy())
     })
     .then(() => {
       if(getCookie("token")){

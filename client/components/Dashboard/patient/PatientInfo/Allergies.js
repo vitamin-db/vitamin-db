@@ -3,7 +3,7 @@ const Panel = require('react-bootstrap').Panel;
 const ListGroup = require('react-bootstrap').ListGroup;
 const ListGroupItem = require('react-bootstrap').ListGroupItem;
 const Col = require('react-bootstrap').Col;
-const AddButton = require('../../common/AddButton');
+const AddButton = require('./PatientHelpers/NewAllergy');
 const EditButton = require('../../common/EditButton');
 const DeleteButton = require('../../common/DeleteButton');
 // const header = (
@@ -19,7 +19,7 @@ const AllergiesPanel = ({allergies}) => {
 	return (
 		<Col xs={12} md={4}>
 		<Panel collapsible header='Allergies'>
-	 		<ListGroup fill>
+	 		{allergies[0] && <ListGroup fill>
 	 		{allergies.map((val, count) => 
 				<ListGroupItem key={val.allergen} className="allergies-item card-text">
 				   { (count+1) + ': '  + val.allergen + ' - ' + val.current } 
@@ -30,9 +30,8 @@ const AllergiesPanel = ({allergies}) => {
 					</div>
 				</ListGroupItem>
 			)}
-		 		<AddButton />
-				
-	 		</ListGroup>
+	 		</ListGroup>}
+		 	<AddButton />
   	 	</Panel>
   	 	</Col>
 	)
