@@ -369,9 +369,20 @@ h6.card-headline {
     padding-bottom: 50px;
 }
 
-.JoogleMaps {
-    height: 200px;
-    width: 250px;
+.JoogleMaps>div {
+    min-height:300px;
+}
+
+.card-full-text {
+    padding: 10px 20px 20px 20px
+}
+
+.card-full-text>h1{
+    text-align:left;
+}
+
+.card-full-text>p{
+    text-align:left;
 }
 
 .form-horizontal {
