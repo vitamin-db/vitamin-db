@@ -2,7 +2,7 @@ const React = require('react');
 const FormControls = require('react-bootstrap').FormControls.Static;
 
 const UserProfile = ({userInfo, email, phone}) => {
-  console.log("UserProfile: ", {userInfo})
+  console.log("UserProfile: ", userInfo)
   return(
     <form className="form-horizontal">
       <FormControls className="col-xs-10 col-xs-offset-2" value="User's Profile View" />
