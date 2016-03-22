@@ -19,7 +19,7 @@ const Pharmacy = require(__server + '/models/pharmacy')
 const Rx = require(__server + '/models/rx')
 
 
-xdescribe('user API', function() {
+describe('user API', function() {
 
 	//set up app
 	var app = TH.createApp()
@@ -348,6 +348,7 @@ xdescribe('user API', function() {
 			  })
 			  .then(function(token) {
 			  	var props = {password: newUnhashed, username: newusername, email: newEmail}
+			  	
 			  	return request(app)
 			  	  .put('/user')
 			  	  .set('x-access-token', token)
@@ -357,6 +358,9 @@ xdescribe('user API', function() {
 			  	  	var got = JSON.parse(result.text)
 			  	  	expect(got).to.be.an('object')
 			  	  	expect(TH.isValidPublicUser(got)).to.be.true
+			  	  	expect(got.username).to.equal(newusername)
+			  	  	expect(got.email).to.equal(newEmail)
+			  	  	expect(got.phone).to.equal(user1.phone)
 			  	  })
 			  })
 		})
@@ -379,6 +383,15 @@ xdescribe('user API', function() {
 			  	console.log('seed Hamburgesa password to', all[0][password])
 			  	expect(all[0].password === initialHashed).to.be.false
 			  	expect(all[0].password === newUnhashed).to.be.false
+
+			  	return Auth.createToken(user.username)
+			  })
+			  .then(function(token) {
+			  	return request(app)
+			  	  .post('/authenticate/login')
+			  	  .set('x-access-token', token)
+			  	  .send({ username: newusername, password: newUnhashed })
+			  	  .expect(200)
 			  })
 		})
 
