@@ -17,6 +17,9 @@ const SendR = require('./sendresponse')
 const Auth = require('./models/auth')
 const nodemailer = require('nodemailer');
 
+//for twilio to work
+const twilio = require('./twilio/reminder');
+
 //webpack stuff
 // const config = require('../webpack.config.js');
 // const webpack = require('webpack');
