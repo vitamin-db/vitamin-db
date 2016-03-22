@@ -381,6 +381,10 @@ h6.card-headline {
     text-align:left;
 }
 
+.card-full-text>form>h3{
+    padding-top:20px;
+}
+
 .card-full-text>p{
     text-align:left;
 }

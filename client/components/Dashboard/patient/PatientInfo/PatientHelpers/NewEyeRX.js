@@ -42,9 +42,8 @@ getInitialState() {
         <div className="card-full-text">
         <h1>Add an eye prescription:</h1>
 
-      		<form onSubmit={this.props.addEye} >
-          
-      			<h3>Right(OD)</h3>
+      		<form onSubmit={this.props.addEye}>
+      			<h3>Right (OD):</h3>
             <Col xs={12} md={6}>
         			<Input name="sphere_right" type="text" label="Sphere (right):" placeholder="Sphere" required />
         			<Input name="cylinder_right" type="text" label="Cylinder (right):" placeholder="Cylinder" required />
@@ -55,7 +54,7 @@ getInitialState() {
             </Col>
 
 
-      			<h3>Left(OS)</h3>
+      			<h3>Left (OS):</h3>
             <Col xs={12} md={6}>
         			<Input name="sphere_left" type="text" label="Sphere (left):" placeholder="Sphere" required />
         			<Input name="cylinder_left" type="text" label="Cylinder (left):" placeholder="Cylinder" required />
