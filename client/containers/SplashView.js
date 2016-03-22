@@ -10,10 +10,6 @@ const stateAction		= require('../actionCreators/stateActions');
 const browserHistory    = require('react-router').browserHistory;
 
 const Splash = ({onSignIn, goSignup, logged }) => {
-	// if(userAction.getCookie("token")){
-	// 	stateAction.SignInSuccess(userAction.getCookie("token"))
-	// 	userAction.GetMyInfo();
-	// }
 	return (
 		<div>
 			<div>

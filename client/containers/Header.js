@@ -20,12 +20,20 @@ const stateAction    = require('../actionCreators/stateActions');
 const browserHistory = Router.browserHistory;
 
 
-const Header = ({check, username, goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
-	check();
+const Header = ({username, goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
+	function initialize () {
+		if(userAction.getCookie("token")){
+			console.log("cookies", userAction.getCookie("token"));
+		}
+		else{
+			console.log("none")
+		}
+	};
+	initialize();
 	return (
 		<Navbar>
 
-			<span>{ logged && <p className="nav-welcome">Welcome, {username}!</p> }</span>
+			<span>{logged && <p className="nav-welcome">Welcome, {username}!</p> }</span>
 
 	    <NavbarHeader>
     		<NavbarBrand>
@@ -65,11 +73,6 @@ const mapStateToProps = (state) => {
 // gotta see if server side can grab cookies
 const mapDispatchToProps = (dispatch) => {
 	return {
-		check: () => {
-			if(userAction.getCookie("token")){
-				dispatch(userAction.GetMyInfo())
-			}
-		},
 		goSplash: () => {
 			browserHistory.push('/')
 		},

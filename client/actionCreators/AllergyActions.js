@@ -68,7 +68,7 @@ function RemoveAllergy (id) {
 		})
 		.then((response) => {
 			console.log("add allergy res", response);
-			dispatch(stateAction.RemoveAllergy())
+			dispatch(stateAction.RemoveAllergy(id))
 		})
 		.catch((err) => {
 			console.error("add allergy err", err);
