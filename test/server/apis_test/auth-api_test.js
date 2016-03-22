@@ -8,7 +8,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 const TH = require(__test + '/test-helper')
 
 
-xdescribe("POST /authenticate", function() {
+describe("POST /authenticate", function() {
 
   //set up app
   var app = TH.createApp()

@@ -21,7 +21,7 @@ const Rx = require(__server + '/models/rx')
 
 describe('user API', function() {
 
-	xdescribe("GET /user", function() {
+	describe("GET /user", function() {
 
 		//set up app
 		var app = TH.createApp()
@@ -293,7 +293,7 @@ describe('user API', function() {
 		})
 
 		var user1 = new TH.UserAttributes('Mary', 'pw', 'ilikelambs@llama.com', '453-583-3929')
-		var initialHashed = undefined //this will be what we should seed the MoJo password do
+		var initialHashed = undefined
 		var newusername = 'Merry'
 		var newUnhashed = 'mycoolpassword'
 		var newEmail = 'elevensies@secondbreakfast.org'
@@ -305,7 +305,6 @@ describe('user API', function() {
 			  })
 			  .then(function(user) {
 			  	initialHashed = user.password
-			  	console.log('seed MoJo password to', initialHashed)
 			  	return Auth.createToken(user.username)
 			  })
 			  .then(function(token) {
@@ -342,7 +341,6 @@ describe('user API', function() {
 		it('hashes a password and changes the user\'s password in the database', function() {
 			return User.getAll()
 			  .then(function(all) {
-			  	console.log('seed Hamburgesa password to', all[0]['password'])
 			  	expect(all[0].password === initialHashed).to.be.false
 			  	expect(all[0].password === newUnhashed).to.be.false
 

@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const Pharmacy = require(__server + '/models/pharmacy')
 
-xdescribe('/pharmacy-api', function() {
+describe('/pharmacy-api', function() {
 
   //set up app
   var app = TH.createApp()

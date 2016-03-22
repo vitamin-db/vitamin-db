@@ -132,21 +132,16 @@ UserAPI.put('/', function(req, res) {
 	  	id = user.id_user
 
 	  	if (newUsername) {
-	  		console.log('going to check if username exists', newUsername)
 	  		return User.existsByUsername(newUsername)
 	  		  .then(function(exists) {
-	  		  	console.log('user exists?', exists)
 	  		  	if(exists) {
-	  		  		console.log('does exist, oh no!')
 	  		  		throw new Error('Username already exists!')
 	  		  	}
 	  		  })
 	  	}
 	  })
 	  .catch(function(err) {
-	  	console.log('if exists, should through this error with message:', err.message)
 	  	if (err.message === 'Username already exists!') {
-	  		console.log('going to send a 400')
 	  		SendR.error(res, 400, err.message, err)
 	  		throw Error(err.message)
 	  	}
@@ -154,26 +149,21 @@ UserAPI.put('/', function(req, res) {
 	  })
 	  .then(function() {
 	  	if (newPassword) {
-	  		console.log('trying to change password to', newPassword)
 	  		return User.changePassword(id, newPassword)
 	  	}
 	  })
 	  .then(function() {
 	  	if (haveOthers) {
-	  		console.log('trying to update properties: ', nonPw)
 	  		return User.updateById(id, nonPw)
 	  	}
 	  })
 	  .then(function() {
-	  	console.log('looking for user with id', id)
 	  	return User.findById(id)
 	  })
 	  .then(function(user) {
-	  	console.log('full updated object is', user)
 	  	return User.getPublic(user)
 	  })
 	  .then(function(publicUser) {
-	  	console.log('about to send', publicUser)
 	  	SendR.resData(res, 201, publicUser)
 	  })
 	  .catch(function(err) {
