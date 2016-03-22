@@ -158,7 +158,7 @@ describe("POST /authenticate", function() {
     return request(app)
       .post('/authenticate/signup')
       .send({ username: 'Josiah', password: 'Bartlet', email: 'prez@wh.com', phone: '934-345-2948'})
-      .expect(200)
+      .expect(201)
     .then( function(result) {
 
       var loginRes = JSON.parse(result.text)
@@ -171,7 +171,7 @@ describe("POST /authenticate", function() {
     })
   })
 
-  it("returns username taken msg on attempted signup with existing usename", function() {
+  it("returns 400 and a username taken msg on attempted signup with existing usename", function() {
 
     var newTestUser5 = new UserAttributes('Toby', 'Ziegler', 'leak@wh.com', '934-345-2948')
 
@@ -180,21 +180,29 @@ describe("POST /authenticate", function() {
         return request(app)
           .post('/authenticate/signup')
           .send({ username: 'Toby', password: 'Ziegler', email: 'leak@wh.com', phone: '934-345-2948' })
-          .expect(200) //400
+          .expect(400) 
         .then( function(result) {
-
           var loginRes = JSON.parse(result.text)
-          console.log('loginRes: ', loginRes);
-
           expect(loginRes).to.be.an('object')
-          expect(loginRes).to.have.key('msg')
-          expect(loginRes['msg']).to.equal('username taken')
+          expect(loginRes).to.have.keys('error', 'msg')
+          expect(loginRes['msg']).to.equal('Username Toby is taken')
         })
       })
   })
 
-  xit("throws error if given incomplete information", function() {
-    // this will need to be written, no validation currently
+  it("returns 400 and an error message if given incomplete information", function() {
+    var newTestUser6 = {username: 'Namebly', password: undefined, email: 'nope', phone: 342-492-9229}
+
+    return request(app)
+      .post('/authenticate/signup')
+      .send(newTestUser6)
+      .expect(400)
+      .then(function(result) {
+        var loginRes = JSON.parse(result.text)
+        expect(loginRes).to.be.an('object')
+        expect(loginRes).to.have.key('msg')
+        expect(loginRes['msg']).to.equal('Please complete all fields')
+      })
   })
 
   // /////////////////////////////////
