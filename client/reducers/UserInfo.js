@@ -5,9 +5,9 @@ const UserInfo = (state, action) => {
   switch(action.type){
     case 'SETMYINFO':
         return {
-          user: action.info.user ? action.info.user : {}, 
-          doctors: action.info.doctors ? action.info.doctors : [], 
-          eyerx: action.info.eyerx ? [action.info.eyerx] : []
+          user: action.info.user, 
+          doctors: action.info.doctors,
+          eyerx: action.info.eyerx
         };
     case 'ADDDOCTOR':
     	var newDoc = {...state};
