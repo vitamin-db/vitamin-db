@@ -5,12 +5,11 @@ const request = require('supertest-as-promised')
 
 const TH = require(__test + '/test-helper')
 
-// ALLERGY MODEL NOT WRITTEN YET
 const Allergy = require(__server + '/models/allergy')
 const User = require(__server + '/models/user')
 
 
-describe('**************** Allergy Model ****************', function() {
+xdescribe('**************** Allergy Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
