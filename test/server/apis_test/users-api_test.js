@@ -19,7 +19,7 @@ const Pharmacy = require(__server + '/models/pharmacy')
 const Rx = require(__server + '/models/rx')
 
 
-describe('user API', function() {
+xdescribe('user API', function() {
 
 	//set up app
 	var app = TH.createApp()
@@ -330,10 +330,10 @@ describe('user API', function() {
 
 	describe('PUT /user', function() {
 
-		var user1 = new TH.UserAttributes('Mary', 'littlelamb', 'ilikelambs@llama.com', '453-583-3929')
-		var initialHashed = undefined
+		var user1 = new TH.UserAttributes('Mary', 'pw', 'ilikelambs@llama.com', '453-583-3929')
+		var initialHashed = undefined //this will be what we should seed the MoJo password do
 		var newusername = 'Merry'
-		var newUnhashed = 'Pippin'
+		var newUnhashed = 'mycoolpassword'
 		var newEmail = 'elevensies@secondbreakfast.org'
 
 		it('returns a 201 on successful change and the updated object', function() {
@@ -343,6 +343,7 @@ describe('user API', function() {
 			  })
 			  .then(function(user) {
 			  	initialHashed = user.password
+			  	console.log('seed MoJo password to', initialHashed)
 			  	return Auth.createToken(user.username)
 			  })
 			  .then(function(token) {
@@ -375,7 +376,8 @@ describe('user API', function() {
 		it('hashes a password and changes the user\'s password in the database', function() {
 			return User.getAll()
 			  .then(function(all) {
-			  	expect(all[0].password === initialPw).to.be.false
+			  	console.log('seed Hamburgesa password to', all[0][password])
+			  	expect(all[0].password === initialHashed).to.be.false
 			  	expect(all[0].password === newUnhashed).to.be.false
 			  })
 		})

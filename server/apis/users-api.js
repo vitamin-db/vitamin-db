@@ -99,3 +99,11 @@ UserAPI.get('/', function(req, res) {
 	  })
 
 })
+
+
+
+UserAPI.post('/', function(req, res) {
+
+})
+
+

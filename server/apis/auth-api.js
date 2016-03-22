@@ -33,8 +33,7 @@ AuthAPI.post('/login', function(req, res) {
 	  	if (!exists) {
 	  		res.json({msg: 'Please create an account'})
 	  	} else {
-	  		//right now, this checks against the PLAINTEXT password
-	  		return User.validPlaintextPassword(enteredUsername, enteredPw)
+	  		return User.validPassword(enteredUsername, enteredPw)
 	  	}
 	  })
 	  .then( function(valid) {
@@ -59,7 +58,7 @@ AuthAPI.post('/login', function(req, res) {
 })
 
 
-/* Signup route - NOTE THAT THIS ONLY CREAETS AGAINST PLAINTEXT PASSWORDS SINCE THAT'S WHAT LOGIN DOES FOR NOW
+/* Signup route -
 Checks to see if username is taken
   If yes:
     Sends back error message 'username taken'
@@ -105,8 +104,8 @@ AuthAPI.post('/signup', function(req, res) {
 	  			email: enteredEmail,
 	  			phone: req.body.phone
 	  		}
-	  		//this will not hash the pw
-	  		return User.create(newUserObj)
+	  		//this hash the pw
+	  		return User.createUser(newUserObj)
 	  	}
 	  })
 	  .then( function(user) {
