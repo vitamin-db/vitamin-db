@@ -103,9 +103,12 @@ UserAPI.get('/', function(req, res) {
 
 /* POST
   Properties to be updated go in req.body.properties
-  If you try to change the username to something that already exists, it will return a 400 (bad request)
-  Otherwise, will try to run the changes
-  Will return a 201 and the updated public user data on a success
+  If you try to change the username to something that already exists:
+   - it will return a 400 (bad request)
+   - it will return an error with error.msg = 'Username already exists!'
+  Otherwise, will try to run the changes - if successful, it will return:
+   - a 201
+   - teh updated public user data
 */
 
 UserAPI.put('/', function(req, res) {
@@ -129,43 +132,54 @@ UserAPI.put('/', function(req, res) {
 	  	id = user.id_user
 
 	  	if (newUsername) {
+	  		console.log('going to check if username exists', newUsername)
 	  		return User.existsByUsername(newUsername)
 	  		  .then(function(exists) {
+	  		  	console.log('user exists?', exists)
 	  		  	if(exists) {
+	  		  		console.log('does exist, oh no!')
 	  		  		throw new Error('Username already exists!')
 	  		  	}
 	  		  })
 	  	}
 	  })
 	  .catch(function(err) {
-	  	console.log('error message is: ', err.message)
+	  	console.log('if exists, should through this error with message:', err.message)
 	  	if (err.message === 'Username already exists!') {
+	  		console.log('going to send a 400')
 	  		SendR.error(res, 400, err.message, err)
-	  	} else {
-	  		throw Error
+	  		throw Error(err.message)
 	  	}
+	  	throw Error('server error updating user')
 	  })
 	  .then(function() {
 	  	if (newPassword) {
+	  		console.log('trying to change password to', newPassword)
 	  		return User.changePassword(id, newPassword)
 	  	}
 	  })
 	  .then(function() {
 	  	if (haveOthers) {
+	  		console.log('trying to update properties: ', nonPw)
 	  		return User.updateById(id, nonPw)
 	  	}
 	  })
 	  .then(function() {
+	  	console.log('looking for user with id', id)
 	  	return User.findById(id)
 	  })
 	  .then(function(user) {
+	  	console.log('full updated object is', user)
 	  	return User.getPublic(user)
 	  })
 	  .then(function(publicUser) {
+	  	console.log('about to send', publicUser)
 	  	SendR.resData(res, 201, publicUser)
 	  })
 	  .catch(function(err) {
-	  	SendR.error(res, 500, 'Server error updating user', err)
+	  	if (err.message !== 'Username already exists!') {
+	  		SendR.error(res, 500, 'Server error updating user', err)
+	  	}
 	  })
 
 })

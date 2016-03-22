@@ -113,7 +113,7 @@ User.changePassword = function(id, newPassword) {
   return bcrypt.genSaltAsync(10)
     .then( function(salt) {
       // console.log('got salt', salt)
-      return bcrypt.hashAsync(attrs.password, salt, null)
+      return bcrypt.hashAsync(newPassword, salt, null)
     })
     .then( function(hash) {
       var newPwOb = {password: hash}
