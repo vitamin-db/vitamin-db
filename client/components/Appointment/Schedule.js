@@ -38,23 +38,21 @@ const Schedule = ({appointment, immunization}) => (
         <TableHeaderColumn>Next</TableHeaderColumn>
         <TableHeaderColumn>Status</TableHeaderColumn>
       </TableRow>
-    </TableHeader>
+    </TableHeader> 
 
-    {appointment.map((val, count) => 
+    <TableBody>
 
-    <TableBody key={count}>
-
-      <TableRow>
+ 	{appointment.map((val, count) =>
+      <TableRow key={count++}>
         <TableRowColumn> {count++} </TableRowColumn>
         <TableRowColumn> {val.text} </TableRowColumn>
         <TableRowColumn> {val.organization.name} </TableRowColumn>
         <TableRowColumn> {val.date} </TableRowColumn>
         <TableRowColumn> Current </TableRowColumn>
       </TableRow>
-
-    </TableBody>
        )}
 
+    </TableBody>
   </Table>
 
   <br/>
@@ -70,26 +68,21 @@ const Schedule = ({appointment, immunization}) => (
       </TableRow>
     </TableHeader>
 
-    {immunization.map((val, count) => 
+   
 
-    <TableBody key={count}>
-
-      <TableRow>
-        <TableRowColumn> {count++} </TableRowColumn>
+    <TableBody>
+{immunization.map((val, count) => 
+      <TableRow key={count++}>
+        <TableRowColumn> {count++}</TableRowColumn>
         <TableRowColumn> {val.name} </TableRowColumn>
         <TableRowColumn> {val.organization.name} </TableRowColumn>
         <TableRowColumn> {val.dates[0]} </TableRowColumn>
         <TableRowColumn> Current </TableRowColumn>
       </TableRow>
+        )}
 
-      <TableRow>
-        <TableRowColumn>{count++}</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-        <TableRowColumn>fill me in</TableRowColumn>
-      </TableRow>
-   
     </TableBody>
-       )}
+
 
   </Table>
 
