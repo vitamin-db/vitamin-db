@@ -390,7 +390,7 @@ h6.card-headline {
 }
 
 .modal-content h1 {
-    padding-top:25px;
+    padding-top:20px;
 }
 
 .docApiCard>div {
@@ -428,6 +428,16 @@ h6.card-headline {
 }
 
 .scheduleContent>h1 {
+    margin: 20px 0px 30px 0px;
+    color:#1abc9c;
+    text-align:left;
+}
+
+.addModal {
+    padding:30px 20px;
+}
+
+.addModal>h1 {
     margin: 20px 0px 30px 0px;
     color:#1abc9c;
     text-align:left;

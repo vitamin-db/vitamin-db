@@ -39,13 +39,16 @@ getInitialState() {
           onHide={this.hideModal}
           dialogClassName="custom-modal">
 
-          <form onSubmit={this.props.addAllergy} >
-          	<input name="allergen" type="text" placeholder="Allergy"/>
-          	<br/>
-          	Current <input name="currently" type="checkbox" />
-          	<br/>
-          	<button type="submit" >Add</button>
-          </form>
+            <div className="card-full-text">
+              <h2>Add an allergy:</h2>
+      
+              <form onSubmit={this.props.addAllergy} >
+              	<Input name="allergen" type="text" label="Allergy:" placeholder="Allergy"/>
+              	<Input name="currently" type="checkbox" label="Current allergy?"  />
+              	<br/>
+              	<Button type="submit" bsStyle="primary" bsSize="large" block>Add allergy</Button>
+              </form>
+            </div>
 
         </Modal>
 
