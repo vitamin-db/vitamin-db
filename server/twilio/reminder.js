@@ -3,7 +3,7 @@ const client = require('twilio')(config.accountSid, config.authToken);
 const cronJob = require('cron').CronJob;
 const later = require('later');
 
-var numbers = ['+15127364286'];
+var numbers = [];
 var d = new Date('03/21/2016 21:56Z');
 
 var minute = later.minute.val(d);
