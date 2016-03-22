@@ -10,6 +10,9 @@ const stateAction		= require('../actionCreators/stateActions');
 const browserHistory    = require('react-router').browserHistory;
 
 const Splash = ({onSignIn, goSignup, logged }) => {
+	if(!logged){
+		document.cookie = "token=; expires=Thu, 01 Jan 1600 00:00:00 UTC";
+	}
 	return (
 		<div>
 			<div>

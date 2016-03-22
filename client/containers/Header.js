@@ -21,15 +21,6 @@ const browserHistory = Router.browserHistory;
 
 
 const Header = ({username, goHome, signOut, goProfile, goAppoint, signUp, logged, goSplash }) => {
-	function initialize () {
-		if(userAction.getCookie("token")){
-			console.log("cookies", userAction.getCookie("token"));
-		}
-		else{
-			console.log("none")
-		}
-	};
-	initialize();
 	return (
 		<Navbar>
 
@@ -51,9 +42,9 @@ const Header = ({username, goHome, signOut, goProfile, goAppoint, signUp, logged
 	    	<Nav pullRight>
 	    		{logged && <NavItem className="hvr-sweep-to-top" onClick={goProfile}> Account </NavItem>}
 	    		{logged && <NavItem className="hvr-sweep-to-top" onClick={signOut}> Sign out </NavItem>}
-	        {!logged && <NavItem className="hvr-sweep-to-top" onClick={signUp}> Sign up </NavItem>}
+	        	{!logged && <NavItem className="hvr-sweep-to-top" onClick={signUp}> Sign up </NavItem>}
 	    	</Nav>
-	    	</NavbarCollapse>
+	    </NavbarCollapse>
     </Navbar>
 	);
 };
