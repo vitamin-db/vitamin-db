@@ -404,6 +404,19 @@ h6.card-headline {
     text-align:left;
 }
 
+.table-responsive {
+    background-color: #dbdbdb;
+    border-radius:10px;
+}
+
+.table-responsive>th, .table-responsive>td {
+    padding:15px;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding:10px 15px;
+}
+
 /*
 ==============
 Patient
@@ -480,7 +493,7 @@ EyeRx
 
 
 .table>thead:first-child>tr:first-child>th {
-    padding-left: 5%
+    /*padding-left: 5%*/
 }
 .table {
     font-size: 14px;
