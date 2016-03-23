@@ -10,6 +10,7 @@ const allergyAction      = require('../actionCreators/allergyActions');
 const doctorAction       = require('../actionCreators/doctorActions');
 const stateAction        = require('../actionCreators/stateActions');
 const eyeAction          = require('../actionCreators/eyeActions');
+const famAction          = require('../actionCreators/familyActions');
 const pharmAction        = require('../actionCreators/pharmActions');
 const insAction          = require('../actionCreators/insuranceActions');
 const DoctorGrid         = require('../components/Dashboard/doctor/DoctorGrid');
@@ -30,7 +31,7 @@ const Home = ({states, dispatches}) => {
       <DoctorGrid removePharm={dispatches.removePharm} addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} 
           docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
         docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} />
-      <PatientGrid removeAllergy={dispatches.removeAllergy} addAllergy={dispatches.addAllergy} 
+      <PatientGrid removeFamCond={dispatches.removeFamCond} addFamCond={dispatches.addFamCond} removeAllergy={dispatches.removeAllergy} addAllergy={dispatches.addAllergy} 
           removeEye={dispatches.removeEye} addEye={dispatches.addEye} 
           allergies={states.allergies} eyerx={states.eyerx} family={states.family} 
           insurance={states.insurance} pharmacy={states.pharmacy} familyhistory={states.familyhistory} 
@@ -168,6 +169,19 @@ const mapDispatchToProps = (dispatch) => {
       },
       removePharm: (id) => {
         dispatch(pharmAction.RemovePharm(id));
+      },
+      addFamCond: (e) => {
+        e.preventDefault();
+        var body = {
+          properties: {
+            condition: e.target.condition.value
+          }
+        };
+        console.log("add fam body", body);
+        dispatch(famAction.AddFam(body));
+      },
+      removeFamCond: (id) => {
+        dispatch(famAction.RemoveFam(id));
       }
     }
   };

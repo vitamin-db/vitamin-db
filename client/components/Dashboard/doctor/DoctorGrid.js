@@ -19,7 +19,7 @@ const DoctorGrid = ({removePharm, addPharm, addIns, removeIns, editDoc, removeDo
 	      {docInfo.map((val, count) => 
 	        <DocCard key={count} editDoc={editDoc} removeDoc={removeDoc} val={val} />
 	      )}
-
+	      	{!docInfo[0] && <h1>No current doctor! Add a new doctor card below!</h1>}
 	      	<Insurance removeIns={removeIns} insurance={insurance} />
 			<Pharmacy removePharm={removePharm} pharmacy={pharmacy} />
 			
