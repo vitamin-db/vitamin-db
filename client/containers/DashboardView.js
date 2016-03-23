@@ -6,7 +6,7 @@ const browserHistory     = require('react-router').browserHistory;
 const bindActionCreators = require('redux').bindActionCreators;
 
 // components
-const allergyAction      = require('../actionCreators/allergyActions');
+const allergyAction      = require('../actionCreators/AllergyActions');
 const doctorAction       = require('../actionCreators/doctorActions');
 const stateAction        = require('../actionCreators/stateActions');
 const eyeAction          = require('../actionCreators/eyeActions');
