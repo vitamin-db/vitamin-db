@@ -14,9 +14,15 @@ const JoogleMaps = require('../../GoogleMaps/GoogleMaps');
 
 const DoctorFull = React.createClass({
 getInitialState() {
-    return {show: false};
+    return {
+      show: false,
+      lat: 30.268884,
+      lon: -97.740520
+    };
   },
   showModal() {
+    // api call for converting address to lat/lon
+    // .then set state for show AND lat/lon
     this.setState({show: true});
   },
   hideModal() {
@@ -35,15 +41,16 @@ getInitialState() {
           show={this.state.show}
           onHide={this.hideModal}
           dialogClassName="custom-modal">
+
             <img src={this.props.glyph} />
               <div className="card-full-text">
-                <h2>Name: Jane Doeblin</h2>
-                <p><strong>Specialty:</strong> Obstetrics & Gynecology<br />
-                <strong>Phone:</strong> 5852443430<br />
-                <strong>Business:</strong> Women Gynecology & Childbirth Associates, P.c.<br />
-                <strong>Address:</strong> 1815 Clinton Ave S Ste 610 Rochester, NY 14618</p>
+                <h2>Name: {this.props.val.name}</h2>
+                <p><strong>Specialty:</strong> {this.props.val.type} <br />
+                <strong>Phone:</strong> {this.props.val.phone} <br />
+                <strong>Address:</strong> {this.props.val.street_address} </p>
               </div>
-              <div className="JoogleMaps"><JoogleMaps lon={-97.740520}  lat={30.268884} /></div>
+              <div className="JoogleMaps"><JoogleMaps lon={this.state.lon}  lat={this.state.lat} /></div>
+
         </Modal>
     </div>
     )

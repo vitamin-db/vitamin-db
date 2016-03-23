@@ -42,7 +42,8 @@ getInitialState() {
             <div className="card-full-text">
               <h1>Add family history:</h1>
               <form onSubmit={this.props.addFamCond} >
-              	<input name="condition" placeholder="Condition" />
+                <input name="member" placeholder="Family member" />
+                <input name="condition" placeholder="Condition" />
               	<br/>
               	<Button type="submit" >Add history</Button>
               </form>
