@@ -103,6 +103,9 @@ UserAPI.get('/', function(req, res) {
 
 /* POST
   Properties to be updated go in req.body.properties
+  If you try to change the email to an invalid email address:
+   - returns 400
+   - it will return an error with error.msg = 'Please enter a valid email address'
   If you try to change the username to something that already exists:
    - it will return a 400 (bad request)
    - it will return an error with error.msg = 'Username already exists!'
@@ -140,13 +143,18 @@ UserAPI.put('/', function(req, res) {
 	  		  })
 	  	}
 	  })
-	  .catch(function(err) {
-	  	if (err.message === 'Username already exists!') {
-	  		SendR.error(res, 400, err.message, err)
-	  		throw Error(err.message)
+	  .then(function() {
+	  	if (nonPw.email && !User.validEmail(nonPw.email)) {
+	  		throw new Error('Please enter a valid email address')
 	  	}
-	  	throw Error('server error updating user')
 	  })
+	  // .catch(function(err) {
+	  // 	if (err.message === 'Username already exists!') {
+	  // 		SendR.error(res, 400, err.message, err)
+	  // 		throw Error(err.message)
+	  // 	}
+	  // 	throw Error('server error updating user')
+	  // })
 	  .then(function() {
 	  	if (newPassword) {
 	  		return User.changePassword(id, newPassword)
@@ -167,7 +175,9 @@ UserAPI.put('/', function(req, res) {
 	  	SendR.resData(res, 201, publicUser)
 	  })
 	  .catch(function(err) {
-	  	if (err.message !== 'Username already exists!') {
+	  	if (err.message === 'Username already exists!' || err.message === 'Please enter a valid email address') {
+	  		SendR.error(res, 400, err.message, err)
+	  	} else {
 	  		SendR.error(res, 500, 'Server error updating user', err)
 	  	}
 	  })

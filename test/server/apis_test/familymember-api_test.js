@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const FamilyMember = require(__server + '/models/familymembers')
 
-describe('/familymember-api', function() {
+xdescribe('/familymember-api', function() {
 
   //set up app
   var app = TH.createApp()

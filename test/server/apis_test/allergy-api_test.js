@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const Allergy = require(__server + '/models/allergy')
 
-describe('/allergy-api', function() {
+xdescribe('/allergy-api', function() {
 
   //set up app
   var app = TH.createApp()
@@ -50,7 +50,6 @@ describe('/allergy-api', function() {
             .expect(200)
             .then(function(result) {
               var got = JSON.parse(result.text)
-              console.log('got: ', got)
               expect(got).to.be.an('array')
               expect(got[0]).to.be.an('object')
               expect(got[0].current).to.be.true

@@ -9,7 +9,7 @@ const Allergy = require(__server + '/models/allergy')
 const User = require(__server + '/models/user')
 
 
-describe('**************** Allergy Model ****************', function() {
+xdescribe('**************** Allergy Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()

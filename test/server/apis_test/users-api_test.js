@@ -384,6 +384,29 @@ describe('user API', function() {
 			  })
 		})
 
+		it('returns a 400 and an error message if the user tries to change to an invalid email', function() {
+			var user2 = new TH.UserAttributes('Sam', 'youshallnotpass', 'gardening@shire.com', '432-382-2992')
+			return User.createUser(user2)
+			  .then(function() {
+			  	return Auth.createToken(user2.username)
+			  })
+			  .then(function(token) {
+			  	var props = {email: 'gardening@share.'}
+			  	return request(app)
+			  	  .put('/user')
+			  	  .set('x-access-token', token)
+			  	  .send({properties: props})
+			  	  .expect(400)
+			  	  .then(function(result) {
+			  	  	var postRes = JSON.parse(result.text)
+			  	  	expect(postRes).to.be.an('object')
+			  	  	expect(postRes).to.have.keys('error', 'msg')
+			  	  	expect(postRes['msg']).to.equal('Please enter a valid email address')
+
+			  	  })
+			  })
+		})
+
 
     })
 
