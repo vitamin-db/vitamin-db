@@ -18,19 +18,19 @@ function getCookie(cname) {
 // commented out until everything is ready
 function GetApiDocs (doctor) {
   return (dispatch) => {
-    return fetch("https://api.betterdoctor.com/2015-01-27/doctors?first_name=" + doctor.firstname + "&last_name=" + doctor.lastname + "&skip=0&limit=10&user_key=" + API_KEY)
+    return fetch("https://api.betterdoctor.com/2015-01-27/doctors?first_name=" + doctor.firstname + "&last_name=" + doctor.lastname + "&skip=0&limit=15&user_key=" + API_KEY)
       .then((data) => {
         //console.log "data": [{[{[],{},[{}{}],[{}]}], etc..
         return data.json();
       })
       .then((docList) => {
-        // console.log("dat", docList.data)
+        // console.log("GetAPIDocsLATLON", docList.data)
         var final = [];
         docList.data.forEach((doc) => {
           var city      = doc.practices[0].visit_address.city;
           var state     = doc.practices[0].visit_address.state;
           var street    = doc.practices[0].visit_address.street;
-          var street2   = doc.practices[0].visit_address.street2;
+          var street2   = doc.practices[0].visit_address.street2 || "";
           var zip       = doc.practices[0].visit_address.zip;
           final.push({
             firstname: doc.profile.first_name,
@@ -39,7 +39,9 @@ function GetApiDocs (doctor) {
             phone: doc.practices[0].phones[0].number,
             address: street + " " + street2 + " " + city + ", " + state + " " + zip,
             portrait: doc.profile.image_url,
-            specialty: doc.specialties[0].name
+            specialty: doc.specialties[0].name,
+            lat: doc.practices[0].lat,
+            lon: doc.practices[0].lon
           });
         })
         dispatch(stateAction.SetDocApi(final))

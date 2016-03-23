@@ -2,14 +2,15 @@ const React = require('react');
 const GoogleMapLoader = require('react-google-maps').GoogleMapLoader;
 const GoogleMap = require('react-google-maps').GoogleMap;
 const Marker = require('react-google-maps').Marker;
+// const GeoCode = require('../../actionCreators/geoActions');
 
-const JoogleMaps = (props) => {
-  console.log(props.lat, props.lon)
+const JoogleMaps = (coord) => {
+  console.log(coord.lat, coord.lon)
   const state = {
     markers: [{
       position: {
-        lat: props.lat,
-        lng: props.lon,
+        lat: coord.lat,
+        lng: coord.lon,
       },
       defaultAnimation: 2,
     }],
@@ -20,7 +21,7 @@ const JoogleMaps = (props) => {
         googleMapElement={
           <GoogleMap
             defaultZoom={16}
-            defaultCenter={{lat: props.lat, lng: props.lon}}
+            defaultCenter={{lat: coord.lat, lng: coord.lon}}
           >
           {state.markers.map((marker) => {
             console.log("GOOGLE MARKER:", marker)
@@ -28,12 +29,12 @@ const JoogleMaps = (props) => {
                 <Marker
                   key={marker.position.lat}
                   {...marker}
-            />
-          );
-        })};
-        </GoogleMap>
-      }
-    />
+                />
+              );
+          })};
+          </GoogleMap>
+        }
+      />
   );
 };
 
