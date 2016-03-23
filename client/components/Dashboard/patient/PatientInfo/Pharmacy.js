@@ -8,7 +8,7 @@ const Glyphicon = require('react-bootstrap').Glyphicon;
 const AddButton = require('../../common/AddButton');
 
 
-const PharmacyPanel = ({pharmacy}) => {
+const PharmacyPanel = ({removePharm, pharmacy}) => {
 
 	return (
 		<Col xs={12} md={4}>
@@ -17,12 +17,13 @@ const PharmacyPanel = ({pharmacy}) => {
 				     <Button bsStyle="primary" bsSize="small" className="card-button"><Glyphicon glyph="cloud" /></Button>
 				      <h5 className="card-headline">Pharmacy</h5>
 			     </div>
-			     {pharmacy.map((item) =>
-			     <div className="card-block" key={item.id_user} >
+			     {pharmacy.map((item, count) =>
+			     <div className="card-block" key={count} >
+			     	 <button onClick={removePharm.bind(null, item.id_pharmacy)} >Remove</button>
 		 		     <p className="card-text"><b>Name</b>: {item.business_name}</p>
 				     <p className="card-text"><b>Address</b>: {item.address}</p>
 				     <p className="card-text"><b>Phone</b>: {item.phone}</p>
-				     <p className="card-text"><b>Current</b>: {item.current}</p>
+				     <p className="card-text"><b>Current</b>: {item.current.toString()}</p>
 			     </div>
 			     )}
 			</div>

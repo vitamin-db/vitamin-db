@@ -34,6 +34,13 @@ function RemoveDoc (id) {
 	};
 };
 
+function ChangeDoc (newDoc) {
+	return {
+		type: 'CHANGEDOC',
+		newDoc: newDoc
+	}
+}
+
 // this is for populating the doctor search api
 function SetDocApi (list) {
 	return {
@@ -91,6 +98,33 @@ function RemoveAllergy (id) {
 	};
 };
 
+function AddIns (ins) {
+	return {
+		type: 'ADDINS',
+		ins: ins
+	};
+};
+
+function RemoveIns (id) {
+	return {
+		type: 'REMOVEINS',
+		id: id
+	};
+};
+
+function AddPharm (pharm) {
+	return {
+		type: 'ADDPHARM',
+		pharm: pharm
+	};
+};
+
+function RemovePharm (id) {
+	return {
+		type: 'REMOVEPHARM',
+		id: id
+	};
+};
 module.exports = {
 	SignInSuccess,
 	SignInFail,
@@ -104,5 +138,10 @@ module.exports = {
 	AddEye,
 	GetAllergy,
 	AddAllergy,
-	RemoveAllergy
+	RemoveAllergy,
+	ChangeDoc,
+	AddIns,
+	RemoveIns,
+	AddPharm,
+	RemovePharm
 };

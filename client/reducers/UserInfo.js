@@ -21,6 +21,15 @@ const UserInfo = (state, action) => {
         }
       }
       return {...state, doctors: newDocList};
+    case 'CHANGEDOC':
+      var docList = state.doctors.slice(0);
+      for(var i=0; i<docList.length; i++){
+        if(docList[i].id_doctor === action.newDoc.id_doctor){
+          docList.splice(i,1);
+          docList.push(action.newDoc);
+        }
+      }
+      return {... state, doctors: docList};
     case 'ADDEYE':
       var newEye = {...state};
       newEye.eyerx.push(action.eyerx);

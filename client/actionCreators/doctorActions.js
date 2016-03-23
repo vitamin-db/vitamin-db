@@ -110,7 +110,11 @@ function ChangeMyDoc (newInfo) {
       body: JSON.stringify(newInfo)
     })
     .then((response) => {
-      console.log("change doc res", response);
+      return response.json();
+    })
+    .then((data) => {
+      console.log("deets", data);
+      dispatch(stateAction.ChangeDoc(data));
     })
     .catch((err) => {
       console.error("change doc err", err);

@@ -27,8 +27,8 @@ const EyePanel = ({removeEye, addEye, eyerx}) => {
 	 			<th>Add:</th>
 	  		  </tr>
 	  		</thead>
-	  		{eyerx.map((val) => 
-	  		<tbody key={val.id_eyerx} >
+	  		{eyerx.map((val, count) => 
+	  		<tbody key={count} >
 
 	  			<tr>
 	  				<td>Right (OD):</td>
