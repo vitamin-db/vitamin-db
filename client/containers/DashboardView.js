@@ -10,6 +10,8 @@ const allergyAction      = require('../actionCreators/allergyActions');
 const doctorAction       = require('../actionCreators/doctorActions');
 const stateAction        = require('../actionCreators/stateActions');
 const eyeAction          = require('../actionCreators/eyeActions');
+const pharmAction        = require('../actionCreators/pharmActions');
+const insAction          = require('../actionCreators/insuranceActions');
 const DoctorGrid         = require('../components/Dashboard/doctor/DoctorGrid');
 const PatientGrid        = require('../components/Dashboard/patient/PatientGrid');
 const mock               = require('../model/mockData');
@@ -25,7 +27,7 @@ const Grid               = require('react-bootstrap').Grid;
 const Home = ({states, dispatches}) => {
   return (
     <div className="home-body">
-      <DoctorGrid removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} 
+      <DoctorGrid removePharm={dispatches.removePharm} addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} 
           docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
         docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} />
       <PatientGrid removeAllergy={dispatches.removeAllergy} addAllergy={dispatches.addAllergy} 
@@ -43,14 +45,12 @@ const mapStateToProps = (state, ownProps) => {
     states:{ 
       doctor: state.userinfo.doctors,
       allergies: state.allergy,
-      // eyerx: mock.Eyerx,
       eyerx: state.userinfo.eyerx,
-      family: mock.Family,
-      insurance: mock.Insurance,
-      pharmacy: mock.Pharmacy,
-      familyhistory: mock.Familyhistory,
-      rx: mock.Rx,
-      patient: mock.users,
+      family: state.family,
+      insurance: state.insurance,
+      pharmacy: state.pharmacy,
+      familyhistory: state.family,
+      rx: state.rx,
       docApiList: state.docapi
     }
   };
@@ -79,10 +79,30 @@ const mapDispatchToProps = (dispatch) => {
         // this jsut clears the api list, but in the future it will add the chosen doctor to the database
         dispatch(doctorAction.AddMyDoc(body, portrait));
       },
-      editDoc: (e) => {
+      editDoc: (id, e) => {
         e.preventDefault();
-        // grab info from form(that has yet to be created)
-        dispatch(doctorAction.ChangeMyDoc())// pass in doctor id and new info
+        var specialty = e.target.specialty.value;
+        var name = e.target.name.value;
+        var address = e.target.address.value;
+        var phone = e.target.phone.value;
+        var newInfo = {
+          properties: {
+            id_doctor: id
+          }
+        };
+        if(name){
+          newInfo.properties.name = name;
+        }
+        if(address){
+          newInfo.properties.address = address;
+        }
+        if(phone){
+          newInfo.properties.phone = phone;
+        }
+        if(specialty){
+          newInfo.properties.type = specialty;
+        }
+        dispatch(doctorAction.ChangeMyDoc(newInfo))
       },
       removeDoc: (id) => {
         dispatch(doctorAction.RemoveMyDoc(id))
@@ -115,7 +135,39 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(allergyAction.AddAllergy(body));
       },
       removeAllergy: (id) => {
-        dispatch(allergyAction.RemoveAllergy(id))
+        dispatch(allergyAction.RemoveAllergy(id));
+      },
+      removeIns: (id) => {
+        dispatch(insAction.RemoveIns(id));
+      },
+      addIns: (e) => {
+        e.preventDefault();
+        var body = {
+          properties: {
+            plan_name: e.target.provider.value,
+            plan_id: e.target.plan.value,
+            group_id: e.target.groupid.value,
+            rx_bin: e.target.memberid.value
+          }
+        };
+        console.log("add ins body", body);
+        dispatch(insAction.AddIns(body));
+      },
+      addPharm: (e) => {
+        e.preventDefault();
+        var body = {
+          properties: {
+            business_name: e.target.pharmacy.value,
+            address: e.target.address.value,
+            phone: e.target.phone.value,
+            current: e.target.current.checked
+          }
+        };
+        console.log("add pharm body", body);
+        dispatch(pharmAction.AddPharm(body));
+      },
+      removePharm: (id) => {
+        dispatch(pharmAction.RemovePharm(id));
       }
     }
   };

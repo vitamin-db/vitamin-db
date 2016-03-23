@@ -6,17 +6,32 @@ const Glyphicon = require('react-bootstrap').Glyphicon;
 const Modal = require('react-bootstrap').Modal;
 const Input = require('react-bootstrap').Input;
 const FormComponent = require('./Form');
-
+const InsForm = require('./PatientForms/InsForm');
+const Phorm = require('./PatientForms/PharmForm');
 
 const AddDoc = React.createClass({
 getInitialState() {
-    return {show: false};
+    return {
+      show: false,
+      doc: true,
+      ins: false,
+      pharm: false
+    };
   },
   showModal() {
     this.setState({show: true});
   },
   hideModal() {
     this.setState({show: false});
+  },
+  toggleDoc() {
+    this.setState({doc: true, ins: false, pharm: false});
+  },
+  toggleIns() {
+    this.setState({ins: true, doc: false, pharm: false});
+  },
+  togglePharm() {
+    this.setState({pharm: true, doc:false, ins: false});
   },
   render() {
 	return(
@@ -26,7 +41,7 @@ getInitialState() {
         <div className="card">
           <div className="card-header">
             <Button bsStyle="primary" bsSize="small" onClick={this.showModal}><Glyphicon glyph="plus" /></Button>
-            <h5 className="card-headline">Add Doctor</h5>
+            <h5 className="card-headline">Add a new card</h5>
           </div>
         </div>
         </Col>
@@ -36,7 +51,13 @@ getInitialState() {
           onHide={this.hideModal}
           dialogClassName="custom-modal">
 
-          <FormComponent addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />
+          <button onClick={this.toggleDoc} >Doctor form</button>
+          <button onClick={this.toggleIns} >Insurance form</button>
+          <button onClick={this.togglePharm} >Pharmacy form</button>
+
+          {this.state.doc && <FormComponent addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />}
+          {this.state.ins && <InsForm addIns={this.props.addIns} />}
+          {this.state.pharm && <Phorm addPharm={this.props.addPharm} />}
 
         </Modal>
 

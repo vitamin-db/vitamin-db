@@ -23,7 +23,7 @@ const AllergiesPanel = ({removeAllergy, addAllergy, allergies}) => {
 		<Panel collapsible header='Allergies'>
 	 		{allergies[0] && <ListGroup fill>
 	 		{allergies.map((val, count) => 
-				<ListGroupItem key={val.id_allergy} className="allergies-item card-text">
+				<ListGroupItem key={count} className="allergies-item card-text">
 				   { (count+1) + ': '  + val.allergen + ' - ' + val.current } 
 					
 					<div className="btn-group">
