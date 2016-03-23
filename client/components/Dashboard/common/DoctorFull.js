@@ -9,20 +9,21 @@ const ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 const Modal = require('react-bootstrap').Modal;
 const Input = require('react-bootstrap').Input;
 const JoogleMaps = require('../../GoogleMaps/GoogleMaps');
+const geoAction = require('../../../actionCreators/geoActions');
 // const FormComponent = require('./Form');
 // const FormUI = require('./FormUI');
 
 const DoctorFull = React.createClass({
-getInitialState() {
-    return {
-      show: false,
-      lat: 30.268884,
-      lon: -97.740520
-    };
+  getInitialState() {
+    var finalState = {show: false, lat: 0, lon: 0};
+    var result = geoAction(this.props.val.street_address);
+    result.then((res) => {
+      finalState.lat = res[0];
+      finalState.lon = res[1];
+    })
+    return finalState;
   },
   showModal() {
-    // api call for converting address to lat/lon
-    // .then set state for show AND lat/lon
     this.setState({show: true});
   },
   hideModal() {
