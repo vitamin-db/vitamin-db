@@ -103,15 +103,9 @@ describe('/eyerx-api', function() {
 	  		  })
 	  	})
 
-	  	it('returns an error and a list of the problems if the inputs are invalid', function() {
+	  	it('returns an error if the inputs are invalid', function() {
 	  		var newEyeRx2_props = new TH.EyeRxAttributesNoUser(100, -12.432, -102.32, 'blah', 10.2, '9s', 2.3, 4.5)
-	  		//problems: sphere_right is over 99
-	        //          cylinder_right is also over 99
-	        //          cylinder_left is a word
-	        //          axis_left is a string
 
-	  		//sphere_left has 3 decimal places rather than 2, but we'll just round those
-	  		//axis_right is not an integer, but we'll round and it should be fine
 	  		return Auth.createToken(newUser1.username)
 	  		  .then(function(token) {
 	  		  	return request(app)
@@ -188,6 +182,25 @@ describe('/eyerx-api', function() {
 	  		  	expect(TH.propsMatchExceptMaybeCurrent(all[0], newEyeRx1_updated)).to.be.true
 	  		  	expect(TH.propsMatchExceptMaybeCurrent(all[0], newEyeRx1)).to.be.false
 	  		  })
+	  	})
+
+	  	it('returns an error if the inputs are invalid', function() {
+	  		var props = {id_eyerx: eyerx1_id, sphere_right: -3.45, sphere_left: 101.2}
+	  		return Auth.createToken(newUser1.username)
+	  		  .then( function(token) {
+	  		  	return request(app)
+	  		  	  .put('/eyerx')
+	  		  	  .set('x-access-token', token)
+	  		  	  .send({properties: props})
+	  		  	  .expect(400)
+	  		  	  .then( function(result) {
+	  		  	  	var got = JSON.parse(result.text)
+	  		  	  	expect(got).to.be.an('object')
+	  		  	  	expect(got).to.have.keys('error', 'msg')
+	  		  	  	expect(got.msg).to.equal('Please enter valid numbers')
+	  		  	  })
+	  		  })
+
 	  	})
 
 

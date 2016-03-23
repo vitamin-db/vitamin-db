@@ -59,7 +59,7 @@ EyeRx.createEyeRx = function(attrs) {
 	  	return eyerx ? EyeRx.toggleCurrent(eyerx.id_eyerx) : eyerx //toggles current and returns updated or returns undefined
 	  })
 	  .then( function() {
-	  	return EyeRx.create( EyeRx.package( EyeRx.validateAttrs(attrs) ) )
+	  	return EyeRx.create( EyeRx.packageForPost( EyeRx.validateAttrs(attrs) ) )
 	  })
 	  .then( function() {
 	  	return EyeRx.getCurrentByUser(attrs.id_user)
@@ -70,14 +70,16 @@ EyeRx.createEyeRx = function(attrs) {
 }
 
 
-/* PACKAGE
+/* PACKAGE FOR POST
   Packages a passed-in object for addition to the database by giving it a 'current' property set to true
 */
-EyeRx.package = function(attrs) {
+EyeRx.packageForPost = function(attrs) {
 	var packaged = EyeRx.validateAttrs(attrs)
 	packaged.current = true
 	return packaged
 }
+
+
 
 /* VALIDATE ATTRS
  Returns an object that contains the orginally passed in values, but in the format needed
@@ -86,6 +88,7 @@ EyeRx.package = function(attrs) {
  If some of them can't be coerced into the desired values, throws an error
 */
 EyeRx.validateAttrs = function(attrs) {
+	console.log('validating for attributes', attrs)
 
 	var validated = {}
 
@@ -101,14 +104,14 @@ EyeRx.validateAttrs = function(attrs) {
 	}
 
 	for (var p in attrs) {
-		if (p !== 'id_user' && p!== 'current') {
+		if (p !== 'id_user' && p!== 'current' && p!=='id_eyerx') {
 			if ( !EyeRx.isNumber(attrs[p]) ) {
 				throw Error
 			} else {
 				if (types[p] === 'int') {
 					validated[p] = EyeRx.getInt(attrs[p])
 				} else { //decimal
-					if (attrs[p] > 99) {
+					if (Math.abs(attrs[p]) > 99) {
 						throw Error
 					} else {
 						validated[p] = EyeRx.roundDecimal(attrs[p], 2)
@@ -125,6 +128,12 @@ EyeRx.validateAttrs = function(attrs) {
 	if(attrs.id_user !== undefined) {
 		validated.id_user = attrs.id_user
 	}
+
+	if(attrs.id_eyerx !== undefined) {
+		validated.id_eyerx = attrs.id_eyerx
+	}
+
+	console.log('about to return validated object', validated)
 
 	return validated
 }
