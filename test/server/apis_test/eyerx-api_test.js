@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const EyeRx = require(__server + '/models/eyerx')
 
-xdescribe('/eyerx-api', function() {
+describe('/eyerx-api', function() {
 
 	//set up app
 	var app = TH.createApp()
@@ -103,6 +103,27 @@ xdescribe('/eyerx-api', function() {
 	  		  })
 	  	})
 
+	  	it('returns an error if the inputs are invalid', function() {
+	  		var newEyeRx2_props = new TH.EyeRxAttributesNoUser(100, -12.432, -102.32, 'blah', 10.2, '9s', 2.3, 4.5)
+
+	  		return Auth.createToken(newUser1.username)
+	  		  .then(function(token) {
+	  		  	return request(app)
+	  		  	  .post('/eyerx')
+	  		  	  .set('x-access-token', token)
+	  		  	  .send({properties: newEyeRx2_props})
+	  		  	  .expect(400)
+	  		  	  .then(function(result) {
+	  		  	  	var r = JSON.parse(result.text)
+	  		  	  	expect(r).to.be.an('object')
+	  		  	  	expect(r).to.have.keys('error', 'msg')
+	  		  	  	expect(r.msg).to.equal('Please enter valid numbers')
+	  		  	  })
+	  		  })
+
+
+	  	})
+
 	})
 
 	describe('PUT /eyerx', function() {
@@ -161,6 +182,25 @@ xdescribe('/eyerx-api', function() {
 	  		  	expect(TH.propsMatchExceptMaybeCurrent(all[0], newEyeRx1_updated)).to.be.true
 	  		  	expect(TH.propsMatchExceptMaybeCurrent(all[0], newEyeRx1)).to.be.false
 	  		  })
+	  	})
+
+	  	it('returns an error if the inputs are invalid', function() {
+	  		var props = {id_eyerx: eyerx1_id, sphere_right: -3.45, sphere_left: 101.2}
+	  		return Auth.createToken(newUser1.username)
+	  		  .then( function(token) {
+	  		  	return request(app)
+	  		  	  .put('/eyerx')
+	  		  	  .set('x-access-token', token)
+	  		  	  .send({properties: props})
+	  		  	  .expect(400)
+	  		  	  .then( function(result) {
+	  		  	  	var got = JSON.parse(result.text)
+	  		  	  	expect(got).to.be.an('object')
+	  		  	  	expect(got).to.have.keys('error', 'msg')
+	  		  	  	expect(got.msg).to.equal('Please enter valid numbers')
+	  		  	  })
+	  		  })
+
 	  	})
 
 

@@ -59,18 +59,82 @@ EyeRx.createEyeRx = function(attrs) {
 	  	return eyerx ? EyeRx.toggleCurrent(eyerx.id_eyerx) : eyerx //toggles current and returns updated or returns undefined
 	  })
 	  .then( function() {
-	  	var newAttrs = attrs
-	  	newAttrs.current = true
-	  	return EyeRx.create(newAttrs)
+	  	return EyeRx.create( EyeRx.packageForPost( EyeRx.validateAttrs(attrs) ) )
 	  })
 	  .then( function() {
 	  	return EyeRx.getCurrentByUser(attrs.id_user)
 	  })
+	  .catch(function() {
+	  	throw new Error('Please enter valid numbers')
+	  })
+}
 
+
+/* PACKAGE FOR POST
+  Packages a passed-in object for addition to the database by giving it a 'current' property set to true
+*/
+EyeRx.packageForPost = function(attrs) {
+	var packaged = EyeRx.validateAttrs(attrs)
+	packaged.current = true
+	return packaged
 }
 
 
 
+/* VALIDATE ATTRS
+ Returns an object that contains the orginally passed in values, but in the format needed
+   (ie truncated )
+ If no errors, returns an object with all of the values in the format required
+ If some of them can't be coerced into the desired values, throws an error
+*/
+EyeRx.validateAttrs = function(attrs) {
+	console.log('validating for attributes', attrs)
 
+	var validated = {}
 
+	var types = {
+		sphere_right: 'dec',
+		sphere_left: 'dec',
+		cylinder_right: 'dec',
+		cylinder_left: 'dec',
+		axis_right: 'int',
+		axis_left: 'int',
+		add_right: 'dec',
+		add_left: 'dec'
+	}
+
+	for (var p in attrs) {
+		if (p !== 'id_user' && p!== 'current' && p!=='id_eyerx') {
+			if ( !EyeRx.isNumber(attrs[p]) ) {
+				throw Error
+			} else {
+				if (types[p] === 'int') {
+					validated[p] = EyeRx.getInt(attrs[p])
+				} else { //decimal
+					if (Math.abs(attrs[p]) > 99) {
+						throw Error
+					} else {
+						validated[p] = EyeRx.roundDecimal(attrs[p], 2)
+					}
+				}
+			}
+		}
+	}
+
+	if(attrs.current !== undefined) {
+		validated.current = attrs.current
+	}
+
+	if(attrs.id_user !== undefined) {
+		validated.id_user = attrs.id_user
+	}
+
+	if(attrs.id_eyerx !== undefined) {
+		validated.id_eyerx = attrs.id_eyerx
+	}
+
+	console.log('about to return validated object', validated)
+
+	return validated
+}
 

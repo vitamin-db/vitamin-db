@@ -228,7 +228,7 @@ module.exports = function(tableName, allAttrs) {
 		if (this.isNumber(elem)) {
 			return parseInt(elem)
 		} else {
-			throw new Error('Not a valid number')
+			throw new Error('Please enter valid numbers')
 		}
 	}.bind(this)
 
@@ -242,7 +242,7 @@ module.exports = function(tableName, allAttrs) {
 			var num = parseFloat(dec)
 			return Math.round(num * mFactor)/mFactor	
 		} else {
-			throw new Error('Not a valid number')
+			throw new Error('Please enter valid numbers')
 		}
 	}.bind(this)
 

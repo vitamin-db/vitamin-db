@@ -3,6 +3,7 @@
 const EyeRx = require('../models/eyerx')
 const User = require('../models/user')
 const SendR = require('../sendresponse')
+const Promise = require('bluebird')
 
 const EyeRxAPI = require('express').Router();
 
@@ -53,9 +54,12 @@ EyeRxAPI.post('/', function(req, res) {
 
 	  })
 	  .catch( function(err) {
-	  	SendR.error(res, 500, 'Server error posting eyerx', err)
+	  	if (err.message === 'Please enter valid numbers') {
+	  		SendR.error(res, 400, err.message, err)
+	  	} else {
+	  		SendR.error(res, 500, 'Server error posting eyerx', err)
+	  	}
 	  })
-
 })
 
 
@@ -69,12 +73,26 @@ PUT /eyerx
 */
 EyeRxAPI.put('/', function(req, res) {
 
-	return EyeRx.updateByObj(req.body.properties)
+	return new Promise( function(resolve, reject) {
+		var validated = EyeRx.validateAttrs(req.body.properties)
+		resolve(validated)
+	})
+	  .catch( function(err) {
+	  	throw new Error('Please enter valid numbers')
+	  })
+	  .then( function(validated) {
+	  	return EyeRx.updateByObj(validated)
+	  })
 	  .then(function(updated) {
 	  	SendR.resData(res, 201, EyeRx.getPublicOb(updated))
 	  })
 	  .catch( function(err) {
-	  	SendR.error(res, 500, 'Server error updating eyerx', err)
+	  	console.log('got error from put: ', err)
+	  	if (err.message === 'Please enter valid numbers') {
+	  		SendR.error(res, 400, err.message, err)
+	  	} else {
+	  		SendR.error(res, 500, 'Server error updating eyerx', err)
+	  	}
 	  })
 
 })
