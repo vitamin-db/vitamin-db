@@ -211,5 +211,60 @@ module.exports = function(tableName, allAttrs) {
 	}
 
 
+	/* IS NUMBER
+	  Returns a boolean indicating whether a string is parsable to an object
+	*/
+	this.isNumber = function(elem) {
+		var asNum = parseInt(elem) //will be NaN if invalid
+		return asNum === asNum //will be false if 
+	}
+
+
+	/* GET INT
+	  Transforms the passed-in value to an integer
+	  If elem is not parseable to an integer, throws an Error ('Not a valid number')
+	*/
+	this.getInt = function(elem) {
+		if (this.isNumber(elem)) {
+			return parseInt(elem)
+		} else {
+			throw new Error('Not a valid number')
+		}
+	}.bind(this)
+
+	/* ROUND DECIMAL
+	  Returns the passed-in decimal (as a string or number) rounded to the nearest sigFigs
+	  Throws an error 'Not a valid number' if not parseable to a number
+	*/
+	this.roundDecimal = function(dec, sigFigs) {
+		if (this.isNumber(dec)) {
+			var mFactor = Math.pow(10, sigFigs)
+			var num = parseFloat(dec)
+			return Math.round(num * mFactor)/mFactor	
+		} else {
+			throw new Error('Not a valid number')
+		}
+	}.bind(this)
+
+
+
+	/* VALID EMAIL
+	  Returns a boolean indicating whether an email address is correctly formatted
+	  To be correctly formatted, needs: 
+	  - exactly one '@' symbol
+	  - a '.' after the @ symbol
+	  - at least one character between the '@' and '.'
+	  - at least one character after the '.'
+	*/
+	this.validEmail = function(emailAddress) {
+		var splitAtAt = emailAddress.split('@')
+		if (splitAtAt.length !== 2) {
+			return false
+		} else {
+			var splitAtDot = splitAtAt[1].split('.')
+			return splitAtDot.length > 1 && splitAtDot.reduce(function(bool, curr) {return bool && curr.length > 0}, true)
+		}
+	}
+
 
 }

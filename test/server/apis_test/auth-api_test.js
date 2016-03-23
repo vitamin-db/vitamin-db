@@ -8,7 +8,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 const TH = require(__test + '/test-helper')
 
 
-describe("POST /authenticate", function() {
+xdescribe("POST /authenticate", function() {
 
   //set up app
   var app = TH.createApp()
@@ -132,7 +132,7 @@ describe("POST /authenticate", function() {
       })
   })
 
-  it("returns 400 and an error message if user forgot to enter username", function() {
+  it("returns 400 and an error message if user forgot to enter password", function() {
     return request(app)
       .post('/authenticate/login')
       .send({ username: "Josh", password: '' })
@@ -147,9 +147,6 @@ describe("POST /authenticate", function() {
       })
   })
 
-  it("returns 400 and an error message if user forgot to enter password", function() {
-
-  })
   // /////////////////////////////////
   // TEST /SIGNUP
   // /////////////////////////////////
@@ -191,7 +188,7 @@ describe("POST /authenticate", function() {
   })
 
   it("returns 400 and an error message if given incomplete information", function() {
-    var newTestUser6 = {username: 'Namebly', password: undefined, email: 'nope', phone: 342-492-9229}
+    var newTestUser6 = {username: 'Namebly', password: undefined, email: 'nope', phone: '342-492-9229'}
 
     return request(app)
       .post('/authenticate/signup')
@@ -202,6 +199,22 @@ describe("POST /authenticate", function() {
         expect(loginRes).to.be.an('object')
         expect(loginRes).to.have.key('msg')
         expect(loginRes['msg']).to.equal('Please complete all fields')
+      })
+  })
+
+  it("returns 400 and an error message if the email provided is not valid", function() {
+    //for our purposes, a "valid email address is one with @ and with a .something after the at"
+    var newTestUser6 = {username: 'Namebly', password: 'ppaaaaasswrdd', email: 'nope@gmail', phone: 342-492-9229}
+
+    return request(app)
+      .post('/authenticate/signup')
+      .send(newTestUser6)
+      .expect(400)
+      .then(function(result) {
+        var loginRes = JSON.parse(result.text)
+        expect(loginRes).to.be.an('object')
+        expect(loginRes).to.have.key('msg')
+        expect(loginRes['msg']).to.equal('Please enter a valid email address')
       })
   })
 

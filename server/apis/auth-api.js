@@ -105,6 +105,8 @@ AuthAPI.post('/signup', function(req, res) {
 
   if (!enteredUsername || !enteredPw || !enteredEmail || !enteredPhone) {
   	SendR.errMsg(res, 400, 'Please complete all fields')
+  } else if( !User.validEmail(enteredEmail) ) {
+  	SendR.errMsg(res, 400, 'Please enter a valid email address')
   } else {
   	return User.existsByUsername(enteredUsername)
   	  .then( function(exists) {

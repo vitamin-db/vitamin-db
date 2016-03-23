@@ -198,3 +198,5 @@ User.getPublic = function(user) {
   var publicAttrs = ['username', 'email', 'phone']
   return this.onlySomeProps(user, publicAttrs)
 }
+
+
