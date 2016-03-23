@@ -6,7 +6,7 @@ const request = require('supertest-as-promised')
 const EyeRx = require(__server + '/models/eyerx')
 const User = require(__server + '/models/user')
 
-xdescribe('**************** EyeRx Model ****************', function() {
+describe('**************** EyeRx Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()

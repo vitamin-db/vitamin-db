@@ -54,7 +54,7 @@ EyeRxAPI.post('/', function(req, res) {
 	  })
 	  .catch( function(err) {
 	  	if (err.message === 'Please enter valid numbers') {
-	  		SendR.err(res, 400, err.message)
+	  		SendR.error(res, 400, err.message, err)
 	  	} else {
 	  		SendR.error(res, 500, 'Server error posting eyerx', err)
 	  	}

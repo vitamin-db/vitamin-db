@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const EyeRx = require(__server + '/models/eyerx')
 
-xdescribe('/eyerx-api', function() {
+describe('/eyerx-api', function() {
 
 	//set up app
 	var app = TH.createApp()
@@ -122,16 +122,8 @@ xdescribe('/eyerx-api', function() {
 	  		  	  .then(function(result) {
 	  		  	  	var r = JSON.parse(result.text)
 	  		  	  	expect(r).to.be.an('object')
-	  		  	  	expect(r).to.have.keys('error', 'msg', 'over99', 'notNum')
-	  		  	  	expect(r.msg).to.equal('Invalid inputs')
-	  		  	  	expect(r.over99).to.be.an('array')
-	  		  	  	expect(r.over99).to.have.length(2)
-	  		  	  	expect(r.over99.indexOf('sphere_right') > -1).to.be.true
-	  		  	  	expect(r.over99.indexOf('cylinder_right') > -1).to.be.true
-	  		  	  	expect(r.notNum).to.be.an('array')
-	  		  	  	expect(r.notNum).to.have.length(2)
-	  		  	  	expect(r.notNum.indexOf('cylinder_left') > -1).to.be.true
-	  		  	  	expect(r.notNum.indexOf('axis_left') > -1).to.be.true
+	  		  	  	expect(r).to.have.keys('error', 'msg')
+	  		  	  	expect(r.msg).to.equal('Please enter valid numbers')
 	  		  	  })
 	  		  })
 

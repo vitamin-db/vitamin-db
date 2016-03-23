@@ -90,8 +90,8 @@ EyeRx.validateAttrs = function(attrs) {
 	var validated = {}
 
 	var types = {
-		sphere_right: 'dec'
-		sphere_left: 'dec'
+		sphere_right: 'dec',
+		sphere_left: 'dec',
 		cylinder_right: 'dec',
 		cylinder_left: 'dec',
 		axis_right: 'int',
@@ -122,7 +122,7 @@ EyeRx.validateAttrs = function(attrs) {
 		validated.current = attrs.current
 	}
 
-	it(attrs.id_user !== undefined) {
+	if(attrs.id_user !== undefined) {
 		validated.id_user = attrs.id_user
 	}
 
