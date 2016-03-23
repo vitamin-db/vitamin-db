@@ -29,11 +29,11 @@ const JoogleMaps = (props) => {
                   key={marker.position.lat}
                   {...marker}
             />
-            );
-          })};
-          </GoogleMap>
-        }
-      />
+          );
+        })};
+        </GoogleMap>
+      }
+    />
   );
 };
 
