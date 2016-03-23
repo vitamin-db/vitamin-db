@@ -3,13 +3,15 @@ const Panel = require('react-bootstrap').Panel;
 const ListGroup = require('react-bootstrap').ListGroup;
 const ListGroupItem = require('react-bootstrap').ListGroupItem;
 const Col = require('react-bootstrap').Col;
-const AddButton = require('../../common/AddButton');
+const AddButton = require('./PatientHelpers/NewFamily');
 const EditButton = require('../../common/EditButton');
-const DeleteButton = require('../../common/DeleteButton');
+const Button = require('react-bootstrap').Button;
+const Glyphicon = require('react-bootstrap').Glyphicon;
+
 
 // const FormUI = require('../../common/FormUI');
 
-const FamilyHistPanel = ({familyhistory, family}) => {
+const FamilyHistPanel = ({removeFamCond, addFamCond, familyhistory, family}) => {
 
 	return (
 		<Col xs={12} lg={8} lgOffset={4}>
@@ -17,16 +19,16 @@ const FamilyHistPanel = ({familyhistory, family}) => {
 	 		{familyhistory[0] && <ListGroup fill>
 	 		{familyhistory.map((val, count) =>
 				<ListGroupItem key={count} className="family-item card-text">
-				   {count + ': ' + "no name provided" + '  '+ val.history[0].condition}
+				{count + ': ' + "no name provided" + '  '+ val.history[0].condition}
 					
 					<div className="btn-group">
 						<EditButton />
-						<DeleteButton />
+						<Button onClick={removeFamCond.bind(null, val.history[0].id_famhist)} className="edit-button" bsSize="xsmall" ><Glyphicon glyph="trash" /></Button>
 					</div>
 				</ListGroupItem>
 			)}
 	 		</ListGroup>}
-		 	<AddButton />
+		 	<AddButton addFamCond={addFamCond} />
   	 	</Panel>
   	 	</Col>
 	)
