@@ -1,5 +1,5 @@
 const stateAction    = require('./stateActions');
-const allergyAction  = require('./allergyActions');
+const allergyAction  = require('./AllergyActions');
 const browserHistory = require('react-router').browserHistory;
 
 // this is just a cookie parser. Put in the string "token" into the argument and it will
