@@ -38,7 +38,7 @@ const DocCard = React.createClass({
 			<Col xs={12} md={4}>
 				 <div className="card">
 
-					<DoctorFull type={this.props.val.type} glyph={this.props.val.portrait}/>
+					<DoctorFull val={this.props.val} type={this.props.val.type} glyph={this.props.val.portrait}/>
 						<button onClick={this.toggleShow}>edit</button>
 						<button onClick={this.props.removeDoc.bind(null, this.props.val.id_doctor)} >Remove</button>
 				     {this.state.show && <div className="card-block">

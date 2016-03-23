@@ -12,6 +12,27 @@ function getCookie(cname) {
    return "";
 }
 
+function AddMember (member) {
+	return fetch('', {
+		method: 'post',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+			'x-access-token': getCookie("token")
+		},
+		body: JSON.stringify(member)
+	})
+	.then((response) => {
+		return response.json();
+	})
+	.then((data) => {
+		return data;
+	})
+	.catch((err) => {
+		console.error("add member err", err);
+	})
+}
+
 function AddFam (fam) {
 	return (dispatch) => {
 		return fetch('/familyhistory', {
@@ -56,5 +77,6 @@ function RemoveFam (id) {
 
 module.exports = {
 	AddFam,
-	RemoveFam
+	RemoveFam,
+	AddMember
 };

@@ -172,6 +172,7 @@ const mapDispatchToProps = (dispatch) => {
       },
       addFamCond: (e) => {
         e.preventDefault();
+        var member = e.target.member.value;
         var body = {
           properties: {
             condition: e.target.condition.value

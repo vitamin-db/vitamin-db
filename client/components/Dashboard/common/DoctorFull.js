@@ -9,12 +9,19 @@ const ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 const Modal = require('react-bootstrap').Modal;
 const Input = require('react-bootstrap').Input;
 const JoogleMaps = require('../../GoogleMaps/GoogleMaps');
+const geoAction = require('../../../actionCreators/geoActions');
 // const FormComponent = require('./Form');
 // const FormUI = require('./FormUI');
 
 const DoctorFull = React.createClass({
-getInitialState() {
-    return {show: false};
+  getInitialState() {
+    var finalState = {show: false, lat: 0, lon: 0};
+    var result = geoAction(this.props.val.street_address);
+    result.then((res) => {
+      finalState.lat = res[0];
+      finalState.lon = res[1];
+    })
+    return finalState;
   },
   showModal() {
     this.setState({show: true});
@@ -35,15 +42,16 @@ getInitialState() {
           show={this.state.show}
           onHide={this.hideModal}
           dialogClassName="custom-modal">
+
             <img src={this.props.glyph} />
               <div className="card-full-text">
-                <h2>Name: Jane Doeblin</h2>
-                <p><strong>Specialty:</strong> Obstetrics & Gynecology<br />
-                <strong>Phone:</strong> 5852443430<br />
-                <strong>Business:</strong> Women Gynecology & Childbirth Associates, P.c.<br />
-                <strong>Address:</strong> 1815 Clinton Ave S Ste 610 Rochester, NY 14618</p>
+                <h2>Name: {this.props.val.name}</h2>
+                <p><strong>Specialty:</strong> {this.props.val.type} <br />
+                <strong>Phone:</strong> {this.props.val.phone} <br />
+                <strong>Address:</strong> {this.props.val.street_address} </p>
               </div>
-              <div className="JoogleMaps"><JoogleMaps lon={-97.740520}  lat={30.268884} /></div>
+              <div className="JoogleMaps"><JoogleMaps lon={this.state.lon}  lat={this.state.lat} /></div>
+
         </Modal>
     </div>
     )
