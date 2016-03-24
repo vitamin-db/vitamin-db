@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for vitamin-db/server/models/user-doctor.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">vitamin-db/server/models/</a> user-doctor.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">23.33% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>14/60</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/28</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">23.33% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>14/60</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const db = require('../db')
+const Model = require('./model-helper')
+const Promise = require('bluebird')
+&nbsp;
+const User = require('./user')
+const Doctor = require('./doctor')
+&nbsp;
+const UserDoctor = new Model('user_doctor', ['id_user_doctor', 'id_user', 'id_doctor', 'type_usermade', 'current'])
+&nbsp;
+module.exports = UserDoctor
+&nbsp;
+// METHODS DEFINED IN MODEL-HELPER
+&nbsp;
+/* 
+Dcctor.create = function(attrs)
+  Takes attributes of new doctor and adds this doctor to the user_doctor table
+  Returns the newly created entry
+  For some reason, the timestamp etc is not working
+  eg:
+    UserDoct.create( {name: 'example_doctor_name', street_address: '123 street lane', city: 'austin', state_abbrev: 'tx', zip: 78751, email: 'mycooladdress@gmail.com', web: 'www.mycoolsite.com', phone: '9725438283', type: 'primary'} )
+    =&gt; returns: {name: 'example_doctor_name',
+                 street_address: '123 street lane', 
+                 city: 'austin', 
+                 state_abbrev: 'tx', 
+                 zip: 78751, 
+                 email: 'mycooladdress@gmail.com', 
+                 web: 'www.mycoolsite.com', 
+                 phone: '9725438283', 
+                 type: 'primary'
+                }
+*/
+&nbsp;
+&nbsp;
+/* UserDoctor.getAll = function()
+  Returns an array of all user_doctor records
+*/
+&nbsp;
+&nbsp;
+/*
+UserDoctor.findById = function(id)
+  Takes a primary key as an argument
+  Returns an object containing the user_doctor record with a matching primary key, or undefined if no entry has a matching primary key
+  eg:
+    UserDoctor.findById(3)
+    =&gt; returns: {name: 'Doctor Smith',
+                 street_address: '123 pecan rd', 
+                 city: 'georgetown', 
+                 state_abbrev: 'tx', 
+                 zip: 78751, 
+                 email: 'othercooladdress@gmail.com', 
+                 web: 'www.sweetwebsite.com', 
+                 phone: '3942049304', 
+                 type: 'obgyn'
+                }
+*/
+&nbsp;
+/* 
+UserDoctor.deleteById = function(id)
+  Takes a primary key as an argument
+  Deletes the UserDoctor with that primary key from the database
+  Returns the number of records deleted (1)
+*/
+&nbsp;
+//METHODS DEFINED HERE:
+&nbsp;
+/*
+  Returns an array of Doctor objects associated with one particular user
+  // search id_user table to find all doctors associated with a particular user
+  // map over resulting array to find full doctor object by ID (use .findByID from model-helper);
+*/
+&nbsp;
+UserDoctor.findAllDoctors = <span class="fstat-no" title="function not covered" >function(id){</span> // where id = id_user
+<span class="cstat-no" title="statement not covered" >  return this.findByAttribute('id_user', id)</span>
+    .then ( <span class="fstat-no" title="function not covered" >function(array) {</span>
+<span class="cstat-no" title="statement not covered" >      return Promise.all(</span>
+        array.map(<span class="fstat-no" title="function not covered" >function(arrayItem) {</span>
+<span class="cstat-no" title="statement not covered" >          return Doctor.findById(arrayItem.id_doctor)</span>
+        })
+      )
+    })
+}
+&nbsp;
+/*
+  Returns an array of Doctor objects with a certain type
+*/
+UserDoctor.findAllDoctorsOfType = <span class="fstat-no" title="function not covered" >function(id, docType){</span>
+<span class="cstat-no" title="statement not covered" >  return this.findByAttribute('id_user', id)</span>
+    .then (<span class="fstat-no" title="function not covered" >function(doctors) {</span>
+<span class="cstat-no" title="statement not covered" >      return Promise.all(</span>
+        doctors.filter(<span class="fstat-no" title="function not covered" >function(doctor) {</span>
+          // console.log('(user-doctor.js): doctor in doctors.filter ', doctor)
+          // console.log('(user-doctor.js): doctor.type in doctors.filter ', doctor.type)
+<span class="cstat-no" title="statement not covered" >          if (doctor.type_usermade === docType) {</span>
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+          }
+        })
+      )
+    })
+    .then ( <span class="fstat-no" title="function not covered" >function(doctorsOfType) {</span>
+<span class="cstat-no" title="statement not covered" >      return Promise.all(</span>
+        doctorsOfType.map(<span class="fstat-no" title="function not covered" >function(doctor) {</span>
+<span class="cstat-no" title="statement not covered" >          return Doctor.findById(doctor.id_doctor)</span>
+        })
+      )
+    })
+}
+&nbsp;
+/* CREATE DOCTOR
+  Adds the doctor to the doctor table and creates a user-doctor relationship with id_user using type_usermade and current
+  Returns the newly created doctor object from the doctors table
+*/
+UserDoctor.createDoctor = <span class="fstat-no" title="function not covered" >function(docAttrs, id_user, type_usermade, current) {</span>
+<span class="cstat-no" title="statement not covered" >  var newDoctor = undefined</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return Doctor.create(docAttrs)</span>
+    .then(<span class="fstat-no" title="function not covered" >function(attrs) {</span>
+<span class="cstat-no" title="statement not covered" >      return db.select('*').from('doctors').where(attrs)</span>
+    })
+    .then(<span class="fstat-no" title="function not covered" >function(allMatching) {</span>
+<span class="cstat-no" title="statement not covered" >      return allMatching.reduce(<span class="fstat-no" title="function not covered" >function(mostRecent, current) {</span></span>
+<span class="cstat-no" title="statement not covered" >        return mostRecent.id_doctor &gt; current.id_doctor ? mostRecent : current</span>
+      })
+    })
+    .then(<span class="fstat-no" title="function not covered" >function(newDoc) {</span>
+<span class="cstat-no" title="statement not covered" >      newDoctor = newDoc</span>
+<span class="cstat-no" title="statement not covered" >      return UserDoctor.create({id_user: id_user, id_doctor: newDoctor.id_doctor, type_usermade: type_usermade, current: current})</span>
+    })
+    .then(<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      return newDoctor</span>
+    })
+}
+&nbsp;
+/* FIND ID
+  Given a username and a doctor id, returns the corresponding id_user_doctor
+*/
+UserDoctor.findId = <span class="fstat-no" title="function not covered" >function(username, id_doctor) {</span>
+<span class="cstat-no" title="statement not covered" >  return User.findByUsername(username)</span>
+    .then(<span class="fstat-no" title="function not covered" >function(user) {</span>
+<span class="cstat-no" title="statement not covered" >      return db('user_doctor').select('*').where({id_user: user.id_user, id_doctor: id_doctor}) || user</span>
+      //returns undefined if no matches
+    })
+    .then(<span class="fstat-no" title="function not covered" >function(arr) {</span>
+<span class="cstat-no" title="statement not covered" >      return arr.length &gt; 0 ? arr[0].id_user_doctor : undefined</span>
+    })
+}
+&nbsp;
+&nbsp;
+/* DELETE USER DOCTOR
+  Deletes all the userdoctor and any linked appointments
+*/
+UserDoctor.deleteUserDoctor = <span class="fstat-no" title="function not covered" >function(id_user_doctor) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return db('appointments').where({id_user_doctor: id_user_doctor}).del()</span>
+    .then(<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      return UserDoctor.deleteById(id_user_doctor)</span>
+    })
+&nbsp;
+}
+&nbsp;
+/* DELETE DOCTOR
+  Deletes the doctor and all associated userdoctors and appointments
+*/
+UserDoctor.deleteDoctor = <span class="fstat-no" title="function not covered" >function(id_doctor) {</span>
+<span class="cstat-no" title="statement not covered" >  return UserDoctor.findByAttribute('id_doctor', id_doctor)</span>
+    .then(<span class="fstat-no" title="function not covered" >function(userdocs) {</span>
+<span class="cstat-no" title="statement not covered" >      return Promise.all(</span>
+        userdocs.map(userdoc =&gt; <span class="cstat-no" title="statement not covered" >UserDoctor.deleteUserDoctor(userdoc.id_user_doctor))</span>
+      )
+    })
+    .then( <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      return Doctor.deleteById(id_doctor)</span>
+    })
+}
+&nbsp;
+&nbsp;
+/* UPDATE USERDOCTOR
+  Takes the object sent in to req.body.properties
+  Updates the doctor - if there's an error, won't update the UserDoctor
+  Then updates the userdoctor
+*/
+UserDoctor.updateUserDoctor = <span class="fstat-no" title="function not covered" >function(username, reqObj) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var doc, needToUpdateDoc</span>
+  
+<span class="cstat-no" title="statement not covered" >  var udoc = {}</span>
+<span class="cstat-no" title="statement not covered" >  var needToUpdateUserdoc = false</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return new Promise( <span class="fstat-no" title="function not covered" >function(resolve, reject) {</span></span>
+<span class="cstat-no" title="statement not covered" >    doc = Doctor.prepData(reqObj) </span>//this will throw an error if there is a data validation problem
+<span class="cstat-no" title="statement not covered" >    needToUpdateDoc = Object.keys(doc).length &gt; 1 ? true : false</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (reqObj.current !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >      needToUpdateUserdoc = true</span>
+<span class="cstat-no" title="statement not covered" >      udoc.current = reqObj.current</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (reqObj.type_usermade !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >      needToUpdateUserdoc = true</span>
+<span class="cstat-no" title="statement not covered" >      udoc.type_usermade = reqObj.type_usermade</span>
+    }
+<span class="cstat-no" title="statement not covered" >    resolve()</span>
+  })
+  .then( <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    if (needToUpdateUserdoc) {</span>
+<span class="cstat-no" title="statement not covered" >      return UserDoctor.findId(username, doc.id_doctor)</span>
+        .then(<span class="fstat-no" title="function not covered" >function(id) {</span>
+<span class="cstat-no" title="statement not covered" >          return UserDoctor.updateById(id, udoc)</span>
+        })
+    }
+  })
+  .then( <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    if (needToUpdateDoc) {</span>
+<span class="cstat-no" title="statement not covered" >      return Doctor.updateByObj(doc)</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return Doctor.findById(doc.id_doctor)</span>
+    }
+  })
+  .catch( <span class="fstat-no" title="function not covered" >function(err) {</span>
+<span class="cstat-no" title="statement not covered" >    throw err</span>
+  })
+&nbsp;
+&nbsp;
+}
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Mar 24 2016 16:50:59 GMT-0500 (CDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
