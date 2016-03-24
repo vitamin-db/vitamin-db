@@ -32,7 +32,7 @@ const UserProfile = React.createClass({
            </tr>
            <tr>
              <th>PASSWORD</th>
-             <th><button onClick={this.toggleShow}>EDIT FORM</button></th>
+             <th>******</th>
            </tr>   
          </thead> 
        </Table>
@@ -44,9 +44,10 @@ const UserProfile = React.createClass({
           <input name="phone" placeholder="Phone Number"/>
           <input name="email" placeholder="E-Mail"/>
           <input name="password" placeholder="Password"/>
-          <button type="submit">Submit</button>
+          <button>Submit</button>
         </form>
        </div>}
+        <button onClick={this.toggleShow}>EDIT {this.props.userInfo}'s Profile</button>
       </Col>
    </Col>
     )
