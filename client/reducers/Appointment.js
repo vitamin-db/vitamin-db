@@ -7,7 +7,8 @@ const Appoint = (state, action) => {
   		return action.list.appointments || state;
   	case 'ADDAPPOINTMENT': 
   		var appointArray = [...state];
-      for(var i = 0; i < appointArray; i++) {
+      for(var i = 0; i < appointArray.length; i++) {
+        console.log('testing for loop appointment', appointArray[i].id_doctor, appointArray[i].appointments[0].id_user_doctor)
         if(appointArray[i].id_doctor === appointArray[i].appointments[0].id_user_doctor) {
   		    appointArray[i].appointments.push(action.appointment);
         }

@@ -18,7 +18,7 @@ const Auth = require('./models/auth')
 const nodemailer = require('nodemailer');
 
 //for twilio to work
-const twilio = require('./twilio/reminder');
+const twilio = require('../client/twilio/reminder');
 
 //webpack stuff
 // const config = require('../webpack.config.js');
