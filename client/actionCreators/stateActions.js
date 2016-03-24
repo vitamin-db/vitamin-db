@@ -126,6 +126,15 @@ function RemovePharm (id) {
 	};
 };
 
+function AddAppointment (appointment, id_doctor) {
+	console.log('appoint in state actions', appointment, id_doctor)
+	return {
+		type: 'ADDAPPOINTMENT',
+		appointment: appointment,
+		id_doctor: id_doctor
+	};
+};
+
 function InvalidSignIn (msg) {
 	return {
 		type: 'INVALIDSIGNIN',
@@ -159,6 +168,7 @@ module.exports = {
 	RemoveIns,
 	AddPharm,
 	RemovePharm,
+	AddAppointment,
 	InvalidSignIn,
 	InvalidSignUp
 };
