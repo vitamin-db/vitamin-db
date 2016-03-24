@@ -4,7 +4,7 @@ const Insurance = (state, action) => {
   }
   switch(action.type){
   	case 'SETMYINFO':
-  		return action.list.insurance;
+  		return action.list.insurance || state;
   	case 'ADDINS':
   		var newIns = [...state];
   		newIns.push(action.ins);

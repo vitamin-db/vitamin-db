@@ -9,7 +9,7 @@ const stateAction		= require('../actionCreators/stateActions');
 // require history to change routes
 const browserHistory    = require('react-router').browserHistory;
 
-const Splash = ({onSignIn, goSignup, logged }) => {
+const Splash = ({error, onSignIn, goSignup, logged }) => {
 	// on refresh, status resets, therefore delete the cookie, forcing users to re-sign-in
 	if(!logged){
 		document.cookie = "token=; expires=Thu, 01 Jan 1600 00:00:00 UTC";
@@ -22,7 +22,7 @@ const Splash = ({onSignIn, goSignup, logged }) => {
 				</div>
 			</div>
 			{!logged && <div className="col-md-12">
-		    	<SignIn goSignup={goSignup} onSignIn={onSignIn} />
+		    	<SignIn error={error} goSignup={goSignup} onSignIn={onSignIn} />
 			</div>}
 		</div>
 	);
@@ -32,7 +32,8 @@ const mapStateToProps = (state) => {
 	// console.log(userAction.getCookie("token"));
 	// ^^^ this console log returns each state in the reducers/reducer.js file
 	return {
-		logged: state.signin.logged
+		logged: state.signin.logged,
+		error: state.signin.msg
 	};
 };
 

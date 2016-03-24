@@ -4,7 +4,7 @@ const Allergy = (state, action) => {
   }
   switch(action.type){
   	case 'SETMYINFO':
-  		return action.list.allergies;
+  		return action.list.allergies || state;
   	case 'ADDALLERGY':
   		var newAllergy = [...state];
   		newAllergy.push(action.allergy);

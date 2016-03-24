@@ -4,7 +4,7 @@ const Pharmacy = (state, action) => {
   }
   switch(action.type){
   	case 'SETMYINFO':
-  		return action.list.pharmacies;
+  		return action.list.pharmacies || state;
   	case 'ADDPHARM':
   		var newPharm = [...state];
   		newPharm.push(action.pharm);

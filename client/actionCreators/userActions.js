@@ -29,9 +29,9 @@ function SignIn (body) {
       return response.json();
     })
     .then((token) => { // later, ask for user info too, except password, to display on profile page
-      if(token.token === undefined){ // later, move this logic to the back end. Have it throw an error in the back end, so it will fall to this .catch
+      if(token.msg === "Invalid username and password combination"){ // later, move this logic to the back end. Have it throw an error in the back end, so it will fall to this .catch
         dispatch(stateAction.SignInFail());
-        return;
+        return token.msg;
       }else{
         // grab current time, convert it to a single unit, add desired time for expiration, 
         // set the created date to the new time, store the token with the expires parameter
@@ -46,8 +46,13 @@ function SignIn (body) {
         dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value
       }
     })
-    .then(() => {
+    .then((msg) => {
+      if(msg === "Invalid username and password combination"){
+        dispatch(stateAction.InvalidSignIn(msg));
+        return;
+      }else{
         dispatch(GetMyInfo());
+      }
     })
     .then(() => {
       if(getCookie("token")){
@@ -75,9 +80,15 @@ function SignUp (body) {
       return response.json();
     })
     .then(function(token){ // don't forget to get the user info back here too, except password
-      if(token.token === undefined){ // same thing, move logic to back end
+      console.log("token", token)
+      if(token.msg === "Please enter a valid email address"){ // same thing, move logic to back end
         dispatch(stateAction.SignInFail());
-      }else{
+        return token.msg;
+      }
+      else if(typeof token.msg === 'string'){
+        return token.msg;
+      }
+      else{
         var now = new Date();
         var time = now.getTime();
         time += 3600 * 1000;
@@ -87,8 +98,12 @@ function SignUp (body) {
         dispatch(stateAction.SignInSuccess(token.token));
       }
     })
-    .then(() => {
-      if(getCookie("token")){
+    .then((msg) => {
+      if(typeof msg === 'string'){
+        dispatch(stateAction.InvalidSignUp(msg));
+        return;
+      }
+      else if(getCookie("token")){
         browserHistory.push('/home')
       }
     })
@@ -113,8 +128,11 @@ function GetMyInfo () {
       return data.json();
     })
     .then((info) => {
-      console.log("getlist info", info)
-      dispatch(stateAction.SetMyInfo(info))
+      if(info.msg === "Please log in"){
+        return;
+      }else{
+        dispatch(stateAction.SetMyInfo(info))
+      }
     })
     .catch((err) => {
       console.error("get my info err",err)
