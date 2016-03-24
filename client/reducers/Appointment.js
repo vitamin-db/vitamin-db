@@ -6,23 +6,43 @@ const Appoint = (state, action) => {
   	case 'SETMYINFO':
   		return action.list.appointments || state;
   	case 'ADDAPPOINTMENT': 
-  		var appointArray = [...state];
-      for(var i = 0; i < appointArray.length; i++) {
-        console.log('testing for loop appointment', appointArray[i].id_doctor, appointArray[i].appointments[0].id_user_doctor)
-        if(appointArray[i].id_doctor === appointArray[i].appointments[0].id_user_doctor) {
-  		    appointArray[i].appointments.push(action.appointment);
+  		var apptArray = [...state];
+      for(var i = 0; i <= apptArray.length; i++) {
+        if(apptArray[i].id_doctor === action.appointment.id_user_doctor) {
+  		    apptArray[i].appointments.push(action.appointment);
         }
         else {
-          appointArray[i].appointments.push(action.appointment);
+          apptArray[i].appointments.push(action.appointment);
         }
-      }
-  		return appointArray;
+      };
+  		return apptArray;
+
+    case 'REMOVEAPPOINTMENT':
+      var removeAppt = [...state];
+        for(var key in removeAppt) {
+          removeAppt[key].appointments.filter((val) => {
+            if(action.id_appointment === val.id_appointment) {
+              var found = removeAppt[key].appointments.indexOf(val)
+              removeAppt[key].appointments.splice(found, 1)
+            }
+          })
+        }
+    return removeAppt;
+
   	default:
   		return state;
   }
 };
 
 module.exports = Appoint;
+
+
+        // for(var i = 0; i <= removeAppt.appointments.length; i++) {
+        //   console.log('inbetween should be ok', removeAppt.appointments)
+        //   if(action.id_appointment === removeAppt.appointments[i].id_appointment)
+        //     console.log('is this ok', action.id_appointment === removeAppt.appointments[i].id_appointment)
+        //     delete removeAppt.appointments[i]
+        // }
 
 // Get/Appoint = [{id_doctor: #, appointments: [ {}, {} ] }, ...]
 
