@@ -30,6 +30,10 @@ const UserInfo = (state, action) => {
         }
       }
       return {... state, doctors: docList};
+    case 'CHANGEINFO':
+      var newState = {...state};
+      newState.user = action.newInfo;
+      return newState;
     case 'ADDEYE':
       var newEye = {...state};
       newEye.eyerx.push(action.eyerx);

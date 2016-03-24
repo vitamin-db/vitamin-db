@@ -160,13 +160,38 @@ function SignOut () {
   };
 };
 
+function ChangeUserInfo (data) {
+  return (dispatch) => {
+    return fetch('/user', {
+      method: 'put',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': getCookie("token")
+      },
+      body: JSON.stringify(data)
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log("ChangeUserInfo: ", data);
+      dispatch(stateAction.ChangeInfo(data));
+    })
+    .catch((err) => {
+      console.log("ChangeUserInfo ERRROR: ", err);
+    })
+  };
+};
+
 // DONT FORGET TO ADD THE FUNCTIONS EXPORTS@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module.exports = {
   SignIn,
   SignUp,
   getCookie,
   GetMyInfo,
-  SignOut
+  SignOut,
+  ChangeUserInfo
 };
 
 
