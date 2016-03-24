@@ -4,7 +4,6 @@ const connect = require('react-redux').connect;
 const UserProfile = require('../components/User/Profile');
 
 const Profile = ({userInfo, email, phone}) => {
-  console.log("ProfileView: ", userInfo)
   return (
     <div>
       <UserProfile userInfo={userInfo} email={email} phone={phone}/>
