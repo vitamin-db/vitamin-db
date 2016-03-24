@@ -1,5 +1,4 @@
 const Appoint = (state, action) => {
-  console.log('APPPPOINT', state, 'action', action)
   if(state === undefined){
     return state = [];
   }
