@@ -10,6 +10,7 @@ const Table = require('react-bootstrap').Table;
 const Col = require('react-bootstrap').Col;
 const TextField = require('material-ui/lib/text-field');
 const Toggle = require('material-ui/lib/toggle');
+const Button = require('react-bootstrap').Button;
      
       // {appointment.map((val, count) =>
       //     <tr key={count++}>
@@ -22,7 +23,7 @@ const Toggle = require('material-ui/lib/toggle');
       //      )}
 
 
-const Schedule = ({appointment, immunization}) => (
+const Schedule = ({appointment, immunization, removeAppt}) => (
   <Col xs={12} md={12} className="scheduleContainer">
     <Col xs={12} md={10} mdOffset={1} className="scheduleContent">
     <h1>My Appointments</h1>
@@ -37,19 +38,20 @@ const Schedule = ({appointment, immunization}) => (
           </tr>
         </thead> 
 
-        <tbody>
-        {appointment.map((val, count) =>
-          <tr>
-             <td>{val.id_doctor}</td>
+ {appointment.map((val, count) =>
+        <tbody key={count++}>
 
-            {val.appointments.map((item) =>
-                 <tr> <td></td><td>{item.date}</td> </tr>
-              )} 
-
+          {val.appointments.map((item) =>
+            <tr key={count++}>
+                <td>{item.id_user_doctor}</td>
+                <td>{item.date}</td> 
+                <td><Button onClick={removeAppt.bind(null, item.id_appointment)}>X</Button></td>
           </tr>
-        )}
+          )} 
 
         </tbody>
+        )}
+
       </Table>
     </Col>
 
