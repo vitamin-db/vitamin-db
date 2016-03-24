@@ -7,7 +7,7 @@ const Pharmacy = require(__server + '/models/pharmacy')
 const User = require(__server + '/models/user')
 
 
-xdescribe('**************** Pharmacy Model ****************', function() {
+describe('**************** Pharmacy Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()

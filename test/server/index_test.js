@@ -4,7 +4,7 @@ const TH = require(__test + '/test-helper')
 
 const routes = require(__server + '/index')
 
-xdescribe("The Server", function() {
+describe("The Server", function() {
 
 	//set up app
 	var app = TH.createApp()

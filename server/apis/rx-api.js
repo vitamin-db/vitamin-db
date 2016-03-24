@@ -30,6 +30,9 @@ RxAPI.get('/', function(req, res) {
 /* POST /rx
   Creates the rx specified in the properties key in the body
   Returns 200 and the rx
+  If the refill number is not an integer or parsable to an integer:
+  - Returns 400 
+  - Returns an error with message: 'Please enter a refill number'
   VERY IMPORTANT: The doctor and pharmacy must be selected via drop-down menu - otherwise, the foreign keys will break this
 */
 RxAPI.post('/', function(req, res) {
@@ -44,7 +47,11 @@ RxAPI.post('/', function(req, res) {
 	  	SendR.resData(res, 201, Rx.getPublicOb(newRx))
 	  })
 	  .catch( function(err) {
-	  	SendR.error(res, 500, 'Server error posting rx', err)
+	  	if (err.message === 'Please enter a valid refill number') {
+	  		SendR.error(res, 400, err.message, err)
+	  	} else {
+	  		SendR.error(res, 500, 'Server error posting rx', err)
+	  	}
 	  })
 })
 
@@ -53,17 +60,23 @@ RxAPI.post('/', function(req, res) {
     >> res.body.properties.id_rx specifies the prescription to be updated
     >> res.body.properties will also contain the updated elements
   Returns the updated object
+  If the refill number is not an integer or parsable to an integer:
+  - Returns 400 
+  - Returns an error with message: 'Please enter a refill number'
 */
 RxAPI.put('/', function(req, res) {
 
-	return Rx.updateByObj(req.body.properties)
+	return Rx.updateAndReturn(req.body.properties)
 	  .then(function(updated) {
 	    SendR.resData(res, 201, Rx.getPublicOb(updated))
 	  })
 	  .catch( function(err) {
-	    SendR.error(res, 500, 'Server error updating prescription record', err)
+	  	if (err.message === 'Please enter a valid refill number') {
+	  		SendR.error(res, 400, err.message, err)
+	  	} else {
+		    SendR.error(res, 500, 'Server error updating prescription record', err)
+	    }
 	  })
-
 })
 
 

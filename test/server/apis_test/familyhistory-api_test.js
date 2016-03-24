@@ -9,7 +9,7 @@ const User = require(__server + '/models/user')
 const FamilyHistory = require(__server + '/models/familyhistory')
 const FamilyMember = require(__server + '/models/familymembers')
 
-xdescribe('Family History, API', function() {
+describe('Family History, API', function() {
 
 	//set up app
 	var app = TH.createApp()

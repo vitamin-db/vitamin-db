@@ -12,7 +12,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 const Rx = require(__server + '/models/rx')
 
 
-xdescribe('/rx-api', function() {
+describe('/rx-api', function() {
 
   //set up app
   var app = TH.createApp()
@@ -142,6 +142,25 @@ xdescribe('/rx-api', function() {
   			  	expect(TH.propsMatch(allRx[0], rx1)).to.be.true
   			  })
   		})
+
+      it('returns a 400 and an error message if the refill number is not parsable to an integer', function() {
+        var rx2 = new TH.RxAttributes(user1_id, newPharmacy1_id, doc1_id, 'afea', 'some stuff', 'a pill', false)
+
+        return Auth.createToken(newUser1.username)
+          .then( function(token) {
+            return request(app)
+              .post('/rx')
+              .set('x-access-token', token)
+              .send({properties: rx2})
+              .expect(400)
+              .then( function(result) {
+                var got = JSON.parse(result.text)
+                expect(got).to.be.an('object')
+                expect(got).to.have.keys('error', 'msg')
+                expect(got.msg).to.equal('Please enter a valid refill number')
+              })
+          })
+      })
   })
 
  })
@@ -210,6 +229,25 @@ xdescribe('/rx-api', function() {
   		  	expect(rx.dosage).to.equal('1 pill/hour')
   		  })
   	})
+
+    it('returns a 400 and an error message if the refill number is not parsable to an integer', function() {
+      var props = {id_rx: rx1_id, refill_number: 'afafwfa', name: 'more pillz'}
+
+      return Auth.createToken(newUser1.username)
+        .then( function(token) {
+          return request(app)
+            .put('/rx')
+            .set('x-access-token', token)
+            .send({properties: props})
+            .expect(400)
+            .then( function(result) {
+              var got = JSON.parse(result.text)
+              expect(got).to.be.an('object')
+              expect(got).to.have.keys('error', 'msg')
+              expect(got.msg).to.equal('Please enter a valid refill number')
+            })
+        })
+    })
 
   })
 

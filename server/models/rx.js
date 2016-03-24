@@ -24,9 +24,16 @@ Rx.getCurrentByUser = function(id_user) {
     })
 }
 
-
+/* CREATE AND RETURN
+  Adds a new Rx to the database
+  Returns it
+  - Throws an error with message 'Please enter a valid refill number' if the refill number is not parseable to integer
+*/
 Rx.createAndReturn = function(attrs) {
-	return Rx.create(attrs)
+	return Rx.prepData(attrs)
+	  .then(function(data) {
+	  	return Rx.create(data)
+	  })
 	  .then(function(attrs) {
 	  	return db.select('*').from('rx').where(attrs)
 	  })
@@ -36,3 +43,40 @@ Rx.createAndReturn = function(attrs) {
 	    })
 	  })
 }
+
+
+/* UPDATE AND RETURN
+  Updates based on the attrs object - returns that object
+- Throws an error with message 'Please enter a valid refill number' if the refill number is not parseable to integer
+*/
+Rx.updateAndReturn = function(attrs) {
+	return Rx.prepData(attrs)
+	  .then(function(data) {
+	  	return Rx.updateByObj(data)
+	  })
+}
+
+
+/* PREP DATA
+  Returns an object with all the original properties except refill_number has been coerced into an integer
+  If refill_number can't be an integer, throws an error 'Please enter a valid refill number' 
+*/
+Rx.prepData = function(attrs) {
+	return new Promise( function(resolve, reject) {
+		var prepped = {}
+		for (var p in attrs) {
+			if (p === 'refill_number') {
+				if (Rx.isNumber(attrs[p])) {
+					prepped[p] = Rx.getInt(attrs[p])
+				} else {
+					throw new Error('Please enter a valid refill number')
+				}
+			} else {
+				prepped[p] = attrs[p]
+			}
+		}
+		resolve(prepped)
+	})
+}
+
+
