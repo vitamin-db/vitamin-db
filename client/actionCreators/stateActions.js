@@ -126,11 +126,17 @@ function RemovePharm (id) {
 	};
 };
 
-function AddAppointment (appointment, id_doctor) {
+function AddAppointment (appointment) {
 	return {
 		type: 'ADDAPPOINTMENT',
-		appointment: appointment,
-		id_doctor: id_doctor
+		appointment: appointment
+	};
+};
+
+function RemoveAppointment (id_appointment) {
+	return {
+		type: 'REMOVEAPPOINTMENT',
+		id_appointment: id_appointment
 	};
 };
 
@@ -168,6 +174,7 @@ module.exports = {
 	AddPharm,
 	RemovePharm,
 	AddAppointment,
+	RemoveAppointment,
 	InvalidSignIn,
 	InvalidSignUp
 };
