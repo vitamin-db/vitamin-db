@@ -12,7 +12,7 @@ const UserDoctor = require(__server + '/models/user-doctor')
 const Rx = require(__server + '/models/rx')
 
 
-xdescribe('/rx-api', function() {
+describe('/rx-api', function() {
 
   //set up app
   var app = TH.createApp()
@@ -150,14 +150,14 @@ xdescribe('/rx-api', function() {
           .then( function(token) {
             return request(app)
               .post('/rx')
-              .set('x-access-token')
+              .set('x-access-token', token)
               .send({properties: rx2})
               .expect(400)
               .then( function(result) {
                 var got = JSON.parse(result.text)
                 expect(got).to.be.an('object')
                 expect(got).to.have.keys('error', 'msg')
-                expect(got.msg).to.equal('Please enter a refill number')
+                expect(got.msg).to.equal('Please enter a valid refill number')
               })
           })
       })
@@ -237,14 +237,14 @@ xdescribe('/rx-api', function() {
         .then( function(token) {
           return request(app)
             .put('/rx')
-            .set('x-access-token')
+            .set('x-access-token', token)
             .send({properties: props})
             .expect(400)
             .then( function(result) {
               var got = JSON.parse(result.text)
               expect(got).to.be.an('object')
               expect(got).to.have.keys('error', 'msg')
-              expect(got.msg).to.equal('Please enter a refill number')
+              expect(got.msg).to.equal('Please enter a valid refill number')
             })
         })
     })
