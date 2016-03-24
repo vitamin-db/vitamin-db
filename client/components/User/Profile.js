@@ -1,16 +1,40 @@
 const React = require('react');
 const FormControls = require('react-bootstrap').FormControls.Static;
+const Table = require('react-bootstrap').Table;
+const Col = require('react-bootstrap').Col;
 
 const UserProfile = ({userInfo, email, phone}) => {
   console.log("UserProfile: ", userInfo)
   return(
-    <form className="form-horizontal">
-      <FormControls className="col-xs-10 col-xs-offset-2" value="User's Profile View" />
-      <FormControls label="Username" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value={userInfo} />
-      <FormControls label="Password" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value="add in when back-end is ready" />
-      <FormControls label="Computer Mail" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value={email} />
-      <FormControls label="Them 10-Digits" labelClassName="col-xs-2" wrapperClassName="col-xs-10">{phone}</FormControls>
-    </form>
+   
+    <Col xs={12} md={10} mdOffset={1} className="scheduleContent">
+    <h1>{userInfo}'s Profile View</h1>
+      <Table responsive>
+        <thead>
+          <th></th>
+          <tr>
+            <th>USERNAME</th>
+            <td> {userInfo} </td>
+            <td>EDIT BUTTON</td>
+          </tr>
+          <tr>
+            <th>PHONE NUMBER</th>
+            <td> {phone} </td>
+            <td>EDIT BUTTON</td>
+          </tr>
+          <tr>
+            <th>E-MAIL</th>
+            <td> {email} </td>
+            <td>EDIT BUTTON</td>
+          </tr>
+          <tr>
+            <th>PASSWORD</th>
+            <td> </td>
+            <td>EDIT BUTTON</td>
+          </tr>   
+        </thead> 
+      </Table>
+    </Col>
   )
 };
 module.exports = UserProfile;
