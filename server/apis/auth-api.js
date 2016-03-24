@@ -3,6 +3,7 @@ const User = require('../models/user')
 const Auth = require('../models/auth')
 const SendR = require('../sendresponse')
 const nodemailer = require('nodemailer');
+const secret = require('../../secret');
 
 const AuthAPI = require('express').Router();
 module.exports = AuthAPI
@@ -91,8 +92,8 @@ AuthAPI.post('/signup', function(req, res) {
 	var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'vitamindb.thesis@gmail.com',
-        pass: 'm4k3r5qu4r3!'
+        user: process.env.GMAILUSER || secret.GMAILUSER,
+        pass: process.env.GMAILPASS || secret.GMAILPASS
     }
   });
 
@@ -132,6 +133,7 @@ AuthAPI.post('/signup', function(req, res) {
   	  	SendR.resData(res, 201, {token: token})
   	  })
 	  .then( function() {
+      console.log('secret.GMAIL_USER', secret.GMAIL_USER, 'secret.GMAIL_PASS', secret.GMAIL_PASS);
   		transporter.sendMail(mailOptions, function(error, info){
   			if(error){
   			  return console.log(error);
