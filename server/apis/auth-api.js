@@ -91,8 +91,8 @@ AuthAPI.post('/signup', function(req, res) {
 	var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: process.env.GMAILUSER || GMAILUSER,
-        pass: process.env.GMAILPASS || GMAILPASS
+        user: process.env.GMAILUSER,
+        pass: process.env.GMAILPASS
     }
   });
 
