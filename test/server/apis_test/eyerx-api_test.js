@@ -8,7 +8,7 @@ const Auth = require(__server + '/models/auth')
 const User = require(__server + '/models/user')
 const EyeRx = require(__server + '/models/eyerx')
 
-xdescribe('/eyerx-api', function() {
+describe('/eyerx-api', function() {
 
 	//set up app
 	var app = TH.createApp()

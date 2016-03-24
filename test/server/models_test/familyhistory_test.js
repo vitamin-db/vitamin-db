@@ -8,7 +8,7 @@ const FamilyHistory = require(__server + '/models/familyhistory')
 const User = require(__server + '/models/user')
 
 
-xdescribe('**************** Family History Model ****************', function() {
+describe('**************** Family History Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
