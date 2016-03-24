@@ -132,7 +132,6 @@ AuthAPI.post('/signup', function(req, res) {
   	  	SendR.resData(res, 201, {token: token})
   	  })
 	  .then( function() {
-      console.log('GMAIL_USER', GMAIL_USER, 'GMAIL_PASS', GMAIL_PASS);
   		transporter.sendMail(mailOptions, function(error, info){
   			if(error){
   			  return console.log(error);
