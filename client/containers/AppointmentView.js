@@ -12,7 +12,7 @@ const apptAction      = require('../actionCreators/appointmentActions');
 const Appointment = ({states, dispatches}) => {
   return (
     <div>
-      <Schedule immunization={states.immunization} appointment={states.appointment} addAppt={dispatches.addAppointment}/>
+      <Schedule immunization={states.immunization} appointment={states.appointment} />
     </div>
   );
 };
@@ -28,19 +28,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatches: {
-      addAppointment: (e) => {
-        e.preventDefault();
-        var body = {properties:{
-          date: e.target.date.value,
-          time: e.target.time.value
-        }};
-        console.log(e.target.date.value)
-        dispatch(apptAction.AddAppoint(body))
-      },
 
     }
-  };
 };
 
 var wrappedAppointment = connect(
