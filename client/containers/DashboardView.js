@@ -2,10 +2,15 @@ const React              = require('react');
 const connect            = require('react-redux').connect;
 
 const browserHistory     = require('react-router').browserHistory;
-
 const bindActionCreators = require('redux').bindActionCreators;
+const mock               = require('../model/mockData');
+const Grid               = require('react-bootstrap').Grid;
 
 // components
+const DoctorGrid         = require('../components/Dashboard/doctor/DoctorGrid');
+const PatientGrid        = require('../components/Dashboard/patient/PatientGrid');
+
+// actions
 const allergyAction      = require('../actionCreators/allergyActions');
 const doctorAction       = require('../actionCreators/doctorActions');
 const stateAction        = require('../actionCreators/stateActions');
@@ -13,29 +18,21 @@ const eyeAction          = require('../actionCreators/eyeActions');
 const famAction          = require('../actionCreators/familyActions');
 const pharmAction        = require('../actionCreators/pharmActions');
 const insAction          = require('../actionCreators/insuranceActions');
-const DoctorGrid         = require('../components/Dashboard/doctor/DoctorGrid');
-const PatientGrid        = require('../components/Dashboard/patient/PatientGrid');
-const mock               = require('../model/mockData');
-const Grid               = require('react-bootstrap').Grid;
-// const _ = require('lodash');
+const apptAction         = require('../actionCreators/appointmentActions');
 
-//Grid
-//Row might go in Home instead components
-//
-// // CONTAINER
-// 
- // <PatientGrid patientInfo={patient} />
+
+
 const Home = ({states, dispatches}) => {
   return (
     <div className="home-body">
-      <DoctorGrid removePharm={dispatches.removePharm} addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} 
+      <DoctorGrid addAppointment={dispatches.addAppointment} removePharm={dispatches.removePharm} addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} 
           docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
         docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} />
       <PatientGrid removeFamCond={dispatches.removeFamCond} addFamCond={dispatches.addFamCond} removeAllergy={dispatches.removeAllergy} addAllergy={dispatches.addAllergy} 
           removeEye={dispatches.removeEye} addEye={dispatches.addEye} 
           allergies={states.allergies} eyerx={states.eyerx} family={states.family} 
           insurance={states.insurance} pharmacy={states.pharmacy} familyhistory={states.familyhistory} 
-        rx={states.rx} />
+        rx={states.rx} appt={states.appt} />
     </div>
   );
 };
@@ -52,7 +49,8 @@ const mapStateToProps = (state, ownProps) => {
       pharmacy: state.pharmacy,
       familyhistory: state.family,
       rx: state.rx,
-      docApiList: state.docapi
+      docApiList: state.docapi,
+      appt: state.appoint
     }
   };
 };
@@ -183,7 +181,18 @@ const mapDispatchToProps = (dispatch) => {
       },
       removeFamCond: (id) => {
         dispatch(famAction.RemoveFam(id));
+      },
+      addAppointment: (date, time, id) => {
+        var body = {
+          properties: {
+            date: date,
+            time: time
+          }
+        };
+        dispatch(apptAction.AddAppointment(body, id))
       }
+
+
     }
   };
 };
