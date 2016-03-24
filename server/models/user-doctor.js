@@ -173,6 +173,56 @@ UserDoctor.deleteDoctor = function(id_doctor) {
 }
 
 
+/* UPDATE USERDOCTOR
+  Takes the object sent in to req.body.properties
+  Updates the doctor - if there's an error, won't update the UserDoctor
+  Then updates the userdoctor
+*/
+UserDoctor.updateUserDoctor = function(username, reqObj) {
+
+  var doc, needToUpdateDoc
+  
+  var udoc = {}
+  var needToUpdateUserdoc = false
+
+  return new Promise( function(resolve, reject) {
+    doc = Doctor.prepData(reqObj) //this will throw an error if there is a data validation problem
+    needToUpdateDoc = Object.keys(doc).length > 1 ? true : false
+
+    if (reqObj.current !== undefined) {
+      needToUpdateUserdoc = true
+      udoc.current = reqObj.current
+    }
+    if (reqObj.type_usermade !== undefined) {
+      needToUpdateUserdoc = true
+      udoc.type_usermade = reqObj.type_usermade
+    }
+    resolve()
+  })
+  .then( function() {
+    if (needToUpdateUserdoc) {
+      return UserDoctor.findId(username, doc.id_doctor)
+        .then(function(id) {
+          return UserDoctor.updateById(id, udoc)
+        })
+    }
+  })
+  .then( function() {
+    if (needToUpdateDoc) {
+      return Doctor.updateByObj(doc)
+    } else {
+      return Doctor.findById(doc.id_doctor)
+    }
+  })
+  .catch( function(err) {
+    throw err
+  })
+
+
+}
+
+
+
 
 
 

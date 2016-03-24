@@ -43,24 +43,27 @@ DoctorAPI.get('/', function(req, res) {
      - type_usermade
      - current
    Returns the newly created object and a 201 code on success
+   If the zip code or email are invalid:
+   - Returns a 400
+   - Returns an error message: 'Invalid email address' / 'Invalid zip code'
 */
 DoctorAPI.post('/', function(req, res) {
 
-	return User.findByUsername( req.decoded.username)
+	return User.findByUsername(req.decoded.username)
 	  .then(function(user) {
-	  	var doc = {}
-	  	for (var p in req.body.properties) {
-	  		if (p !== 'current' && p!== 'type_usermade') {
-	  			doc[p] = req.body.properties[p]
-	  		}
-	  	}
+	  	var doc = Doctor.prepData(req.body.properties)
+	  	console.log('doc after prepping data', doc)
 	  	return UserDoctor.createDoctor(doc, user.id_user, req.body.properties.type_usermade, req.body.properties.current)
 	  })
 	  .then(function(doctor) {
 	  	SendR.resData(res, 201, Doctor.getPublicOb(doctor))
 	  })
 	  .catch( function(err) {
-	  	SendR.error(res, 500, 'Server error posting doctor', err)
+	  	if (err.message === 'Invalid email address' || err.message === 'Invalid zip code') {
+	  		SendR.error(res, 400, err.message, err)
+	  	} else {
+	  		SendR.error(res, 500, 'Server error posting doctor', err)
+	  	}
 	  })
 
 })
@@ -73,15 +76,24 @@ DoctorAPI.post('/', function(req, res) {
    (eg: req.body.properties = {id_doctor: id, propertyToUpdate: newValue})
 
   Returns the updated object and a 201 on success
+
+  If trying to change a zip code or email to something invalid:
+  - Returns a 400
+  - Returns an error message: 'Invalid email address' / 'Invalid zip code'
 */
 DoctorAPI.put('/', function(req, res) {
 
-	return Doctor.updateByObj(req.body.properties) 
-	  .then(function(updated) {
-	  	SendR.resData(res, 201, Doctor.getPublicOb(updated))
+	return UserDoctor.updateUserDoctor(req.decoded.username, req.body.properties)
+	  .then(function(doctor) {
+	  	SendR.resData(res, 201, Doctor.getPublicOb(doctor))
 	  })
 	  .catch( function(err) {
-	  	SendR.error(res, 500, 'Server error updating doctor', err)
+	  	console.log('got error with message', err.message)
+	  	if (err.message === 'Invalid email address' || err.message === 'Invalid zip code') {
+	  		SendR.error(res, 400, err.message, err)
+	  	} else {
+	  		SendR.error(res, 500, 'Server error updating doctor', err)
+	  	}
 	  })
 })
 

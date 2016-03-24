@@ -9,14 +9,14 @@ const User = require(__server + '/models/user')
 const Doctor = require(__server + '/models/doctor')
 const UserDoctor = require(__server + '/models/user-doctor')
 
-xdescribe('/doctor api', function() {
+describe('/doctor api', function() {
 
 	//set up app
 	var app = TH.createApp()
 	app.use('/', routes)
 	app.testReady()
 
-	describe('GET /doctor', function() {
+	xdescribe('GET /doctor', function() {
 
 		before(function() {
 			return db.deleteEverything()
@@ -127,6 +127,51 @@ xdescribe('/doctor api', function() {
 			  	expect(TH.isValidUserDoctor(result[0])).to.be.true
 			  })
 		})
+
+		it('returns 400 and an error message if the email address is invalid', function() {
+			var newDoc2 = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', 12345, 'doc@smith.', 'docsmith.com', '1233839292', 'primary')
+			var newUserDoc2 = TH.getUserDoctor(newDoc2, 'mah primary', true)
+
+			return Auth.createToken(newUser.username)
+				.then(function(token) {
+					return request(app)
+					  .post('/doctor')
+					  .set('x-access-token', token)
+					  .send({properties: newUserDoc2})
+					  .expect(400)
+					  .then(function(result) {
+					  	var got = JSON.parse(result.text)
+					  	expect(got).to.be.an('object')
+					  	expect(got).to.have.keys('error', 'msg')
+					  	expect(got.msg).to.equal('Invalid email address')
+					  })
+				})
+ 
+		})
+
+
+//NOTE: as long as the zip code can parse to an integer, we'll store it..... user can change it if it's wrong
+		// it('returns 400 and an error message if the zip code is not an integer', function() {
+		// 	var newDoc3 = new TH.DoctorAttributes('Dr. Smith', '123 Main Street', 'Austin', 'TX', '12345a', 'doc@smith.com', 'docsmith.com', '1233839292', 'primary')
+		// 	var newUserDoc3 = TH.getUserDoctor(newDoc3, 'mah primary', true)
+
+		// 	return Auth.createToken(newUser.username)
+		// 		.then(function(token) {
+		// 			return request(app)
+		// 			  .post('/doctor')
+		// 			  .set('x-access-token', token)
+		// 			  .send({properties: newUserDoc3})
+		// 			  .expect(400)
+		// 			  .then(function(result) {
+		// 			  	var got = JSON.parse(result.text)
+		// 			  	expect(got).to.be.an('object')
+		// 			  	expect(got).to.have.keys('error', 'msg')
+		// 			  	expect(got.msg).to.equal('Invalid zip code')
+		// 			  })
+		// 		})
+		// })
+
+
 	})
 
 	describe('PUT /doctor', function() {
@@ -170,7 +215,6 @@ xdescribe('/doctor api', function() {
 			  	})
 			  })
 
-
 		})
 
 		it('updates the doctor information in the database', function() {
@@ -182,6 +226,67 @@ xdescribe('/doctor api', function() {
 			  	expect(doctor.name).to.equal('Dr. Smith')
 			  	expect(doctor.street_address).to.equal('234 Main Street')
 			  	expect(doctor.city).to.equal('Dallas')
+			  })
+		})
+
+		it('returns 400 and an error message if an invalid email is entered', function() {
+			var props = {id_doctor: newDoc_id, email: 'icanttypehotmail.org'}
+			return Auth.createToken(newUser.username)
+			  .then(function(token) {
+			  	return request(app)
+			  	  .put('/doctor')
+			  	  .set('x-access-token', token)
+			  	  .send({properties: props})
+			  	  .expect(400)
+			  	  .then( function(result) {
+			  	  	var got = JSON.parse(result.text)
+			  	  	expect(got).to.be.an('object')
+			  	  	expect(got).to.have.keys('error', 'msg')
+			  	  	expect(got.msg).to.equal('Invalid email address')
+			  	  })
+			  })
+		})
+
+
+
+		//NOTE: as long as the zip code can parse to an integer, we'll store it..... user can change it if it's wrong
+		// it('returns 400 and an error message if an invalid zip code is entered', function() {
+		// 	var props = {id_doctor: newDoc_id, zip: '82829-3983'}
+		// 	return Auth.createToken(newUser.username)
+		// 	  .then(function(token) {
+		// 	  	return request(app)
+		// 	  	  .put('/doctor')
+		// 	  	  .set('x-access-token', token)
+		// 	  	  .send({properties: props})
+		// 	  	  .expect(400)
+		// 	  	  .then( function(result) {
+		// 	  	  	var got = JSON.parse(result.text)
+		// 	  	  	expect(got).to.be.an('object')
+		// 	  	  	expect(got).to.have.keys('error', 'msg')
+		// 	  	  	expect(got.msg).to.equal('Invalid email address')
+		// 	  	  })
+		// 	  })	
+		// })
+
+		it('returns 200 if userdoctor information changes', function() {
+			var props = {id_doctor: newDoc_id, type_usermade: 'evil doctor - do not go back'}
+			return Auth.createToken(newUser.username)
+			  .then(function(token) {
+			  	return request(app)
+			  	  .put('/doctor')
+			  	  .set('x-access-token', token)
+			  	  .send({properties: props})
+			  	  .expect(201)
+			  })		
+		})
+
+		it('updates the database when the userdoctor info is changed', function() {
+			return UserDoctor.findId(newUser.username, newDoc_id)
+			  .then( function(id) {
+			  	return UserDoctor.findById(id)
+			  })
+			  .then( function(userDoctor) {
+			  	expect(userDoctor.type_usermade).to.equal('evil doctor - do not go back')
 			  })
 		})
 
