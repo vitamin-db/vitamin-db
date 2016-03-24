@@ -154,6 +154,20 @@ function InvalidSignUp (msg) {
 	};
 };
 
+function AddFamCond (fam) {
+	return {
+		type: 'ADDFAMCOND',
+		fam: fam
+	};
+};
+
+function RemoveFamCond (id) {
+	return {
+		type: 'REMOVEFAMCOND',
+		id: id
+	};
+};
+
 module.exports = {
 	SignInSuccess,
 	SignInFail,
@@ -176,5 +190,7 @@ module.exports = {
 	AddAppointment,
 	RemoveAppointment,
 	InvalidSignIn,
-	InvalidSignUp
+	InvalidSignUp,
+	AddFamCond,
+	RemoveFamCond
 };

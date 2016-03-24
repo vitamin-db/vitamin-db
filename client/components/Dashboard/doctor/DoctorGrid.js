@@ -12,7 +12,7 @@ const AddDoc = require('./AddDoctor');
 const Insurance = require('../patient/PatientInfo/Insurance');
 const Pharmacy = require('../patient/PatientInfo/Pharmacy');
 
-const DoctorGrid = ({removePharm, addPharm, addIns, removeIns, editDoc, removeDoc, addDoc, docApiList, searchDoc, docInfo, insurance, pharmacy, addAppointment}) => (
+const DoctorGrid = ({addMyDoc, removePharm, addPharm, addIns, removeIns, editDoc, removeDoc, addDoc, docApiList, searchDoc, docInfo, insurance, pharmacy, addAppointment}) => (
 	  <Grid>
 		<div className="container-fluid">
 	    <Row className="show-grid">
@@ -23,7 +23,7 @@ const DoctorGrid = ({removePharm, addPharm, addIns, removeIns, editDoc, removeDo
 	      	<Insurance removeIns={removeIns} insurance={insurance} />
 			<Pharmacy removePharm={removePharm} pharmacy={pharmacy} />
 			
-	      <AddDoc addPharm={addPharm} addIns={addIns} addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} />
+	      <AddDoc addMyDoc={addMyDoc} addPharm={addPharm} addIns={addIns} addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} />
 	    </Row>
 	  	</div>
 	  </Grid>

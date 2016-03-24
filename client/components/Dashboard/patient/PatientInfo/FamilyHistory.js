@@ -19,11 +19,11 @@ const FamilyHistPanel = ({removeFamCond, addFamCond, familyhistory, family}) => 
 	 		{familyhistory[0] && <ListGroup fill>
 	 		{familyhistory.map((val, count) =>
 				<ListGroupItem key={count} className="family-item card-text">
-				{count + ': ' + "no name provided" + '  '+ val.history[0].condition}
+				{count + ': ' + val.id_familymember + '  '+ val.history[0].condition}
 					
 					<div className="btn-group">
 						<EditButton />
-						<Button onClick={removeFamCond.bind(null, val.history[0].id_famhist)} className="edit-button" bsSize="xsmall" ><Glyphicon glyph="trash" /></Button>
+						<Button onClick={removeFamCond.bind(null, val.history[0].id_familymember)} className="edit-button" bsSize="xsmall" ><Glyphicon glyph="trash" /></Button>
 					</div>
 				</ListGroupItem>
 			)}
