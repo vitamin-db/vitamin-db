@@ -4,7 +4,7 @@ const RX = (state, action) => {
   }
   switch(action.type){
   	case 'SETMYINFO':
-  		return action.list.rx;
+  		return action.list.rx || state;
   	default:
   		return state;
   }

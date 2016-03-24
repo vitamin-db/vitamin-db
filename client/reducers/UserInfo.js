@@ -8,7 +8,7 @@ const UserInfo = (state, action) => {
           user: action.list.user, 
           doctors: action.list.doctors,
           eyerx: [action.list.eyerx]
-        };
+        } || state;
     case 'ADDDOCTOR':
     	var newDoc = {...state};
       newDoc.doctors.push(action.doctor);

@@ -4,7 +4,7 @@ const Appoint = (state, action) => {
   }
   switch(action.type){
   	case 'SETMYINFO':
-  		return action.list.appointments;
+  		return action.list.appointments || state;
   	default:
   		return state;
   }

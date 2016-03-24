@@ -4,7 +4,7 @@ const Immune = (state, action) => {
   }
   switch(action.type){
   	case 'SETMYINFO':
-  		return action.list.immunizations;
+  		return action.list.immunizations || state;
   	default:
   		return state;
   }

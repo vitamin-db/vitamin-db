@@ -125,6 +125,21 @@ function RemovePharm (id) {
 		id: id
 	};
 };
+
+function InvalidSignIn (msg) {
+	return {
+		type: 'INVALIDSIGNIN',
+		msg: msg
+	};
+};
+
+function InvalidSignUp (msg) {
+	return {
+		type: 'INVALIDSIGNUP',
+		msg: msg
+	};
+};
+
 module.exports = {
 	SignInSuccess,
 	SignInFail,
@@ -143,5 +158,7 @@ module.exports = {
 	AddIns,
 	RemoveIns,
 	AddPharm,
-	RemovePharm
+	RemovePharm,
+	InvalidSignIn,
+	InvalidSignUp
 };

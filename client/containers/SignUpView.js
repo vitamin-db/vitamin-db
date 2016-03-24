@@ -6,11 +6,11 @@ const SignUp      = require('../components/SignUp/SignUp');
 const userAction  = require('../actionCreators/userActions');
 const stateAction = require('../actionCreators/stateActions');
 
-const SignUpComp = ({onSignUp}) => {
+const SignUpComp = ({error, onSignUp}) => {
 	return (
 		<div>
 			<div className="Signup">
-				<SignUp onSignUp={onSignUp}/>
+				<SignUp error={error} onSignUp={onSignUp}/>
 			</div>
 		</div>
 	);
@@ -19,6 +19,7 @@ const SignUpComp = ({onSignUp}) => {
 const mapStateToProps = (state) => {
 	// console.log("map state: ", state.signup)
 	return {
+		error: state.signin.msg2
 	}
 };
 

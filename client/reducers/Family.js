@@ -10,7 +10,7 @@ const Family = (state, action) => {
   				newList.push(action.list.family[i]);
   			}
   		}
-  		return newList;
+  		return newList || state;
   	default:
   		return state;
   }
