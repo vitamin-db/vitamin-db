@@ -1,5 +1,6 @@
-const config = require('../../server/config');
-const client = require('twilio')(config.accountSid, config.authToken);
+// const config = require('../../server/config');
+const secret = require('../../secret');
+const client = require('twilio')(secret.TWILIO_ACCOUNTSID, secret.TWILIO_AUTHTOKEN);
 const cronJob = require('cron').CronJob;
 const later = require('later');
 
@@ -25,7 +26,7 @@ var Reminder = (array) => {
   array.map((val) => 
   new cronJob(val, function(){
     for( var i = 0; i < numbers.length; i++ ) {
-      client.sendMessage( { to: numbers[i], from: config.twilioNumber, body:'You have an upcoming Appointment!'}, function( err, data ) {
+      client.sendMessage( { to: numbers[i], from: secret.TWILIO_TWILIONUMBER, body:'You have an upcoming Appointment!'}, function( err, data ) {
         console.log( data.body );
       });
     }
