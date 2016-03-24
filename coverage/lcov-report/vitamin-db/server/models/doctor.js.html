@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for vitamin-db/server/models/doctor.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">vitamin-db/server/models/</a> doctor.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.59% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>8/29</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.59% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>8/29</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const db = require('../db')
+const Model = require('./model-helper')
+&nbsp;
+const Doctor = new Model('doctors', ['id_doctor', 'name', 'street_address', 'city', 'state_abbrev', 'zip', 'email', 'web', 'phone', 'type'])
+module.exports = Doctor
+&nbsp;
+&nbsp;
+// METHODS DEFINED IN MODEL-HELPER
+&nbsp;
+/* 
+Dcctor.create = function(attrs)
+  Takes attributes of new doctor and adds this doctor to the doctors table
+  Returns the newly created entry
+  For some reason, the timestamp etc is not working
+  eg:
+    Doctor.create( {name: 'example_doctor_name', street_address: '123 street lane', city: 'austin', state_abbrev: 'tx', zip: 78751, email: 'mycooladdress@gmail.com', web: 'www.mycoolsite.com', phone: '9725438283', type: 'primary'} )
+    =&gt; returns: {name: 'example_doctor_name',
+                 street_address: '123 street lane', 
+                 city: 'austin', 
+                 state_abbrev: 'tx', 
+                 zip: 78751, 
+                 email: 'mycooladdress@gmail.com', 
+                 web: 'www.mycoolsite.com', 
+                 phone: '9725438283', 
+                 type: 'primary'
+                }
+*/
+&nbsp;
+&nbsp;
+/* Doctor.getAll = function()
+  Returns an array of all doctors
+*/
+&nbsp;
+&nbsp;
+/*
+Doctor.findById = function(id)
+  Takes a primary key as an argument
+  Returns an object containing the doctor with a matching primary key, or undefined if no entry has a matching primary key
+  eg:
+    Doctor.findById(3)
+    =&gt; returns: {name: 'Doctor Smith',
+                 street_address: '123 pecan rd', 
+                 city: 'georgetown', 
+                 state_abbrev: 'tx', 
+                 zip: 78751, 
+                 email: 'othercooladdress@gmail.com', 
+                 web: 'www.sweetwebsite.com', 
+                 phone: '3942049304', 
+                 type: 'obgyn'
+                }
+*/
+&nbsp;
+/* 
+Doctor.deleteById = function(id)
+  Takes a primary key as an argument
+  Deletes the doctor with that primary key from the database
+  Returns the number of records deleted (1)
+*/
+&nbsp;
+//METHODS DEFINED HERE:
+&nbsp;
+  /* FIND BY NAME
+    Returns an object from the table where the doctor name matches the name passed in
+    If the entry does not exist, returns undefined
+  */
+&nbsp;
+ Doctor.findByName = <span class="fstat-no" title="function not covered" >function(name) {</span>
+<span class="cstat-no" title="statement not covered" >  return this.findByAttribute('name', name)</span>
+  .then( <span class="fstat-no" title="function not covered" >function(doctorArray) {</span> <span class="cstat-no" title="statement not covered" >return doctorArray[0] }</span>)
+}
+/* eg: User.findByUsername('bob')
+  =&gt; returns: 
+                   {id_user: 82,
+                   username: 'bob'
+                   password: 'bobspassword',
+                   email: 'bob@bobcat.com',
+                   phone: '111-111-1111',
+                   created_at: null,
+                   updated_at: null
+                  }
+    returns undefined if there is no user with username 'bob'
+*/
+&nbsp;
+&nbsp;
+&nbsp;
+/* VALIDATE EMAIL
+  Throws an error ('Invalid email address') if the email passed in is invalid
+  Otherwise, just returns the email address
+*/
+Doctor.validateEmail = <span class="fstat-no" title="function not covered" >function(emailAddress) {</span>
+<span class="cstat-no" title="statement not covered" >  console.log('valid email address? ', emailAddress, Doctor.validEmail(emailAddress))</span>
+<span class="cstat-no" title="statement not covered" >  if (!Doctor.validEmail(emailAddress)) {</span>
+<span class="cstat-no" title="statement not covered" >    throw new Error('Invalid email address')</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    return emailAddress</span>
+  }
+}
+&nbsp;
+&nbsp;
+/* VALIDATE ZIP
+  Throws an error ('Invalid zip code')if the zip code passed in is invalid
+  Otherwise, returns the integerized zip code (if the zip code was a string for some reason)
+*/
+Doctor.validateZip = <span class="fstat-no" title="function not covered" >function(zipcode) {</span>
+<span class="cstat-no" title="statement not covered" >  console.log('valid zip code?', zipcode, Doctor.isNumber(zipcode))</span>
+<span class="cstat-no" title="statement not covered" >  if (Doctor.isNumber(zipcode)) {</span>
+<span class="cstat-no" title="statement not covered" >    return Doctor.getInt(zipcode)</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    throw new Error('Invalid zip code')</span>
+  }
+}
+&nbsp;
+&nbsp;
+&nbsp;
+/* VALIDATE REQUEST
+  Takes the object sent in req.body.properties
+  Validates the email and zip (if passed in) - throws an error if those are invalid
+  Removes the 'current' and 'type_usermade'
+  Returns the object with the zip coerced to an integer (if it wasn't to begin with)
+*/
+Doctor.prepData = <span class="fstat-no" title="function not covered" >function(reqObj) {</span>
+<span class="cstat-no" title="statement not covered" >  console.log('original req object in prepData', reqObj)</span>
+<span class="cstat-no" title="statement not covered" >  var prepared = {}</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  for (var p in reqObj) {</span>
+<span class="cstat-no" title="statement not covered" >    if (p !== 'type_usermade' &amp;&amp; p !== 'current') {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (p === 'email') {</span>
+<span class="cstat-no" title="statement not covered" >        prepared[p] = Doctor.validateEmail(reqObj[p])</span>
+      } else <span class="cstat-no" title="statement not covered" >if (p === 'zip') {</span>
+<span class="cstat-no" title="statement not covered" >        prepared[p] = Doctor.validateZip(reqObj[p])</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        prepared[p] = reqObj[p]</span>
+      }
+&nbsp;
+    }
+  }
+<span class="cstat-no" title="statement not covered" >  console.log('prepared object in prepData', reqObj)</span>
+<span class="cstat-no" title="statement not covered" >  return prepared</span>
+}
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Mar 24 2016 16:50:59 GMT-0500 (CDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
