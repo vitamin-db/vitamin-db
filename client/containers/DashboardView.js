@@ -25,7 +25,7 @@ const apptAction         = require('../actionCreators/appointmentActions');
 const Home = ({states, dispatches}) => {
   return (
     <div className="home-body">
-      <DoctorGrid addAppointment={dispatches.addAppointment} removePharm={dispatches.removePharm} addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} 
+      <DoctorGrid addMyDoc={dispatches.addMyDoc} addAppointment={dispatches.addAppointment} removePharm={dispatches.removePharm} addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} 
           docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
         docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} />
       <PatientGrid removeFamCond={dispatches.removeFamCond} addFamCond={dispatches.addFamCond} removeAllergy={dispatches.removeAllergy} addAllergy={dispatches.addAllergy} 
@@ -76,6 +76,20 @@ const mapDispatchToProps = (dispatch) => {
           current: false
         }};
         // this jsut clears the api list, but in the future it will add the chosen doctor to the database
+        dispatch(doctorAction.AddMyDoc(body, portrait));
+      },
+      addMyDoc: (e) => {
+        e.preventDefault();
+        var portrait = "https://asset1.betterdoctor.com/assets/general_doctor_male.png";
+        var body = {
+          properties: {
+            name: e.target.name.value,
+            phone: e.target.phone.value,
+            street_address: e.target.address.value,
+            type_usermade: e.target.specialty.value,
+            type: e.target.specialty.value
+          }
+        };
         dispatch(doctorAction.AddMyDoc(body, portrait));
       },
       editDoc: (id, e) => {

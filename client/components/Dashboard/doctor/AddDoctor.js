@@ -55,7 +55,7 @@ getInitialState() {
           <button onClick={this.toggleIns} >Insurance form</button>
           <button onClick={this.togglePharm} >Pharmacy form</button>
 
-          {this.state.doc && <FormComponent addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />}
+          {this.state.doc && <FormComponent addMyDoc={this.props.addMyDoc} addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />}
           {this.state.ins && <InsForm addIns={this.props.addIns} />}
           {this.state.pharm && <Phorm addPharm={this.props.addPharm} />}
 
