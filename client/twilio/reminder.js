@@ -1,9 +1,9 @@
-const config = require('../config');
+const config = require('../../server/config');
 const client = require('twilio')(config.accountSid, config.authToken);
 const cronJob = require('cron').CronJob;
 const later = require('later');
 
-var numbers = [];
+var numbers = ['+15127364286'];
 var d = new Date('03/21/2016 21:56Z');
 
 var minute = later.minute.val(d);
@@ -16,7 +16,7 @@ var arr = [];
 var parsedCron = '00 ' + minute + ' ' + hour + ' ' + day + ' * *';
 
 arr.push(parsedCron);
-arr.push('00 57 21 21 * *')
+arr.push('00 37 1 24 * *')
 console.log(arr)
 
 

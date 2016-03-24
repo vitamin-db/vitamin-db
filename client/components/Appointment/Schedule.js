@@ -38,8 +38,16 @@ const Schedule = ({appointment, immunization}) => (
         </thead> 
 
         <tbody>
-        {console.log({appointment})}
+        {appointment.map((val, count) =>
+          <tr>
+             <td>{val.id_doctor}</td>
 
+            {val.appointments.map((item) =>
+                 <tr> <td></td><td>{item.date}</td> </tr>
+              )} 
+
+          </tr>
+        )}
 
         </tbody>
       </Table>
