@@ -33,7 +33,7 @@ const AddForm = React.createClass({
 		return (
 			<div>
 				<h1>Search your doctor:</h1>
-
+				<Button onClick={this.toggleShow} bsStyle="primary" bsSize="large" block>Press me if you can't find your doctor</Button>
 				{this.state.show && <form onSubmit={this.props.searchDoc} className="form-horizontal">
 					<Input name="firstname" type="text" label="First Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10" placeholder="First Name" />
 					<Input name="lastname" type="text" label="Last Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10" placeholder="Last Name" />
@@ -47,7 +47,6 @@ const AddForm = React.createClass({
 					<Input name="phone" type="number" label="Phone" labelClassName="col-xs-2" wrapperClassName="col-xs-10" placeholder="Phone" />
 					<Button type="submit" bsStyle="primary" bsSize="large" block>Add</Button>
 				</form>}
-				<Button onClick={this.toggleShow} bsStyle="primary" bsSize="large" block>Press me if you can't find your doctor</Button>
 				<div>
 					{this.props.docApiList.map((doc) =>
 						<DocApiCard key={doc.phone} addDoc={this.props.addDoc} doc={doc} />
