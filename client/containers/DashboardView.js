@@ -115,10 +115,10 @@ const mapDispatchToProps = (dispatch) => {
         if(specialty){
           newInfo.properties.type = specialty;
         }
-        dispatch(doctorAction.ChangeMyDoc(newInfo))
+        dispatch(doctorAction.ChangeMyDoc(newInfo));
       },
       removeDoc: (id) => {
-        dispatch(doctorAction.RemoveMyDoc(id))
+        dispatch(doctorAction.RemoveMyDoc(id));
       },
       addEye: (e) => {
         e.preventDefault();
