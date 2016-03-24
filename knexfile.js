@@ -23,6 +23,12 @@ module.exports = {
 	    },
 	    debug: false, // set true for verbose database operations
   },
-
+  production: {
+	  client: 'postgresql',
+	  connection: process.env.DATABASE_URL,
+	  migrations: {
+	    directory: './migrations'
+	  }
+	}
 }
 

@@ -287,3 +287,19 @@ User-Doctor:
 
 User:
 
+
+
+  ==============
+  VARIABLE EXPORTS FOR DEV
+  ==============
+
+  In production, the Twilio config vars are set. 
+
+  For development:
+    (In the terminal window you're going to run the server in)
+    --> export the variables like so (filling in the values with our project keys):
+
+        export TWILIO_ACCOUNT_SID=
+        export TWILIO_AUTH_TOKEN=
+        export TWILIO_TWILIO_NUMBER=
+

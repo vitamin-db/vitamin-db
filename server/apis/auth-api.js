@@ -91,8 +91,8 @@ AuthAPI.post('/signup', function(req, res) {
 	var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'vitamindb.thesis@gmail.com',
-        pass: 'm4k3r5qu4r3!'
+        user: process.env.GMAILUSER || GMAILUSER,
+        pass: process.env.GMAILPASS || GMAILPASS
     }
   });
 
@@ -132,6 +132,7 @@ AuthAPI.post('/signup', function(req, res) {
   	  	SendR.resData(res, 201, {token: token})
   	  })
 	  .then( function() {
+      console.log('GMAIL_USER', GMAIL_USER, 'GMAIL_PASS', GMAIL_PASS);
   		transporter.sendMail(mailOptions, function(error, info){
   			if(error){
   			  return console.log(error);
