@@ -39,12 +39,12 @@ const UserProfile = React.createClass({
        </div>}
        {!this.state.show && <div className="profile-table">
         <h4>Not all fields are required.</h4>
-        <form>
+        <form onSubmit={this.props.editInfo}>
           <input name="username" placeholder="Username" />
           <input name="phone" placeholder="Phone Number"/>
           <input name="email" placeholder="E-Mail"/>
           <input name="password" placeholder="Password"/>
-          <button>Submit</button>
+          <button type="submit">Submit</button>
         </form>
        </div>}
         <button onClick={this.toggleShow}>EDIT {this.props.userInfo}'s Profile</button>

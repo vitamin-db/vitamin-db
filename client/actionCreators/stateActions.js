@@ -34,6 +34,13 @@ function RemoveDoc (id) {
 	};
 };
 
+function ChangeInfo (newInfo) {
+	return {
+		type: 'CHANGEINFO',
+		newInfo: newInfo
+	}
+}
+
 function ChangeDoc (newDoc) {
 	return {
 		type: 'CHANGEDOC',
@@ -168,6 +175,7 @@ module.exports = {
 	GetAllergy,
 	AddAllergy,
 	RemoveAllergy,
+	ChangeInfo,
 	ChangeDoc,
 	AddIns,
 	RemoveIns,

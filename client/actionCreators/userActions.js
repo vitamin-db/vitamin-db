@@ -175,10 +175,10 @@ function ChangeUserInfo (data) {
     })
     .then((data) => {
       console.log("ChangeUserInfo: ", data);
-      dispatch(stateAction.ChangeUser(data));
+      dispatch(stateAction.ChangeInfo(data));
     })
     .catch((err) => {
-      console.log("ChangeUserInfo ERRROR:", err);
+      console.log("ChangeUserInfo ERRROR: ", err);
     })
   };
 };
@@ -189,7 +189,8 @@ module.exports = {
   SignUp,
   getCookie,
   GetMyInfo,
-  SignOut
+  SignOut,
+  ChangeUserInfo
 };
 
 
