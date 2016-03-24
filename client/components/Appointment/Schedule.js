@@ -1,21 +1,3 @@
-// const React = require('react');
-
-// const Schedule = ({appointment, immunization}) => {
-//   	console.log('apt', appointment, 'immune', immunization)
-//   	return (
-//   		<div>
-//   			{appointment.map((val) =>
-//   				<p>{val.text}</p>
-//   			)}
-//   			{immunization.map((val) =>
-//   				<p>{val.name}</p>
-//   			)}
-//   		</div>
-//   	)
-// }
-
-// module.exports = Schedule;
-
 const React = require('react');
 // const Table = require('material-ui/lib/table/table');
 // const TableHeaderColumn = require('material-ui/lib/table/table-header-column');
@@ -28,6 +10,17 @@ const Table = require('react-bootstrap').Table;
 const Col = require('react-bootstrap').Col;
 const TextField = require('material-ui/lib/text-field');
 const Toggle = require('material-ui/lib/toggle');
+     
+      // {appointment.map((val, count) =>
+      //     <tr key={count++}>
+      //       <td> {count++} </td>
+      //       <td> {val.text} </td>
+      //       <td> {val.organization.name} </td>
+      //       <td> {val.date} </td>
+      //       <td> Current </td>
+      //     </tr>
+      //      )}
+
 
 const Schedule = ({appointment, immunization}) => (
   <Col xs={12} md={12} className="scheduleContainer">
@@ -45,16 +38,8 @@ const Schedule = ({appointment, immunization}) => (
         </thead> 
 
         <tbody>
+        {console.log({appointment})}
 
-     	{appointment.map((val, count) =>
-          <tr key={count++}>
-            <td> {count++} </td>
-            <td> {val.text} </td>
-            <td> {val.organization.name} </td>
-            <td> {val.date} </td>
-            <td> Current </td>
-          </tr>
-           )}
 
         </tbody>
       </Table>
