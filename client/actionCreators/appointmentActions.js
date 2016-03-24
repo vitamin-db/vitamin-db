@@ -14,7 +14,6 @@ function getCookie(cname) {
 
 
 function AddAppointment (appointment, id_doctor) {
-	console.log('need appointment result', appointment, id_doctor)
   return (dispatch) => {
 	return fetch('/appointment/' + id_doctor, {
 		method: 'post',
@@ -29,7 +28,6 @@ function AddAppointment (appointment, id_doctor) {
 		return response.json();
 	})
 	.then((data) => {
-		console.log('appoint action data', data)
 		dispatch(stateAction.AddAppointment(data))
 	})
 	.catch((err) => {

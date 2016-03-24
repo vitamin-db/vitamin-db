@@ -189,7 +189,6 @@ const mapDispatchToProps = (dispatch) => {
             time: time
           }
         };
-        console.log("add appoint", body, id);
         dispatch(apptAction.AddAppointment(body, id))
       }
 

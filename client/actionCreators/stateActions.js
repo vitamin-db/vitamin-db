@@ -127,7 +127,6 @@ function RemovePharm (id) {
 };
 
 function AddAppointment (appointment, id_doctor) {
-	console.log('appoint in state actions', appointment, id_doctor)
 	return {
 		type: 'ADDAPPOINTMENT',
 		appointment: appointment,

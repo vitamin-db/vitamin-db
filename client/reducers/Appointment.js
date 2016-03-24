@@ -7,11 +7,8 @@ const Appoint = (state, action) => {
   	case 'SETMYINFO':
   		return action.list.appointments || state;
   	case 'ADDAPPOINTMENT': 
-    console.log('.......state', ...state)
-    console.log('wanna see me', action.appointment, action.id_doctor)
   		var appointArray = [...state];
       for(var i = 0; i < appointArray; i++) {
-        console.log('appointArray i',appointArray[i])
         if(appointArray[i].id_doctor === appointArray[i].appointments[0].id_user_doctor) {
   		    appointArray[i].appointments.push(action.appointment);
         }
