@@ -22,7 +22,7 @@ function AddAppointment (appointment, id_doctor) {
 			'Content-Type': 'application/json',
 			'x-access-token': getCookie("token")
 		},
-		body: JSON.stringify(appointment, id_doctor)
+		body: JSON.stringify(appointment)
 	})
 	.then((response) => {
 		return response.json();
@@ -36,6 +36,26 @@ function AddAppointment (appointment, id_doctor) {
   };
 };
 
+function RemoveAppointment (id_appointment) {
+	return (dispatch) => {
+		return fetch('/appointment/' + id_appointment, {
+			method: 'delete',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				'x-access-token': getCookie("token")
+			}
+		})
+		.then((response) => {
+			dispatch(stateAction.RemoveAppointment(id_appointment));
+		})
+		.catch((err) => {
+			console.error('removing appointment error', err)
+		})
+	};
+}
+
 module.exports = {
-  AddAppointment
+  AddAppointment,
+  RemoveAppointment
 }
