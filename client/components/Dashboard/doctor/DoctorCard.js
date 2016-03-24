@@ -34,10 +34,11 @@ const DocCard = React.createClass({
 				     {!this.state.show && <div className="card-block">
 				     	<h3>Not all fields required.</h3>
 				     	<form onSubmit={this.props.editDoc.bind(null, this.props.val.id_doctor)} >
-				     		<input name="specialty" placeholder="Specialty" />
-				     		<input name="name" placeholder="Name"/>
-				     		<input name="address" placeholder="Address"/>
-				     		<input name="phone" placeholder="Phone"/>
+				     		<input name="specialty" placeholder={this.props.val.type} />
+				     		<input name="name" placeholder={this.props.val.name}/>
+				     		<input name="address" placeholder={this.props.val.street_address}/>
+				     		<input name="phone" placeholder={this.props.val.phone}/>
+				     		<br/>
 				     		<button type="submit">Submit</button>
 				     	</form>
 				     </div>}
