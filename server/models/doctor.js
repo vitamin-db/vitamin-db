@@ -83,6 +83,63 @@ Doctor.deleteById = function(id)
 
 
 
+/* VALIDATE EMAIL
+  Throws an error ('Invalid email address') if the email passed in is invalid
+  Otherwise, just returns the email address
+*/
+Doctor.validateEmail = function(emailAddress) {
+  console.log('valid email address? ', emailAddress, Doctor.validEmail(emailAddress))
+  if (!Doctor.validEmail(emailAddress)) {
+    throw new Error('Invalid email address')
+  } else {
+    return emailAddress
+  }
+}
+
+
+/* VALIDATE ZIP
+  Throws an error ('Invalid zip code')if the zip code passed in is invalid
+  Otherwise, returns the integerized zip code (if the zip code was a string for some reason)
+*/
+Doctor.validateZip = function(zipcode) {
+  console.log('valid zip code?', zipcode, Doctor.isNumber(zipcode))
+  if (Doctor.isNumber(zipcode)) {
+    return Doctor.getInt(zipcode)
+  } else {
+    throw new Error('Invalid zip code')
+  }
+}
+
+
+
+/* VALIDATE REQUEST
+  Takes the object sent in req.body.properties
+  Validates the email and zip (if passed in) - throws an error if those are invalid
+  Removes the 'current' and 'type_usermade'
+  Returns the object with the zip coerced to an integer (if it wasn't to begin with)
+*/
+Doctor.prepData = function(reqObj) {
+  console.log('original req object in prepData', reqObj)
+  var prepared = {}
+
+  for (var p in reqObj) {
+    if (p !== 'type_usermade' && p !== 'current') {
+
+      if (p === 'email') {
+        prepared[p] = Doctor.validateEmail(reqObj[p])
+      } else if (p === 'zip') {
+        prepared[p] = Doctor.validateZip(reqObj[p])
+      } else {
+        prepared[p] = reqObj[p]
+      }
+
+    }
+  }
+  console.log('prepared object in prepData', reqObj)
+  return prepared
+}
+
+
 
 
 
