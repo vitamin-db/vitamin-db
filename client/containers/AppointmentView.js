@@ -8,11 +8,10 @@ const mock               = require('../model/mockData');
 const stateAction        = require('../actionCreators/stateActions');
 const apptAction      = require('../actionCreators/appointmentActions');
 
-
 const Appointment = ({states, dispatches}) => {
   return (
     <div>
-      <Schedule immunization={states.immunization} appointment={states.appointment} removeAppt={dispatches.removeAppt} />
+      <Schedule immunization={states.immunization} doctor={states.doctor} appointment={states.appointment} removeAppt={dispatches.removeAppt} />
     </div>
   );
 };
@@ -20,8 +19,9 @@ const Appointment = ({states, dispatches}) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     states: {
+      doctor: state.userinfo.doctors,
       immunization: mock.Immunizations,
-      appointment: state.appoint
+      appointment: state.appoint.map((val) => { return val.appointments })
     }
   }
 };
