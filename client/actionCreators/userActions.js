@@ -131,6 +131,7 @@ function GetMyInfo () {
       if(info.msg === "Please log in"){
         return;
       }else{
+        console.log("get info", info)
         dispatch(stateAction.SetMyInfo(info))
       }
     })

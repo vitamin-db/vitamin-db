@@ -13,7 +13,7 @@ function getCookie(cname) {
 }
 
 function AddMember (member) {
-	return fetch('', {
+	return fetch('/familymember', {
 		method: 'post',
 		headers: {
 			'Accept': 'application/json',
@@ -26,14 +26,15 @@ function AddMember (member) {
 		return response.json();
 	})
 	.then((data) => {
-		return data;
+		console.log("add member data", data);
+		return data.id_familymember;
 	})
 	.catch((err) => {
 		console.error("add member err", err);
 	})
 }
 
-function AddFam (fam) {
+function AddFam (fam, name) {
 	return (dispatch) => {
 		return fetch('/familyhistory', {
 			method: 'post',
@@ -49,6 +50,15 @@ function AddFam (fam) {
 		})
 		.then((data) => {
 			console.log("add fam data", data);
+			var body = {
+				history: [{
+					condition: data.condition,
+					id_famhist: data.id_famhist,
+					id_familymember: data.id_familymember
+				}],
+				id_familymember: data.id_familymember
+			};
+			dispatch(stateAction.AddFamCond(body));
 		})
 		.catch((err) => {
 			console.error("add fam err", err);
@@ -67,12 +77,12 @@ function RemoveFam (id) {
 			}
 		})
 		.then((response) => {
-			console.log("remove fam res", response);
+			dispatch(stateAction.RemoveFamCond(id));
 		})
 		.catch((err) => {
 			console.error("remove fam err", err);
 		})
-	}
+	};
 }
 
 module.exports = {

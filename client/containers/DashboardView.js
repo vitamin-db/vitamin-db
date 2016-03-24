@@ -170,14 +170,20 @@ const mapDispatchToProps = (dispatch) => {
       },
       addFamCond: (e) => {
         e.preventDefault();
-        var member = e.target.member.value;
-        var body = {
-          properties: {
-            condition: e.target.condition.value
-          }
+        var member = {
+          properties:{name: e.target.member.value}
         };
-        console.log("add fam body", body);
-        dispatch(famAction.AddFam(body));
+        var condition = e.target.condition.value;
+        famAction.AddMember(member)
+          .then((memId) => {
+            var body = {
+              properties: {
+               condition: condition,
+               id_familymember: memId
+              }
+            };
+            dispatch(famAction.AddFam(body, member.properties.name));
+          })
       },
       removeFamCond: (id) => {
         dispatch(famAction.RemoveFam(id));
