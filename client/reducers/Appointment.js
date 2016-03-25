@@ -7,16 +7,10 @@ const Appoint = (state, action) => {
   		return action.list.appointments || state;
   	case 'ADDAPPOINTMENT': 
   		var apptArray = [...state];
-      for(var i = 0; i < apptArray.length; i++) {
-        if(apptArray[i].id_doctor === action.appointment.id_user_doctor) {
-  		    apptArray[i].appointments.push(action.appointment);
-        }
-        else {
-          if(i > apptArray.length) {
-            apptArray[i].appointments.push(action.appointment);
-          }
-        }
-      };
+        apptArray.filter((val) => {
+          if(val.id_doctor === action.appointment.id_user_doctor)
+            return val.appointments.push(action.appointment);
+        });
   		return apptArray;
 
     case 'REMOVEAPPOINTMENT':
