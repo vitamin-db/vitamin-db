@@ -318,10 +318,12 @@ describe('user API', function() {
 			  	  .then( function(result) {
 			  	  	var got = JSON.parse(result.text)
 			  	  	expect(got).to.be.an('object')
-			  	  	expect(TH.isValidPublicUser(got)).to.be.true
-			  	  	expect(got.username).to.equal(newusername)
-			  	  	expect(got.email).to.equal(newEmail)
-			  	  	expect(got.phone).to.equal(user1.phone)
+			  	  	expect(got).to.have.keys('user', 'token')
+			  	  	expect(got.token !== undefined)
+			  	  	expect(TH.isValidPublicUser(got.user)).to.be.true
+			  	  	expect(got.user.username).to.equal(newusername)
+			  	  	expect(got.user.email).to.equal(newEmail)
+			  	  	expect(got.user.phone).to.equal(user1.phone)
 			  	  })
 			  })
 		})
