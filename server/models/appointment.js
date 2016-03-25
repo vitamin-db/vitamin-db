@@ -227,6 +227,19 @@ Appointment.formatForTwilio = function(appt) {
   Returns an array of all appointments existing in the database, formatted according to Appointment.formatforTwilio
 */
 Appointment.getAllForTwilio = function() {
+	var allForTwilio= []
 
+	return Appointment.getAll()
+	  .then( function(allAppts) {
+	  	return Promise.all( allAppts.map( function(a) {
+	  		return Appointment.formatForTwilio(a)
+	  		  .then( function(formatted) {
+	  		  	allForTwilio.push(formatted)
+	  		  })
+	  	}))
+	  })
+	  .then( function() {
+	  	return allForTwilio
+	  })
 }
 

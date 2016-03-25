@@ -152,7 +152,13 @@ describe('**************** Appointment Model ****************', function() {
         return Appointment.getAllForTwilio()
       })
       .then(function(forTwilio) {
-        expect(false).to.be.true
+        // console.log('forTwilio obj looks like', forTwilio)
+        expect(forTwilio).to.be.an('array')
+        expect(forTwilio).to.have.length(3)
+        forTwilio.forEach(function(e) {
+          expect(e).to.be.an('object')
+          expect(e).to.have.keys('userPhone', 'docName', 'docAddress', 'time', 'date')
+        })
       })
   })
 
