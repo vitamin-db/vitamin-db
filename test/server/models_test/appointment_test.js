@@ -8,6 +8,7 @@ const TH = require(__test + '/test-helper')
 const Appointment = require(__server + '/models/appointment')
 const UserDoctor = require((__server + '/models/user-doctor'))
 const User = require(__server + '/models/user')
+const Doctor = require(__server + '/models/doctor')
 
 describe('**************** Appointment Model ****************', function() {
 
@@ -123,6 +124,22 @@ describe('**************** Appointment Model ****************', function() {
   })
 
   it('returns appointment information for twilio', function() {
+    return Appointment.getAll()
+      .then(function(all) {
+        return Appointment.formatForTwilio(all[0])
+      })
+      .then(function(formatted) {
+        expect(formatted).to.be.an('object')
+        expect(formatted).to.have.keys('userPhone', 'docName', 'docAddress', 'time', 'date')
+        expect(formatted.userPhone).to.equal(newTestUser1.phone)
+        expect(formatted.docName).to.equal(newDoc1.name)
+        expect(formatted.docAddress).to.equal(Doctor.formatAddress(newDoc1))
+        expect(formatted.time).to.equal('16:45Z')
+        expect(formatted.date).to.equal(appt2.date)
+      })
+  })
+
+  it('formats all appointment records for twilio', function() {
     //have one appointment, appt2, linked to doctor 1
     return Appointment.createAndReturn(newTestUser1.username, newDoc1.id_doctor, {date: '03/02/2017', time: '9:00Z'})
       .then(function(appt) {
@@ -132,18 +149,16 @@ describe('**************** Appointment Model ****************', function() {
       })
       .then(function(appt) {
         appt4 = appt //appt4, linked to doctor 2
-
-        return Appointment.getForTwilio(user1_id)
+        return Appointment.getAllForTwilio()
       })
       .then(function(forTwilio) {
-        console.log('forTwilio object', forTwilio)
-        expect(forTwilio).to.be.an('object')
-        expect(forTwilio).to.have.keys('userPhone', 'appointments')
-        expect(forTwilio.userPhone).to.equal(newTestUser1.phone)
-        expect(forTwilio.appointments).to.be.an('array')
-        expect(forTwilio.appointments).to.have.length(3)
-        expect(forTwilio.appointments[0]).to.be.an('object')
-        expect(forTwilio.appointments[0]).to.have.keys('name', 'formattedAddress', 'time', 'date')
+        // console.log('forTwilio obj looks like', forTwilio)
+        expect(forTwilio).to.be.an('array')
+        expect(forTwilio).to.have.length(3)
+        forTwilio.forEach(function(e) {
+          expect(e).to.be.an('object')
+          expect(e).to.have.keys('userPhone', 'docName', 'docAddress', 'time', 'date')
+        })
       })
   })
 

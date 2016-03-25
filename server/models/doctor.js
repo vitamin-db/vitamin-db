@@ -135,7 +135,6 @@ Doctor.prepData = function(reqObj) {
 
     }
   }
-  console.log('prepared object in prepData', reqObj)
   return prepared
 }
 
