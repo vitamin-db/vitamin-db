@@ -45,23 +45,23 @@ getInitialState() {
       		<form onSubmit={this.props.addEye}>
       			<h3>Right (OD):</h3>
             <Col xs={12} md={6}>
-        			<Input name="sphere_right" type="text" label="Sphere (right):" placeholder="Sphere" required />
-        			<Input name="cylinder_right" type="text" label="Cylinder (right):" placeholder="Cylinder" required />
+        			<Input name="sphere_right" type="number" label="Sphere (right):" placeholder="Sphere" required />
+        			<Input name="cylinder_right" type="number" label="Cylinder (right):" placeholder="Cylinder" required />
             </Col>
             <Col xs={12} md={6}>
-        			<Input name="axis_right" type="text" label="Axis (right):" placeholder="Axis" required />
-        			<Input name="add_right" type="text" label="Add (right):" placeholder="Add" required />
+        			<Input name="axis_right" type="number" label="Axis (right):" placeholder="Axis" required />
+        			<Input name="add_right" type="number" label="Add (right):" placeholder="Add" required />
             </Col>
 
 
       			<h3>Left (OS):</h3>
             <Col xs={12} md={6}>
-        			<Input name="sphere_left" type="text" label="Sphere (left):" placeholder="Sphere" required />
-        			<Input name="cylinder_left" type="text" label="Cylinder (left):" placeholder="Cylinder" required />
+        			<Input name="sphere_left" type="number" label="Sphere (left):" placeholder="Sphere" required />
+        			<Input name="cylinder_left" type="number" label="Cylinder (left):" placeholder="Cylinder" required />
       			</Col>
             <Col xs={12} md={6}>
-              <Input name="axis_left" type="text" label="Axis (left):" placeholder="Axis" required />
-        			<Input name="add_left" type="text" label="Add (left):" placeholder="Add" required />
+              <Input name="axis_left" type="number" label="Axis (left):" placeholder="Axis" required />
+        			<Input name="add_left" type="number" label="Add (left):" placeholder="Add" required />
             </Col>
       			<br/>
       			<Button type="submit" bsStyle="primary" bsSize="large" block>Add new eye prescription</Button>

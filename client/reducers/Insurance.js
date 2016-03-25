@@ -17,6 +17,14 @@ const Insurance = (state, action) => {
         }
       }
       return newRemove;
+    case 'CHANGEINSURANCE':
+      var newChange = [...state];
+      for(var i=0; i<newChange.length; i++){
+        if(newChange[i].id_insurance === action.info.id_insurance){
+          newChange[i] = action.info;          
+        }
+      }
+      return newChange;
   	default:
   		return state;
   }

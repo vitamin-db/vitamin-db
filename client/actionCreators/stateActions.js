@@ -176,6 +176,13 @@ function RemoveFamCond (id) {
 	};
 };
 
+function ChangeInsurance (newIns) {
+	return {
+		type: 'CHANGEINSURANCE',
+		info: newIns
+	};
+};
+
 module.exports = {
 	SignInSuccess,
 	SignInFail,
@@ -201,5 +208,6 @@ module.exports = {
 	InvalidSignIn,
 	InvalidSignUp,
 	AddFamCond,
-	RemoveFamCond
+	RemoveFamCond,
+	ChangeInsurance
 };

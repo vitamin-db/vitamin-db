@@ -94,7 +94,7 @@ const mapDispatchToProps = (dispatch) => {
 			}
 		},
 		signOut: () => {
-			dispatch(stateAction.SignOut());
+			dispatch(stateAction.SignOut())
 			if(!userAction.getCookie("token")){
 				browserHistory.push('/')
 			}

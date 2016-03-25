@@ -8,11 +8,11 @@ const InsForm = ({addIns}) => {
     <h1>Fill in your Insurance info:</h1>
 	   <div>
 	   	<form onSubmit={addIns} >
-	   		<input name="provider" placeholder="Provider" />
-	   		<input name="plan" placeholder="Plan" />
+	   		Provider: <input name="provider" placeholder="Provider" />
+	   		Plan: <input name="plan" placeholder="Plan" />
 	   		<br/>
-	   		<input name="groupid" placeholder="Group ID" />
-	   		<input name="memberid" placeholder="Member ID" />
+	   		Group ID: <input name="groupid" type="number" placeholder="Group ID" />
+	   		Member ID: <input name="memberid" type="number" placeholder="Member ID" />
 	   		<br/>
 	   		<button type="submit" >Submit</button>
 	   	</form>

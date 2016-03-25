@@ -12,22 +12,87 @@ const AddDoc = require('./AddDoctor');
 const Insurance = require('../patient/PatientInfo/Insurance');
 const Pharmacy = require('../patient/PatientInfo/Pharmacy');
 
-const DoctorGrid = ({editIns, addMyDoc, removePharm, addPharm, addIns, removeIns, editDoc, removeDoc, addDoc, docApiList, searchDoc, docInfo, insurance, pharmacy, addAppointment}) => (
-	  <Grid>
-		<div className="container-fluid">
-	    <Row className="show-grid">
-	      {docInfo.map((val, count) => 
-	        <DocCard key={count} editDoc={editDoc} removeDoc={removeDoc} addAppointment={addAppointment} val={val} />
-	      )}
-	      	{!docInfo[0] && <h1>No current doctor! Add a new doctor card below!</h1>}
-	      	<Insurance editIns={editIns} removeIns={removeIns} insurance={insurance} />
-			<Pharmacy removePharm={removePharm} pharmacy={pharmacy} />
+// const DoctorGrid = ({editIns, addMyDoc, removePharm, addPharm, addIns, removeIns, editDoc, removeDoc, addDoc, docApiList, searchDoc, docInfo, insurance, pharmacy, addAppointment}) => (
+// 	  <Grid>
+// 		<div className="container-fluid">
+// 	    <Row className="show-grid">
+// 	      {docInfo.map((val, count) => 
+// 	        <DocCard key={count} editDoc={editDoc} removeDoc={removeDoc} addAppointment={addAppointment} val={val} />
+// 	      )}
+// 	      	{!docInfo[0] && <h1>No current doctor! Add a new doctor card below!</h1>}
+// 	      	<Insurance editIns={editIns} removeIns={removeIns} insurance={insurance} />
+// 			<Pharmacy removePharm={removePharm} pharmacy={pharmacy} />
 			
-	      <AddDoc addMyDoc={addMyDoc} addPharm={addPharm} addIns={addIns} addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} />
-	    </Row>
-	  	</div>
-	  </Grid>
-);
+// 	      <AddDoc addMyDoc={addMyDoc} addPharm={addPharm} addIns={addIns} addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} />
+// 	    </Row>
+// 	  	</div>
+// 	  </Grid>
+// );
 
+const DoctorGrid = React.createClass({
+	getInitialState() {
+		return {
+			doc: true,
+			ins: true,
+			pharm: true
+		};
+	},
+	showAll() {
+		this.setState({
+			doc: true,
+			ins: true,
+			pharm: true
+		})
+	},
+	toggleDoc() {
+		this.setState({
+			doc: true,
+			ins: false,
+			pharm: false
+		})
+	},
+	toggleIns() {
+		this.setState({
+			doc: false,
+			ins: true,
+			pharm: false
+		})
+	},
+	togglePharm() {
+		this.setState({
+			doc: false,
+			ins: false,
+			pharm: true
+		})
+	},
+	render(){
+		return (
+		  <Grid>
+			<div className="container-fluid">
+		    <Row className="show-grid">
+		    	<button onClick={this.showAll}>Show all</button>
+		    	<button onClick={this.toggleDoc}>Show my doctors</button>
+		    	<button onClick={this.toggleIns}>Show my Insurances</button>
+		    	<button onClick={this.togglePharm}>Show my pharmacies</button>
+		    	<br/>
+				{this.state.doc && <div>
+					{this.props.docInfo.map((val, count) => 
+						<DocCard key={count} editDoc={this.props.editDoc} removeDoc={this.props.removeDoc} addAppointment={this.props.addAppointment} val={val} />
+					)}
+				</div>}
+		      	{this.state.ins && <div>
+		      		<Insurance editIns={this.props.editIns} removeIns={this.props.removeIns} insurance={this.props.insurance} />
+		      	</div>}
+				{this.state.pharm && <div>
+					<Pharmacy removePharm={this.props.removePharm} pharmacy={this.props.pharmacy} />
+				</div>}
+				
+		      <AddDoc addMyDoc={this.props.addMyDoc} addPharm={this.props.addPharm} addIns={this.props.addIns} addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />
+		    </Row>
+		  	</div>
+		  </Grid>
+		);
+	}
+})
 
 module.exports = DoctorGrid;

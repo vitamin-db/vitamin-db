@@ -1,13 +1,13 @@
 const UserInfo = (state, action) => {
   if(state === undefined){
-    return state = {user: {}, doctors: [], eyerx: []};
+    return state = {user: {}, doctors: [], eyerx: {}};
   }
   switch(action.type){
     case 'SETMYINFO':
         return {
           user: action.list.user, 
           doctors: action.list.doctors,
-          eyerx: [action.list.eyerx]
+          eyerx: action.list.eyerx || {}
         } || state;
     case 'ADDDOCTOR':
     	var newDoc = {...state};
@@ -35,17 +35,18 @@ const UserInfo = (state, action) => {
       newState.user = action.newInfo;
       return newState;
     case 'ADDEYE':
-      var newEye = {...state};
-      newEye.eyerx.push(action.eyerx);
+      // var newEye = {...state};
+      // newEye.eyerx.push(action.eyerx);
+      var newEye = {...state, eyerx: action.eyerx};
       return newEye; 
     case 'REMOVEEYE':
-      var newEyeList = state.eyerx.slice(0);
-      for(var i=0; i<newEyeList.length; i++){
-        if(newEyeList[i].id_eyerx === action.id){
-          newEyeList.splice(i,1);
-        }
-      }
-      return {...state, eyerx: newEyeList};
+      // var newEyeList = state.eyerx.slice(0);
+      // for(var i=0; i<newEyeList.length; i++){
+      //   if(newEyeList[i].id_eyerx === action.id){
+      //     newEyeList.splice(i,1);
+      //   }
+      // }
+      return {...state, eyerx: {}};
     case 'SUPERLOGOUT':
       return {user: {username: ""}, doctors: [], eyerx: [{}]};
     default:

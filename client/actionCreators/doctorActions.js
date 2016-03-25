@@ -92,7 +92,8 @@ function RemoveMyDoc (id_doctor) { // this will be the doctor's id/primary key
     })
     .then((response) => {
       console.log("remove doc res", response);
-      dispatch(stateAction.RemoveDoc(id_doctor))
+      dispatch(stateAction.RemoveDoc(id_doctor));
+      // dispatch(stateAction.RemoveAppointment(appointId));
     })
     .catch((err) => {
       console.error("removemydoc error", err);

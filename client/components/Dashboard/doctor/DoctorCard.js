@@ -17,6 +17,11 @@ const DocCard = React.createClass({
 		var newState = !this.state.show;
 		this.setState({show: newState});
 	},
+	submitChange(id, e) {
+		e.preventDefault();
+		this.props.editDoc(id, e);
+		this.toggleShow();
+	},
 	render: function() {
 		return (
 			<Col xs={12} md={4}>
@@ -33,7 +38,7 @@ const DocCard = React.createClass({
 				     	 </div>}
 				     {!this.state.show && <div className="card-block">
 				     	<h3>Not all fields required.</h3>
-				     	<form onSubmit={this.props.editDoc.bind(null, this.props.val.id_doctor)} >
+				     	<form onSubmit={this.submitChange.bind(null, this.props.val.id_doctor)} >
 				     		<input name="specialty" placeholder={this.props.val.type} />
 				     		<input name="name" placeholder={this.props.val.name}/>
 				     		<input name="address" placeholder={this.props.val.street_address}/>

@@ -8,9 +8,9 @@ const Phorm = ({addPharm}) => {
     <h1>Fill in your Pharmacy info:</h1>
 	   <div>
 	   	<form onSubmit={addPharm} >
-	   		<input name="pharmacy" placeholder="Pharmacy" />
-	   		<input name="address" placeholder="Address" />
-	   		<input name="phone" placeholder="Phone" />
+	   		Pharmacy: <input name="pharmacy" placeholder="Pharmacy" />
+	   		Address: <input name="address" placeholder="Address" />
+	   		Phone: <input name="phone" type="number" placeholder="Phone" />
 	   		<br/>
 	   		<input name="current" type="checkbox" /> Current Pharmacy?
 	   		<br/>
