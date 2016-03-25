@@ -12,7 +12,7 @@ const AddDoc = require('./AddDoctor');
 const Insurance = require('../patient/PatientInfo/Insurance');
 const Pharmacy = require('../patient/PatientInfo/Pharmacy');
 
-const DoctorGrid = ({addMyDoc, removePharm, addPharm, addIns, removeIns, editDoc, removeDoc, addDoc, docApiList, searchDoc, docInfo, insurance, pharmacy, addAppointment}) => (
+const DoctorGrid = ({editIns, addMyDoc, removePharm, addPharm, addIns, removeIns, editDoc, removeDoc, addDoc, docApiList, searchDoc, docInfo, insurance, pharmacy, addAppointment}) => (
 	  <Grid>
 		<div className="container-fluid">
 	    <Row className="show-grid">
@@ -20,7 +20,7 @@ const DoctorGrid = ({addMyDoc, removePharm, addPharm, addIns, removeIns, editDoc
 	        <DocCard key={count} editDoc={editDoc} removeDoc={removeDoc} addAppointment={addAppointment} val={val} />
 	      )}
 	      	{!docInfo[0] && <h1>No current doctor! Add a new doctor card below!</h1>}
-	      	<Insurance removeIns={removeIns} insurance={insurance} />
+	      	<Insurance editIns={editIns} removeIns={removeIns} insurance={insurance} />
 			<Pharmacy removePharm={removePharm} pharmacy={pharmacy} />
 			
 	      <AddDoc addMyDoc={addMyDoc} addPharm={addPharm} addIns={addIns} addDoc={addDoc} docApiList={docApiList} searchDoc={searchDoc} />

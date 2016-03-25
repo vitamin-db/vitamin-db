@@ -134,6 +134,7 @@ function RemovePharm (id) {
 };
 
 function AddAppointment (appointment) {
+	console.log("add appoint called");
 	return {
 		type: 'ADDAPPOINTMENT',
 		appointment: appointment
