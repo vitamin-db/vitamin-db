@@ -1,5 +1,6 @@
 // handles routes that start with /user
 
+const Auth = require('../models/auth')
 const User = require('../models/user')
 const Doctor = require('../models/doctor')
 const UserDoctor = require('../models/user-doctor')
@@ -111,12 +112,13 @@ UserAPI.get('/', function(req, res) {
    - it will return an error with error.msg = 'Username already exists!'
   Otherwise, will try to run the changes - if successful, it will return:
    - a 201
-   - teh updated public user data
+   - An object with {token: newtoken, user: userOb}
 */
 
 UserAPI.put('/', function(req, res) {
 
 	var id = undefined
+	var returnOb = {}
 
 	var newUsername = req.body.properties.username
 	var newPassword = req.body.properties.password
@@ -148,13 +150,6 @@ UserAPI.put('/', function(req, res) {
 	  		throw new Error('Please enter a valid email address')
 	  	}
 	  })
-	  // .catch(function(err) {
-	  // 	if (err.message === 'Username already exists!') {
-	  // 		SendR.error(res, 400, err.message, err)
-	  // 		throw Error(err.message)
-	  // 	}
-	  // 	throw Error('server error updating user')
-	  // })
 	  .then(function() {
 	  	if (newPassword) {
 	  		return User.changePassword(id, newPassword)
@@ -172,7 +167,12 @@ UserAPI.put('/', function(req, res) {
 	  	return User.getPublic(user)
 	  })
 	  .then(function(publicUser) {
-	  	SendR.resData(res, 201, publicUser)
+	  	returnOb.user = publicUser
+	  	return Auth.createToken(publicUser.username)
+	  })
+	  .then(function(token) {
+	  	returnOb.token = token
+	  	SendR.resData(res, 201, returnOb)
 	  })
 	  .catch(function(err) {
 	  	if (err.message === 'Username already exists!' || err.message === 'Please enter a valid email address') {
