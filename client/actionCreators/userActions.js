@@ -11,7 +11,6 @@ function getCookie(cname) {
        var c = ca[i];
        while (c.charAt(0)==' ') c = c.substring(1);
        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-       console.log("cookie: ",cname)
    }
    return "";
 };
@@ -115,7 +114,6 @@ function SignUp (body) {
 
 function GetMyInfo () {
   return (dispatch) => {
-    // console.log("getmyinfo token", getCookie("token"))
     return fetch("/user", {
         headers: {
           'Accept': 'application/json',
@@ -179,25 +177,6 @@ function ChangeUserInfo (data) {
       },
       body: JSON.stringify(data)
     })
-    // .then((response) => {
-      // return response.json();
-    // })
-    // .then ((newToken) => {
-    //   console.log ("cookie: ",getCookie("token"));
-    //   console.log("newToken: ", newToken);
-    // })
-    // .then((data) => {
-    //   var now = new Date();
-    //   var time = now.getTime();
-    //   time += 3600 * 1000;
-    //   now.setTime(time);
-    //   document.cookie = "token=" + data.token + "; expires=" + now.toUTCString();
-    //   alert("SUCCESS! Please log back in")
-    // })
-    // .then((data) => {
-    //   console.log("ChangeUserInfo: ", data);
-    //   dispatch(stateAction.ChangeInfo(data));
-    // })
     .then(() => {
       browserHistory.push('/')
       dispatch(stateAction.SignOut());
