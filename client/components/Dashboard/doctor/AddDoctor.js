@@ -2,6 +2,7 @@ const React = require('react');
 const Row = require('react-bootstrap').Row;
 const Col = require('react-bootstrap').Col;
 const Button = require('react-bootstrap').Button;
+const ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 const Glyphicon = require('react-bootstrap').Glyphicon;
 const Modal = require('react-bootstrap').Modal;
 const Input = require('react-bootstrap').Input;
@@ -51,9 +52,11 @@ getInitialState() {
           onHide={this.hideModal}
           dialogClassName="custom-modal">
 
-          <button onClick={this.toggleDoc} >Add a doctor</button>
-          <button onClick={this.toggleIns} >Add insurance</button>
-          <button onClick={this.togglePharm} >Add a pharmacy</button>
+          <ButtonToolbar>
+            <Button onClick={this.toggleDoc} bsStyle="default">Add a doctor</Button>
+            <Button onClick={this.toggleIns} bsStyle="default">Add insurance</Button>
+            <Button onClick={this.togglePharm} bsStyle="default">Add a pharmacy</Button>
+          </ButtonToolbar>
 
           {this.state.doc && <FormComponent hideModal={this.hideModal} addMyDoc={this.props.addMyDoc} addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />}
           {this.state.ins && <InsForm addIns={this.props.addIns} />}

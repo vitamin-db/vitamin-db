@@ -82,6 +82,14 @@ buttons
     line-height:.5;
 }
 
+.btn-default {
+  background-color:#ddd;
+}
+
+.btn-toolbar {
+  margin:10px;
+}
+
 
 /*
 ========================================
