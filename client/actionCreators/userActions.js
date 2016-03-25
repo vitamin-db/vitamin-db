@@ -3,7 +3,7 @@ const allergyAction  = require('./allergyActions');
 const browserHistory = require('react-router').browserHistory;
 
 // this is just a cookie parser. Put in the string "token" into the argument and it will
-// sift through the cookie string and spit out the correct value
+// shift through the cookie string and spit out the correct value
 function getCookie(cname) {
    var name = cname + "=";
    var ca = document.cookie.split(';');
@@ -114,7 +114,6 @@ function SignUp (body) {
 
 function GetMyInfo () {
   return (dispatch) => {
-    // console.log("getmyinfo token", getCookie("token"))
     return fetch("/user", {
         headers: {
           'Accept': 'application/json',
@@ -167,6 +166,7 @@ function SignOut () {
 };
 
 function ChangeUserInfo (data) {
+  console.log("ChangeUserInfoTop: ", data);
   return (dispatch) => {
     return fetch('/user', {
       method: 'put',
@@ -177,15 +177,15 @@ function ChangeUserInfo (data) {
       },
       body: JSON.stringify(data)
     })
-    .then((response) => {
-      return response.json();
+    .then(() => {
+      browserHistory.push('/')
+      dispatch(stateAction.SignOut());
     })
-    .then((data) => {
-      console.log("ChangeUserInfo: ", data);
-      dispatch(stateAction.ChangeInfo(data));
+    .then(() => {
+      alert("SUCCESS! Please log back in");
     })
     .catch((err) => {
-      console.log("ChangeUserInfo ERRROR: ", err);
+      console.log("ChangeUserInfo ERROR: ", err);
     })
   };
 };

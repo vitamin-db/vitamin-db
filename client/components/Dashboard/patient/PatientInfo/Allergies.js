@@ -8,13 +8,6 @@ const Col = require('react-bootstrap').Col;
 const AddButton = require('./PatientHelpers/NewAllergy');
 const EditButton = require('../../common/EditButton');
 const DeleteButton = require('../../common/DeleteButton');
-// const header = (
-//   	<div>
-// 		<Button bsStyle="success" bsSize="xsmall" className="card-button"><Glyphicon glyph='heart' /></Button>
-// 		<h5 className="card-type">Prescriptions</h5>
-// 	</div>
-// )
-// const FormUI = require('../../common/FormUI');
 
 const AllergiesPanel = ({removeAllergy, addAllergy, allergies}) => {
 
@@ -24,7 +17,7 @@ const AllergiesPanel = ({removeAllergy, addAllergy, allergies}) => {
 	 		{allergies[0] && <ListGroup fill>
 	 		{allergies.map((val, count) => 
 				<ListGroupItem key={count} className="allergies-item card-text">
-				   { (count+1) + ': '  + val.allergen + ' - ' + val.current } 
+				   {val.allergen + ' - ' + val.current } 
 					
 					<div className="btn-group">
 						<EditButton />
