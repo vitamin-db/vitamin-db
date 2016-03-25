@@ -29,6 +29,11 @@ const AddForm = React.createClass({
 		var change = !this.state.show;
 		this.setState({show: change});
 	},
+	submitDoc(e) {
+		e.preventDefault();
+		this.props.addMyDoc(e);
+		this.props.hideModal();
+	},
 	render() {
 		return (
 			<div>
@@ -40,7 +45,7 @@ const AddForm = React.createClass({
 					<Button type="submit" bsStyle="primary" bsSize="large" block>Search</Button>
 				</form>}
 
-				{!this.state.show && <form onSubmit={this.props.addMyDoc} className="form-horizontal">
+				{!this.state.show && <form onSubmit={this.submitDoc} className="form-horizontal">
 					<Input name="specialty" type="text" label="Specialty" labelClassName="col-xs-2" wrapperClassName="col-xs-10" placeholder="Specialty" />
 					<Input name="name" type="text" label="Doctor Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10" placeholder="Name" />
 					<Input name="address" type="text" label="Address" labelClassName="col-xs-2" wrapperClassName="col-xs-10" placeholder="Address" />
@@ -49,7 +54,7 @@ const AddForm = React.createClass({
 				</form>}
 				<div>
 					{this.props.docApiList.map((doc) =>
-						<DocApiCard key={doc.phone} addDoc={this.props.addDoc} doc={doc} />
+						<DocApiCard hideModal={this.props.hideModal} key={doc.phone} addDoc={this.props.addDoc} doc={doc} />
 					)}
 				</div>
 			</div>

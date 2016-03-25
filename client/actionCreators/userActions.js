@@ -81,14 +81,13 @@ function SignUp (body) {
     })
     .then(function(token){ // don't forget to get the user info back here too, except password
       console.log("token", token)
-      if(token.msg === "Please enter a valid email address"){ // same thing, move logic to back end
+      if(token.msg){
+        console.log("token error");
         dispatch(stateAction.SignInFail());
-        return token.msg;
-      }
-      else if(typeof token.msg === 'string'){
-        return token.msg;
+        throw new Error(token.msg);
       }
       else{
+        console.log("signup else success");
         var now = new Date();
         var time = now.getTime();
         time += 3600 * 1000;
@@ -98,17 +97,17 @@ function SignUp (body) {
         dispatch(stateAction.SignInSuccess(token.token));
       }
     })
-    .then((msg) => {
-      if(typeof msg === 'string'){
-        dispatch(stateAction.InvalidSignUp(msg));
-        return;
-      }
-      else if(getCookie("token")){
-        browserHistory.push('/home')
+    .then(() => {
+      dispatch(GetMyInfo());
+    })
+    .then(() => {
+      if(getCookie("token")){
+        browserHistory.push('/home');
       }
     })
     .catch(function(err){
       console.error("signup err", err);
+      dispatch(stateAction.InvalidSignUp(err));
     })
   };
 };
@@ -131,8 +130,8 @@ function GetMyInfo () {
       if(info.msg === "Please log in"){
         return;
       }else{
-        console.log("get info", info)
-        dispatch(stateAction.SetMyInfo(info))
+        console.log("get info", info);
+        dispatch(stateAction.SetMyInfo(info));
       }
     })
     .catch((err) => {
@@ -142,6 +141,7 @@ function GetMyInfo () {
 };
 
 function SignOut () {
+  console.log("signout user action");
   return (dispatch) => {
     return fetch('/authenticate/logout', {
       method: 'post',
@@ -152,10 +152,16 @@ function SignOut () {
       }
     })
     .then((response) => {
-      console.log("sign out res", response)
+      console.log("sign out res", response);
+      dispatch(stateAction.SignOut());
+    })
+    .then(() => {
+      if(!getCookie("token")){
+        browserHistory.push('/');
+      }
     })
     .catch((err) => {
-      console.error("signout err", err)
+      console.error("signout err", err);
     })
   };
 };

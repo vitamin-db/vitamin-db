@@ -39,6 +39,11 @@ const InsurancePanel = React.createClass({
 		var change = !this.state.show;
 		this.setState({show: change});
 	},
+	submitChange(id,e){
+		e.preventDefault()
+		this.props.editIns(id, e);
+		this.toggleShow();
+	},
 	render(){
 		return (
 			<Col xs={12} md={4}>
@@ -60,11 +65,14 @@ const InsurancePanel = React.createClass({
 				 		 </div>}
 
 			 		     {!this.state.show && <div>
-			 		     	<form onSubmit={this.props.editIns.bind(null, item.id_insurance)}>
-				 		     	<input name="planname" placeholder={item.plan_name}/>
-				 		     	<input name="planid" placeholder={item.plan_id}/>
-				 		     	<input name="groupid" placeholder={item.group_id}/>
-				 		     	<input name="memberid" placeholder={item.rx_bin}/>
+			 		     	<form onSubmit={this.submitChange.bind(null, item.id_insurance)}>
+				 		     	Provider: <input name="planname" placeholder={item.plan_name}/>
+				 		     	<br/>
+				 		     	Plan: <input name="planid" placeholder={item.plan_id}/>
+				 		     	<br/>
+				 		     	Group ID: <input name="groupid" type="number" placeholder={item.group_id}/>
+				 		     	<br/>
+				 		     	Member ID: <input name="memberid" type="number" placeholder={item.rx_bin}/>
 				 		     	<br/>
 				 		     	<button type="submit">Submit</button>
 				 		    </form>

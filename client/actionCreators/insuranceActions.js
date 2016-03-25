@@ -71,7 +71,7 @@ function EditIns (newInfo) {
       return response.json();
     })
     .then((data) => {
-      console.log("edit ins data", data);
+      dispatch(stateAction.ChangeInsurance(data));
     })
     .catch((err) => {
       console.error("Edit ins err", err);
