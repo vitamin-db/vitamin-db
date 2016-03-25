@@ -51,9 +51,9 @@ getInitialState() {
           onHide={this.hideModal}
           dialogClassName="custom-modal">
 
-          <button onClick={this.toggleDoc} >Doctor form</button>
-          <button onClick={this.toggleIns} >Insurance form</button>
-          <button onClick={this.togglePharm} >Pharmacy form</button>
+          <button onClick={this.toggleDoc} >Add a doctor</button>
+          <button onClick={this.toggleIns} >Add insurance</button>
+          <button onClick={this.togglePharm} >Add a pharmacy</button>
 
           {this.state.doc && <FormComponent hideModal={this.hideModal} addMyDoc={this.props.addMyDoc} addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />}
           {this.state.ins && <InsForm addIns={this.props.addIns} />}
