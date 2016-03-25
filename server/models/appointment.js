@@ -3,6 +3,9 @@ const Model = require('./model-helper')
 const Promise = require('bluebird')
 
 const UserDoctor = require('./user-doctor')
+const Doctor = require('./doctor')
+const User = require('./user')
+
 
 const Appointment = new Model('appointments', ['id_appointment', 'id_user_doctor', 'date', 'time'])
 module.exports = Appointment
@@ -69,7 +72,7 @@ OtherAttrs should contain the properties:
   - time as string
 Returns the newly created appointment
 */
-Appointment.createAndReturn = function(username, id_doctor, otherAttrs, log) {
+Appointment.createAndReturn = function(username, id_doctor, otherAttrs) {
 	console.log('inside createAndReturn with args', username, id_doctor, otherAttrs)
 
 	var rand = Math.random()
@@ -120,5 +123,67 @@ Appointment.transformDoctors = function(username, doctors) {
 
 
 
+/* GET FOR TWILIO
+  Takes a user id
+  Returns an object with the following properties:
+  {
+  	userPhone: phone number of user
+  	appointments: array of objects, each with the following properties: 
+  	{
+	  name: name of doctor the appointment is with
+	  formattedAddress: string displaying the doctor's street address, city, state, and zip 
+	  time: time of appointment
+	  date: date of appointment
+  	}
+  }
+*/
+Appointment.getForTwilio = function(userId) {
+
+	var userPhone = undefined
+
+	var userDoctors = []
+
+	var twilioAppts = []
+
+	return User.findById(userId)
+	  .then( function(user) {
+	  	userPhone = user.phone
+	  	return UserDoctor.findByAttribute('id_user', user.id_user)
+	  })
+	  .then( function(userDoctorRecords) { //userDoctorRecords = array of userdoctors
+	  	return Promise.all(
+	  		userDoctorRecords.map(function(userDoctor) {
+	  			var userDocInfo = {}
+	  			userDocInfo.id_user_doctor = userDoctor.id_user_doctor
+	  			return Doctor.findById(userDoctor.id_doctor)
+	  			  .then(function(doctor) {
+	  			  	userDocInfo.name = doctor.name
+	  			  	userDocInfo.formattedAddress = Doctor.formatAddress(doctor)
+	  			  	userDoctors.push(userDocInfo)
+	  			  })
+	  		})
+	  	)
+	  })
+	  .then( function() {
+	  	return Promise.all(
+	  		userDoctors.map(function(userDoctor) {
+	  			return Appointment.getAllByUserDoctor(userDoctor.id_user_doctor)
+	  			.then(function(appointments) {
+	  				return Promise.all( appointments.map(function(appointment) {
+	  					var appointObj = {}
+	  					appointObj.name = userDoctor.name
+	  					appointObj.formattedAddress = userDoctor.formattedAddress
+	  					appointObj.time = appointment.time
+	  					appointObj.date = appointment.date
+	  					twilioAppts.push(appointObj)
+	  				}))
+	  			})
+	  		})
+	  	)
+	  })
+	  .then(function() {
+	  	return {userPhone: userPhone, appointments: twilioAppts}
+	  })
+}
 
 

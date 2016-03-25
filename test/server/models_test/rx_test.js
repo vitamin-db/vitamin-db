@@ -11,7 +11,7 @@ const Doctor = require(__server + '/models/doctor')
 const Pharmacy = require(__server + '/models/pharmacy')
 
 
-describe('**************** Rx Model ****************', function() {
+xdescribe('**************** Rx Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
