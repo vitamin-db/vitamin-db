@@ -31,7 +31,7 @@ module.exports = UserAPI
 	                }, {}, {}, ... 
 	              ],
 	allergies: [{id_allergy, id_user, allergen, current}, {}, ..],
-	family: [ { id_familymember: #, history: [{id_famhist, id_familymember, condition}, {}, {}, ... ],
+	family: [ { id_familymember: #, name, history: [{id_famhist, id_familymember, condition}, {}, {}, ... ],
 	insurance: [ {id_insurance, id_user, plan_name, group_id, plan_id, rx_bin, current}, {}, {}, ...],
 	pharmacies: [{id_pharmacy, id_user, business_name, address, phone, current}, {}, ...],
 	rx: [ {id_rx, id_user, id_pharmacy, id_doctor, refill_number, name, dosage, current}, {}, ...],
