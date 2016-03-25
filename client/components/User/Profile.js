@@ -9,6 +9,7 @@ const UserProfile = React.createClass({
   toggleShow: function() {
     var newState = !this.state.show;
     this.setState({show: newState});
+    alert('Changing information will log you out');
   },
   render: function() {
     return (
@@ -32,8 +33,11 @@ const UserProfile = React.createClass({
            </tr>
            <tr>
              <th>PASSWORD</th>
-             <th>******</th>
-           </tr>   
+             <td>******</td>
+           </tr>
+           <tr>   
+             <th><button onClick={this.toggleShow}>EDIT {this.props.userInfo}'s Profile</button></th>
+           </tr>
          </thead> 
        </Table>
        </div>}
@@ -43,11 +47,10 @@ const UserProfile = React.createClass({
           <input name="username" placeholder="Username" />
           <input name="phone" placeholder="Phone Number"/>
           <input name="email" placeholder="E-Mail"/>
-          <input name="password" placeholder="Password"/>
+          <input type="password" name="password" placeholder="Password"/>
           <button type="submit">Submit</button>
         </form>
        </div>}
-        <button onClick={this.toggleShow}>EDIT {this.props.userInfo}'s Profile</button>
       </Col>
    </Col>
     )
