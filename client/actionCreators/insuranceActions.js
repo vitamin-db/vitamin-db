@@ -56,7 +56,31 @@ function RemoveIns (id) {
   };
 }
 
+function EditIns (newInfo) {
+  return (dispatch) => {
+    return fetch('/insurance', {
+      method: 'put',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': getCookie("token")
+      },
+      body: JSON.stringify(newInfo)
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log("edit ins data", data);
+    })
+    .catch((err) => {
+      console.error("Edit ins err", err);
+    })
+  };
+}
+
 module.exports = {
   RemoveIns,
-  AddIns
+  AddIns,
+  EditIns
 };

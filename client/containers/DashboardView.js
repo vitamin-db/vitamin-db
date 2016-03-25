@@ -25,13 +25,14 @@ const apptAction         = require('../actionCreators/appointmentActions');
 const Home = ({states, dispatches}) => {
   return (
     <div className="home-body">
-      <DoctorGrid addMyDoc={dispatches.addMyDoc} addAppointment={dispatches.addAppointment} removePharm={dispatches.removePharm} addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} 
-          docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
-        docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} />
-      <PatientGrid removeFamCond={dispatches.removeFamCond} addFamCond={dispatches.addFamCond} removeAllergy={dispatches.removeAllergy} addAllergy={dispatches.addAllergy} 
-          removeEye={dispatches.removeEye} addEye={dispatches.addEye} 
-          allergies={states.allergies} eyerx={states.eyerx} family={states.family} 
-          insurance={states.insurance} pharmacy={states.pharmacy} familyhistory={states.familyhistory} 
+      <DoctorGrid addMyDoc={dispatches.addMyDoc} addAppointment={dispatches.addAppointment} removePharm={dispatches.removePharm} 
+        addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} 
+        removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
+        docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} editIns={dispatches.editIns}/>
+      <PatientGrid removeFamCond={dispatches.removeFamCond} addFamCond={dispatches.addFamCond} removeAllergy={dispatches.removeAllergy} 
+        addAllergy={dispatches.addAllergy} removeEye={dispatches.removeEye} addEye={dispatches.addEye} 
+        allergies={states.allergies} eyerx={states.eyerx} family={states.family}
+        insurance={states.insurance} pharmacy={states.pharmacy} familyhistory={states.familyhistory} 
         rx={states.rx} appt={states.appt} />
     </div>
   );
@@ -210,9 +211,32 @@ const mapDispatchToProps = (dispatch) => {
           }
         };
         dispatch(apptAction.AddAppointment(body, id))
+      },
+      editIns: (id, e) => {
+        e.preventDefault();
+        var planname = e.target.planname.value;
+        var planid = e.target.planid.value;
+        var groupid = e.target.groupid.value;
+        var memberid = e.target.memberid.value;
+        var body = {
+          properties: {
+            id_insurance: id
+          }
+        };
+        if(planname){
+          body.properties.plan_name = planname;
+        }
+        if(planid){
+          body.properties.plan_id = planid;
+        }
+        if(groupid){
+          body.properties.group_id = groupid;
+        }
+        if(memberid){
+          body.properties.rx_bin = memberid;
+        }
+        dispatch(insAction.EditIns(body));
       }
-
-
     }
   };
 };
