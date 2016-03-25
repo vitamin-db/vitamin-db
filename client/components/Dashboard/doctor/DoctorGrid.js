@@ -87,7 +87,7 @@ const DoctorGrid = React.createClass({
 		      		<Insurance editIns={this.props.editIns} removeIns={this.props.removeIns} insurance={this.props.insurance} />
 		      	</div>}
 				{this.state.pharm && <div>
-					<Pharmacy removePharm={this.props.removePharm} pharmacy={this.props.pharmacy} />
+					<Pharmacy editPharm={this.props.editPharm} removePharm={this.props.removePharm} pharmacy={this.props.pharmacy} />
 				</div>}
 				
 		      <AddDoc addMyDoc={this.props.addMyDoc} addPharm={this.props.addPharm} addIns={this.props.addIns} addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />

@@ -25,7 +25,7 @@ const apptAction         = require('../actionCreators/appointmentActions');
 const Home = ({states, dispatches}) => {
   return (
     <div className="home-body">
-      <DoctorGrid addMyDoc={dispatches.addMyDoc} addAppointment={dispatches.addAppointment} removePharm={dispatches.removePharm} 
+      <DoctorGrid editPharm={dispatches.editPharm} addMyDoc={dispatches.addMyDoc} addAppointment={dispatches.addAppointment} removePharm={dispatches.removePharm} 
         addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} 
         removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
         docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} editIns={dispatches.editIns}/>
@@ -190,14 +190,14 @@ const mapDispatchToProps = (dispatch) => {
         };
         var condition = e.target.condition.value;
         famAction.AddMember(member)
-          .then((memId) => {
+          .then((obj) => {
             var body = {
               properties: {
                condition: condition,
-               id_familymember: memId
+               id_familymember: obj.id
               }
             };
-            dispatch(famAction.AddFam(body, member.properties.name));
+            dispatch(famAction.AddFam(body, obj.name));
           })
       },
       removeFamCond: (id) => {
@@ -236,6 +236,25 @@ const mapDispatchToProps = (dispatch) => {
           body.properties.rx_bin = memberid;
         }
         dispatch(insAction.EditIns(body));
+      },
+      editPharm: (id, e) => {
+        e.preventDefault();
+        var body = {
+          properties: {
+            id_pharmacy: id,
+            current: e.target.current.checked
+          }
+        };
+        if(e.target.name.value){
+          body.properties.business_name = e.target.name.value;
+        }
+        if(e.target.address.value){
+          body.properties.address = e.target.address.value;
+        }
+        if(e.target.phone.value){
+          body.properties.phone = e.target.phone.value;
+        }
+        dispatch(pharmAction.EditPharm(body))
       }
     }
   };

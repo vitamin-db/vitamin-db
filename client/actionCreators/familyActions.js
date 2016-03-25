@@ -27,7 +27,7 @@ function AddMember (member) {
 	})
 	.then((data) => {
 		console.log("add member data", data);
-		return data.id_familymember;
+		return {id: data.id_familymember, name: data.name};
 	})
 	.catch((err) => {
 		console.error("add member err", err);
@@ -56,7 +56,8 @@ function AddFam (fam, name) {
 					id_famhist: data.id_famhist,
 					id_familymember: data.id_familymember
 				}],
-				id_familymember: data.id_familymember
+				id_familymember: data.id_familymember,
+				name: name
 			};
 			dispatch(stateAction.AddFamCond(body));
 		})

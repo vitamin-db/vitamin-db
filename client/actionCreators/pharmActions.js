@@ -56,7 +56,31 @@ function RemovePharm (id) {
 	};
 }
 
+function EditPharm (body) {
+	return (dispatch) => {
+		return fetch('/pharmacy', {
+			method: 'put',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				'x-access-token': getCookie("token")
+			},
+			body: JSON.stringify(body)
+		})
+		.then((response) => {
+			return response.json();
+		})
+		.then((data) => {
+			console.log("edit pharm res", data);
+		})
+		.catch((err) => {
+			console.error("edit pharm err", err);
+		})
+	};
+}
+
 module.exports = {
 	AddPharm,
-	RemovePharm
+	RemovePharm,
+	EditPharm
 };
