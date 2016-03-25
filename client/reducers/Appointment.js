@@ -12,7 +12,9 @@ const Appoint = (state, action) => {
   		    apptArray[i].appointments.push(action.appointment);
         }
         else {
-          apptArray[i].appointments.push(action.appointment);
+          if(i > apptArray.length) {
+            apptArray[i].appointments.push(action.appointment);
+          }
         }
       };
   		return apptArray;
