@@ -5,14 +5,27 @@ const Appoint = (state, action) => {
   switch(action.type){
   	case 'SETMYINFO':
   		return action.list.appointments || state;
-  	case 'ADDAPPOINTMENT': 
+  	case 'ADDAPPOINTMENT':
   		var apptArray = [...state];
-        apptArray.filter((val) => {
-          if(val.id_doctor === action.appointment.id_user_doctor)
-            return val.appointments.push(action.appointment);
+        // apptArray.filter((val) => {
+        //   if(val.id_doctor === action.appointment.id_user_doctor)
+        //     return val.appointments.push(action.appointment);
+        // });
+        var found = false;
+        apptArray.forEach((val) => {
+			if(val.id_doctor === action.appointment.id_user_doctor){
+            	val.appointments.push(action.appointment);
+            	found = true;
+        	}
         });
+        if(!found){
+			var newDoc = {
+				appointments: [action.appointment],
+				id_doctor: action.appointment.id_user_doctor
+			};
+			apptArray.push(newDoc);
+		}
   		return apptArray;
-
     case 'REMOVEAPPOINTMENT':
       var removeAppt = [...state];
         for(var key in removeAppt) {
