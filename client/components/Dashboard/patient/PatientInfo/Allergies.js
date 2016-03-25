@@ -24,7 +24,7 @@ const AllergiesPanel = ({removeAllergy, addAllergy, allergies}) => {
 	 		{allergies[0] && <ListGroup fill>
 	 		{allergies.map((val, count) => 
 				<ListGroupItem key={count} className="allergies-item card-text">
-				   { (count+1) + ': '  + val.allergen + ' - ' + val.current } 
+				   {val.allergen + ' - ' + val.current } 
 					
 					<div className="btn-group">
 						<EditButton />

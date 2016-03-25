@@ -3,7 +3,7 @@ const allergyAction  = require('./allergyActions');
 const browserHistory = require('react-router').browserHistory;
 
 // this is just a cookie parser. Put in the string "token" into the argument and it will
-// sift through the cookie string and spit out the correct value
+// shift through the cookie string and spit out the correct value
 function getCookie(cname) {
    var name = cname + "=";
    var ca = document.cookie.split(';');
@@ -11,6 +11,7 @@ function getCookie(cname) {
        var c = ca[i];
        while (c.charAt(0)==' ') c = c.substring(1);
        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+       console.log("cookie: ",cname)
    }
    return "";
 };
@@ -161,6 +162,7 @@ function SignOut () {
 };
 
 function ChangeUserInfo (data) {
+  console.log("ChangeUserInfoTop: ", data);
   return (dispatch) => {
     return fetch('/user', {
       method: 'put',
@@ -171,15 +173,34 @@ function ChangeUserInfo (data) {
       },
       body: JSON.stringify(data)
     })
-    .then((response) => {
-      return response.json();
+    // .then((response) => {
+      // return response.json();
+    // })
+    // .then ((newToken) => {
+    //   console.log ("cookie: ",getCookie("token"));
+    //   console.log("newToken: ", newToken);
+    // })
+    // .then((data) => {
+    //   var now = new Date();
+    //   var time = now.getTime();
+    //   time += 3600 * 1000;
+    //   now.setTime(time);
+    //   document.cookie = "token=" + data.token + "; expires=" + now.toUTCString();
+    //   alert("SUCCESS! Please log back in")
+    // })
+    // .then((data) => {
+    //   console.log("ChangeUserInfo: ", data);
+    //   dispatch(stateAction.ChangeInfo(data));
+    // })
+    .then(() => {
+      browserHistory.push('/')
+      dispatch(stateAction.SignOut());
     })
-    .then((data) => {
-      console.log("ChangeUserInfo: ", data);
-      dispatch(stateAction.ChangeInfo(data));
+    .then(() => {
+      alert("SUCCESS! Please log back in");
     })
     .catch((err) => {
-      console.log("ChangeUserInfo ERRROR: ", err);
+      console.log("ChangeUserInfo ERROR: ", err);
     })
   };
 };
