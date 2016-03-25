@@ -7,6 +7,7 @@ const Button = require('react-bootstrap').Button;
 const Glyphicon = require('react-bootstrap').Glyphicon;
 const DocCard = require('./DoctorCard');
 const AddDoc = require('./AddDoctor');
+const ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 
 //patient info
 const Insurance = require('../patient/PatientInfo/Insurance');
@@ -70,10 +71,12 @@ const DoctorGrid = React.createClass({
 		  <Grid>
 			<div className="container-fluid">
 		    <Row className="show-grid">
-		    	<button onClick={this.showAll}>Show all</button>
-		    	<button onClick={this.toggleDoc}>Show my doctors</button>
-		    	<button onClick={this.toggleIns}>Show my Insurances</button>
-		    	<button onClick={this.togglePharm}>Show my pharmacies</button>
+		    <ButtonToolbar>
+		    	<Button onClick={this.showAll} bsStyle="primary">Show all</Button>
+		    	<Button onClick={this.toggleDoc} bsStyle="primary">Show my doctors</Button>
+		    	<Button onClick={this.toggleIns} bsStyle="primary">Show my insurance</Button>
+		    	<Button onClick={this.togglePharm} bsStyle="primary">Show my pharmacies</Button>
+		    </ButtonToolbar>
 		    	<br/>
 				{this.state.doc && <div>
 					{this.props.docInfo.map((val, count) => 
