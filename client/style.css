@@ -82,6 +82,14 @@ buttons
     line-height:.5;
 }
 
+.btn-default {
+  background-color:#ddd;
+}
+
+.btn-toolbar {
+  margin:10px;
+}
+
 
 /*
 ========================================
@@ -343,7 +351,7 @@ h6.card-headline {
 }
 
 .card-block {
-    height: 175px;
+    height: 200px;
     overflow-y: scroll;
     /*height:100%;*/
 }

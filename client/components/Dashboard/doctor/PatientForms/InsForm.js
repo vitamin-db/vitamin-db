@@ -5,16 +5,15 @@ const Button = require('react-bootstrap').Button;
 const InsForm = ({addIns}) => {
   return (
    <div>
-    <h1>Fill in your Insurance info:</h1>
+    <h1>Add new insurance:</h1>
 	   <div>
-	   	<form onSubmit={addIns} >
-	   		Provider: <input name="provider" placeholder="Provider" />
-	   		Plan: <input name="plan" placeholder="Plan" />
+	   	<form onSubmit={addIns} className="form-horizontal">
+        <Input name="provider" type="text" label="Provider" labelClassName="col-xs-4" wrapperClassName="col-xs-8" placeholder="Provider" />
+        <Input name="plan" type="text" label="Plan" labelClassName="col-xs-4" wrapperClassName="col-xs-8" placeholder="Plan" />
+        <Input name="groupid" type="text" label="Group Id" labelClassName="col-xs-4" wrapperClassName="col-xs-8" placeholder="Group Id" />
+        <Input name="memberid" type="text" label="Member Id" labelClassName="col-xs-4" wrapperClassName="col-xs-8" placeholder="Member Id" />
 	   		<br/>
-	   		Group ID: <input name="groupid" type="number" placeholder="Group ID" />
-	   		Member ID: <input name="memberid" type="number" placeholder="Member ID" />
-	   		<br/>
-	   		<button type="submit" >Submit</button>
+	   		<Button type="submit" bsStyle="primary" bsSize="large" block>Add insurance</Button>
 	   	</form>
 	   </div>
    </div>

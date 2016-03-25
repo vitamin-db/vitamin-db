@@ -1,20 +1,21 @@
 const React = require('react');
 const Input = require('react-bootstrap').Input;
 const Button = require('react-bootstrap').Button;
+const Col = require('react-bootstrap').Col;
 
 const Phorm = ({addPharm}) => {
   return (
    <div>
-    <h1>Fill in your Pharmacy info:</h1>
+    <h1>Add new pharmacy:</h1>
 	   <div>
-	   	<form onSubmit={addPharm} >
-	   		Pharmacy: <input name="pharmacy" placeholder="Pharmacy" />
-	   		Address: <input name="address" placeholder="Address" />
-	   		Phone: <input name="phone" type="number" placeholder="Phone" />
+	   	<form onSubmit={addPharm} className="form-horizontal">
+        <Input name="pharmacy" type="text" label="Pharmacy" labelClassName="col-xs-4" wrapperClassName="col-xs-8" placeholder="Pharmacy" />
+        <Input name="address" type="text" label="Address" labelClassName="col-xs-4" wrapperClassName="col-xs-8" placeholder="Address" />
+        <Input name="phone" type="text" label="Phone" labelClassName="col-xs-4" wrapperClassName="col-xs-8" placeholder="Phone" />
 	   		<br/>
 	   		<input name="current" type="checkbox" /> Current Pharmacy?
 	   		<br/>
-	   		<button type="submit" >Submit</button>
+        <Button type="submit" bsStyle="primary" bsSize="large" block>Add</Button>
 	   	</form>
 	   </div>
    </div>
@@ -22,3 +23,4 @@ const Phorm = ({addPharm}) => {
 };
 
 module.exports = Phorm;
+

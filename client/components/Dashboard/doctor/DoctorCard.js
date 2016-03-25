@@ -4,7 +4,9 @@ const Col = require('react-bootstrap').Col;
 const Grid = require('react-bootstrap').Grid;
 const Panel = require('react-bootstrap').Panel;
 const Button = require('react-bootstrap').Button;
+const ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 const Glyphicon = require('react-bootstrap').Glyphicon;
+const Input = require('react-bootstrap').Input;
 
 const AddDate = require('./AddAppoint')
 const DoctorFull = require('../common/DoctorFull');
@@ -28,8 +30,10 @@ const DocCard = React.createClass({
 				 <div className="card">
 
 					<DoctorFull val={this.props.val} type={this.props.val.type} glyph={this.props.val.portrait}/>
-						<button onClick={this.toggleShow}>edit</button>
-						<button onClick={this.props.removeDoc.bind(null, this.props.val.id_doctor)} >Remove</button>
+						<ButtonToolbar>
+							<Button onClick={this.toggleShow} bsStyle="default">Edit</Button>
+							<Button onClick={this.props.removeDoc.bind(null, this.props.val.id_doctor)} bsStyle="default">Delete</Button>
+						</ButtonToolbar>
 				     {this.state.show && <div className="card-block">
 					     <p className="card-text"><b>Name</b>: {this.props.val.name}</p>
 					     <p className="card-text"><b>Address</b>: {this.props.val.street_address}</p>
@@ -37,14 +41,14 @@ const DocCard = React.createClass({
 					 	 <AddDate docId={this.props.val.id_doctor} addAppointment={this.props.addAppointment} />				     	
 				     	 </div>}
 				     {!this.state.show && <div className="card-block">
-				     	<h3>Not all fields required.</h3>
-				     	<form onSubmit={this.submitChange.bind(null, this.props.val.id_doctor)} >
-				     		<input name="specialty" placeholder={this.props.val.type} />
-				     		<input name="name" placeholder={this.props.val.name}/>
-				     		<input name="address" placeholder={this.props.val.street_address}/>
-				     		<input name="phone" placeholder={this.props.val.phone}/>
+				     	<h4>Not all fields required.</h4>
+				     	<form onSubmit={this.props.editDoc.bind(null, this.props.val.id_doctor)} className="form-horizontal">
+				     		<Input name="specialty" type="text" label="Specialty" placeholder={this.props.val.type} />
+				     		<Input name="name" type="text" label="Name" placeholder={this.props.val.name} />
+				     		<Input name="address" type="text" label="Address" placeholder={this.props.val.street_address} />
+				     		<Input name="phone" type="text" label="Phone" placeholder={this.props.val.phone} />
 				     		<br/>
-				     		<button type="submit">Submit</button>
+				     		<Button type="submit" bsStyle="primary" block>Submit</Button>
 				     	</form>
 				     </div>}
 				</div>
