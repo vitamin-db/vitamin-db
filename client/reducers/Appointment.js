@@ -11,12 +11,8 @@ const Appoint = (state, action) => {
         if(apptArray[i].id_doctor === action.appointment.id_user_doctor) {
   		    apptArray[i].appointments.push(action.appointment);
         }
-        else if(i > apptArray.length){
-          console.log('length', i, apptArray)
-          apptArray[i].appointments.push(action.appointment);
-        }
         else {
-          continue;
+          apptArray[i].appointments.push(action.appointment);
         }
       };
   		return apptArray;
