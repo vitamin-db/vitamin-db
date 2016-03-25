@@ -139,6 +139,14 @@ Doctor.prepData = function(reqObj) {
   return prepared
 }
 
+/* FORMAT ADDRESS
+  Returns the doctor's address the way it would be printed:
+    street_address, city, state_abbrev zip
+*/
+Doctor.formatAddress = function(docOb) {
+  return docOb.street_address + ', ' + docOb.city + ', ' + docOb.state_abbrev + ' ' + docOb.zip
+}
+
 
 
 
