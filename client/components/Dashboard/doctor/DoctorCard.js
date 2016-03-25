@@ -43,10 +43,10 @@ const DocCard = React.createClass({
 				     {!this.state.show && <div className="card-block">
 				     	<h4>Not all fields required.</h4>
 				     	<form onSubmit={this.props.editDoc.bind(null, this.props.val.id_doctor)} className="form-horizontal">
-				     		<Input name="specialty" type="text" label="Specialty" style="text-align:left" placeholder={this.props.val.type} />
-				     		<Input name="name" type="text" label="Name" style="text-align:left" placeholder={this.props.val.name} />
-				     		<Input name="address" type="text" label="Address" style="text-align:left" placeholder={this.props.val.street_address} />
-				     		<Input name="phone" type="text" label="Phone" style="text-align:left" placeholder={this.props.val.phone} />
+				     		<Input name="specialty" type="text" label="Specialty" placeholder={this.props.val.type} />
+				     		<Input name="name" type="text" label="Name" placeholder={this.props.val.name} />
+				     		<Input name="address" type="text" label="Address" placeholder={this.props.val.street_address} />
+				     		<Input name="phone" type="text" label="Phone" placeholder={this.props.val.phone} />
 				     		<br/>
 				     		<Button type="submit" bsStyle="primary" block>Submit</Button>
 				     	</form>
