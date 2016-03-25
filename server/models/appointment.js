@@ -137,53 +137,96 @@ Appointment.transformDoctors = function(username, doctors) {
   	}
   }
 */
-Appointment.getForTwilio = function(userId) {
+// Appointment.getForTwilio = function(userId) {
 
-	var userPhone = undefined
+// 	var userPhone = undefined
 
-	var userDoctors = []
+// 	var userDoctors = []
 
-	var twilioAppts = []
+// 	var twilioAppts = []
 
-	return User.findById(userId)
+// 	return User.findById(userId)
+// 	  .then( function(user) {
+// 	  	userPhone = user.phone
+// 	  	return UserDoctor.findByAttribute('id_user', user.id_user)
+// 	  })
+// 	  .then( function(userDoctorRecords) { //userDoctorRecords = array of userdoctors
+// 	  	return Promise.all(
+// 	  		userDoctorRecords.map(function(userDoctor) {
+// 	  			var userDocInfo = {}
+// 	  			userDocInfo.id_user_doctor = userDoctor.id_user_doctor
+// 	  			return Doctor.findById(userDoctor.id_doctor)
+// 	  			  .then(function(doctor) {
+// 	  			  	userDocInfo.name = doctor.name
+// 	  			  	userDocInfo.formattedAddress = Doctor.formatAddress(doctor)
+// 	  			  	userDoctors.push(userDocInfo)
+// 	  			  })
+// 	  		})
+// 	  	)
+// 	  })
+// 	  .then( function() {
+// 	  	return Promise.all(
+// 	  		userDoctors.map(function(userDoctor) {
+// 	  			return Appointment.getAllByUserDoctor(userDoctor.id_user_doctor)
+// 	  			.then(function(appointments) {
+// 	  				return Promise.all( appointments.map(function(appointment) {
+// 	  					var appointObj = {}
+// 	  					appointObj.name = userDoctor.name
+// 	  					appointObj.formattedAddress = userDoctor.formattedAddress
+// 	  					appointObj.time = appointment.time
+// 	  					appointObj.date = appointment.date
+// 	  					twilioAppts.push(appointObj)
+// 	  				}))
+// 	  			})
+// 	  		})
+// 	  	)
+// 	  })
+// 	  .then(function() {
+// 	  	return {userPhone: userPhone, appointments: twilioAppts}
+// 	  })
+// }
+
+
+
+
+/* FORMAT FOR TWILIO
+  Takes an appointment object
+  Transforms that appointment object into an object with properties:
+  { userPhone: phone number of correposnding user,
+    docName: name of doctor appointment is with,
+    docAddress: address of doctor appointmet is with,
+    date: date of appointment,
+    time: time of appointment}
+*/
+Appointment.formatForTwilio = function(appt) {
+	var formatted = {date: appt.date, time: appt.time}
+	var userDoc = undefined
+
+	return UserDoctor.findById(appt.id_user_doctor)
+	  .then( function(ud) {
+	  	userDoc = ud
+	  	return Doctor.findById(userDoc.id_doctor)
+	  })
+	  .then( function(doc) {
+	  	formatted.docName = doc.name
+	  	formatted.docAddress = Doctor.formatAddress(doc)
+
+	  	return User.findById(userDoc.id_user)
+	  })
 	  .then( function(user) {
-	  	userPhone = user.phone
-	  	return UserDoctor.findByAttribute('id_user', user.id_user)
-	  })
-	  .then( function(userDoctorRecords) { //userDoctorRecords = array of userdoctors
-	  	return Promise.all(
-	  		userDoctorRecords.map(function(userDoctor) {
-	  			var userDocInfo = {}
-	  			userDocInfo.id_user_doctor = userDoctor.id_user_doctor
-	  			return Doctor.findById(userDoctor.id_doctor)
-	  			  .then(function(doctor) {
-	  			  	userDocInfo.name = doctor.name
-	  			  	userDocInfo.formattedAddress = Doctor.formatAddress(doctor)
-	  			  	userDoctors.push(userDocInfo)
-	  			  })
-	  		})
-	  	)
-	  })
-	  .then( function() {
-	  	return Promise.all(
-	  		userDoctors.map(function(userDoctor) {
-	  			return Appointment.getAllByUserDoctor(userDoctor.id_user_doctor)
-	  			.then(function(appointments) {
-	  				return Promise.all( appointments.map(function(appointment) {
-	  					var appointObj = {}
-	  					appointObj.name = userDoctor.name
-	  					appointObj.formattedAddress = userDoctor.formattedAddress
-	  					appointObj.time = appointment.time
-	  					appointObj.date = appointment.date
-	  					twilioAppts.push(appointObj)
-	  				}))
-	  			})
-	  		})
-	  	)
-	  })
-	  .then(function() {
-	  	return {userPhone: userPhone, appointments: twilioAppts}
+	  	formatted.userPhone = user.phone
+
+	  	return formatted
 	  })
 }
 
+
+
+
+/* GET ALL FOR TWILIO
+  Returns an array of all appointments existing in the database, formatted according to Appointment.formatforTwilio
+*/
+Appointment.getAllForTwilio = function() {
+
+}
 
