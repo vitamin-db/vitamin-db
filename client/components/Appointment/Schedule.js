@@ -12,36 +12,9 @@ const TextField = require('material-ui/lib/text-field');
 const Toggle = require('material-ui/lib/toggle');
 const Button = require('react-bootstrap').Button;
      
-      // {appointment.map((val, count) =>
-      //     <tr key={count++}>
-      //       <td> {count++} </td>
-      //       <td> {val.text} </td>
-      //       <td> {val.organization.name} </td>
-      //       <td> {val.date} </td>
-      //       <td> Current </td>
-      //     </tr>
-      //      )}
-
-
- //    </tbody>
-
- // {appointment.map((val, count) =>
- //        <tbody key={count++}>
-
- //          {val.appointments.map((item) =>
- //            <tr key={count++}>
- //                <td>{item.date}</td> 
- //                <td><Button onClick={removeAppt.bind(null, item.id_appointment)}>X</Button></td>
- //          </tr>
- //          )} 
-
- //        </tbody>
- //        )}
-
 const Schedule = React.createClass({
 
   render: function() {
-    //super loop just so we can match appointment with doctor name
     {this.props.appointment.map((appt) => {
       for(var i = 0; i < appt.length; i++) {
         for(var j = 0; j < this.props.doctor.length; j++) {
@@ -60,11 +33,11 @@ const Schedule = React.createClass({
         <Table responsive>
           <thead>
             <tr>
-              <th>#</th>
               <th>Doctor</th>
               <th>Appointment</th>
+              <th>Date</th>
               <th>Time</th>
-              <th>Status</th>
+              <th>Cancel</th>
             </tr>
           </thead> 
 
