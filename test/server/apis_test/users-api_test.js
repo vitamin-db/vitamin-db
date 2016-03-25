@@ -19,7 +19,7 @@ const Pharmacy = require(__server + '/models/pharmacy')
 const Rx = require(__server + '/models/rx')
 
 
-xdescribe('user API', function() {
+describe('user API', function() {
 
 	describe("GET /user", function() {
 
@@ -238,12 +238,14 @@ xdescribe('user API', function() {
 	    	var fam2Obj = objForClient['family'][0]['history'].length > 1 ? objForClient['family'][1] : objForClient['family'][0]
 
 		  	expect(fam1Obj.id_familymember).to.equal(famMem1_id)
+		  	expect(fam1Obj.name).to.equal(famMem1.name)
 		  	expect(fam1Obj['history']).to.be.an('array')
 		  	expect(fam1Obj['history']).to.have.length(2)
 		  	expect(TH.allValidPublicFamilyHistory(fam1Obj['history'])).to.be.true
 		  	expect(TH.propsMatch(fam1Obj['history'][0], famHist1)).to.be.true
 		  	expect(TH.propsMatch(fam1Obj['history'][1], famHist2)).to.be.true
 		  	expect(fam2Obj.id_familymember).to.equal(famMem2_id)
+		  	expect(fam2Obj.name).to.equal(famMem2.name)
 		  	expect(fam2Obj['history']).to.be.an('array')
 		  	expect(fam2Obj['history']).to.have.length(0)
 		  	expect(TH.allValidPublicFamilyHistory(fam2Obj['history'])).to.be.true    	

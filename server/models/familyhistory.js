@@ -50,7 +50,7 @@ FamilyHistory.transformFamilyList = function(familyMembers) {
   return Promise.all( familyMembers.map( function(fam) {
     return FamilyHistory.getAllByFamilyMember(fam.id_familymember)
       .then( function(history) {
-        var famMem = {id_familymember: fam.id_familymember}
+        var famMem = {id_familymember: fam.id_familymember, name: fam.name}
         famMem.history = history
         transformed.push(famMem)
       })
