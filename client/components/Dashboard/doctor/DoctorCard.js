@@ -29,8 +29,8 @@ const DocCard = React.createClass({
 					     <p className="card-text"><b>Name</b>: {this.props.val.name}</p>
 					     <p className="card-text"><b>Address</b>: {this.props.val.street_address}</p>
 					     <p className="card-text"><b>Phone</b>: {this.props.val.phone}</p>
-			     			<AddDate docId={this.props.val.id_doctor} addAppointment={this.props.addAppointment} />
-				     </div>}
+					 	 <AddDate docId={this.props.val.id_doctor} addAppointment={this.props.addAppointment} />				     	
+				     	 </div>}
 				     {!this.state.show && <div className="card-block">
 				     	<h3>Not all fields required.</h3>
 				     	<form onSubmit={this.props.editDoc.bind(null, this.props.val.id_doctor)} >

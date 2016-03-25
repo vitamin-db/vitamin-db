@@ -8,7 +8,7 @@ const Appoint = (state, action) => {
   	case 'ADDAPPOINTMENT': 
   		var apptArray = [...state];
       for(var i = 0; i < apptArray.length; i++) {
-        if(apptArray.id_doctor === action.appointment.id_user_doctor) {
+        if(apptArray[i].id_doctor === action.appointment.id_user_doctor) {
   		    apptArray[i].appointments.push(action.appointment);
         }
         else {
