@@ -17,6 +17,14 @@ const Pharmacy = (state, action) => {
         }
       }
       return newRemove;
+    // case 'EDITPHARM':
+    //   var newChange = [...state];
+    //   for(var i=0; i<newChange.length; i++){
+    //     if(newChange[i].id === action.id){
+    //       newChange[i] = action.info;
+    //     }
+    //   }
+    //   return newChange;
   	default:
   		return state;
   }
