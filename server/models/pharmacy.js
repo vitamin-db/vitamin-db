@@ -25,3 +25,4 @@ Pharmacy.toggleCurrent = function(id_pharmacy) {
 	  	return Pharmacy.updateById(id_pharmacy, updatedVal)
 	  })
 }
+

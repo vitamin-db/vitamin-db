@@ -201,12 +201,7 @@ xdescribe('/pharmacy-api', function() {
         })
     })
 
-    it('removes the pharmacy from the database', function() {
-      return Pharmacy.findById(newPharma1_id)
-        .then(function(deleted) {
-          expect(deleted).to.be.an('undefined')
-        })
-    })
+
   })
 })
 

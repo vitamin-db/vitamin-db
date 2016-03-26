@@ -266,5 +266,17 @@ module.exports = function(tableName, allAttrs) {
 		}
 	}
 
+	/* NULL OUT
+	  Changes all the the records specified to NULL in the database
+	*/
+	this.nullOut = function(key, value) {
+		var searchOb = {}
+		searchOb[key] = value
+
+		var changeOb = {}
+		changeOb[key] = null
+		return this.update(searchOb, changeOb)
+	}
+
 
 }

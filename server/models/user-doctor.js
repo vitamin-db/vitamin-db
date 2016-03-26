@@ -4,6 +4,7 @@ const Promise = require('bluebird')
 
 const User = require('./user')
 const Doctor = require('./doctor')
+const Rx = require('./rx')
 
 const UserDoctor = new Model('user_doctor', ['id_user_doctor', 'id_user', 'id_doctor', 'type_usermade', 'current'])
 
@@ -159,6 +160,7 @@ UserDoctor.deleteUserDoctor = function(id_user_doctor) {
 
 /* DELETE DOCTOR
   Deletes the doctor and all associated userdoctors and appointments
+  Nulls out the doctor id in rx
 */
 UserDoctor.deleteDoctor = function(id_doctor) {
   return UserDoctor.findByAttribute('id_doctor', id_doctor)
@@ -166,6 +168,9 @@ UserDoctor.deleteDoctor = function(id_doctor) {
       return Promise.all(
         userdocs.map(userdoc => UserDoctor.deleteUserDoctor(userdoc.id_user_doctor))
       )
+    })
+    .then( function() {
+      return Rx.nullDoctor(id_doctor)
     })
     .then( function() {
       return Doctor.deleteById(id_doctor)

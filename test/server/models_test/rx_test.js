@@ -11,7 +11,7 @@ const Doctor = require(__server + '/models/doctor')
 const Pharmacy = require(__server + '/models/pharmacy')
 
 
-xdescribe('**************** Rx Model ****************', function() {
+describe('**************** Rx Model ****************', function() {
 
   beforeEach(function() {
     return db.deleteEverything()
@@ -131,6 +131,7 @@ xdescribe('**************** Rx Model ****************', function() {
     id_doctor4 = undefined,
     id_pharma4 = undefined,
     id_rx5 = undefined;
+    id_rx6 = undefined
 
     var newTestUser4 = new TH.UserAttributes('Ralf', 'Garey', 'rgarey@gmail.com', '123-789-3456')
     var newTestDoctor4 = new TH.DoctorAttributes('Dr. Rick', '4563 First Street', 'Austin', 'TX', 78751, 'doc@rick.com', 'docrick.com', '1234567890', 'therapist')
@@ -161,7 +162,27 @@ xdescribe('**************** Rx Model ****************', function() {
       })
       .then(function(deletedRecord) {
         expect(deletedRecord).to.be.an('undefined')
+        var newRx6 = new TH.RxAttributes(id_user4, id_pharma4, id_doctor4, 97897, 'drugs', 'a dose', true)
+        return TH.createRxReturnId(newRx6)
+      })
+      .then( function(id) {
+        id_rx6 = id
+        return Rx.findById(id_rx6)
+      })
+      .then( function(rx) {
+        // console.log('should not have nulls', rx)
+        expect(rx.id_pharmacy).to.equal(id_pharma4)
+
+        return Rx.nullPharmacy(id_pharma4)
+      })
+      .then( function() {
+        return Rx.findById(id_rx6)
+      })
+      .then( function(rx) {
+        // console.log('should have null', rx)
+        expect(rx.id_pharmacy).to.equal(null)
       })
   })  
+
 
 })
