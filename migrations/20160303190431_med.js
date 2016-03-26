@@ -86,10 +86,12 @@ exports.up = function(knex, Promise) {
            .inTable('users');
       table.integer('id_pharmacy')
            .references('id_pharmacy')
-           .inTable('pharmacy');
+           .inTable('pharmacy')
+           .nullable();
       table.integer('id_doctor')
            .references('id_doctor')
-           .inTable('doctors');
+           .inTable('doctors')
+           .nullable();
       table.integer('refill_number');
       table.string('name');
       table.string('dosage');

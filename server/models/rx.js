@@ -80,3 +80,36 @@ Rx.prepData = function(attrs) {
 }
 
 
+/* DELETE PHARMACY
+  Sets the id_pharmacy FK of any rxs that mention this pharmacy to null
+  Then deletes the pharmacy
+*/
+// Rx.deletePharmacy = function(pharmaId) {
+// 	return Rx.update({id_pharmacy: pharmaId}, {id_pharmacy: NULL})
+// 	  .then(function() {
+// 	  	return Pharmacy.deleteById(pharmaId)
+// 	  })
+// }
+
+
+/* NULL OUT PHARMACY
+  Takes a pharmacy id
+  Transforms every instance of that pharmacy id into null
+*/
+Rx.nullPharmacy = function(id_pharmacy) {
+	return Rx.nullOut('id_pharmacy', id_pharmacy)
+}
+
+/* NULL OUT DOCTOR
+  Takes a doctor ID
+  Transforms every instance of that doctor id into null
+*/
+Rx.nullDoctor = function(id_doctor) {
+	return Rx.nullOut('id_doctor', id_doctor)
+}
+
+
+
+
+
+

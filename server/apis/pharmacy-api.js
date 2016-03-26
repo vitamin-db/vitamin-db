@@ -1,6 +1,7 @@
 // handles routes that start with /pharmacy
 
 const Pharmacy = require('../models/pharmacy')
+const Rx = require('../models/rx')
 const User = require('../models/user')
 const SendR = require('../sendresponse')
 
@@ -91,7 +92,10 @@ DELETE /pharmacy
 */
 PharmacyAPI.delete('/:id_pharmacy', function(req, res) {
 
-  return Pharmacy.deleteById(req.params.id_pharmacy)
+  return Rx.nullPharmacy(req.params.id_pharmacy)
+    .then( function() {
+      return Pharmacy.deleteById(req.params.id_pharmacy)
+    })
     .then(function() {
       SendR.sendStatus(res, 200)
     })
