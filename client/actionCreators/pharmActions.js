@@ -71,7 +71,7 @@ function EditPharm (body) {
 			return response.json();
 		})
 		.then((data) => {
-			console.log("edit pharm res", data);
+			dispatch(stateAction.EditPharm(data));
 		})
 		.catch((err) => {
 			console.error("edit pharm err", err);

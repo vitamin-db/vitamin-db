@@ -52,20 +52,20 @@ const PharmacyPanel = React.createClass({
 					     <Button bsStyle="primary" bsSize="small" className="card-button"><Glyphicon glyph="cloud" /></Button>
 					      <h5 className="card-headline">Pharmacy</h5>
 				     </div>
-				     {this.props.pharmacy.map((item, count) =>
-				     <div className="card-block" key={count} >
+
+				     <div className="card-block">
 				     	 <button onClick={this.toggleShow}>edit</button>
-				     	 <button onClick={this.props.removePharm.bind(null, item.id_pharmacy)}>Remove</button>
+				     	 <button onClick={this.props.removePharm.bind(null, this.props.item.id_pharmacy)}>Remove</button>
 
 			 		     {this.state.show && <div>
-			 		     <p className="card-text"><b>Name</b>: {item.business_name}</p>
-					     <p className="card-text"><b>Address</b>: {item.address}</p>
-					     <p className="card-text"><b>Phone</b>: {item.phone}</p>
-					     <p className="card-text"><b>Current</b>: {item.current.toString()}</p>
+			 		     <p className="card-text"><b>Name</b>: {this.props.item.business_name}</p>
+					     <p className="card-text"><b>Address</b>: {this.props.item.address}</p>
+					     <p className="card-text"><b>Phone</b>: {this.props.item.phone}</p>
+					     <p className="card-text"><b>Current</b>: {this.props.item.current.toString()}</p>
 				     	 </div>}
 
 				     	 {!this.state.show && <div>
-				     	 	<form onSubmit={this.submitChange.bind(null, item.id_pharmacy)}>
+				     	 	<form onSubmit={this.submitChange.bind(null, this.props.item.id_pharmacy)}>
 				     	 		Name: <input name="name" placeholder="Name" />
 				     	 		<br/>
 				     	 		Address: <input name="address" placeholder="Address" />
@@ -79,7 +79,6 @@ const PharmacyPanel = React.createClass({
 				     	 </div>}
 
 				     </div>
-				     )}
 				</div>
 			</Col>
 		)
