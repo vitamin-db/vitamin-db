@@ -11,7 +11,6 @@ const AddDate = React.createClass({
    };
  },
  dateChange(date) {
-    console.log('date', date)
     var newDate = new Date(Math.floor(date))
     var min = newDate.getMinutes();
 
@@ -32,7 +31,6 @@ const AddDate = React.createClass({
  },
 
  submit() {
-  console.log('our date and time looks like', this.state.date, this.state.time)
    this.props.addAppointment(
      this.state.date,
      this.state.time, 

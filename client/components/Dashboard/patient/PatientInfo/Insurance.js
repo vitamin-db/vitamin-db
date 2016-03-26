@@ -52,34 +52,32 @@ const InsurancePanel = React.createClass({
 					     <Button bsStyle="primary" bsSize="small" className="card-button"><Glyphicon glyph="cloud" /></Button>
 					      <h5 className="card-headline">Insurance</h5>
 				     </div>
-				     {this.props.insurance.map((item) =>
-			 		     <div key={item.plan_id} className="card-block">
+			 		     <div className="card-block">
 					     <button onClick={this.toggleShow}>edit</button>
-						 <button onClick={this.props.removeIns.bind(null, item.id_insurance)} >Remove</button>
+						 <button onClick={this.props.removeIns.bind(null, this.props.item.id_insurance)} >Remove</button>
 
 			 		     {this.state.show && <div>
-				 		     <p className="card-text"><b>Provider</b>: {item.plan_name}</p>
-				 		     <p className="card-text"><b>Plan</b>: {item.plan_id}</p>
-				 		     <p className="card-text"><b>Group ID</b>: {item.group_id}</p>
-				 		     <p className="card-text"><b>Member ID</b>: {item.rx_bin}</p>
+				 		     <p className="card-text"><b>Provider</b>: {this.props.item.plan_name}</p>
+				 		     <p className="card-text"><b>Plan</b>: {this.props.item.plan_id}</p>
+				 		     <p className="card-text"><b>Group ID</b>: {this.props.item.group_id}</p>
+				 		     <p className="card-text"><b>Member ID</b>: {this.props.item.rx_bin}</p>
 				 		 </div>}
 
 			 		     {!this.state.show && <div>
-			 		     	<form onSubmit={this.submitChange.bind(null, item.id_insurance)}>
-				 		     	Provider: <input name="planname" placeholder={item.plan_name}/>
+			 		     	<form onSubmit={this.submitChange.bind(null, this.props.item.id_insurance)}>
+				 		     	Provider: <input name="planname" placeholder={this.props.item.plan_name}/>
 				 		     	<br/>
-				 		     	Plan: <input name="planid" placeholder={item.plan_id}/>
+				 		     	Plan: <input name="planid" placeholder={this.props.item.plan_id}/>
 				 		     	<br/>
-				 		     	Group ID: <input name="groupid" type="number" placeholder={item.group_id}/>
+				 		     	Group ID: <input name="groupid" type="number" placeholder={this.props.item.group_id}/>
 				 		     	<br/>
-				 		     	Member ID: <input name="memberid" type="number" placeholder={item.rx_bin}/>
+				 		     	Member ID: <input name="memberid" type="number" placeholder={this.props.item.rx_bin}/>
 				 		     	<br/>
 				 		     	<button type="submit">Submit</button>
 				 		    </form>
 			 		     </div>}
 			 		 	 
 			 		 	 </div>
-				     )}
 				</div>
 			</Col>
 		)

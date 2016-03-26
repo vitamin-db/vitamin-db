@@ -133,6 +133,13 @@ function RemovePharm (id) {
 	};
 };
 
+function EditPharm (newInfo) {
+	return {
+		type: 'EDITPHARM',
+		info: newInfo
+	};
+};
+
 function AddAppointment (appointment) {
 	console.log("add appoint called");
 	return {
@@ -209,5 +216,6 @@ module.exports = {
 	InvalidSignUp,
 	AddFamCond,
 	RemoveFamCond,
-	ChangeInsurance
+	ChangeInsurance,
+	EditPharm
 };
