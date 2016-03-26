@@ -37,9 +37,9 @@ Reminder = function() {
 	.then((final) => {
 		console.log('final data', final)
 		return final.map((item) => {
-			// cronJob is used to schedule event from date & time
+			// cronJob is used to schedule event by date & time
 			// format: '* * * * * *' are filled in by 
-			// 'sec min hr day month dayOfWeek(1-6)'
+			// 'sec min hr day month dayOfWeek(0-6)'
 	  		new cronJob(item.cron, function(){
 	      	    client.sendMessage( { to: item.userPhone, from: config.twilioNumber, body:'You have an upcoming Appointment with ' + item.docName + ', at' + item.docAddress + '!'}, function( err, data ) {
 	      			console.log('err', err)
