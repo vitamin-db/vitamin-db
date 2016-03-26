@@ -27,7 +27,8 @@ Reminder = function() {
 			var month = later.month.val(d);
 			// console.log('cron', minute, hour, day, month)
 			// cronJob not working with month
-			var parsedCron = '00 ' + minute + ' ' + hour + ' ' + day + ' * *';			result['cron'] = parsedCron;
+			var parsedCron = '00 ' + minute + ' ' + hour + ' ' + day + ' * *';			
+			result['cron'] = parsedCron;
 			result['userPhone'] = '+1'+val.userPhone;
 			result['docName'] = val.docName;
 		    result['docAddress'] = val.docAddress;
