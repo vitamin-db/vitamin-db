@@ -1,13 +1,17 @@
 const React = require('react');
-// const DatePicker = require('material-ui/lib/date-picker/date-picker');
-// const TimePicker = require('material-ui/lib/time-picker/time-picker');
-const moment = require('moment');
-var DateTimeField = require('react-bootstrap-datetimepicker');
-
+const later = require('later');
+const DateTimeField = require('react-bootstrap-datetimepicker');
+const Button = require('react-bootstrap').Button;
 
 const AddDate = React.createClass({
-
-  dateChange(date) {
+ getInitialState() {
+   return {
+     date: 0,
+     time: 0
+   };
+ },
+ dateChange(date) {
+    console.log('date', date)
     var newDate = new Date(Math.floor(date))
     var min = newDate.getMinutes();
 
@@ -20,21 +24,35 @@ const AddDate = React.createClass({
     };
 
     var time = newDate.getHours() + ':' + minutes();
-    this.props.addAppointment(newDate.toDateString(), time, this.props.docId)
-  },
 
-  render() {
-    return (
-      <div>
-        <DateTimeField 
-          name="time"
-          defaultText="Schedule Appointment"
-          onChange={this.dateChange}
-          required
-        />
-      </div>
-    );
-  }
+   this.setState({
+     date: newDate.toDateString(),
+     time: time
+   })
+ },
+
+ submit() {
+  console.log('our date and time looks like', this.state.date, this.state.time)
+   this.props.addAppointment(
+     this.state.date,
+     this.state.time, 
+     this.props.docId
+   )
+ },
+
+ render() {
+   return (
+     <div>
+       <DateTimeField 
+         name="time"
+         defaultText="Schedule Appointment"
+         onChange={this.dateChange}
+         required
+       />
+       <Button onClick={this.submit} defaultText="add date" />
+     </div>
+   );
+ }
 });
 
 module.exports = AddDate;
