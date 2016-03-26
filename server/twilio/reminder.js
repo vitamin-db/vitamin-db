@@ -42,7 +42,7 @@ Reminder = function() {
 			// format: '* * * * * *' are filled in by 
 			// 'sec min hr day month dayOfWeek(0-6)'
 	  		new cronJob(item.cron, function(){
-	      	    client.sendMessage( { to: item.userPhone, from: config.twilioNumber, body:'You have an upcoming Appointment with ' + item.docName + ', at' + item.docAddress + '!'}, function( err, data ) {
+	      	    client.sendMessage( { to: item.userPhone, from: config.twilioNumber, body:'You have an upcoming Appointment with ' + item.docName + ', at ' + item.docAddress + '!'}, function( err, data ) {
 	      			console.log('err', err)
 	      			console.log( data.body );
 	      		});
