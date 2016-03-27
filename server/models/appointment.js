@@ -211,7 +211,6 @@ Appointment.formatForTwilio = function(appt) {
 	var day = later.day.val(d) - 1;
 	var month = later.month.val(d) - 1;
 	var year = later.year.val(d)
-	console.log('cron', minute, hour, day, month, year)
 	var parsedCron = '00 ' + minute + ' ' + hour + ' ' + day + ' ' + month + ' *';
 
 	var formatted = {date: appt.date, time: appt.time, cron: parsedCron}
@@ -231,7 +230,6 @@ Appointment.formatForTwilio = function(appt) {
 	  .then( function(user) {
 	  	var regex = /\d+/g;
 		var phone = '+1'+user.phone.match(regex).join('');
-
 	  	formatted.userPhone = phone
 
 	  	return formatted
