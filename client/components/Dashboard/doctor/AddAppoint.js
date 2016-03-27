@@ -9,6 +9,7 @@ const AddDate = React.createClass({
      time: 0
    };
  },
+ 
  dateChange(date) {
     var newDate = new Date(Math.floor(date))
     var min = newDate.getMinutes();
