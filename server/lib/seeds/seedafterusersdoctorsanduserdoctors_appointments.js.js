@@ -11,7 +11,7 @@ exports.seed = function(knex, Promise) {
 		  {
 		  	id_user_doctor: 1,
 		  	date: '07/23/2016',
-		  	time: '14:30'
+		  	time: '14:35'
 		  },
 		  {
 		  	id_user_doctor: 2,
