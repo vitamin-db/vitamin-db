@@ -198,8 +198,23 @@ Appointment.transformDoctors = function(username, doctors) {
     date: date of appointment,
     time: time of appointment}
 */
+
+const later = require('later');
+
 Appointment.formatForTwilio = function(appt) {
-	var formatted = {date: appt.date, time: appt.time}
+	var d = new Date(appt.date + ' ' + appt.time + 'Z')
+	
+	var minute = later.minute.val(d);
+	var hour = later.hour.val(d);
+	//setting to day prior so user can get
+	//notification 24hr in advance
+	var day = later.day.val(d) - 1;
+	var month = later.month.val(d) - 1;
+	var year = later.year.val(d)
+	console.log('cron', minute, hour, day, month, year)
+	var parsedCron = '00 ' + minute + ' ' + hour + ' ' + day + ' ' + month + ' *';
+
+	var formatted = {date: appt.date, time: appt.time, cron: parsedCron}
 	var userDoc = undefined
 
 	return UserDoctor.findById(appt.id_user_doctor)
@@ -214,7 +229,10 @@ Appointment.formatForTwilio = function(appt) {
 	  	return User.findById(userDoc.id_user)
 	  })
 	  .then( function(user) {
-	  	formatted.userPhone = user.phone
+	  	var regex = /\d+/g;
+		var phone = '+1'+user.phone.match(regex).join('');
+
+	  	formatted.userPhone = phone
 
 	  	return formatted
 	  })

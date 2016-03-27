@@ -11,12 +11,12 @@ exports.seed = function(knex, Promise) {
 		  {
 		  	id_user_doctor: 1,
 		  	date: '07/23/2016',
-		  	time: '14:30Z'
+		  	time: '14:30'
 		  },
 		  {
 		  	id_user_doctor: 2,
 		  	date: '08/01/2017',
-		  	time: '09:45Z'
+		  	time: '09:45'
 		  }
 		])
 	})
