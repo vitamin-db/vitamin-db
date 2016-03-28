@@ -77,7 +77,7 @@ const Schedule = ({doctor, immunization, appointment, addImmun, removeAppt}) => 
               <td> {val.type} </td>
               <td> {val.date} </td>
               <td> {val.notes} </td>
-              <td> {val.date > new Date().toLocaleDateString() ? 'Current' : 'Outdated'} </td>
+              <td> {new Date(val.date) > new Date() ? 'Current' : 'Outdated'} </td>
             </tr>
               )}
           </tbody>
