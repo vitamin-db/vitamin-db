@@ -190,6 +190,21 @@ function ChangeInsurance (newIns) {
 	};
 };
 
+function AddImmun (immun) {
+	return {
+		type: 'ADDIMMUN',
+		immun: immun
+	};
+};
+
+function RemoveImmun (id) {
+	return {
+		type: 'REMOVEIMMUN',
+		id: id
+	};
+};
+
+
 module.exports = {
 	SignInSuccess,
 	SignInFail,
@@ -217,5 +232,7 @@ module.exports = {
 	AddFamCond,
 	RemoveFamCond,
 	ChangeInsurance,
-	EditPharm
+	EditPharm,
+	AddImmun,
+	RemoveImmun
 };

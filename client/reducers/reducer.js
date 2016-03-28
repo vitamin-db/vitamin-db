@@ -6,7 +6,7 @@ const userinfo        = require('./UserInfo');
 const allergy		  = require('./Allergy');
 const appoint		  = require('./Appointment');
 const family		  = require('./Family');
-const immune		  = require('./Immunization');
+const immun		  = require('./Immunization');
 const insurance		  = require('./Insurance');
 const pharmacy		  = require('./Pharmacy');
 const rx 			  = require('./RX');
@@ -20,7 +20,7 @@ const Reducer = combineReducers({
   allergy,
   appoint,
   family,
-  immune,
+  immun,
   insurance,
   pharmacy,
   rx,
