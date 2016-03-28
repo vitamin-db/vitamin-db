@@ -8,7 +8,6 @@ const Glyphicon = require('react-bootstrap').Glyphicon;
 const ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 const Modal = require('react-bootstrap').Modal;
 const Input = require('react-bootstrap').Input;
-const DateTimeField = require('react-bootstrap-datetimepicker');
 
 const AddButton = React.createClass({
 getInitialState() {
