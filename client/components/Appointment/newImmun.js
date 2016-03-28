@@ -41,7 +41,7 @@ getInitialState() {
       		<form onSubmit={this.props.addImmun}>
       		        <Input name="type" type="text" placeholder="type" required />
         			<Input name="date" type="date" label="date" placeholder="date" required />
-        			<Input name="notes" type="text" label="notes" placeholder="notes" required />
+        			<Input name="notes" type="text" label="notes" placeholder="notes" />
         			<br/>
       			<Button type="submit" bsStyle="primary" bsSize="large" block>Add new immunization</Button>
       		</form>

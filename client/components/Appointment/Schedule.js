@@ -44,7 +44,7 @@ const Schedule = ({doctor, immunization, appointment, addImmun, removeAppt}) => 
                 <tr key={count++}>
                     <td>{item.name}</td> 
                     <td>{item.type}</td> 
-                    <td>{item.date}</td> 
+                    <td>{new Date(item.date).toLocaleDateString()}</td> 
                     <td>{item.time}</td> 
                     <td><Button onClick={removeAppt.bind(null, item.id_appointment)}>X</Button></td>
               </tr>
@@ -65,6 +65,7 @@ const Schedule = ({doctor, immunization, appointment, addImmun, removeAppt}) => 
               <th>#</th>
               <th>Immunizations</th>
               <th>Date</th>
+              <th>Upcoming Check-Up</th>
               <th>Notes</th>
               <th>Status</th>
             </tr>
@@ -73,11 +74,13 @@ const Schedule = ({doctor, immunization, appointment, addImmun, removeAppt}) => 
           <tbody>
       {immunization.map((val, count) => 
             <tr key={count++}>
-              <td> {count++}</td>
-              <td> {val.type} </td>
-              <td> {val.date} </td>
-              <td> {val.notes} </td>
-              <td> {new Date(val.date) > new Date() ? 'Current' : 'Outdated'} </td>
+              <td> { count++ }</td>
+              <td> { val.type } </td>
+              <td> { new Date( val.date ).toLocaleDateString() } </td>
+              <td> { new Date( new Date( val.date ).setYear( new Date(val.date).getFullYear()+1 ) ).toLocaleDateString() } </td>
+              <td> { val.notes } </td>
+              <td> { new Date( new Date( val.date).setYear( new Date(val.date).getFullYear()+1 ) ).toLocaleDateString() > new Date().toLocaleDateString() ? 'Current' : 'Outdated' } </td>
+
             </tr>
               )}
           </tbody>
