@@ -54,8 +54,8 @@ const PharmacyPanel = React.createClass({
 				     </div>
 
 				     <div className="card-block">
-				     	 <button onClick={this.toggleShow}>edit</button>
-				     	 <button onClick={this.props.removePharm.bind(null, this.props.item.id_pharmacy)}>Remove</button>
+				     	 <Button onClick={this.toggleShow}>edit</Button>
+				     	 <Button onClick={this.props.removePharm.bind(null, this.props.item.id_pharmacy)}>Remove</Button>
 
 			 		     {this.state.show && <div>
 			 		     <p className="card-text"><b>Name</b>: {this.props.item.business_name}</p>
@@ -74,7 +74,7 @@ const PharmacyPanel = React.createClass({
 				     	 		<br/>
 				     	 		Current?: <input name="current" type="checkbox"/>
 				     	 		<br/>
-				     	 		<button type="submit">Submit</button>
+				     	 		<Button type="submit">Submit</Button>
 				     	 	</form>
 				     	 </div>}
 

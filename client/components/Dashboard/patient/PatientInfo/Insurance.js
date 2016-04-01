@@ -53,8 +53,8 @@ const InsurancePanel = React.createClass({
 					      <h5 className="card-headline">Insurance</h5>
 				     </div>
 			 		     <div className="card-block">
-					     <button onClick={this.toggleShow}>edit</button>
-						 <button onClick={this.props.removeIns.bind(null, this.props.item.id_insurance)} >Remove</button>
+					     <Button onClick={this.toggleShow}>edit</Button>
+						 <Button onClick={this.props.removeIns.bind(null, this.props.item.id_insurance)} >Remove</Button>
 
 			 		     {this.state.show && <div>
 				 		     <p className="card-text"><b>Provider</b>: {this.props.item.plan_name}</p>
@@ -73,7 +73,7 @@ const InsurancePanel = React.createClass({
 				 		     	<br/>
 				 		     	Member ID: <input name="memberid" type="number" placeholder={this.props.item.rx_bin}/>
 				 		     	<br/>
-				 		     	<button type="submit">Submit</button>
+				 		     	<Button type="submit">Submit</Button>
 				 		    </form>
 			 		     </div>}
 			 		 	 
