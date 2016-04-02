@@ -19,21 +19,30 @@ const famAction          = require('../actionCreators/familyActions');
 const pharmAction        = require('../actionCreators/pharmActions');
 const insAction          = require('../actionCreators/insuranceActions');
 const apptAction         = require('../actionCreators/appointmentActions');
+const DashDisp           = require('./ContainerHelpers/DashDispatches');
 
 
+// const Home = ({states, dispatches}) => {
+//   return (
+//     <div className="home-body">
+//       <DoctorGrid editPharm={dispatches.editPharm} addMyDoc={dispatches.addMyDoc} addAppointment={dispatches.addAppointment} removePharm={dispatches.removePharm} 
+//         addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} 
+//         removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
+//         docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} editIns={dispatches.editIns}/>
+//       <PatientGrid removeFamCond={dispatches.removeFamCond} addFamCond={dispatches.addFamCond} removeAllergy={dispatches.removeAllergy} 
+//         addAllergy={dispatches.addAllergy} removeEye={dispatches.removeEye} addEye={dispatches.addEye} 
+//         allergies={states.allergies} eyerx={states.eyerx} family={states.family}
+//         insurance={states.insurance} pharmacy={states.pharmacy} familyhistory={states.familyhistory} 
+//         rx={states.rx} appt={states.appt} />
+//     </div>
+//   );
+// };
 
 const Home = ({states, dispatches}) => {
   return (
     <div className="home-body">
-      <DoctorGrid editPharm={dispatches.editPharm} addMyDoc={dispatches.addMyDoc} addAppointment={dispatches.addAppointment} removePharm={dispatches.removePharm} 
-        addPharm={dispatches.addPharm} addIns={dispatches.addIns} removeIns={dispatches.removeIns} editDoc={dispatches.editDoc} 
-        removeDoc={dispatches.removeDoc} addDoc={dispatches.addDoc} docApiList={states.docApiList} searchDoc={dispatches.searchDoc} 
-        docInfo={states.doctor} insurance={states.insurance} pharmacy={states.pharmacy} editIns={dispatches.editIns}/>
-      <PatientGrid removeFamCond={dispatches.removeFamCond} addFamCond={dispatches.addFamCond} removeAllergy={dispatches.removeAllergy} 
-        addAllergy={dispatches.addAllergy} removeEye={dispatches.removeEye} addEye={dispatches.addEye} 
-        allergies={states.allergies} eyerx={states.eyerx} family={states.family}
-        insurance={states.insurance} pharmacy={states.pharmacy} familyhistory={states.familyhistory} 
-        rx={states.rx} appt={states.appt} />
+      <DoctorGrid states={states} dispatches={dispatches} />
+      <PatientGrid states={states} dispatches={dispatches}/>
     </div>
   );
 };
@@ -58,95 +67,43 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatches:{
+    dispatches: {
       searchDoc: (e) => {
         e.preventDefault();
-        var firstName = e.target.firstname.value;
-        var lastName = e.target.lastname.value;
-        var body = {firstname:firstName, lastname:lastName};
-        dispatch(doctorAction.GetApiDocs(body));
+        var result = DashDisp.searchDoc(e);
+        dispatch(doctorAction.GetApiDocs(result));
       },
       addDoc: (doc) => {
+        var result = DashDisp.addDoc(doc);
         var portrait = doc.portrait;
-        var body = { properties: {
-          name: doc.firstname + " " + doc.lastname, 
-          phone: doc.phone, 
-          street_address: doc.address, 
-          type_usermade: doc.specialty,
-          type: doc.specialty,
-          current: false
-        }};
-        // this jsut clears the api list, but in the future it will add the chosen doctor to the database
-        dispatch(doctorAction.AddMyDoc(body, portrait));
-      },
-      addMyDoc: (e) => {
-        e.preventDefault();
-        var portrait = "https://asset1.betterdoctor.com/assets/general_doctor_male.png";
-        var body = {
-          properties: {
-            name: e.target.name.value,
-            phone: e.target.phone.value,
-            street_address: e.target.address.value,
-            type_usermade: e.target.specialty.value,
-            type: e.target.specialty.value
-          }
-        };
-        dispatch(doctorAction.AddMyDoc(body, portrait));
-      },
-      editDoc: (id, e) => {
-        e.preventDefault();
-        var specialty = e.target.specialty.value;
-        var name = e.target.name.value;
-        var address = e.target.address.value;
-        var phone = e.target.phone.value;
-        var newInfo = {
-          properties: {
-            id_doctor: id
-          }
-        };
-        if(name){
-          newInfo.properties.name = name;
-        }
-        if(address){
-          newInfo.properties.address = address;
-        }
-        if(phone){
-          newInfo.properties.phone = phone;
-        }
-        if(specialty){
-          newInfo.properties.type = specialty;
-        }
-        dispatch(doctorAction.ChangeMyDoc(newInfo));
+        dispatch(doctorAction.AddMyDoc(result, portrait));
       },
       removeDoc: (id) => {
         dispatch(doctorAction.RemoveMyDoc(id));
       },
+      addMyDoc: (e) => {
+        e.preventDefault();
+        var defPortrait = "https://asset1.betterdoctor.com/assets/general_doctor_male.png";
+        var result = DashDisp.addMyDoc(e);
+        dispatch(doctorAction.AddMyDoc(body, defPortrait));
+      },
+      editDoc: (id, e) => {
+        e.preventDefault();
+        var result = DashDisp.editDoc(id,e);
+        dispatch(doctorAction.ChangeMyDoc(result));
+      },
       addEye: (e) => {
         e.preventDefault();
-        var body = {properties:{
-          sphere_right: e.target.sphere_right.value,
-          sphere_left: e.target.sphere_left.value,
-          cylinder_right: e.target.cylinder_right.value,
-          cylinder_left: e.target.cylinder_left.value,
-          axis_right: e.target.axis_right.value,
-          axis_left: e.target.axis_left.value,
-          add_right: e.target.add_right.value,
-          add_left: e.target.add_left.value
-        }};
-        dispatch(eyeAction.AddEyeRx(body))
+        var result = DashDisp.addEye(e);
+        dispatch(eyeAction.AddEyeRx(result));
       },
       removeEye: (id) => {
-        dispatch(eyeAction.RemoveEyeRx(id))
+        dispatch(eyeAction.RemoveEyeRx(id));
       },
       addAllergy: (e) => {
         e.preventDefault();
-        var body = {
-          properties: {
-            allergen: e.target.allergen.value,
-            current: e.target.currently.checked
-          }
-        };
-        dispatch(allergyAction.AddAllergy(body));
+        var result = DashDisp.addAllergy(e);
+        dispatch(allergyAction.AddAllergy(result));
       },
       removeAllergy: (id) => {
         dispatch(allergyAction.RemoveAllergy(id));
@@ -156,33 +113,45 @@ const mapDispatchToProps = (dispatch) => {
       },
       addIns: (e) => {
         e.preventDefault();
-        var body = {
-          properties: {
-            plan_name: e.target.provider.value,
-            plan_id: e.target.plan.value,
-            group_id: e.target.groupid.value,
-            rx_bin: e.target.memberid.value
-          }
-        };
-        console.log("add ins body", body);
-        dispatch(insAction.AddIns(body));
+        var result = DashDisp.addIns(e);
+        dispatch(insAction.AddIns(result));
+      },
+      editIns: (id, e) => {
+        e.preventDefault();
+        var result = DashDisp.editIns(id, e);
+        dispatch(insAction.EditIns(result));
       },
       addPharm: (e) => {
         e.preventDefault();
-        var body = {
-          properties: {
-            business_name: e.target.pharmacy.value,
-            address: e.target.address.value,
-            phone: e.target.phone.value,
-            current: e.target.current.checked
-          }
-        };
-        console.log("add pharm body", body);
-        dispatch(pharmAction.AddPharm(body));
+        var result = DashDisp.addPharm(e);
+        dispatch(pharmAction.AddPharm(result));
       },
       removePharm: (id) => {
         dispatch(pharmAction.RemovePharm(id));
       },
+      editPharm: (id, e) => {
+        e.preventDefault();
+        var result = DashDisp.editPharm(id, e);
+        dispatch(pharmAction.EditPharm(result));
+      },
+      // addFamCond: (e) => {
+      //   e.preventDefault();
+      //   console.log("addfamcond target", e.target)
+      //   // DashDisp.addFamCond(e)
+      //   //   .then((res) => {
+      //   //     console.log("addfam res", res);
+      //   //     dispatch(famAction.AddFam(res));
+      //   //   })
+      //   var member = {name: e.target.member.value};
+      //   famAction.AddMember(member)
+      //     .then((response) => {
+      //       var result = DashDisp.addFamCond(e);
+      //       dispatch(famAction.AddFam(result, response.name))
+      //     })
+      //     .catch((err) => {
+      //       console.error("add fam action err", err);
+      //     })
+      // },
       addFamCond: (e) => {
         e.preventDefault();
         var member = {
@@ -204,57 +173,8 @@ const mapDispatchToProps = (dispatch) => {
         dispatch(famAction.RemoveFam(id));
       },
       addAppointment: (date, time, id) => {
-        var body = {
-          properties: {
-            date: date,
-            time: time
-          }
-        };
-        dispatch(apptAction.AddAppointment(body, id))
-      },
-      editIns: (id, e) => {
-        e.preventDefault();
-        var planname = e.target.planname.value;
-        var planid = e.target.planid.value;
-        var groupid = e.target.groupid.value;
-        var memberid = e.target.memberid.value;
-        var body = {
-          properties: {
-            id_insurance: id
-          }
-        };
-        if(planname){
-          body.properties.plan_name = planname;
-        }
-        if(planid){
-          body.properties.plan_id = planid;
-        }
-        if(groupid){
-          body.properties.group_id = groupid;
-        }
-        if(memberid){
-          body.properties.rx_bin = memberid;
-        }
-        dispatch(insAction.EditIns(body));
-      },
-      editPharm: (id, e) => {
-        e.preventDefault();
-        var body = {
-          properties: {
-            id_pharmacy: id,
-            current: e.target.current.checked
-          }
-        };
-        if(e.target.name.value){
-          body.properties.business_name = e.target.name.value;
-        }
-        if(e.target.address.value){
-          body.properties.address = e.target.address.value;
-        }
-        if(e.target.phone.value){
-          body.properties.phone = e.target.phone.value;
-        }
-        dispatch(pharmAction.EditPharm(body))
+        var result = DashDisp.addAppointment(date, time);
+        dispatch(apptAction.AddAppointment(result, id));
       }
     }
   };

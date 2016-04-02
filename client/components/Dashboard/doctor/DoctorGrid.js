@@ -77,27 +77,32 @@ const DoctorGrid = React.createClass({
 		    	<Button onClick={this.toggleIns} bsStyle="primary">Show my insurance</Button>
 		    	<Button onClick={this.togglePharm} bsStyle="primary">Show my pharmacies</Button>
 		    </ButtonToolbar>
-		    	<br/>
+	    	<br/>
 				{this.state.doc && <div>
-					{this.props.docInfo.map((val, count) => 
-						<DocCard key={count} editDoc={this.props.editDoc} removeDoc={this.props.removeDoc} addAppointment={this.props.addAppointment} val={val} />
+					{this.props.states.doctor.map((val, count) => 
+						<DocCard key={count} editDoc={this.props.dispatches.editDoc} removeDoc={this.props.dispatches.removeDoc} 
+						addAppointment={this.props.dispatches.addAppointment} val={val} />
 					)}
 				</div>}
 		      	{this.state.ins && <div>
-		      		{this.props.insurance.map((item, count) =>
-		      			<Insurance key={count} item={item} editIns={this.props.editIns} removeIns={this.props.removeIns} insurance={this.props.insurance} />
+		      		{this.props.states.insurance.map((item, count) =>
+		      			<Insurance key={count} item={item} editIns={this.props.dispatches.editIns} 
+		      			removeIns={this.props.dispatches.removeIns} insurance={this.props.states.insurance} />
 		      		)}
 		      	</div>}
 				{this.state.pharm && <div>
-					{this.props.pharmacy.map((item, count) =>
-						<Pharmacy key={count} item={item} editPharm={this.props.editPharm} removePharm={this.props.removePharm} pharmacy={this.props.pharmacy} />
+					{this.props.states.pharmacy.map((item, count) =>
+						<Pharmacy key={count} item={item} editPharm={this.props.dispatches.editPharm} 
+						removePharm={this.props.dispatches.removePharm} pharmacy={this.props.states.pharmacy} />
 					)}
 				</div>}
 				
-		      <AddDoc addMyDoc={this.props.addMyDoc} addPharm={this.props.addPharm} addIns={this.props.addIns} addDoc={this.props.addDoc} docApiList={this.props.docApiList} searchDoc={this.props.searchDoc} />
-		    </Row>
-		  	</div>
-		  </Grid>
+	      <AddDoc addMyDoc={this.props.dispatches.addMyDoc} addPharm={this.props.dispatches.addPharm} 
+	      addIns={this.props.dispatches.addIns} addDoc={this.props.dispatches.addDoc} 
+	      docApiList={this.props.states.docApiList} searchDoc={this.props.dispatches.searchDoc} />
+	    	</Row>
+  		</div>
+	  	</Grid>
 		);
 	}
 })

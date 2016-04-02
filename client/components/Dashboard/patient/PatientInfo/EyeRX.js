@@ -85,9 +85,11 @@ const EyePanel = ({removeEye, addEye, eyerx}) => {
 	  				<td>{eyerx.cylinder_right}</td>
 	  				<td>{eyerx.axis_right}</td>
 	  				<td>{eyerx.add_right}</td>
-	  				<td><EditButton /></td>
 	  				<td>
-	  				<Button onClick={removeEye.bind(null, eyerx.id_eyerx)} className="edit-button" bsSize="xsmall" ><Glyphicon glyph="trash" /></Button>
+	  					<Button className="edit-button" bsSize="xsmall"><Glyphicon glyph="edit" /></Button>
+					</td>
+	  				<td>
+	  					<Button onClick={removeEye.bind(null, eyerx.id_eyerx)} className="edit-button" bsSize="xsmall" ><Glyphicon glyph="trash" /></Button>
 	  				</td>
 	  			</tr>
 
@@ -97,20 +99,24 @@ const EyePanel = ({removeEye, addEye, eyerx}) => {
 	  				<td>{eyerx.cylinder_left}</td>
 	  				<td>{eyerx.axis_left}</td>
 	  				<td>{eyerx.add_left}</td>
-	  				<td><EditButton /></td>
-	  				<td>
-	  					<Button onClick={removeEye.bind(null, eyerx.id_eyerx)} className="edit-button" bsSize="xsmall" ><Glyphicon glyph="trash" /></Button>
-	  				</td>
 	  			</tr>
 	  		</tbody>
 	 	  </Table>}
 
-	 	  <NewEye addEye={addEye} />
+	 	  {(Object.keys(eyerx).length<2) && <NewEye addEye={addEye} />}
 
   	 	</Panel>
   	 	</Col>
 	)
 }
+
+// const EyePanel = React.createClass({
+// 	render() {
+// 		return (
+
+// 		);
+// 	};
+// });
 
 module.exports = EyePanel;
 

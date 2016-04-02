@@ -1,5 +1,6 @@
 const React = require('react');
 const later = require('later');
+const Button = require('react-bootstrap').Button;
 const DateTimeField = require('react-bootstrap-datetimepicker');
 
 const AddDate = React.createClass({
@@ -47,7 +48,7 @@ const AddDate = React.createClass({
          onChange={this.dateChange}
          required
        />
-       <button onClick={this.submit}>Confirm</button>
+       <Button onClick={this.submit}>Confirm</Button>
      </div>
    );
  }
