@@ -28,17 +28,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 };
 
-    // knex.schema.createTable('immun', function(table) {
-    //   table.increments('id_immun').primary()
-    //   table.integer('id_user')
-    //        .references('id_user')
-    //        .inTable('users')
-    //   table.string('date')
-    //   table.string('type')
-    //   table.string('notes')
-    // }),
-
-
 const mapDispatchToProps = (dispatch) => {
   console.log('the dispatches', dispatch)
   return {
