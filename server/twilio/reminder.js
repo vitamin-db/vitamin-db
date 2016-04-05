@@ -7,8 +7,6 @@ const client = require('twilio')(config.accountSid, config.authToken);
 
 const Appointment = require('../models/appointment');
 const CronJob = require('cron').CronJob;
-const later = require('later');
-const Promise = require('bluebird');
 
 Reminder = function() {
 	return Appointment.getAllForTwilio()
