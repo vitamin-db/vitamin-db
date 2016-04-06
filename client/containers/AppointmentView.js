@@ -29,11 +29,9 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  console.log('the dispatches', dispatch)
   return {
       dispatches: {
       addImmun: (e) => {
-        console.log('eeee', e.target)
         e.preventDefault();
         var body = {
           properties: {
@@ -42,7 +40,6 @@ const mapDispatchToProps = (dispatch) => {
             notes: e.target.notes.value,
           }
         };
-        console.log("add immun body", body);
         dispatch(immunAction.AddImmun(body));
       },
         removeAppt: (id_appointment) => {
