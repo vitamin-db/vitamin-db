@@ -29,8 +29,9 @@ function SignIn (body) {
       return response.json();
     })
     .then((token) => { // later, ask for user info too, except password, to display on profile page
-      if(token.msg === "No account associated with that username"){ // later, move this logic to the back end. Have it throw an error in the back end, so it will fall to this .catch
+      if(token.msg === "No account associated with that username" || token.msg === "Invalid username and password combination"){ // later, move this logic to the back end. Have it throw an error in the back end, so it will fall to this .catch
         dispatch(stateAction.SignInFail());
+        dispatch(stateAction.InvalidSignIn(token.msg));
         return token.msg;
       }else{
         // grab current time, convert it to a single unit, add desired time for expiration, 
@@ -44,13 +45,6 @@ function SignIn (body) {
         document.cookie = "token=" + token.token + "; expires=" + now.toUTCString();
         // dispatch action
         dispatch(stateAction.SignInSuccess(token.token)); // this state.action function will return an action object filled with the "type" and "token" key/value
-      }
-    })
-    .then((msg) => {
-      if(msg === "Invalid username and password combination"){
-        dispatch(stateAction.InvalidSignIn(msg));
-        return;
-      }else{
         dispatch(GetMyInfo());
       }
     })
