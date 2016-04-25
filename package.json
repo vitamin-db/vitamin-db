@@ -27,7 +27,7 @@
     "express": "^4.13.4",
     "google-map-react": "^0.11.0",
     "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^1.5.3",
     "jquery": "^2.2.1",
     "jsonwebtoken": "^5.7.0",
     "knex": "^0.10.0",
@@ -51,7 +51,8 @@
     "reactify": "^1.1.1",
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
-    "twilio": "^2.9.0"
+    "twilio": "^2.9.0",
+    "vinyl-buffer": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^3.4.0",

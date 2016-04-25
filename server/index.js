@@ -41,10 +41,14 @@ var routes = express.Router()
 //   }))
 
 // Set the directory with an absolute path and then send the bundled js file on request
-var assetFolder = Path.resolve(__dirname, '../dist/')
+var assetFolder = Path.resolve(__dirname, '../dist')
 routes.get('/app-bundle.js', function(req, res){
 	res.sendFile(assetFolder + '/scripts/app-bundle.js')
 })
+routes.get('/favicon.ico', function(req, res){
+	res.sendFile(assetFolder + '/img/pillicon.png')
+})
+
 
 routes.use(express.static(assetFolder))
 
