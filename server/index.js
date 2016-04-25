@@ -49,7 +49,7 @@ routes.get('/favicon.ico', function(req, res){
 	res.sendFile(assetFolder + '/img/pillicon.png')
 })
 
-
+routes.use('/favicon.ico', express.static(assetFolder + 'img/pillicon.png'))
 routes.use(express.static(assetFolder))
 
 // EXAMPLE ROUTE
