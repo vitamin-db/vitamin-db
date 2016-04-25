@@ -2,29 +2,24 @@
 // index.js holds express server and related routing
 //======================================================
 
-const browserify = require('browserify-middleware')
-const reactify = require('reactify')
-const express = require('express')
-const Path = require('path')
-const db = require('./db')
+var browserify = require('browserify-middleware')
+var reactify = require('reactify')
+var express = require('express')
+var Path = require('path')
+var db = require('./db')
 // Future consideration: including reactify/babelify, etc.
 
-// const babel = require('babel-core')
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
+// var babel = require('babel-core')
+var bodyParser = require('body-parser')
+var morgan = require('morgan')
 
-const SendR = require('./sendresponse')
-const Auth = require('./models/auth')
-const nodemailer = require('nodemailer');
+var SendR = require('./sendresponse')
+var Auth = require('./models/auth')
+var nodemailer = require('nodemailer');
 
 //for twilio to work
-const twilio = require('./twilio/reminder')
+var twilio = require('./twilio/reminder')
 
-//webpack stuff
-// const config = require('../webpack.config.js');
-// const webpack = require('webpack');
-// const webpackDevMiddleware = require('webpack-dev-middleware');
-// const webpackHotMiddleware = require('webpack-hot-middleware')
 //======================================================
 // create our express router
 //======================================================
@@ -35,23 +30,29 @@ var routes = express.Router()
 // Static assets (html, etc.)
 //======================================================
 
+// !!!-- ADDED GULP --!!!
 // compile/bundle into single file to load in browser
 // here we are making some assumptions on the front-end
-	// eg. using ./client/app.js
+// eg. using ./client/app.js
 // also likely need to consider using babelify//reactify (see above)
+// routes.get('/app-bundle.js',
+//   browserify('./client/app.js', {
+//     transform: [reactify]
+//   }))
 
-routes.get('/app-bundle.js',
-  browserify('./client/app.js', {
-    transform: [reactify]
-  }))
+// Set the directory with an absolute path and then send the bundled js file on request
+var assetFolder = Path.resolve(__dirname, '../dist')
+routes.get('/app-bundle.js', function(req, res){
+	res.sendFile(assetFolder + '/scripts/app-bundle.js')
+})
+routes.get('/favicon.ico', function(req, res){
+	res.sendFile(assetFolder + '/img/pillicon.png')
+})
 
-  //browserify.settings({
-  //  transform: ['babelify']
-  //});
-  
-var assetFolder = Path.resolve(__dirname, '../client')
+
 routes.use(express.static(assetFolder))
 
+// EXAMPLE ROUTE
 // routes.get('/', function(req, res) {
 
 // })
@@ -71,8 +72,6 @@ if ( process.env.NODE_ENV === 'test' ) {
 		SendR.resData(res, 200, {msg: 'Hello! Please log in'})
 	})
 }
-
-
 
 //set up authentication route
 var authRouter = require('./apis/auth-api')
@@ -110,7 +109,6 @@ if ( process.env.NODE_ENV === 'test' ) {
 		SendR.resData(res, 200, {msg: 'Hello ' + req.decoded.username + '!'})
 	})
 }
-
 
 //user router
 var userRouter = require('./apis/users-api')
